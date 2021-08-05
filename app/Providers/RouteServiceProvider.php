@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\Api\Versioning;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -38,15 +39,41 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
+            $this->getApiRoutes();
+            $this->getWebRoutes();
+
         });
+    }
+
+    /**
+     * Create API Routing Settings
+     *
+     * @return void
+     */
+    protected function getApiRoutes()
+    {
+        foreach (explode(',',env('API_ALLOWED_VERSIONS')) as $version)
+        {
+            $version = Versioning::getVersion($version,$prefix, $namespace);
+            Route::prefix($prefix)
+                ->middleware('api')
+                ->middleware('api_version:'.$version)
+                ->namespace($namespace)
+                ->group(base_path("routes/api/api_{$version}.php"));
+        }
+    }
+
+    /**
+     * Create Web Routing Settings
+     *
+     * @return void
+     */
+    protected function getWebRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**

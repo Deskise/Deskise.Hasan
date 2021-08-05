@@ -17,9 +17,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
         'email',
+        'backup_email',
+        'phone',
+        'backup_phone',
         'password',
+        'img',
+        'location',
     ];
 
     /**
@@ -30,6 +36,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -38,6 +46,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at'         => 'datetime',
+        'backup_email_verified_at'  => 'datetime',
+        'phone_verified_at'         => 'datetime',
+        'backup_phone_verified_at'  => 'datetime',
     ];
+
+    public function links()
+    {
+        return $this->hasMany(SocialMediaLink::class);
+    }
 }
