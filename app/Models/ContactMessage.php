@@ -16,7 +16,7 @@ class ContactMessage extends Model
         'updated_at',
     ];
 
-    public function conatact()
+    public function contact()
     {
         return $this->belongsTo(Contact::class);
     }

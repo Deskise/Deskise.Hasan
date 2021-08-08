@@ -21,14 +21,14 @@ class CreateProductsTable extends Migration
                 $table->longText('description_'.$lang);
             }
             $table->float('price');
-            $table->unsignedBigInteger('categoryId');
-            $table->unsignedBigInteger('subcategoryId');
-            $table->enum('special',['y','n'])->default('n');
-            $table->enum('verified',['y','n'])->default('n');
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('subcategory_id');
+            $table->unsignedTinyInteger('special')->default(0);
+            $table->unsignedTinyInteger('verified')->default(0);
             $table->timestamps();
 
-            $table->foreign('categoryId')->references('id')->on((new \App\Models\Category())->getTable())->cascadeOnUpdate();
-            $table->foreign('subcategoryId')->references('id')->on((new \App\Models\Subcategory())->getTable())->cascadeOnUpdate();
+            $table->foreign('category_id')->references('id')->on((new \App\Models\Category())->getTable())->cascadeOnUpdate();
+            $table->foreign('subcategory_id')->references('id')->on((new \App\Models\Subcategory())->getTable())->cascadeOnUpdate();
         });
     }
 

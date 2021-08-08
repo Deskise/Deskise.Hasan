@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('backup_phone_verified_at')->nullable();
             $table->string('password');
             $table->string('location');
-            $table->enum('verified',['y','n'])->default('n');
+            $table->unsignedTinyInteger('verified')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

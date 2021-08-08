@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Helpers\Api\Versioning;
+use App\Helpers\APIHelper;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -55,10 +55,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         foreach (explode(',',env('API_ALLOWED_VERSIONS')) as $version)
         {
-            $version = Versioning::getVersion($version,$prefix, $namespace);
+            $version = APIHelper::getVersion($version,$prefix, $namespace);
             Route::prefix($prefix)
-                ->middleware('api')
-                ->middleware('api_version:'.$version)
+                ->middleware(['api','api_version:'.$version,'checkLanguage'])
                 ->namespace($namespace)
                 ->group(base_path("routes/api/api_{$version}.php"));
         }

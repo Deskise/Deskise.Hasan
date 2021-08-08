@@ -21,10 +21,10 @@ class CreateBlogPostsTable extends Migration
                 $table->longText('details_'.$lang);
             }
             $table->string('img');
-            $table->unsignedBigInteger('categoryId');
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
-            $table->foreign('categoryId')->references('id')->on((new \App\Models\category())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('category_id')->references('id')->on((new \App\Models\category())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

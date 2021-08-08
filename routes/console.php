@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-use \App\Helpers\Api\Versioning;
+use \App\Helpers\APIHelper;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,14 +28,20 @@ Artisan::command('make:apiController {name} {version?}', function () {
         $version = config('app.api_latest');
     }
 
-    $version = Versioning::getVersion($version, $p, $n);
-    if (in_array($version, Versioning::getAllowedVersions(), true) === false)
+    $version = APIHelper::getVersion($version, $p, $n);
+    if (in_array($version, APIHelper::getAllowedVersions(), true) === false)
     {
         $this->error('Selected Api version Is Not Allowed');
         exit();
     }
 
-    $controllerName = $n.'\\'.ucfirst($name).'Controller';
+    $name = explode('\\', $name);
+    foreach ($name as $key => $item)
+    {
+        $name[$key] = ucwords($item);
+    }
+
+    $controllerName = $n.'\\'.ucwords(implode('\\',$name)).'Controller';
 
     Artisan::call('make:controller',['name' => $controllerName]);
 

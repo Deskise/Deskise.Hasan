@@ -31,10 +31,10 @@ class ProductFactory extends Factory
             $data['description_'.$lang] = $this->faker->text(10000);
         }
         $data['price'] = $this->faker->randomFloat('2','10','1000');
-        $data['special'] = $yn[random_int(0,1)];
-        $data['verified'] = $yn[random_int(0,1)];
-        $data['categoryId'] = Category::all()->random()->id;
-        $data['subcategoryId'] = Subcategory::all()->random()->id;
+        $data['special'] = random_int(0,1);
+        $data['verified'] = random_int(0,1);
+        $data['category_id'] = Category::all()->random()->id;
+        $data['subcategory_id'] = Subcategory::all()->random()->id;
 
         return $data;
     }

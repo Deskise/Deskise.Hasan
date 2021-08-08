@@ -30,7 +30,7 @@ class BlogPostFactory extends Factory
             $this->data['details_'.$lang] = $this->faker->text(10000);
         }
         $this->data['img'] = 'default.png';
-        $this->data['categoryId'] = Category::all()->random()->id;
+        $this->data['category_id'] = Category::all()->random()->id;
 
         return $this->data;
     }

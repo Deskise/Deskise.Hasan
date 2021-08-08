@@ -15,14 +15,14 @@ class CreateSubcategoriesTable extends Migration
     {
         Schema::create('subcategories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('categoryId');
+            $table->unsignedBigInteger('category_id');
             foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
             {
                 $table->string('name_'.$lang);
             }
             $table->timestamps();
 
-            $table->foreign('categoryId')->references('id')->on((new \App\Models\category())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('category_id')->references('id')->on((new \App\Models\category())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

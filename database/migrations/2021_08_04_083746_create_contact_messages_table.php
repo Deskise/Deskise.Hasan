@@ -15,11 +15,11 @@ class CreateContactMessagesTable extends Migration
     {
         Schema::create('contact_messages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('contactId');
+            $table->unsignedBigInteger('contact_id');
             $table->string('message',350);
             $table->timestamps();
 
-            $table->foreign('contactId')->references('id')->on((new \App\Models\contact())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('contact_id')->references('id')->on((new \App\Models\contact())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\APIHelper;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,6 @@ class APIVersion
     public function handle(Request $request, Closure $next, $guard)
     {
         config(['app.api.version' => $guard]);
-        return $next($request);
+        return APIHelper::mustHaveHeader('content-type', 'application/json',$next);
     }
 }

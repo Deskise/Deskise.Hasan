@@ -27,7 +27,7 @@ class SubcategoryFactory extends Factory
         {
             $data['name_'.$lang] = $this->faker->text(30);
         }
-        $data['categoryId'] = Category::all()->random()->first()->id;
+        $data['category_id'] = Category::inRandomOrder()->get()->first()->id;
 
         return $data;
     }

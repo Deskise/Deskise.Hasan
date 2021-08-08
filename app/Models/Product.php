@@ -16,11 +16,11 @@ class Product extends Model
         'updated_at',
     ];
 
-    public function categoory()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
-    public function subcategoory()
+    public function subcategory()
     {
         return $this->belongsTo(Subcategory::class);
     }

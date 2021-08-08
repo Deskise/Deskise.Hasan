@@ -25,8 +25,8 @@ class SocialMediaLinkFactory extends Factory
     public function definition()
     {
         return [
-            'userId'    =>  User::all()->random()->first()->id,
-            'socialId'  =>  SocialMediaAccount::all()->random()->first()->id,
+            'user_id'    =>  User::all()->random()->first()->id,
+            'social_id'  =>  SocialMediaAccount::all()->random()->first()->id,
             'link'      =>  $this->faker->url
         ];
     }
