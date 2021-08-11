@@ -5,7 +5,7 @@
 
     use App\Helpers\APIHelper;
     use App\Http\Controllers\Controller;
-    use App\Http\Requests\ProductRequest as request;
+    use App\Http\Requests\ProductRequest as ProdRequest;
     use App\Models\Newsletter;
     use App\Models\Product;
     use App\Models\ProductRequest;
@@ -13,19 +13,17 @@
 
     class ProductController extends Controller
     {
-        public function __construct()
-        {
-            $this->middleware('auth:api')->except('list','request');
-        }
-
         public function list()
         {
             ///TODO: Do This Shit
 
-            return Product::select('id','name_'.self::$language.' as name', 'description_'.self::$language.' as description','price','special','verified','category_id','subcategory_id')->with('category:id,name_'.self::$language.' as name')->with('subcategory:id,name_'.self::$language.' as name')->paginate(5);
+            return Product::select('id','name_'.self::$language.' as name', 'description_'.self::$language.' as description','price','special','verified','category_id','subcategory_id')
+                ->with('category:id,name_'.self::$language.' as name')
+                ->with('subcategory:id,name_'.self::$language.' as name')
+                ->paginate(25);
         }
 
-        public function request(request $request)
+        public function request(ProdRequest $request)
         {
             if ($request->hasError)
             {

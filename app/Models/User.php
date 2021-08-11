@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(SocialMediaLink::class);
     }
+
+    public function verifications()
+    {
+        return $this->hasMany(Verification::class);
+    }
 }

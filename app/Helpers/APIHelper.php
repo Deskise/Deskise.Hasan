@@ -7,6 +7,7 @@
     use App\Http\Controllers\Controller;
     use Illuminate\Support\Facades\App;
     use Mcamara\LaravelLocalization\LaravelLocalization;
+    use phpDocumentor\Reflection\Types\Parent_;
 
     class APIHelper
     {
@@ -77,6 +78,7 @@
             }
             return $next(request());
         }
+
         public static function error($message, $data=[])
         {
             return self::jsonRender($message, $data,400);
@@ -86,6 +88,9 @@
             if ($message==="") $message=null;
             if ($data===[]) {
                 $data = NULL;
+            }elseif(!$data instanceof \Illuminate\Database\Eloquent\Collection && !is_array($data))
+            {
+                $data = [$data];
             }
 
             $response = [
@@ -100,5 +105,31 @@
                 'content-language'  =>  App::getLocale(),
                 'code'              =>  $code
             ], $code);
+        }
+
+        public static function getLangFrom($str)
+        {
+            $str = explode(',', $str);
+            $arr = [];
+
+            foreach ($str as $item)
+            {
+                foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
+                {
+                    $arr[] = $item.'_'.$lang;
+                }
+            }
+
+            return $arr;
+        }
+
+        public static function getImageUrl($image)
+        {
+            return $image;
+        }
+
+        public static function getSimilar($class,$select='*',$num=8)
+        {
+            return $class::select($select)->inRandomOrder()->paginate($num);
         }
     }

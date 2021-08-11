@@ -18,6 +18,6 @@ class APIVersion
     public function handle(Request $request, Closure $next, $guard)
     {
         config(['app.api.version' => $guard]);
-        return APIHelper::mustHaveHeader('content-type', 'application/json',$next);
+        return APIHelper::mustHaveHeader('accept', 'application/json',$next);
     }
 }

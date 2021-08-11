@@ -6,14 +6,14 @@
     use App\Helpers\APIHelper;
     use App\Http\Controllers\Controller;
     use App\Http\Requests\ContactRequest;
+    use App\Models\AboutUs;
     use App\Models\Category;
     use App\Models\ClientComment;
     use App\Models\Contact;
     use App\Models\ContactMessage;
+    use App\Models\FAQ;
     use App\Models\Package;
-    use App\Models\Subcategory;
     use App\Models\TermsOfUse;
-    use Illuminate\Http\Request;
 
     class DataController extends Controller
     {
@@ -35,21 +35,24 @@
             return APIHelper::jsonRender('', $data);
         }
 
-        public function categories()
+        public function categories(Category $category)
         {
-            $data = Category::select('id','name_'.self::$language.' as name')->latest()->with('subcategories')->get();
+            if ($category->exists)
+            {
+                $category->name = $category->{'name_'.self::$language};
+                $category->makeHidden(APIHelper::getLangFrom('name'));
+                $category->subcategories = $category->subcategories()->select('id','name_'.self::$language.' as name')->get();
+                $data = $category;
+            }else {
+                $data = Category::select('id','name_'.self::$language.' as name')->latest()->with('subcategories')->get();
+            }
+
             return APIHelper::jsonRender('', $data);
         }
 
         public function subcategories(Category $category)
         {
-            if (!$category->exists)
-            {
-                $data = Subcategory::select('id','name_'.self::$language.' as name', 'category_id')->with('category:id,name_'.self::$language.' as name')->get();
-            }else
-            {
-                $data = $category->subcategories()->select('id','name_'.self::$language.' as name')->get();
-            }
+            $data = $category->subcategories()->select('id','name_'.self::$language.' as name')->get();
 
             return APIHelper::jsonRender('', $data);
         }
@@ -63,11 +66,12 @@
         public function version()
         {
             preg_match('/V(\d_?)+/', __NAMESPACE__,$matches);
-            return APIHelper::jsonRender('', [
-                'current_version'   =>  str_replace('_','.',$matches[0]),
-                'latest_version'    =>  APIHelper::getVersion(config('app.api_latest')),
-                'allowed_versions'  =>  APIHelper::getAllowedVersions()
-            ]);
+            $data = new \stdClass();
+            $data->current_version  =  str_replace('_','.',$matches[0]);
+            $data->latest_version   =  APIHelper::getVersion(config('app.api_latest'));
+            $data->allowed_versions  =  APIHelper::getAllowedVersions();
+
+            return APIHelper::jsonRender('', $data);
         }
 
         public function contact(ContactRequest $request)
@@ -92,5 +96,23 @@
             ]);
 
             return APIHelper::jsonRender(__('api/data.contact.message.success'), [ContactMessage::with('contact')->find($comment->id)]);
+        }
+
+        public function faq()
+        {
+            $data = FAQ::select('id','question_'.self::$language,'answer_'.self::$language,'updated_at as date')->paginate(25);
+            return APIHelper::jsonRender('', $data);
+        }
+
+        public function aboutHome()
+        {
+            $data = AboutUs::select('home_'.self::$language.' as about','updated_at as last_modified')->get()->first();
+            return APIHelper::jsonRender('', $data);
+        }
+
+        public function aboutPage()
+        {
+            $data = AboutUs::select('about_'.self::$language.' as about','updated_at as last_modified')->get()->first();
+            return APIHelper::jsonRender('', $data);
         }
     }

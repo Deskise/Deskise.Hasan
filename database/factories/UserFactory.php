@@ -25,7 +25,6 @@ class UserFactory extends Factory
         return [
             'firstname' => $this->faker->firstName(),
             'lastname'  => $this->faker->lastName(),
-            'img'       => 'default.png',
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'backup_email' => $this->faker->unique()->safeEmail(),
@@ -37,7 +36,6 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'location' => implode(',',$this->faker->localCoordinates()),
             'verified'  => '1',
-            'remember_token' => Str::random(10),
         ];
     }
 

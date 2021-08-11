@@ -15,51 +15,78 @@
 |
 */
 
-const VERSION = "v1.0.0";
+// API Data things:
+Route::group(['prefix' => 'data'], function (){
+    Route::group(['prefix' => 'terms'], function (){
+        Route::get('/terms&conditions', 'DataController@termsandconditions');
+        Route::get('/privacy', 'DataController@privacy');
+    });
+
+    Route::group(['prefix' => 'categories'], function (){
+        Route::get('/{category?}','DataController@categories');
+        Route::get('/{category}/subcategories','DataController@subcategories');
+    });
+
+    Route::group(['prefix' => 'api'], function (){
+        Route::get('/version','DataController@version');
+    });
+
+    Route::group(['prefix' => 'about'], function (){
+        Route::get('/home','DataController@aboutHome');
+        Route::get('/page','DataController@aboutPage');
+    });
+
+    Route::get('/packages','DataController@packages');
+    Route::get('/comments','DataController@comments');
+    Route::get('/faq','DataController@faq');
+
+    Route::post('/contactus','DataController@contact');
+
+});
+
+// Blog Things:
+Route::group(['prefix' => 'blog'], function (){
+
+  Route::get('posts', 'BlogController@posts');
+  Route::get('posts/category/{category}', 'BlogController@category');
+
+  Route::get('post/{post}', 'BlogController@post');
+  Route::get('post/{post}/like', 'BlogController@like');
+
+  Route::get('search','BlogController@search');
+
+});
+
 
 // Auth things:
-Route::group(['prefix' => 'auth', 'name'=>'api.v1.auth.'], function(){
-    Route::post('login', 'Auth\AuthController@login')->name('login');
-    Route::post('signup', 'Auth\AuthController@signup')->name('signup');
-});
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('user', 'Auth\AuthController@user')->name('user');
-    Route::get('logout', 'Auth\AuthController@logout')->name('logout');
-});
+Route::group(['prefix' => 'auth'], function(){
 
+    Route::post('signup', 'Auth\AuthController@signup');
+    Route::post('signup/facebook', 'Auth\AuthController@signupByFacebook');
+    Route::post('signup/google', 'Auth\AuthController@signupByGoogle');
 
-// API Data things:
-Route::group(
-    [
-        'prefix'    =>  'data',
-        'name'      =>  'api.v1.data.'
-    ], function (){
+    Route::post('/verify/{type}','Auth\AuthController@verify')->middleware('HaveType:email');
+    Route::post('/verify/{type}/resend','Auth\AuthController@resendVerification')->middleware('HaveType:email');
 
-        Route::get('/terms&conditions', 'DataController@termsandconditions')->name('terms');
-        Route::get('/privacy', 'DataController@privacy')->name('privacy');
-        Route::get('/packages','DataController@packages')->name('packages');
-        Route::get('/categories','DataController@categories')->name('categories');
-        Route::get('/subcategories/{category?}','DataController@subcategories')->name('subcategories');
-        Route::get('/comments','DataController@comments')->name('comments');
-        Route::get('/version','DataController@version')->name('version');
+    Route::post('login', 'Auth\AuthController@login');
+    Route::post('login/facebook', 'Auth\AuthController@loginByFacebook');
+    Route::post('login/google', 'Auth\AuthController@loginByGoogle');
 
-        Route::post('/contactus','DataController@contact')->name('contact');
-
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('logout', 'Auth\AuthController@logout');
     });
+});
 
-Route::group(
-    [
-        'prefix'    =>  'products',
-        'name'      =>  'api.v1.products.'
-    ], function (){
+Route::group(['prefix' => 'products'], function (){
 
-        Route::post('request','productController@request');
+    Route::post('request','productController@request');
 
-        Route::get('list','productController@list');
-        Route::get('/single/{product}','productController@single');
+    Route::get('list','productController@list');
+    Route::get('/single/{product}','productController@single');
 
-    });
+});
 
-    Route::fallback(function(){
-        return APIHelper::jsonRender('404 not Found', [],400);
-    })->name('api.fallback.404');
+// Status Fallback:
+Route::fallback(function(){
+    return APIHelper::jsonRender('404 not Found', [],404);
+})->name('api.fallback.404');
