@@ -21,6 +21,7 @@ class CreateAboutUsTable extends Migration
                 $table->longText('about_'.$lang);
             }
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

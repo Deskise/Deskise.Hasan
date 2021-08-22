@@ -18,6 +18,7 @@ class CreateBlogPostLikesTable extends Migration
             $table->unsignedBigInteger('blog_post_id');
             $table->string('uuid',30);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('blog_post_id')->references('id')->on((new \App\Models\BlogPost())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });

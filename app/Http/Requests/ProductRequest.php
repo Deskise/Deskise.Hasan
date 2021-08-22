@@ -26,12 +26,12 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'category'  =>  'required|exists:App\Models\Category,id',
-            'subcategory'=> 'required|exists:App\Models\Subcategory,id',
+            'category'  =>  'required|exists:App\Models\Category,id|integer',
+            'subcategory'=> 'required|exists:App\Models\Subcategory,id|integer',
             'price'     =>  'required|numeric',
             'message'   =>  'required|string',
             'email'     =>  'required|email',
-            'sendEmails'=>  'required|in:0,1'
+            'sendEmails'=>  'required|boolean'
         ];
     }
     public function messages()

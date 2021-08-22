@@ -21,6 +21,7 @@ class CreateProductRequestsTable extends Migration
             $table->float('ePrice');
             $table->string('email');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('category_id')->references('id')->on((new \App\Models\category())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('subcategory_id')->references('id')->on((new \App\Models\subcategory())->getTable())->cascadeOnUpdate()->cascadeOnDelete();

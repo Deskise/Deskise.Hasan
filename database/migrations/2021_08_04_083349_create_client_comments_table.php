@@ -22,6 +22,7 @@ class CreateClientCommentsTable extends Migration
             }
             $table->string('img');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

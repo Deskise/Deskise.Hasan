@@ -4,26 +4,40 @@
     namespace App\Http\Controllers\Api\V1_0_0\Auth;
 
     use App\Helpers\APIHelper;
+    use App\Http\Requests\ForgetRequest;
     use App\Http\Requests\LoginRequest;
+    use App\Http\Requests\ResetRequest;
     use App\Http\Requests\SignupByRequest;
     use App\Http\Requests\SignupRequest;
     use App\Http\Requests\VerifyRequest;
+    use App\Mail\reset;
     use App\Mail\signup;
     use App\Mail\Verified;
     use App\Mail\verify;
     use App\Models\Newsletter;
+    use App\Models\PasswordReset;
     use GuzzleHttp\Exception\ClientException;
     use GuzzleHttp\Exception\ConnectException;
     use Hash;
+    use Illuminate\Database\Eloquent\Model;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Carbon\Carbon;
     use App\Http\Controllers\Controller;
     use App\Models\User;
     use Illuminate\Support\Facades\Validator;
+    use Illuminate\Testing\Fluent\Concerns\Has;
+    use Mockery\Generator\StringManipulation\Pass\Pass;
 
     class AuthController extends Controller
     {
+        protected $client;
+
+        public function __construct()
+        {
+            $this->client = new \GuzzleHttp\Client(['verify' => false]);
+        }
+
         public function signup(SignupRequest $request)
         {
             if ($request->hasError)
@@ -37,6 +51,7 @@
                 'email' => $request->input('email'),
                 'password' => Hash::make($request->input('password'))
             ]);
+            if ((bool)$request->input('uuid')) $user->uuid = $request->input('uuid');
             $user->save();
             \Mail::to($user)->send(new signup());
 
@@ -68,8 +83,8 @@
             try {
                 $response = $this->client->get(env('FACEBOOK_SERVICE_GRAPH_URL').'?access_token='.$request->input('token').'&fields=last_name,first_name,id,email');
                 $response = json_decode($response->getBody()->getContents());
-
-                if (User::where('facebook_id','=',$response->id)->get()->first()===null)
+                $facebook_id = $response->id;
+                if (User::where('facebook_id','=',$facebook_id)->get()->first()===null)
                 {
                     $user = User::where('email','=',$response->email)->get()->first();
                     if ($user===NULL)
@@ -79,6 +94,7 @@
                         $user->lastname = $response->last_name;
                         $user->email = $response->email;
                         $user->email_verified_at = now();
+                        if ((bool)$request->input('uuid')) $user->uuid = $request->input('uuid');
 
                         $response = $this->client->get(env('FACEBOOK_SERVICE_GRAPH_URL').'/picture?access_token='.$request->input('token').'&height=720&redirect=0');
                         $response = json_decode($response->getBody()->getContents())->data;
@@ -86,9 +102,10 @@
                         file_put_contents('images/users/'.$img, file_get_contents($response->url));
                         $user->img = $img;
                     }
-                    $user->facebook_id = $response->id;
+                    $user->facebook_id = $facebook_id;
                     if ($user->save())
                     {
+                        \Mail::to($user)->send(new signup());
                         return APIHelper::jsonRender('Successfully created user!', $user, 201);
                     }
 
@@ -125,6 +142,7 @@
                         $user->lastname = $response->family_name;
                         $user->email = $response->email;
                         $user->email_verified_at = now();
+                        if ((bool)$request->input('uuid')) $user->uuid = $request->input('uuid');
 
                         $img = uniqid('user_', true).'.jpeg';
                         file_put_contents('images/users/'.$img, file_get_contents(str_replace('s96-c', 's200-c', $response->picture)));
@@ -133,6 +151,7 @@
                     $user->google_id = $response->sub;
                     if ($user->save())
                     {
+                        \Mail::to($user)->send(new signup());
                         return APIHelper::jsonRender('Successfully created user!', $user, 201);
                     }
 
@@ -209,12 +228,16 @@
             $credentials = request(['email', 'password']);
 
             if(!Auth::attempt($credentials))
-                return APIHelper::jsonRender('Unauthorized', [], 401);
+                return APIHelper::jsonRender('Username Or Password is wrong', [], 401);
 
             $user = $request->user();
 
             if ($user->hasVerifiedEmail())
             {
+                $reset = PasswordReset::where('email','=',$user->email)->get()->first();
+                if ($reset!==null)
+                    $reset->delete();
+
                 $tokenResult = $user->createToken('Personal Access Token');
                 $token = $tokenResult->token;
 
@@ -320,9 +343,64 @@
             }
         }
 
+        public function forget(ForgetRequest $request)
+        {
+            if ($request->hasError)
+            {
+                return $request->response;
+            }
+
+            $user  = User::where('email', '=', $request->input('email'))->get()->first();
+            if ($user->password!==null)
+            {
+                $reset = PasswordReset::where('email','=',$request->input('email'))->get()->first();
+                if ($reset===null)
+                {
+                    $reset = new PasswordReset(['email' =>  $request->input('email'),'token'    =>  Hash::make(\Str::random(15))]);
+                    $reset->save();
+                }
+
+                \Mail::to($user)->send((new reset($reset)));
+                return APIHelper::jsonRender('We\'ve Sent You Email To Verify', []);
+            }else
+                return APIHelper::error('Error Saving New Password, Try again Please');
+        }
+        public function reset(ResetRequest $request)
+        {
+            if ($request->hasError)
+            {
+                return $request->response;
+            }
+
+            $reset = PasswordReset::where('token','=',$request->input('hash'))->get()->first();
+            if ($reset!==null)
+            {
+                $user = User::where('email','=',$reset->email)->get()->first();
+                $user->password = Hash::make($request->input('new_password'));
+
+                if ($user->save())
+                {
+                    $reset->delete();
+                    return APIHelper::jsonRender('New Password Saved Successfully', $user);
+                }else
+                    return APIHelper::error('Error Saving New Password, Try Again Please');
+            }
+
+            return APIHelper::error('Please Provide A Valid Hash Token For This Request');
+        }
+
         public function logout(Request $request)
         {
             $request->user()->token()->revoke();
             return APIHelper::jsonRender('Successfully logged out', []);
+        }
+
+        public function user()
+        {
+            $user = \request()->user();
+            $user->facebook_login = $user->facebook_id??false;
+            $user->google_login = $user->google_id??false;
+            unset($user->email_verified_at,$user->backup_email_verified_at,$user->phone_verified_at,$user->backup_phone_verified_at,$user->id_verified_at,$user->is_closed,$user->is_hidden,$user->google_id,$user->facebook_id);
+            return APIHelper::jsonRender('', $user);
         }
     }

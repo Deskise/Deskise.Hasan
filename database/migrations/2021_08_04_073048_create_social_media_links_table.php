@@ -14,11 +14,11 @@ class CreateSocialMediaLinksTable extends Migration
     public function up()
     {
         Schema::create('social_media_links', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->id('user_id');
             $table->unsignedBigInteger('social_id');
             $table->string('link', 250);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on((new \App\Models\User())->getTable())->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('social_id')->references('id')->on((new \App\Models\socialMediaAccount())->getTable())->cascadeOnDelete()->cascadeOnUpdate();

@@ -21,6 +21,7 @@ class CreateSubcategoriesTable extends Migration
                 $table->string('name_'.$lang);
             }
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('category_id')->references('id')->on((new \App\Models\category())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });

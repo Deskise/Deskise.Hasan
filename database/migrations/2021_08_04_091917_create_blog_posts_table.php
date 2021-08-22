@@ -23,6 +23,7 @@ class CreateBlogPostsTable extends Migration
             $table->string('img');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('category_id')->references('id')->on((new \App\Models\category())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });

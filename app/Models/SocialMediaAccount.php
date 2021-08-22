@@ -8,16 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class SocialMediaAccount extends Model
 {
     use HasFactory;
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $guarded = [];
 
     protected $hidden = [
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
-    public function links()
+    public function userLinks()
     {
         return $this->hasMany(SocialMediaLink::class);
+    }
+    public function productLinks()
+    {
+        return $this->hasMany(SocialMediaProductLink::class);
     }
 }

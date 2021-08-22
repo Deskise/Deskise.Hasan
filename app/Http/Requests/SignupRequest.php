@@ -31,7 +31,8 @@ class SignupRequest extends FormRequest
             'email'     => 'required|string|email|unique:users',
             'password'  => 'required|string|confirmed',
             'newsletter_subscribe'  =>  'required|boolean',
-            'terms'     =>  'required|accepted'
+            'terms'     =>  'required|accepted',
+            'uuid'      =>  'string|max:30'
         ];
     }
 

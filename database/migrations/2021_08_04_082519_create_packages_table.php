@@ -24,6 +24,7 @@ class CreatePackagesTable extends Migration
             $table->enum('duration',['days','per product','every product']);
             $table->integer('dur')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

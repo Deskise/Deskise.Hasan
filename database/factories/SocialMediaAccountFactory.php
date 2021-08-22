@@ -26,6 +26,7 @@ class SocialMediaAccountFactory extends Factory
         foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
         {
             $data['name_'.$lang] = $this->faker->text(20);
+            $data['description_'.$lang] = $this->faker->text(120);
         }
 
         return $data;

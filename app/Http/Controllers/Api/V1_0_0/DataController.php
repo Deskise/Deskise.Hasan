@@ -13,6 +13,7 @@
     use App\Models\ContactMessage;
     use App\Models\FAQ;
     use App\Models\Package;
+    use App\Models\SocialMediaAccount;
     use App\Models\TermsOfUse;
 
     class DataController extends Controller
@@ -40,11 +41,12 @@
             if ($category->exists)
             {
                 $category->name = $category->{'name_'.self::$language};
-                $category->makeHidden(APIHelper::getLangFrom('name'));
+                $category->help = $category->{'help_'.self::$language};
+                $category->makeHidden(APIHelper::getLangFrom('name,help'));
                 $category->subcategories = $category->subcategories()->select('id','name_'.self::$language.' as name')->get();
                 $data = $category;
             }else {
-                $data = Category::select('id','name_'.self::$language.' as name')->latest()->with('subcategories')->get();
+                $data = Category::select('id','name_'.self::$language.' as name','data','help_'.self::$language.' as help')->latest()->with('subcategories')->get();
             }
 
             return APIHelper::jsonRender('', $data);
@@ -113,6 +115,12 @@
         public function aboutPage()
         {
             $data = AboutUs::select('about_'.self::$language.' as about','updated_at as last_modified')->get()->first();
+            return APIHelper::jsonRender('', $data);
+        }
+
+        public function social()
+        {
+            $data = SocialMediaAccount::select('id','name_'.self::$language.' as name','description_'.self::$language.' as description')->get();
             return APIHelper::jsonRender('', $data);
         }
     }

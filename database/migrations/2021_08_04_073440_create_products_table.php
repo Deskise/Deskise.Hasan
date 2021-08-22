@@ -15,20 +15,23 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
-            {
-                $table->string('name_'.$lang,30);
-                $table->longText('description_'.$lang);
-            }
+            $table->unsignedBigInteger('user_id');
+            $table->string('name',30);
+            $table->longText('description');
+            $table->string('summary',350);
             $table->float('price');
+            $table->string('img',30);
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('subcategory_id');
-            $table->unsignedTinyInteger('special')->default(0);
-            $table->unsignedTinyInteger('verified')->default(0);
+            $table->boolean('special')->default(false);
+            $table->boolean('verified')->default(false);
+            $table->enum('status',['sold','available','canceled','under_verify'])->default('under_verify');
+            $table->boolean('is_lifetime')->default(false);
+            $table->date('until')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreign('category_id')->references('id')->on((new \App\Models\Category())->getTable())->cascadeOnUpdate();
-            $table->foreign('subcategory_id')->references('id')->on((new \App\Models\Subcategory())->getTable())->cascadeOnUpdate();
+            $table->foreign('user_id')->references('id')->on((new \App\Models\User())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('category_id')->references('id')->on((new \App\Models\Category())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

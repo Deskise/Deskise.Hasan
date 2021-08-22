@@ -12,6 +12,7 @@ class BlogPostLike extends Model
     protected $fillable = ['blog_post_id','uuid'];
 
     protected $hidden = [
+        'deleted_at',
         'created_at'
     ];
 

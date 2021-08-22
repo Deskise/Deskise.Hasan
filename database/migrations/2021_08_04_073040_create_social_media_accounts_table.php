@@ -18,8 +18,10 @@ class CreateSocialMediaAccountsTable extends Migration
             foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
             {
                 $table->string('name_'.$lang,20);
+                $table->string('description_'.$lang,120);
             }
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

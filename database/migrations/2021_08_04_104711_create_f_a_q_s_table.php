@@ -21,6 +21,7 @@ class CreateFAQSTable extends Migration
                 $table->longText('answer_'.$lang);
             }
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

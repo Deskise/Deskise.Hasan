@@ -19,7 +19,9 @@ class CreateCategoriesTable extends Migration
             {
                 $table->string('name_'.$lang,30);
             }
+            $table->json('data')->default(json_encode(['Basic Details' => ['subcategory'=>'required','url'=>'url|required']]));
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

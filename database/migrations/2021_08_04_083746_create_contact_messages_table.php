@@ -18,6 +18,7 @@ class CreateContactMessagesTable extends Migration
             $table->unsignedBigInteger('contact_id');
             $table->string('message',350);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('contact_id')->references('id')->on((new \App\Models\contact())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });

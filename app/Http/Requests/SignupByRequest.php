@@ -26,7 +26,8 @@ class SignupByRequest extends FormRequest
     public function rules()
     {
         return [
-            'token' =>  'required|string'
+            'token' =>  'required|string',
+            'uuid'      =>  'string|max:30'
         ];
     }
 

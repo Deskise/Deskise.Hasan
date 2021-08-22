@@ -41,6 +41,7 @@ Route::group(['prefix' => 'data'], function (){
     Route::get('/faq','DataController@faq');
 
     Route::post('/contactus','DataController@contact');
+    Route::get('/social','DataController@social');
 
 });
 
@@ -57,33 +58,48 @@ Route::group(['prefix' => 'blog'], function (){
 
 });
 
-
 // Auth things:
 Route::group(['prefix' => 'auth'], function(){
 
-    Route::post('signup', 'Auth\AuthController@signup');
-    Route::post('signup/facebook', 'Auth\AuthController@signupByFacebook');
-    Route::post('signup/google', 'Auth\AuthController@signupByGoogle');
+    Route::post('/signup', 'Auth\AuthController@signup');
+    Route::post('/signup/facebook', 'Auth\AuthController@signupByFacebook');
+    Route::post('/signup/google', 'Auth\AuthController@signupByGoogle');
 
     Route::post('/verify/{type}','Auth\AuthController@verify')->middleware('HaveType:email');
     Route::post('/verify/{type}/resend','Auth\AuthController@resendVerification')->middleware('HaveType:email');
 
-    Route::post('login', 'Auth\AuthController@login');
-    Route::post('login/facebook', 'Auth\AuthController@loginByFacebook');
-    Route::post('login/google', 'Auth\AuthController@loginByGoogle');
+    Route::post('/login', 'Auth\AuthController@login');
+    Route::post('/login/facebook', 'Auth\AuthController@loginByFacebook');
+    Route::post('/login/google', 'Auth\AuthController@loginByGoogle');
+
+    Route::post('/forget','Auth\AuthController@forget');
+    Route::post('/reset','Auth\AuthController@reset');
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('logout', 'Auth\AuthController@logout');
+
+        Route::get('user','Auth\AuthController@user');
     });
 });
 
+// Product things:
 Route::group(['prefix' => 'products'], function (){
 
     Route::post('request','productController@request');
+    Route::get('request','productController@best');
 
-    Route::get('list','productController@list');
-    Route::get('/single/{product}','productController@single');
+    Route::get('list/{category?}','productController@list');
+    Route::get('single/{id}','productController@single');
+    Route::get('single/{product}/like','productController@like');
+    Route::get('search','productController@search');
 
+    Route::get('edit/{id}','productController@edit');
+    Route::post('edit/{id}/publish','productController@publish');
+    Route::post('edit/{id}/save','productController@saveDraft');
+    Route::post('edit/{id}/upload','productController@upload');
+
+    Route::post('add','productController@publish')->name('add');
+    Route::post('add/save','productController@saveDraft');
 });
 
 // Status Fallback:

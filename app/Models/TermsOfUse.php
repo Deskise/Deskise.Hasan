@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class TermsOfUse extends Model
 {
     use HasFactory;
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $guarded = [];
 
-    protected $hidden = [];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 }

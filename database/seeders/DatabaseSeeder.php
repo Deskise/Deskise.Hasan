@@ -27,12 +27,12 @@ class DatabaseSeeder extends Seeder
     {
         Category::factory(6)->create();
         Subcategory::factory(10)->create();
-        Product::factory(10)->create();
         BlogPost::factory(10)->create();
         ClientComment::factory(10)->create();
         Package::factory(7)->create();
         AboutUs::factory(1)->create();
         FAQ::factory(10)->create();
         TermsOfUse::factory(2)->create();
+        SocialMediaAccount::factory(5)->create();
     }
 }

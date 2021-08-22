@@ -21,6 +21,7 @@ class CreateTermsOfUsesTable extends Migration
                 $table->longText('data_'.$lang);
             }
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

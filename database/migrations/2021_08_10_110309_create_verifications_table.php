@@ -19,6 +19,7 @@ class CreateVerificationsTable extends Migration
             $table->enum('verifyFor', ['email','backup_email','phone','backup_phone']);
             $table->string('verifyCode',8);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on((new \App\Models\User())->getTable())->cascadeOnDelete()->cascadeOnUpdate();
         });

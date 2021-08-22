@@ -12,10 +12,4 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public static $language;
-    protected $client;
-
-    public function __construct()
-    {
-        $this->client = new \GuzzleHttp\Client(['verify' => false]);
-    }
 }
