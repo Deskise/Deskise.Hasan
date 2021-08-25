@@ -1,0 +1,63 @@
+@import "./_globals/_variables.scss";
+@import "./_globals/_fonts.scss";
+
+.text-primary {
+    color: $primary !important;
+}
+.text-secondary {
+    color: $secondary !important;
+}
+.btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: transparent;
+        color: $primary;
+        border-color: $primary;
+        box-shadow: 0 0 0 0.25rem ($primary + a5) !important;
+    }
+}
+
+#app {
+    font-family: Barlow, Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+
+    nav {
+        padding: 20px 7%;
+        border-color: #898989;
+        background-color: transparent;
+
+        img {
+            border-color: $gray;
+        }
+        div {
+            flex-wrap: wrap;
+            ul {
+                justify-content: space-around;
+                li {
+                    a {
+                        color: $gray;
+                        font-size: 18px;
+                        &.router-link-exact-active {
+                            color: $secondary;
+                            font-weight: bold;
+                        }
+
+                        &:hover {
+                            color: $secondary;
+                        }
+                    }
+                }
+            }
+
+            button {
+            }
+        }
+    }
+}

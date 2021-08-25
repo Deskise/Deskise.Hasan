@@ -19,4 +19,13 @@ import "swiper/components/navigation/navigation.min.css";
 // Import Nprogress css file:
 import "nprogress/nprogress.css";
 
+// My Scss Files:
+import "./sass/style.scss";
+
+// Languages Support:
+import VueI18n from "vue-i18n";
+import "./lang";
+
+Vue.use(VueI18n);
+
 Vue.use(store).use(router).use(createHead()).mount("#app");

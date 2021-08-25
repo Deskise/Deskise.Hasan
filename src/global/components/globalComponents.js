@@ -8,16 +8,16 @@ Vue.component("Head", Head);
 
 // global rigester the layouts components:
 const requireComponent = require.context(
-  "../../components/layouts",
-  false,
-  /[A-Z]\w+\.(vue|js)$/
+    "../../components/layouts",
+    false,
+    /[A-Z]\w+\.(vue|js)$/
 );
 requireComponent.keys().forEach((fileName) => {
-  const componentConfig = requireComponent(fileName);
+    const componentConfig = requireComponent(fileName);
 
-  const componentName = upperFirst(
-    camelCase(fileName.replace(/\.\/(.*)\.\w+$/, "$1"))
-  );
+    const componentName = upperFirst(
+        camelCase(fileName.replace(/\.\/(.*)\.\w+$/, "$1"))
+    );
 
-  Vue.component(componentName, componentConfig.default || componentConfig);
+    Vue.component(componentName, componentConfig.default || componentConfig);
 });
