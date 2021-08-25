@@ -92,6 +92,7 @@ Route::group(['prefix' => 'products'], function (){
     Route::get('single/{id}','productController@single');
     Route::get('single/{product}/like','productController@like');
     Route::get('search','productController@search');
+    Route::get('best','productController@best');
 
     Route::get('edit/{id}','productController@edit');
     Route::post('edit/{id}/publish','productController@publish');

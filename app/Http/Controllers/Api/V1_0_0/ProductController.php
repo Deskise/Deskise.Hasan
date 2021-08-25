@@ -16,6 +16,8 @@
     use App\Models\ProductRequest;
     use App\Models\Subcategory;
     use App\Models\User;
+    use Faker\Generator;
+    use Faker\Provider\en_US\Person;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
 
@@ -24,7 +26,7 @@
         use ProductFilter;
         public function __construct()
         {
-            $this->middleware('auth:api')->except(['request','list','best']);
+            $this->middleware('auth:api')->except(['request','list','best','search']);
         }
 
         public function request(ProdRequest $request)
@@ -71,6 +73,7 @@
         public function best()
         {
             ///TODO: Get Packages Data and Things And find a way to get the pinned ones here to show on the homepage
+            return APIHelper::jsonRender('', Product::paginate(10));
         }
 
         public function list($category=false)
@@ -99,7 +102,7 @@
         {
             $product = Product::select('id','name','description','price',
                     'category_id','user_id', 'special','verified','status','is_lifetime','until')
-                ->with('user:id,firstname,lastname,img')
+                ->with('user:id,firstname,lastname,img,is_hidden')
                 ->with('category:id,name_'.self::$language . ' as name')
                 ->with('data')
                 ->with('data.subcategory:id,name_'.self::$language . ' as name')
@@ -127,6 +130,15 @@
 
             $product->likes = $product->likes()->count();
             $product->liked = $product->likes()->where('user_id','=',request()->user()->id)->first()!==null;
+
+            if ($product->user->is_hidden)
+            {
+                $person = new \Faker\Provider\en_US\Person(new Generator());
+
+                $product->user->firstname = $person->firstName($person::GENDER_MALE);
+                $product->user->lastname = $person->lastname();
+                $product->user->img = 'default.png';
+            }
 
             $product->mine = ($product->user_id===request()->user()->id);
 
