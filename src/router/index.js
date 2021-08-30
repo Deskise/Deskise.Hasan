@@ -1,22 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import store from "@/store";
+import { routes } from "./routeFiles";
 
-import { routes as loggedIn } from "./loggedInRoutes";
-import { routes as NoLogin } from "./NoLoginRoutes";
-
-const routes = [
-    ...(store.state.user.loggedIn ? loggedIn : NoLogin),
-    {
-        path: "/404",
-        name: "404",
-        component: () =>
-            import(/* webpackChunkName: "404" */ "../views/404.vue"),
-    },
-    {
-        path: "/:catchAll(.*)",
-        redirect: "/404",
-    },
-];
 routes.forEach((route) => {
     if (route.meta == undefined) {
         route.meta = {
@@ -40,7 +25,11 @@ router.beforeEach((to, from, next) => {
             });
         }
     }
+    store.dispatch("ChangeLoading", true);
     next();
+});
+router.afterEach(() => {
+    store.dispatch("ChangeLoading", false);
 });
 
 export default router;

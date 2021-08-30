@@ -21,3 +21,13 @@ requireComponent.keys().forEach((fileName) => {
 
     Vue.component(componentName, componentConfig.default || componentConfig);
 });
+
+// globalize (t function) as (__) so you can use it anywhere on the projct to translate text:
+import { useI18n } from "vue-i18n";
+Vue.config.globalProperties.__ = ($key) => {
+    const { t } = useI18n({
+        inheritLocale: true,
+        useScope: "global",
+    });
+    return t($key);
+};

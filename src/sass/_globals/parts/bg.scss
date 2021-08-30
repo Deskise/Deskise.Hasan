@@ -1,0 +1,22 @@
+.bg-primary {
+    background: $primary !important;
+}
+.bg-secondary {
+    background: $secondary !important;
+}
+.bg-gray {
+    background: $gray !important;
+}
+.bg-gray-e {
+    background: $light-gray !important;
+}
+
+.bg-gradiant {
+    color: white !important;
+    background: linear-gradient(0.4turn, $primary, $secondary) !important;
+}
+
+.bg-hover-gradiant:hover {
+    color: white !important;
+    background: linear-gradient(0.4turn, $primary, $secondary) !important;
+}

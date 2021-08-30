@@ -1,34 +1,20 @@
 @import "./_globals/_variables.scss";
 @import "./_globals/_fonts.scss";
+@import url("https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css");
 
-.text-primary {
-    color: $primary !important;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-.text-secondary {
-    color: $secondary !important;
-}
-.btn-primary {
-    background-color: $primary;
-    border-color: $primary;
 
-    &:hover,
-    &:focus,
-    &:active {
-        background-color: transparent;
-        color: $primary;
-        border-color: $primary;
-        box-shadow: 0 0 0 0.25rem ($primary + a5) !important;
-    }
-}
+@import "./_globals//parts/alerts.scss";
+@import "./_globals//parts/bg.scss";
+@import "./_globals//parts/btn.scss";
+@import "./_globals//parts/text.scss";
 
 #app {
-    font-family: Barlow, Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-
-    nav {
+    nav.noLogin {
         padding: 20px 7%;
         border-color: #898989;
         background-color: transparent;
@@ -38,25 +24,88 @@
         }
         div {
             flex-wrap: wrap;
+            justify-content: space-between;
             ul {
                 justify-content: space-around;
+                align-items: center;
+                flex-grow: 1;
+                margin-right: 50px;
+
                 li {
                     a {
                         color: $gray;
                         font-size: 18px;
-                        &.router-link-exact-active {
+                        text-transform: capitalize;
+
+                        &:hover,
+                        &:focus {
                             color: $secondary;
-                            font-weight: bold;
                         }
 
-                        &:hover {
-                            color: $secondary;
+                        &.dropdown-item {
+                            position: relative;
+                            color: black;
+                            padding: 10px 8px 10px 8px;
+                            transition: all 0.3s ease-in-out;
+                            overflow: hidden;
+                            border-left: 0px solid $primary;
+                            span {
+                                width: 100%;
+                                height: 2px;
+                                background-color: #3eadb758;
+                                position: absolute;
+                                top: 98%;
+                                left: -100%;
+                                transition: all 0.5s ease-in-out;
+                                transition-delay: 0.1s;
+                            }
                         }
+
+                        &.dropdown-item:focus,
+                        &.dropdown-item:hover {
+                            background-color: inherit;
+                            border-left: 3px solid $primary;
+                            span {
+                                left: 0;
+                            }
+                        }
+                    }
+                }
+
+                &.dropdown-menu {
+                    padding: 0;
+                    width: 250%;
+                    border: 0;
+                    box-shadow: 0 0 20px 0 #00000015;
+                }
+            }
+
+            a.router-link-exact-active,
+            a.router-link-active {
+                color: $secondary;
+                font-weight: bold;
+
+                button {
+                    background-color: $secondary;
+                    border-color: $secondary;
+                    color: white;
+                    box-shadow: 0 0 0 0 ($secondary + a5) !important;
+
+                    &:hover,
+                    &:active {
+                        background-color: transparent;
+                        color: $secondary;
+                        border-color: $secondary;
+                        box-shadow: 0 0 0 0.25rem ($secondary + a5) !important;
                     }
                 }
             }
 
-            button {
+            button.login {
+                flex-grow: 1;
+                height: 57px;
+                width: 157px;
+                font-size: 20px;
             }
         }
     }

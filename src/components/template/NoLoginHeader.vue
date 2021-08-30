@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg border-bottom">
+    <nav class="navbar navbar-expand-lg border-bottom noLogin">
         <div class="container-fluid">
             <router-link class="navbar-brand" to="/">
                 <img
@@ -20,9 +20,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/">Home</router-link>
+                        <router-link class="nav-link" to="/">
+                            {{ __("header.nologin.home") }}
+                        </router-link>
                     </li>
                     <li class="nav-item dropdown">
                         <a
@@ -33,67 +35,77 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                         >
-                            Dropdown
+                            {{ __("header.nologin.category") }}
                         </a>
                         <ul
                             class="dropdown-menu"
                             aria-labelledby="navbarDropdown"
                         >
-                            <li>
-                                <a class="dropdown-item" href="#">Action</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                    >Another action</a
+                            <li
+                                v-for="(category, index) in categories"
+                                :key="index"
+                            >
+                                <router-link
+                                    :to="{
+                                        name: 'productsByCategory',
+                                        params: { id: category.id },
+                                    }"
+                                    class="dropdown-item"
                                 >
-                            </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                    >Something else here</a
-                                >
+                                    {{ category.name }}
+                                    <span></span>
+                                </router-link>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/about"
-                            >About Us</router-link
-                        >
+                        <router-link class="nav-link" :to="{ name: 'about' }">
+                            {{ __("header.nologin.about") }}
+                        </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/action"
-                            >Mechanism Of Action</router-link
-                        >
+                        <router-link class="nav-link" :to="{ name: 'action' }">
+                            {{ __("header.nologin.mech") }}
+                        </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/terms"
-                            >Terms Of Use</router-link
-                        >
+                        <router-link class="nav-link" :to="{ name: 'terms' }">
+                            {{ __("header.nologin.terms") }}
+                        </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/privacy"
-                            >Privacy Policy</router-link
-                        >
+                        <router-link class="nav-link" :to="{ name: 'privacy' }">
+                            {{ __("header.nologin.privacy") }}
+                        </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/common"
-                            >Common Questions</router-link
-                        >
+                        <router-link class="nav-link" :to="{ name: 'faq' }">
+                            {{ __("header.nologin.FAQ") }}
+                        </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/blog"
-                            >Blog</router-link
-                        >
+                        <router-link class="nav-link" :to="{ name: 'blog' }">
+                            {{ __("header.nologin.blog") }}
+                        </router-link>
                     </li>
                 </ul>
-                <button class="btn btn-primary" type="submit">
-                    Login/Signup
-                </button>
+                <router-link :to="{ name: 'login' }" v-slot="{ navigate }">
+                    <button class="btn btn-primary login" @click="navigate">
+                        {{ __("header.nologin.login") }}
+                    </button>
+                </router-link>
             </div>
         </div>
     </nav>
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+    computed: {
+        ...mapState("category", ["categories"]),
+    },
+};
 </script>
+
+<style lang="scss" scoped></style>

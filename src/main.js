@@ -23,9 +23,6 @@ import "nprogress/nprogress.css";
 import "./sass/style.scss";
 
 // Languages Support:
-import VueI18n from "vue-i18n";
-import "./lang";
+import i18n from "./i18n";
 
-Vue.use(VueI18n);
-
-Vue.use(store).use(router).use(createHead()).mount("#app");
+Vue.use(i18n).use(store).use(router).use(createHead()).mount("#app");
