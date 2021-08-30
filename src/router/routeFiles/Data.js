@@ -1,5 +1,9 @@
 import store from "@/store";
 import Home from "@/views/website/Home";
+import About from "@/views/website/About.vue";
+import Action from "@/views/website/Action.vue";
+import Terms from "@/views/website/Terms.vue";
+import FAQ from "@/views/website/Faqs.vue";
 
 export const routes = [
     {
@@ -10,8 +14,7 @@ export const routes = [
     {
         path: "/about",
         name: "about",
-        component: () =>
-            import(/* webpackChunkName: "About" */ "@/views/website/About.vue"),
+        component: About,
         beforeEnter: async function (routeTo, from, next) {
             if (store.state.data.about.page === null) {
                 await store.dispatch("data/about", "page").then((data) => {
@@ -26,10 +29,7 @@ export const routes = [
     {
         path: "/action",
         name: "action",
-        component: () =>
-            import(
-                /* webpackChunkName: "Action" */ "@/views/website/Action.vue"
-            ),
+        component: Action,
         beforeEnter: async function (routeTo, from, next) {
             if (store.state.data.packages.length === 0) {
                 await store.dispatch("data/packages");
@@ -40,8 +40,7 @@ export const routes = [
     {
         path: "/terms&conditions",
         name: "terms",
-        component: () =>
-            import(/* webpackChunkName: "Terms" */ "@/views/website/Terms.vue"),
+        component: Terms,
         beforeEnter: async function (routeTo, from, next) {
             routeTo.params.name = "terms";
             if (store.state.data.terms.terms === null) {
@@ -57,8 +56,7 @@ export const routes = [
     {
         path: "/privacy",
         name: "privacy",
-        component: () =>
-            import(/* webpackChunkName: "Terms" */ "@/views/website/Terms.vue"),
+        component: Terms,
         beforeEnter: async function (routeTo, from, next) {
             routeTo.params.name = "privacy";
             if (store.state.data.terms.privacy === null) {
@@ -74,12 +72,12 @@ export const routes = [
     {
         path: "/frequentity-asked-questions",
         name: "faq",
-        component: () =>
-            import(/* webpackChunkName: "Faqs" */ "@/views/website/Faqs.vue"),
+        component: FAQ,
         beforeEnter: async function (routeTo, from, next) {
-            if (store.state.data.packages.length === 0) {
-                await store.dispatch("data/packages");
+            if (store.state.data.faq.data === undefined) {
+                await store.dispatch("data/faqs", { page: 1 });
             }
+            routeTo.params.email = process.env.VUE_APP_SUPPORT_EMAIL;
             next();
         },
     },

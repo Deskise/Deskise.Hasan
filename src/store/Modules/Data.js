@@ -1,6 +1,7 @@
 import about from "@/Services/Data/AboutService";
 import terms from "@/Services/Data/TermsService";
 import packageService from "@/Services/Data/PackagesService";
+import faq from "@/Services/Data/FaqService";
 
 export const namespaced = true;
 
@@ -17,7 +18,7 @@ export const state = {
 
     packages: [],
 
-    faq: [],
+    faq: {},
 };
 
 export const mutations = {
@@ -31,7 +32,13 @@ export const mutations = {
         state.packages = $packages;
     },
     FETCH_FAQ(state, $faqs) {
-        state.faq = $faqs;
+        if (state.faq.data === undefined) {
+            state.faq = $faqs;
+        } else {
+            state.faq.current_page = $faqs.current_page;
+            state.faq.next_page_url = $faqs.next_page_url;
+            state.faq.data.push(...$faqs.data);
+        }
     },
 };
 
@@ -70,12 +77,12 @@ export const actions = {
             .catch(() => {});
     },
 
-    async faqs({ commit }) {
-        await packageService
-            .fetch()
+    async faqs({ commit }, { page }) {
+        await faq
+            .fetch(page)
             .then((response) => {
-                let faqs = response.data.response.extra;
-                commit("FETCH_PACKAGES", faqs);
+                let faqs = response.data.response.extra[0];
+                commit("FETCH_FAQ", faqs);
             })
             .catch(() => {});
     },

@@ -1,9 +1,10 @@
+import erorr404 from "@/views/404.vue";
+
 export const routes = [
     {
         path: "/404",
         name: "404",
-        component: () =>
-            import(/* webpackChunkName: "404" */ "@/views/404.vue"),
+        component: erorr404,
     },
     {
         path: "/:catchAll(.*)",

@@ -18,6 +18,11 @@
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
     },
 
+    "faqs": {
+        "search": "Search",
+        "support": "For Technical Support Or Direct Questions Via Email."
+    },
+
     "Forms": {
         "email": "Email"
     },

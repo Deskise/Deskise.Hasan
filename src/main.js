@@ -19,10 +19,22 @@ import "swiper/components/navigation/navigation.min.css";
 // Import Nprogress css file:
 import "nprogress/nprogress.css";
 
-// My Scss Files:
-import "./sass/style.scss";
-
 // Languages Support:
 import i18n from "./i18n";
 
-Vue.use(i18n).use(store).use(router).use(createHead()).mount("#app");
+// Vue Loaders:
+import "vue-loaders/dist/vue-loaders.css";
+import VueLoaders from "vue-loaders";
+
+// My Scss Files:
+import "./sass/style.scss";
+
+// My Custom Directives:
+import "./directives";
+
+Vue.use(i18n)
+    .use(store)
+    .use(VueLoaders)
+    .use(router)
+    .use(createHead())
+    .mount("#app");
