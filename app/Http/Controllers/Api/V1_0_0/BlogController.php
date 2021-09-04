@@ -17,6 +17,9 @@ class BlogController extends Controller
         $data = BlogPost::select('id','title_'.self::$language.' as title','details_'.self::$language.' as details','img','category_id','updated_at as date')
             ->with('category:id,name_'.self::$language.' as name')
             ->paginate(12);
+
+        var_dump($data);
+
         return APIHelper::jsonRender('', $data);
     }
 
@@ -63,11 +66,11 @@ class BlogController extends Controller
         if ($like===null)
         {
             $like = $post->likes()->create(['uuid'  =>  $request->input('uuid')]);
-            return APIHelper::jsonRender('article liked successfully', [], 200);
-        }else{
-            $like->delete();
-            return APIHelper::jsonRender('article disliked successfully', [], 200);
+            return APIHelper::jsonRender('article liked successfully', []);
         }
+
+        $like->delete();
+        return APIHelper::jsonRender('article disliked successfully', []);
     }
 
     public function search(Request $request)

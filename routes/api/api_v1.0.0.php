@@ -18,7 +18,7 @@
 // API Data things:
 Route::group(['prefix' => 'data'], function (){
     Route::group(['prefix' => 'terms'], function (){
-        Route::get('/terms&conditions', 'DataController@termsandconditions');
+        Route::get('/terms', 'DataController@termsandconditions');
         Route::get('/privacy', 'DataController@privacy');
     });
 
@@ -39,6 +39,7 @@ Route::group(['prefix' => 'data'], function (){
     Route::get('/packages','DataController@packages');
     Route::get('/comments','DataController@comments');
     Route::get('/faq','DataController@faq');
+    Route::post('/newsletter','DataController@news');
 
     Route::post('/contactus','DataController@contact');
     Route::get('/social','DataController@social');

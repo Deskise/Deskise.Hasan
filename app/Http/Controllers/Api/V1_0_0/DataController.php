@@ -12,9 +12,11 @@
     use App\Models\Contact;
     use App\Models\ContactMessage;
     use App\Models\FAQ;
+    use App\Models\Newsletter;
     use App\Models\Package;
     use App\Models\SocialMediaAccount;
     use App\Models\TermsOfUse;
+    use Illuminate\Http\Request;
 
     class DataController extends Controller
     {
@@ -102,8 +104,24 @@
 
         public function faq()
         {
-            $data = FAQ::select('id','question_'.self::$language,'answer_'.self::$language,'updated_at as date')->paginate(25);
+            $data = FAQ::select('id','question_'.self::$language.' as question','answer_'.self::$language.' as answer','updated_at as date')->paginate(25);
             return APIHelper::jsonRender('', $data);
+        }
+
+        public function news(Request $request)
+        {
+            $validator = \Validator::make(request()->all(), ['email' => 'required|email']);
+            if ($validator->fails())
+                return APIHelper::error('there were some errors with the request',$validator->errors());
+
+            $newslettter = Newsletter::where('email','=',$request->input('email'))->first();
+            if ($newslettter === null)
+            {
+                $newslettter = new Newsletter();
+                $newslettter->email = $request->input('email');
+                $newslettter->save();
+            }
+            return APIHelper::jsonRender('Thanks For Subscribing ', []);
         }
 
         public function aboutHome()

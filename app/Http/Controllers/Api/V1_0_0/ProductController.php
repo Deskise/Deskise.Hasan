@@ -17,7 +17,6 @@
     use App\Models\Subcategory;
     use App\Models\User;
     use Faker\Generator;
-    use Faker\Provider\en_US\Person;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
 

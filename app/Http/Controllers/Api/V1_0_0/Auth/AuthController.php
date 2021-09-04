@@ -245,6 +245,7 @@
                     $token->expires_at = Carbon::now()->addWeeks(1);
 
                 $token->save();
+                $request->user()->makeHidden(['email_verified_at','backup_email_verified_at','phone_verified_at','backup_phone_verified_at','id_verified_at','is_hidden','is_closed']);
 
                 return APIHelper::jsonRender('Successfully logged in', [
                     'access_token' => $tokenResult->accessToken,
