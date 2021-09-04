@@ -3,6 +3,7 @@ import * as user from "./Modules/user";
 import * as notification from "./Modules/Notification";
 import * as category from "./Modules/Category";
 import * as data from "./Modules/Data";
+import * as blog from "./Modules/Blog";
 
 export default createStore({
     state: {
@@ -27,5 +28,6 @@ export default createStore({
         notification,
         category,
         data,
+        blog,
     },
 });

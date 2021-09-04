@@ -4,10 +4,16 @@
             <search />
             <div class="blog my-5">
                 <div class="categories">
-                    <category-list />
+                    <category-list class="my-5" />
                 </div>
-                <div class="blog-posts">
-                    <blog-post></blog-post>
+                <div class="blog-posts row">
+                    <div
+                        class="col-6 col-md-4 col-lg-3"
+                        v-for="(item, index) in posts"
+                        :key="index"
+                    >
+                        <blog-post :post="item"></blog-post>
+                    </div>
                 </div>
             </div>
 
@@ -17,25 +23,36 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import { mixin as loadOnBottom } from "@/Mixins/loadOnBottom.js";
 import BlogPost from "@/components/Blog/BlogPost.vue";
 
 export default {
     components: { BlogPost },
     mounted() {
-        this.scroll(async () => {});
+        this.scroll("blog.Posts", async () => {
+            await this.$store
+                .dispatch("blog/fetch", {
+                    page: this.faq.current_page + 1,
+                })
+                .then(() => {
+                    this.isLoading = false;
+                    this.scrolledToBottom = true;
+                });
+        });
     },
     mixins: [loadOnBottom],
     data() {
         return {
-            classes: false,
-            search: null,
+            category: 0,
         };
     },
     methods: {},
     computed: {
-        ...mapState("data", ["faq"]),
+        ...mapGetters("blog", ["getPostsByCategoryId"]),
+        posts() {
+            return this.getPostsByCategoryId(this.category);
+        },
     },
 };
 </script>

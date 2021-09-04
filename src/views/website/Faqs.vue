@@ -29,7 +29,7 @@ export default {
         Support,
     },
     mounted() {
-        this.scroll(async () => {
+        this.scroll("data.faq", async () => {
             await this.$store
                 .dispatch("data/faqs", {
                     page: this.faq.current_page + 1,

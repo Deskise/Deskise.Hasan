@@ -16,9 +16,6 @@ Vue.directive("date", {
             "November",
             "December",
         ];
-        console.log(
-            months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear()
-        );
 
         el.innerText =
             months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();

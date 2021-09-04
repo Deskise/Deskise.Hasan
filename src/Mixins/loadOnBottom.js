@@ -6,7 +6,7 @@ export const mixin = {
         };
     },
     methods: {
-        async scroll(func) {
+        async scroll(data, func) {
             window.onscroll = async () => {
                 let bottomOfWindow =
                     Math.max(
@@ -18,10 +18,13 @@ export const mixin = {
                     document.documentElement.offsetHeight;
 
                 if (bottomOfWindow) {
-                    if (
-                        this.faq.next_page_url !== null &&
-                        this.scrolledToBottom
-                    ) {
+                    let next_page_url = this.$store.state;
+                    data.split(".").forEach((element) => {
+                        next_page_url = next_page_url[element];
+                    });
+                    next_page_url = next_page_url.next_page_url;
+
+                    if (next_page_url !== null && this.scrolledToBottom) {
                         this.scrolledToBottom = false;
                         this.isLoading = true;
                         func();
