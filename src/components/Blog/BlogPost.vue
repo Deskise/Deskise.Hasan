@@ -2,7 +2,7 @@
     <div class="post mb-4">
         <div>
             <div class="image mb-2">
-                <img :src="getRandImg" alt="image" />
+                <img :src="post.img" alt="image" />
             </div>
             <div class="content w-100">
                 <h5 class="name mb-0">{{ post.title }}</h5>

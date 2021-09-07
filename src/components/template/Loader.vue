@@ -18,7 +18,7 @@ export default {};
 
 <style lang="scss" scoped>
 .loader {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 999;

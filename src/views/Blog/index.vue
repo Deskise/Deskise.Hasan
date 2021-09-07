@@ -33,7 +33,7 @@ export default {
         this.scroll("blog.Posts", async () => {
             await this.$store
                 .dispatch("blog/fetch", {
-                    page: this.faq.current_page + 1,
+                    page: this.$store.state.blog.Posts.current_page + 1,
                 })
                 .then(() => {
                     this.isLoading = false;
