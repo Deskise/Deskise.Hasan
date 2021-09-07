@@ -1,5 +1,5 @@
 <template>
-    <vue-loaders-ball-scale-multiple color="#3eadb7" scale="2" />
+  <vue-loaders-ball-scale-multiple color="#3eadb7" scale="2" />
 </template>
 
 <script>

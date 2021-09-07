@@ -1,9 +1,9 @@
 <template>
-    <Loader v-if="Loading || !ready"></Loader>
-    <NotificationBar></NotificationBar>
-    <component :is="headerComponent"></component>
-    <router-view class="page" />
-    <Footer></Footer>
+  <Loader v-if="Loading || !ready"></Loader>
+  <NotificationBar></NotificationBar>
+  <component :is="headerComponent"></component>
+  <router-view class="page" />
+  <Footer></Footer>
 </template>
 
 <script>
@@ -15,33 +15,33 @@ import Loader from "./components/template/Loader.vue";
 import { mapState } from "vuex";
 
 export default {
-    created() {
-        this.$store.dispatch("category/fetch");
+  created() {
+    this.$store.dispatch("category/fetch");
+  },
+  components: { NotificationBar, Footer, Loader },
+  data() {
+    return {};
+  },
+  computed: {
+    headerComponent() {
+      return this.$store.getters["user/isLoggedIn"]
+        ? LoggedInHeader
+        : NoLoginHeader;
     },
-    components: { NotificationBar, Footer, Loader },
-    data() {
-        return {};
-    },
-    computed: {
-        headerComponent() {
-            return this.$store.getters["user/isLoggedIn"]
-                ? LoggedInHeader
-                : NoLoginHeader;
-        },
-        ...mapState(["Loading", "ready"]),
-    },
+    ...mapState(["Loading", "ready"]),
+  },
 };
 </script>
 
 <style lang="scss">
 #app {
-    font-family: Barlow, Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    .page {
-        margin: 30px 0 70px 0;
-    }
+  font-family: Barlow, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  .page {
+    margin: 30px 0 70px 0;
+  }
 }
 </style>

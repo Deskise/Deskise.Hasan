@@ -1,15 +1,15 @@
 <template>
-    <div
-        class="
-            loader
-            w-100
-            h-100
-            d-flex
-            justify-content-center
-            align-items-center
-            bg-dark
-        "
-    ></div>
+  <div
+    class="
+      loader
+      w-100
+      h-100
+      d-flex
+      justify-content-center
+      align-items-center
+      bg-dark
+    "
+  ></div>
 </template>
 
 <script>
@@ -18,9 +18,9 @@ export default {};
 
 <style lang="scss" scoped>
 .loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 </style>

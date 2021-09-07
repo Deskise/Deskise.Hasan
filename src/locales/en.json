@@ -1,36 +1,36 @@
 {
-    "websiteName": "Deskise",
-    "header": {
-        "nologin": {
-            "home": "Home",
-            "category": "Categories",
-            "about": "About Us",
-            "mech": "Mechanism Of Action",
-            "terms": "Terms Of Use",
-            "privacy": "Privacy Policy",
-            "FAQ": "Common Questions",
-            "blog": "Blog",
-            "login": "Login/Signup"
-        }
-    },
-
-    "mech": {
-        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
-    },
-
-    "faqs": {
-        "search": "Search",
-        "support": "For Technical Support Or Direct Questions Via Email."
-    },
-
-    "Forms": {
-        "email": "Email"
-    },
-    "more": "Read More",
-
-    "footer": {
-        "newsletter": "Subscribe to the newsletter",
-        "subscripe": "Subscripe",
-        "request": "Request Product"
+  "websiteName": "Deskise",
+  "header": {
+    "nologin": {
+      "home": "Home",
+      "category": "Categories",
+      "about": "About Us",
+      "mech": "Mechanism Of Action",
+      "terms": "Terms Of Use",
+      "privacy": "Privacy Policy",
+      "FAQ": "Common Questions",
+      "blog": "Blog",
+      "login": "Login/Signup"
     }
+  },
+
+  "mech": {
+    "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
+  },
+
+  "faqs": {
+    "search": "Search",
+    "support": "For Technical Support Or Direct Questions Via Email."
+  },
+
+  "Forms": {
+    "email": "Email"
+  },
+  "more": "Read More",
+
+  "footer": {
+    "newsletter": "Subscribe to the newsletter",
+    "subscripe": "Subscripe",
+    "request": "Request Product"
+  }
 }

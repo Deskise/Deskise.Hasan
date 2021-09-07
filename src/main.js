@@ -33,8 +33,8 @@ import "./sass/style.scss";
 import "./directives";
 
 Vue.use(i18n)
-    .use(store)
-    .use(VueLoaders)
-    .use(router)
-    .use(createHead())
-    .mount("#app");
+  .use(store)
+  .use(VueLoaders)
+  .use(router)
+  .use(createHead())
+  .mount("#app");
