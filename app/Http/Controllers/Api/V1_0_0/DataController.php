@@ -43,12 +43,11 @@
             if ($category->exists)
             {
                 $category->name = $category->{'name_'.self::$language};
-                $category->help = $category->{'help_'.self::$language};
-                $category->makeHidden(APIHelper::getLangFrom('name,help'));
+                $category->makeHidden(APIHelper::getLangFrom('name'));
                 $category->subcategories = $category->subcategories()->select('id','name_'.self::$language.' as name')->get();
                 $data = $category;
             }else {
-                $data = Category::select('id','name_'.self::$language.' as name','data','help_'.self::$language.' as help')->latest()->with('subcategories')->get();
+                $data = Category::select('id','name_'.self::$language.' as name','data')->latest()->with('subcategories')->get();
             }
 
             return APIHelper::jsonRender('', $data);

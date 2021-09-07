@@ -25,7 +25,7 @@ class CategoryFactory extends Factory
         foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
         {
             $data['name_'.$lang] = $this->faker->text(30);
-            $data['help_'.$lang] = $this->faker->text();
+//            $data['help_'.$lang] = $this->faker->text();
         }
         $data['data']   =   $this->faker->shuffleArray;
 

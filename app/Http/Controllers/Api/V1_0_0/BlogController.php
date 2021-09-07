@@ -18,8 +18,6 @@ class BlogController extends Controller
             ->with('category:id,name_'.self::$language.' as name')
             ->paginate(12);
 
-        var_dump($data);
-
         return APIHelper::jsonRender('', $data);
     }
 
