@@ -15,7 +15,7 @@ class CreateUserSettingsTable extends Migration
     {
         Schema::create('user_settings', function (Blueprint $table) {
             $table->id('user_id');
-            $table->json('allowed_alarms')->default(json_encode(['newslatter'=>true,'adminstration'=>true,'messages'=>true,'call'=>true], JSON_THROW_ON_ERROR));
+            $table->json('allowed_alarms');//->default(json_encode(['newslatter'=>true,'adminstration'=>true,'messages'=>true,'call'=>true], JSON_THROW_ON_ERROR));
             $table->boolean('affiliate_links')->default(false);
             $table->timestamps();
             $table->softDeletes();

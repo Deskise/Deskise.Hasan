@@ -21,7 +21,7 @@ class CreateSocialMediaLinksTable extends Migration
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on((new \App\Models\User())->getTable())->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('social_id')->references('id')->on((new \App\Models\socialMediaAccount())->getTable())->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('social_id')->references('id')->on((new \App\Models\SocialMediaAccount())->getTable())->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

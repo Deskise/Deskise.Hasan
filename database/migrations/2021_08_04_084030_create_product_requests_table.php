@@ -24,7 +24,7 @@ class CreateProductRequestsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('category_id')->references('id')->on((new \App\Models\category())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('subcategory_id')->references('id')->on((new \App\Models\subcategory())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('subcategory_id')->references('id')->on((new \App\Models\Subcategory())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

@@ -20,7 +20,7 @@ class CreateContactMessagesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('contact_id')->references('id')->on((new \App\Models\contact())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('contact_id')->references('id')->on((new \App\Models\Contact())->getTable())->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
