@@ -2,7 +2,7 @@ import Blog from "@/Services/Data/BlogServices";
 
 export const namespaced = true;
 
-export const state = { Posts: {} };
+export const state = { Posts: {}, SinglePostData: {} };
 
 export const mutations = {
   FETCH_POSTS(state, $posts) {
@@ -14,6 +14,9 @@ export const mutations = {
       state.Posts.data.push(...$posts.data);
     }
   },
+  FETCH_POST(state, post) {
+    state.SinglePostData[post.id] = post;
+  },
 };
 
 export const actions = {
@@ -22,6 +25,14 @@ export const actions = {
       .then((response) => {
         let posts = response.data.response.extra[0];
         commit("FETCH_POSTS", posts);
+      })
+      .catch(() => {});
+  },
+  async fetchOne({ commit }, { id }) {
+    await Blog.fetchOne(id)
+      .then((response) => {
+        let data = response.data.response.extra[0];
+        commit("FETCH_POST", data);
       })
       .catch(() => {});
   },
@@ -38,4 +49,9 @@ export const getters = {
             return post.category.id === $id;
           });
     },
+  getSinglePostById: (state) => (id) => {
+    return state.SinglePostData.filter((post) => {
+      return post.id === id;
+    });
+  },
 };

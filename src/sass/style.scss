@@ -1,11 +1,13 @@
 @import "./_globals/_variables.scss";
 @import "./_globals/_fonts.scss";
-@import url("https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css");
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+*::-webkit-scrollbar {
+  display: none;
 }
 
 @import "./_globals//parts/alerts.scss";

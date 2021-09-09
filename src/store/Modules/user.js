@@ -1,7 +1,9 @@
-export const namespaced = true;
+import { v4 } from "uuid";
 
+export const namespaced = true;
 export const state = {
   data: null,
+  uuid: null,
   //{
   //     id: null,
   //     firstname: null,
@@ -21,9 +23,21 @@ export const state = {
   // }
 };
 
-export const mutations = {};
+export const mutations = {
+  SET_UUID(state, uuid) {
+    state.uuid = uuid;
+  },
+};
 
-export const actions = {};
+export const actions = {
+  getUUID({ commit }) {
+    if (localStorage.getItem("deskies_user_uuid") === null) {
+      localStorage.setItem("deskies_user_uuid", v4());
+    }
+
+    commit("SET_UUID", localStorage.getItem("deskies_user_uuid"));
+  },
+};
 
 export const getters = {
   isLoggedIn: (state) => {

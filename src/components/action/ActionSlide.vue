@@ -69,10 +69,6 @@ export default {
   .body {
     height: 400px;
     overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   .end {

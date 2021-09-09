@@ -9,9 +9,9 @@ export default {
       required: true,
       type: String,
     },
-    style: {
-      type: String,
-      default: "regular",
+    solid: {
+      type: Boolean,
+      default: false,
     },
     straight: {
       type: Boolean,
@@ -20,12 +20,22 @@ export default {
   },
   computed: {
     getClass() {
-      return `fi-${
-        this.style.split("")[0].toLowerCase() + (this.straight ? "s" : "r")
-      }-${this.icon}`;
+      return `fi-${(this.solid ? "s" : "r") + (this.straight ? "s" : "r")}-${
+        this.icon
+      }`;
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+//rounded:
+@import url("https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css");
+@import url("https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css");
+@import url("https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css");
+
+// Straight:
+@import url("https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css");
+@import url("https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css");
+@import url("https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css");
+</style>
