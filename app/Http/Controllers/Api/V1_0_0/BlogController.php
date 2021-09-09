@@ -34,6 +34,7 @@ class BlogController extends Controller
         $post->img = APIHelper::getImageUrl($post->img);
         $post->likes = $post->likes()->get()->count();
         $post->liked = $post->likes()->where('uuid','=',$request->input('uuid'))->get()->count()>0;
+        $post->date = $post->updated_at;
         $post->makeHidden([...APIHelper::getLangFrom('title,details'),'category_id']);
 
         $post->similar = APIHelper::getSimilar(BlogPost::class,['id','title_'.self::$language.' as name','details_'.self::$language.' as details','img','updated_at as date']);
