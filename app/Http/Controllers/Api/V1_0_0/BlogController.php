@@ -45,6 +45,7 @@ class BlogController extends Controller
     public function category(Category $category)
     {
         $data = $category->posts()->select('id','title_'.self::$language.' as title','details_'.self::$language.' as details','img','category_id','updated_at as date')
+            ->with('category:id,name_'.self::$language.' as name')
             ->paginate(12);
         return APIHelper::jsonRender('', $data);
     }
