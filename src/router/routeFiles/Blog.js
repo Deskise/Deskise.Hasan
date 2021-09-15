@@ -8,7 +8,7 @@ export const routes = [
     name: "blog",
     component: Blog,
     beforeEnter: async function (routeTo, from, next) {
-      if (store.state.blog.Posts.data === undefined) {
+      if (store.state.blog.Posts.data) {
         await store.dispatch("blog/fetch", { page: 1 });
       }
       next();

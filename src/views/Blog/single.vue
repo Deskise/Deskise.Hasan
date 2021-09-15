@@ -1,20 +1,24 @@
 <template>
   <div class="single-post container-fluid">
-    <div class="w-100 row data">
+    <div class="w-100 row data mb-5">
       <div class="col-md-6 h-100">
-        <img src="@/assets/blog1.png" alt="image" class="h-100" />
+        <img :src="post.img" alt="image" class="h-100 w-100" />
       </div>
       <div class="ms-5 col-md-5 h-100 text">
         <div class="actions d-flex flex-column align-items-end w-100">
           <div class="exit">
-            <flat-icon-component icon="cross" @click="this.$router.back()" />
+            <flat-icon-component
+              icon="cross"
+              @click="this.$router.push({ name: 'blog' })"
+            />
           </div>
           <div class="like" @click="like">
-            <flat-icon-component icon="heart" />
+            <flat-icon-component icon="heart" :solid="post.liked" />
+            <p>{{ post.likes }}</p>
           </div>
         </div>
         <div class="d-flex flex-column justify-content-end">
-          <h5>{{ post.title }}</h5>
+          <h5>{{ post.title + post.id }}</h5>
           <p class="date" v-date="post.date"></p>
           <p class="content">
             {{ post.details }}
@@ -22,10 +26,21 @@
         </div>
       </div>
     </div>
+    <div class="blog-posts row pt-5">
+      <h2 class="mb-5">Similer</h2>
+      <div
+        class="col-6 col-md-4 col-lg-3"
+        v-for="(item, index) in posts"
+        :key="index"
+      >
+        <blog-post :post="item"></blog-post>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import BlogPost from "@/components/Blog/BlogPost.vue";
 export default {
   props: {
     id: {
@@ -39,9 +54,39 @@ export default {
     };
   },
   methods: {
-    like() {
-      this.$store.state.blog.SinglePostData[this.id].title = "hi";
+    async like() {
+      await this.$store.dispatch("blog/LikePost", this.post);
+      if (!this.$store.state.blog.SinglePostData[this.id].liked) {
+        this.$store.state.blog.SinglePostData[this.id].liked = true;
+        this.$store.state.blog.SinglePostData[this.id].likes++;
+      } else {
+        this.$store.state.blog.SinglePostData[this.id].liked = false;
+        this.$store.state.blog.SinglePostData[this.id].likes--;
+      }
     },
+  },
+  computed: {
+    posts() {
+      return this.post.similar.data;
+    },
+  },
+  components: {
+    BlogPost,
+  },
+
+  async beforeRouteUpdate(to, from, next) {
+    if (
+      this.$store.state.blog.SinglePostData === [] ||
+      this.$store.state.blog.SinglePostData[to.params.id] === undefined
+    ) {
+      console.log("hi");
+      await this.$store.dispatch("blog/fetchOne", { id: to.params.id });
+    }
+    this.post = this.$store.state.blog.SinglePostData[to.params.id];
+
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
+    next();
   },
 };
 </script>
@@ -60,6 +105,7 @@ export default {
 
       .actions {
         position: absolute;
+        height: auto;
 
         div {
           width: 40px;
@@ -81,8 +127,14 @@ export default {
         }
         .like {
           background: transparent;
-          color: black;
-          border: 1px solid black;
+          color: #c9c9c9;
+          border: 1px solid #c9c9c9;
+          position: relative;
+          p {
+            position: absolute;
+            margin: 0;
+            bottom: -20px;
+          }
         }
       }
 
@@ -107,6 +159,13 @@ export default {
           margin-bottom: 0;
         }
       }
+    }
+  }
+
+  .blog-posts {
+    h2 {
+      font-size: 60px;
+      color: #040506;
     }
   }
 }

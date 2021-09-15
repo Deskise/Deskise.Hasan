@@ -12,6 +12,12 @@
     border-color: $secondary;
     box-shadow: none !important;
   }
+
+  &:focus,
+  &:focus-visible {
+    box-shadow: none !important;
+    border: 0;
+  }
 }
 .btn-secondary,
 .btn-secondary:focus {
@@ -27,6 +33,10 @@
     border-color: $secondary;
     box-shadow: none !important;
   }
+  &:focus,
+  &:focus-visible {
+    box-shadow: none !important;
+  }
 }
 
 .btn-outline-primary,
@@ -40,6 +50,10 @@
     color: white;
     border-color: $primary;
   }
+  &:focus,
+  &:focus-visible {
+    box-shadow: none !important;
+  }
 }
 .btn-outline-secondary,
 .btn-outline-secondary:focus {
@@ -52,5 +66,9 @@
     background-color: $secondary;
     color: white;
     border-color: $secondary;
+  }
+  &:focus,
+  &:focus-visible {
+    box-shadow: none !important;
   }
 }

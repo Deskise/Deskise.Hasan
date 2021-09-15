@@ -2,9 +2,9 @@
   <div class="Blog">
     <div class="container-fluid mb-5">
       <search />
-      <div class="blog my-5">
+      <div class="blog my-3">
         <div class="categories">
-          <category-list class="my-5" />
+          <category-list class="mb-2" @category="categoryMethod" />
         </div>
         <div class="blog-posts row">
           <div
@@ -14,6 +14,7 @@
           >
             <blog-post :post="item"></blog-post>
           </div>
+          <div v-if="posts.length === 0">Sorry No Articles Here</div>
         </div>
       </div>
 
@@ -47,7 +48,14 @@ export default {
       category: 0,
     };
   },
-  methods: {},
+  methods: {
+    async categoryMethod(data) {
+      if (data !== 0) {
+        await this.$store.dispatch("blog/fetchCatecory", { id: data });
+      }
+      this.category = data;
+    },
+  },
   computed: {
     ...mapGetters("blog", ["getPostsByCategoryId"]),
     posts() {

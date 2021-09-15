@@ -32,10 +32,10 @@ export const mutations = {
 export const actions = {
   getUUID({ commit }) {
     if (localStorage.getItem("deskies_user_uuid") === null) {
-      localStorage.setItem("deskies_user_uuid", v4());
+      localStorage.setItem("deskies_user_uuid", v4().substr(0, 30));
     }
 
-    commit("SET_UUID", localStorage.getItem("deskies_user_uuid"));
+    commit("SET_UUID", localStorage.getItem("deskies_user_uuid").substr(0, 30));
   },
 };
 
