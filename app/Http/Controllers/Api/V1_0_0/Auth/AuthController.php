@@ -99,7 +99,7 @@
                         $response = $this->client->get(env('FACEBOOK_SERVICE_GRAPH_URL').'/picture?access_token='.$request->input('token').'&height=720&redirect=0');
                         $response = json_decode($response->getBody()->getContents())->data;
                         $img = uniqid('user_', true).'.jpeg';
-                        file_put_contents('images/users/'.$img, file_get_contents($response->url));
+//                        file_put_contents('images/users/'.$img, file_get_contents($response->url));
                         $user->img = $img;
                     }
                     $user->facebook_id = $facebook_id;
@@ -292,7 +292,7 @@
 
                     return APIHelper::error('you need to verify your Primary email first');
                 }
-                return APIHelper::error('There Is No Registration For This Account', []);
+                return $this->signupByFacebook($request);
             }catch (ClientException $e)
             {
                 return APIHelper::jsonRender('Please Provide A Valid Access Token',[],403);
