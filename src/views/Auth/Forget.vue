@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-5">
-          <h1 class="mb-4 text-left">Login</h1>
+          <h1 class="mb-4 text-left">Forget</h1>
           <div class="row">
             <input
               type="email"
@@ -21,7 +21,7 @@
 
             <div class="row mx-2 mb-3 px-0">
               <div class="radio text-left col-6 px-0">
-                <input type="checkbox" name="rememeber" /> Remember Password
+                <input type="radio" name="rememeber" /> Remember Password
               </div>
               <div class="col-6 text-right px-0">
                 <router-link :to="{ name: 'forget' }"
@@ -34,7 +34,6 @@
               <div class="col-6 ps-0">
                 <button
                   class="btn form-control btn-login-facebook w-100 mb-2 py-3"
-                  @click.prevent="login"
                 >
                   Facebook
                 </button>
@@ -62,12 +61,8 @@
 </template>
 
 <script>
-import FB from "@/Services/FB/FB.js";
 export default {
   components: {},
-  methods: {
-    login: FB.login,
-  },
 };
 </script>
 

@@ -4,28 +4,19 @@ export const namespaced = true;
 export const state = {
   data: null,
   uuid: null,
-  //{
-  //     id: null,
-  //     firstname: null,
-  //     lastname: null,
-  //     bio: null,
-  //     img: null,
-  //     email: null,
-  //     backup_email: null,
-  //     phone: null,
-  //     backup_phone: null,
-  //     location: null,
-  //     uuid: null,
-  //     facebook_login: false,
-  //     google_login: false,
-  //     token: null,
-  //     token_type: "Bearer",
-  // }
 };
 
 export const mutations = {
   SET_UUID(state, uuid) {
     state.uuid = uuid;
+  },
+  SET_DATA(state, data) {
+    state.data = data;
+    state.data["uuid"] = state.uuid;
+  },
+  SET_TOKEN(state, { token, type }) {
+    state.data["token"] = token;
+    state.data["token_type"] = type;
   },
 };
 
@@ -37,14 +28,20 @@ export const actions = {
 
     commit("SET_UUID", localStorage.getItem("deskies_user_uuid").substr(0, 30));
   },
+  setUserData({ commit }, { data }) {
+    commit("SET_DATA", data);
+  },
+  setToken({ commit }, { token, type }) {
+    commit("SET_TOKEN", { token, type });
+  },
 };
 
 export const getters = {
   isLoggedIn: (state) => {
-    return state.data === null ||
+    return !(
+      state.data === null ||
       typeof state.data !== "object" ||
       state.data.token === null
-      ? false
-      : true;
+    );
   },
 };

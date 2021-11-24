@@ -32,9 +32,16 @@ import "./sass/style.scss";
 // My Custom Directives:
 import "./directives";
 
-Vue.use(i18n)
-  .use(store)
-  .use(VueLoaders)
-  .use(router)
-  .use(createHead())
-  .mount("#app");
+// init facebook SDK:
+import { initFacebookSdk } from "./Services/FB/init-facebook-sdk";
+
+initFacebookSdk().then(startApp);
+
+function startApp() {
+  Vue.use(i18n)
+    .use(store)
+    .use(VueLoaders)
+    .use(router)
+    .use(createHead())
+    .mount("#app");
+}
