@@ -125,7 +125,7 @@
 
         public static function getImageUrl($for,$image)
         {
-            return $image;
+            return route('');
         }
 
         public static function getSimilar($class,$select='*',$num=8)
