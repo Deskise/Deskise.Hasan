@@ -43,9 +43,7 @@
             if ($category->exists)
             {
                 $category->name = $category->{'name_'.self::$language};
-                $category->makeHidden(APIHelper::getLangFrom('name'));
-                $category->subcategories = $category->subcategories()->select('id','name_'.self::$language.' as name')->get();
-                $data = $category;
+                $data = $category->load('subcategories:id,name_'.self::$language.' as name');
             }else {
                 $data = Category::select('id','name_'.self::$language.' as name','data')->latest()->with('subcategories')->get();
             }
@@ -55,7 +53,7 @@
 
         public function subcategories(Category $category)
         {
-            $data = $category->subcategories()->select('id','name_'.self::$language.' as name')->get();
+            $data = $category->load('subcategories:id,name_'.self::$language.' as name');
 
             return APIHelper::jsonRender('', $data);
         }

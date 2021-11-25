@@ -123,7 +123,7 @@
             return $arr;
         }
 
-        public static function getImageUrl($image)
+        public static function getImageUrl($for,$image)
         {
             return $image;
         }

@@ -30,12 +30,11 @@ class BlogController extends Controller
 
         $post->title = $post->{'title_'.self::$language};
         $post->details = $post->{'details_'.self::$language};
-        $post->category = $post->category()->select(['id','name_'.self::$language.' as name'])->get()->first();
-        $post->img = APIHelper::getImageUrl($post->img);
         $post->likes = $post->likes()->get()->count();
         $post->liked = $post->likes()->where('uuid','=',$request->input('uuid'))->get()->count()>0;
         $post->date = $post->updated_at;
-        $post->makeHidden([...APIHelper::getLangFrom('title,details'),'category_id']);
+
+        $post->load(['category:id,name_'.self::$language.' as name']);
 
         $post->similar = APIHelper::getSimilar(BlogPost::class,['id','title_'.self::$language.' as name','details_'.self::$language.' as details','img','updated_at as date']);
 
@@ -65,7 +64,7 @@ class BlogController extends Controller
         $like = BlogPostLike::where('uuid','=',$request->input('uuid'))->get()->first();
         if ($like===null)
         {
-            $like = $post->likes()->create(['uuid'  =>  $request->input('uuid')]);
+            $post->likes()->create(['uuid'  =>  $request->input('uuid')]);
             return APIHelper::jsonRender('article liked successfully', []);
         }
 
@@ -80,11 +79,10 @@ class BlogController extends Controller
 
         foreach ($q as $item)
         {
-            $data->orWhere('title_'.self::$language,'LIKE',"%$item %");
-            $data->orWhere('details_'.self::$language,'LIKE',"%$item %");
+            $data->orWhere('title_'.self::$language,'LIKE',"%$item%");
+            $data->orWhere('details_'.self::$language,'LIKE',"%$item%");
         }
-        $data = $data->paginate(12);
 
-        return APIHelper::jsonRender('', $data);
+        return APIHelper::jsonRender('', $data->paginate(12));
     }
 }
