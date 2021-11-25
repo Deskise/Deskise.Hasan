@@ -3,6 +3,7 @@ import router from "./router";
 import store from "./store";
 import { createHead } from "@vueuse/head";
 import "./global/components/globalComponents";
+import "./hello";
 
 // import normalize.css
 import "normalize.css";
@@ -32,16 +33,9 @@ import "./sass/style.scss";
 // My Custom Directives:
 import "./directives";
 
-// init facebook SDK:
-import { initFacebookSdk } from "./Services/FB/init-facebook-sdk";
-
-initFacebookSdk().then(startApp);
-
-function startApp() {
-  Vue.use(i18n)
-    .use(store)
-    .use(VueLoaders)
-    .use(router)
-    .use(createHead())
-    .mount("#app");
-}
+Vue.use(i18n)
+  .use(store)
+  .use(VueLoaders)
+  .use(router)
+  .use(createHead())
+  .mount("#app");

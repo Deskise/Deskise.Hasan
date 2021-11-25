@@ -62,12 +62,10 @@
 </template>
 
 <script>
-import FB from "@/Services/FB/FB.js";
 export default {
+  mounted() {},
   components: {},
-  methods: {
-    login: FB.login,
-  },
+  methods: {},
 };
 </script>
 
