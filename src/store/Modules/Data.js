@@ -1,7 +1,7 @@
-import about from "@/Services/Data/AboutService";
-import terms from "@/Services/Data/TermsService";
-import packageService from "@/Services/Data/PackagesService";
-import faq from "@/Services/Data/FaqService";
+import about from "@/config/Services/Data/AboutService";
+import terms from "@/config/Services/Data/TermsService";
+import packageService from "@/config/Services/Data/PackagesService";
+import faq from "@/config/Services/Data/FaqService";
 
 export const namespaced = true;
 

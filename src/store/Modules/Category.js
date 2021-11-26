@@ -1,4 +1,4 @@
-import category from "@/Services/Data/CategoryServices";
+import category from "@/config/Services/Data/CategoryServices";
 
 export const namespaced = true;
 

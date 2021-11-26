@@ -103,7 +103,7 @@
 
 <script>
 import { mapState } from "vuex";
-import NewLetter from "@/Services/Data/NewsLetter";
+import NewLetter from "@/config/Services/Data/NewsLetter";
 import store from "@/store";
 export default {
   data() {

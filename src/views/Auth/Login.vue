@@ -63,7 +63,11 @@
 
 <script>
 export default {
-  mounted() {},
+  mounted() {
+    this.h.on("auth.login", (auth) => {
+      console.log(auth.network + ": " + auth.authResponse.access_token);
+    });
+  },
   components: {},
   methods: {},
 };

@@ -1,4 +1,4 @@
-import { Vue } from "./init";
+import { Vue } from "@/init";
 import hello from "hellojs";
 
 const h = hello.init(

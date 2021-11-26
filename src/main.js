@@ -3,7 +3,7 @@ import router from "./router";
 import store from "./store";
 import { createHead } from "@vueuse/head";
 import "./global/components/globalComponents";
-import "./hello";
+import "./config/hello";
 
 // import normalize.css
 import "normalize.css";
@@ -21,7 +21,7 @@ import "swiper/components/navigation/navigation.min.css";
 import "nprogress/nprogress.css";
 
 // Languages Support:
-import i18n from "./i18n";
+import i18n from "./config/i18n";
 
 // Vue Loaders:
 import "vue-loaders/dist/vue-loaders.css";
@@ -31,7 +31,7 @@ import VueLoaders from "vue-loaders";
 import "./sass/style.scss";
 
 // My Custom Directives:
-import "./directives";
+import "./config/directives";
 
 Vue.use(i18n)
   .use(store)

@@ -1,4 +1,4 @@
-import apiClient from "@/axios";
+import apiClient from "@/config/axios";
 
 export default {
   fetch(id = 0) {

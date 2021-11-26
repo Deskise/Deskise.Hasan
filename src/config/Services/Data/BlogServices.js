@@ -1,4 +1,4 @@
-import apiClient from "@/axios";
+import apiClient from "@/config/axios";
 import store from "@/store";
 
 export default {

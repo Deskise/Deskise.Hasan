@@ -1,7 +1,7 @@
 import upperFirst from "lodash/upperFirst";
 import camelCase from "lodash/camelCase";
 import { Head } from "@vueuse/head";
-import { Vue } from "../../init";
+import { Vue } from "@/init";
 
 // global rigester the Head component:
 Vue.component("Head", Head);

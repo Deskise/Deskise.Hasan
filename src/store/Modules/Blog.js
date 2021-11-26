@@ -1,4 +1,4 @@
-import Blog from "@/Services/Data/BlogServices";
+import Blog from "@/config/Services/Data/BlogServices";
 
 export const namespaced = true;
 
