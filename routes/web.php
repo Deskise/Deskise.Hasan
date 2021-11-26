@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
-    'as' => 'image'
-],function () {
-    Route::get('blog_post/{image}',function (){
-        return Storage::disk('');
-    });
-});
+Route::get('{for}/images/{image}',function ($for,$image){
+    return Storage::disk($for)->download($image);
+})->name('images');
