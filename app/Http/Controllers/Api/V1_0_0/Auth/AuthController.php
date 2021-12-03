@@ -66,8 +66,11 @@
                     'firstname' => $request->input('firstname'),
                     'lastname' => $request->input('lastname'),
                     'email' => $request->input('email'),
-                    'password' => Hash::make($request->input('password'))
                 ]);
+                if ($request->input('password'))
+                {
+                    $user->password = Hash::make($request->input('password'));
+                }
             }
 
             if ($request->input('google_id')) {
@@ -105,7 +108,7 @@
 
             if ($request->input('newsletter_subscribe'))
             {
-                if (Newsletter::where('email','=',$request->input('email'))->get()->first() === null)
+                if (Newsletter::where('email','=',$request->input('email'))->first() === null)
                 {
                     $newsletter = new Newsletter([
                         'email' =>  $request->input('email'),
@@ -124,11 +127,11 @@
                 return $request->response;
             }
 
-            $user = User::where('email','=',$request->input('email'))->get()->first();
+            $user = User::where('email','=',$request->input('email'))->first();
 
             if ($user->{strtolower($type).'_verified_at'}===NULL)
             {
-                $verification = $user->verifications()->where('verifyFor','=',strtolower($type))->get()->first();
+                $verification = $user->verifications()->where('verifyFor','=',strtolower($type))->first();
                 if ($request->input('verify_code')===$verification->verifyCode)
                 {
                     $user->{strtolower($type).'_verified_at'} = now();
@@ -158,8 +161,8 @@
                 return APIHelper::error(__('api/data.errors.requests.notValid'), ['errors'=>$validater->errors()]);
             }
 
-            $user = User::where('email','=',$request->input('email'))->get()->first();
-            $verification = $user->verifications()->where('verifyFor','=',strtolower($type))->get()->first();
+            $user = User::where('email','=',$request->input('email'))->first();
+            $verification = $user->verifications()->where('verifyFor','=',strtolower($type))->first();
             if ($verification!==NULL)
             {
                 \Mail::to($user)->send((new verify($verification)));
@@ -223,7 +226,7 @@
                 $response = $this->client->get(env('FACEBOOK_SERVICE_GRAPH_URL').'?access_token='.$request->input('token').'&fields=last_name,first_name,id,email');
                 $response = json_decode($response->getBody()->getContents());
 
-                $user = User::where('facebook_id','=',$response->id)->get()->first();
+                $user = User::where('facebook_id','=',$response->id)->first();
                 if ($user!==null)
                 {
                     Auth::login($user);
@@ -260,7 +263,7 @@
                 $response = $this->client->get(env('GOOGLE_SERVICE_GRAPH_URL').'?access_token='.$request->input('token'));
                 $response = json_decode($response->getBody()->getContents());
 
-                $user = User::where('google_id','=',$response->sub)->get()->first();
+                $user = User::where('google_id','=',$response->sub)->first();
                 if ($user!==null)
                 {
                     Auth::login($user);
@@ -295,10 +298,10 @@
                 return $request->response;
             }
 
-            $user  = User::where('email', '=', $request->input('email'))->get()->first();
-            if ($user->password!==null)
+            $user  = User::where('email', '=', $request->input('email'))->first();
+            if ($user!==null)
             {
-                $reset = PasswordReset::where('email','=',$request->input('email'))->get()->first();
+                $reset = PasswordReset::where('email','=',$request->input('email'))->first();
                 if ($reset===null)
                 {
                     $reset = new PasswordReset(['email' =>  $request->input('email'),'token'    =>  Hash::make(\Str::random(15))]);
@@ -308,7 +311,7 @@
                 \Mail::to($user)->send((new reset($reset)));
                 return APIHelper::jsonRender('We\'ve Sent You Email To Verify', []);
             }else
-                return APIHelper::error('Error Saving New Password, Try again Please');
+                return APIHelper::error('No Account With This Email Yet');
         }
         public function reset(ResetRequest $request)
         {
@@ -317,10 +320,10 @@
                 return $request->response;
             }
 
-            $reset = PasswordReset::where('token','=',$request->input('hash'))->get()->first();
+            $reset = PasswordReset::where('token','=',$request->input('hash'))->first();
             if ($reset!==null)
             {
-                $user = User::where('email','=',$reset->email)->get()->first();
+                $user = User::where('email','=',$reset->email)->first();
                 $user->password = Hash::make($request->input('new_password'));
 
                 if ($user->save())
