@@ -20,7 +20,11 @@
 
 <script>
 export default {
-  props: ["email"],
+  computed: {
+    email() {
+      return process.env.VUE_APP_SUPPORT_EMAIL;
+    },
+  },
 };
 </script>
 

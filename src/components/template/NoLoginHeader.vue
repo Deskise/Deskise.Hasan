@@ -83,7 +83,11 @@
             </router-link>
           </li>
         </ul>
-        <router-link :to="{ name: 'login' }" v-slot="{ navigate }">
+        <router-link
+          v-if="!inLogin()"
+          :to="{ name: 'login' }"
+          v-slot="{ navigate }"
+        >
           <button class="btn btn-primary login" @click="navigate">
             {{ __("header.nologin.login") }}
           </button>
@@ -96,6 +100,11 @@
 <script>
 import { mapState } from "vuex";
 export default {
+  methods: {
+    inLogin: function () {
+      return this.$route.path.includes("auth");
+    },
+  },
   computed: {
     ...mapState("category", ["categories"]),
   },

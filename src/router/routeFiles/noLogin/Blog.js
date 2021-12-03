@@ -1,6 +1,6 @@
 import Blog from "@/views/Blog";
 import BlogSingle from "@/views/Blog/single";
-import store from "../../store";
+import store from "@/store";
 
 export const routes = [
   {

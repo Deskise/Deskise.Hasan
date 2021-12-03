@@ -9,14 +9,24 @@ export const state = {
 export const mutations = {
   SET_UUID(state, uuid) {
     state.uuid = uuid;
+    if (localStorage.getItem("deskies_user") !== null) {
+      let storageData = JSON.parse(localStorage.getItem("deskies_user"));
+      let date = Date.parse(storageData["token_expire"]) - Date.now();
+      if (date > 0) state.data = storageData;
+    }
   },
   SET_DATA(state, data) {
     state.data = data;
     state.data["uuid"] = state.uuid;
+
+    localStorage.setItem("deskies_user", JSON.stringify(state.data));
   },
-  SET_TOKEN(state, { token, type }) {
+  SET_TOKEN(state, { token, type, exp }) {
     state.data["token"] = token;
     state.data["token_type"] = type;
+    state.data["token_expire"] = exp;
+
+    localStorage.setItem("deskies_user", JSON.stringify(state.data));
   },
 };
 
@@ -31,8 +41,8 @@ export const actions = {
   setUserData({ commit }, { data }) {
     commit("SET_DATA", data);
   },
-  setToken({ commit }, { token, type }) {
-    commit("SET_TOKEN", { token, type });
+  setToken({ commit }, { token, type, exp }) {
+    commit("SET_TOKEN", { token, type, exp });
   },
 };
 

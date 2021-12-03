@@ -2,7 +2,7 @@ import axios from "axios";
 import store from "@/store";
 import i18n from "../i18n";
 import router from "@/router";
-import addNotification from "../Notification";
+import Notification from "../Notification";
 
 const apiClient = axios.create({
   baseURL: `http://127.0.0.1:8000/api/v1`,
@@ -21,21 +21,22 @@ apiClient.interceptors.response.use(
   (err) => {
     if (err.response !== undefined) {
       if (err.response.status === 500) {
-        addNotification("500: Internal Server Error", false);
+        Notification.addNotification("500: Internal Server Error", false);
         return;
       }
 
       let { data } = err.response;
       switch (data.code) {
         case 401:
-          router.push("/login");
+          Notification.addNotification(data.response.message, false);
+          router.push({ name: "login" });
           break;
         default:
-          addNotification(data.response.message, false);
+          Notification.addNotification(data.response.message, false);
           break;
       }
     } else {
-      addNotification(err.message, false);
+      Notification.addNotification(err.message, false);
     }
   }
 );

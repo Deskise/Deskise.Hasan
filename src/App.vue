@@ -43,6 +43,11 @@ export default {
   color: #2c3e50;
   .page {
     margin: 30px 0 70px 0;
+    min-height: 89vh;
   }
+}
+
+nav {
+  max-height: 11vh;
 }
 </style>

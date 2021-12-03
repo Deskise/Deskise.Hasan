@@ -8,20 +8,30 @@
             <input
               type="email"
               class="form-control col-12 mx-2 mb-2 py-3"
-              placeholder="Email"
+              placeholder="E-MAIL"
+              v-model="form.email"
+              @keydown="$event.target.classList.remove('invalid')"
             />
             <input
               type="password"
               class="form-control col-12 mx-2 mb-2 py-3"
-              placeholder="Password"
+              placeholder="PASSWORD"
+              v-model="form.password"
+              @keydown="$event.target.classList.remove('invalid')"
             />
-            <button class="btn btn-primary form-control col-12 mx-2 mb-3 py-3">
+            <button
+              class="btn btn-primary form-control col-12 mx-2 mb-3 py-3"
+              @click="check"
+            >
               Login
             </button>
 
             <div class="row mx-2 mb-3 px-0">
               <div class="radio text-left col-6 px-0">
-                <input type="checkbox" name="rememeber" /> Remember Password
+                <circle-checkbox
+                  text="Remember Password"
+                  @check="r"
+                ></circle-checkbox>
               </div>
               <div class="col-6 text-right px-0">
                 <router-link :to="{ name: 'forget' }"
@@ -34,7 +44,7 @@
               <div class="col-6 ps-0">
                 <button
                   class="btn form-control btn-login-facebook w-100 mb-2 py-3"
-                  @click.prevent="login"
+                  @click.prevent="login('facebook')"
                 >
                   Facebook
                 </button>
@@ -42,6 +52,7 @@
               <div class="col-6 pe-0">
                 <button
                   class="btn form-control btn-login-google w-100 mb-2 py-3"
+                  @click.prevent="login('google')"
                 >
                   Google
                 </button>
@@ -58,23 +69,74 @@
         </div>
       </div>
     </div>
+    <manimg></manimg>
   </div>
 </template>
 
 <script>
+import manimg from "@/components/template/manImg.vue";
+import { Via } from "@/Mixins/Via";
+import { required, email } from "../../Mixins/Validations";
 export default {
-  mounted() {
-    this.h.on("auth.login", (auth) => {
-      console.log(auth.network + ": " + auth.authResponse.access_token);
-    });
+  data() {
+    return {
+      form: {
+        email: "",
+        password: "",
+        remember_me: false,
+      },
+      isError: false,
+    };
   },
-  components: {},
-  methods: {},
+  components: { manimg },
+  mixins: [Via],
+  methods: {
+    r(e) {
+      this.form.remember_me = e;
+    },
+    check() {
+      this.isError = false;
+      let inv = document.querySelectorAll(".invalid");
+      if (inv) inv.forEach((el) => el.classList.remove("invalid"));
+
+      if (!required(this.form.email) || !email(this.form.email)) {
+        document.querySelector("input[type=email]").classList.add("invalid");
+        this.isError = true;
+      }
+
+      if (!required(this.form.password)) {
+        document.querySelector("input[type=password]").classList.add("invalid");
+        this.isError = true;
+      }
+
+      if (this.isError) return;
+
+      this.login(
+        "email",
+        this.form.email,
+        this.form.password,
+        this.form.remember_me
+      );
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .login {
   min-height: calc(85vh - 70px);
+  h1 {
+    text-transform: uppercase;
+    font-family: Barlow;
+    font-weight: bold;
+  }
+
+  .invalid {
+    border: 1px solid red;
+    color: red;
+    &::placeholder {
+      color: red;
+    }
+  }
 }
 </style>

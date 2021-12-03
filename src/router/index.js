@@ -18,11 +18,16 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requireAuth)) {
-    if (!store.state.user.loggedIn) {
+    if (!store.getters["user/isLoggedIn"]) {
       next({
         name: "login",
         query: { redirect: to.fullPath },
       });
+    }
+  } else if (to.matched.some((record) => record.meta.noAuth)) {
+    if (store.getters["user/isLoggedIn"]) {
+      console.log("yes");
+      router.go(-1);
     }
   }
   store.dispatch("ChangeLoading", true);
