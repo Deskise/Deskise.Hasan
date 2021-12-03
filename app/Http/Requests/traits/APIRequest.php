@@ -16,6 +16,6 @@
         protected function failedValidation(Validator $validator)
         {
             $this->hasError = true;
-            $this->response = APIHelper::error(__('api/data.errors.requests.notValid'), ['errors'=>$validator->errors()]);
+            $this->response = APIHelper::error($validator->errors()->first());
         }
     }

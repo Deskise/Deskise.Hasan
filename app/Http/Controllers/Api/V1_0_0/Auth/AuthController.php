@@ -38,6 +38,20 @@
             $this->client = new \GuzzleHttp\Client(['verify' => false]);
         }
 
+        private function getImageUrl()
+        {
+            if (\request('facebook_id'))
+                return \request('image').'?height=720';
+            else if (\request('google_id')) {
+                $image = explode('=s', \request('image'));
+                $image[1] = explode('-',$image[1]);
+                $image[1][0] = 720;
+                $image[1] = implode('-', $image[1]);
+                return implode('=s', $image);
+            }
+            return \request('image');
+        }
+
         public function signup(SignupRequest $request)
         {
             if ($request->hasError)
@@ -45,21 +59,49 @@
                 return $request->response;
             }
 
-            $user = new User([
-                'firstname' => $request->input('firstname'),
-                'lastname' => $request->input('lastname'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password'))
-            ]);
-            if ((bool)$request->input('uuid')) $user->uuid = $request->input('uuid');
+            $user = User::where('email', '=', $request->input('email'))->first();
+            if (is_null($user))
+            {
+                $user = new User([
+                    'firstname' => $request->input('firstname'),
+                    'lastname' => $request->input('lastname'),
+                    'email' => $request->input('email'),
+                    'password' => Hash::make($request->input('password'))
+                ]);
+            }
+
+            if ($request->input('google_id')) {
+                $user->google_id = $request->input('google_id');
+                if ($request->input('image')) {
+                    $user->img = $name = 'user_'.uniqid('',true).'_'.time().'.jpeg';
+                    \Storage::disk('users')->put($name, file_get_contents($this->getImageUrl()));
+                }
+            }
+            if ($request->input('facebook_id'))
+            {
+                $user->facebook_id = $request->input('facebook_id');
+                if ($request->input('image')) {
+                    $user->img = $name = 'user_'.uniqid('',true).'_'.time().'.jpeg';
+                    \Storage::disk('users')->put($name, file_get_contents($this->getImageUrl()));
+                }
+            }
+            if ($request->input('uuid'))
+            {
+                $user->uuid = $request->input('uuid');
+                //TODO: DO THE UUID CHANGE SHIT
+            }
+
             $user->save();
             \Mail::to($user)->send(new signup());
 
-            $verification = $user->verifications()->create([
-                'verifyFor' =>  'email',
-                'verifyCode'=>  \Str::random(8),
-            ]);
-            \Mail::to($user)->send(new verify($verification));
+            if (!($request->input('google_id')&&$request->input('facebook_id')))
+            {
+                $verification = $user->verifications()->create([
+                    'verifyFor' =>  'email',
+                    'verifyCode'=>  \Str::random(8),
+                ]);
+                \Mail::to($user)->send(new verify($verification));
+            }
 
             if ($request->input('newsletter_subscribe'))
             {
@@ -73,98 +115,6 @@
             }
 
             return APIHelper::jsonRender('Successfully created user!', $user, 201);
-        }
-        public function signupByFacebook(SignupByRequest $request)
-        {
-            if ($request->hasError)
-            {
-                return $request->response;
-            }
-            try {
-                $response = $this->client->get(env('FACEBOOK_SERVICE_GRAPH_URL').'?access_token='.$request->input('token').'&fields=last_name,first_name,id,email');
-                $response = json_decode($response->getBody()->getContents());
-                $facebook_id = $response->id;
-                if (User::where('facebook_id','=',$facebook_id)->get()->first()===null)
-                {
-                    $user = User::where('email','=',$response->email)->get()->first();
-                    if ($user===NULL)
-                    {
-                        $user = new User();
-                        $user->firstname = $response->first_name;
-                        $user->lastname = $response->last_name;
-                        $user->email = $response->email;
-                        $user->email_verified_at = now();
-                        if ((bool)$request->input('uuid')) $user->uuid = $request->input('uuid');
-
-                        $response = $this->client->get(env('FACEBOOK_SERVICE_GRAPH_URL').'/picture?access_token='.$request->input('token').'&height=720&redirect=0');
-                        $response = json_decode($response->getBody()->getContents())->data;
-                        $img = uniqid('user_', true).'.jpeg';
-//                        file_put_contents('images/users/'.$img, file_get_contents($response->url));
-                        $user->img = $img;
-                    }
-                    $user->facebook_id = $facebook_id;
-                    if ($user->save())
-                    {
-                        \Mail::to($user)->send(new signup());
-                        return APIHelper::jsonRender('Successfully created user!', $user, 201);
-                    }
-
-                    return APIHelper::error('error creating user', []);
-                }
-
-                return APIHelper::error('There is a user already registered with this account', []);
-            }catch (ClientException $e)
-            {
-                return APIHelper::jsonRender('Please Provide A Valid Access Token',[],403);
-            }catch (ConnectException $e)
-            {
-                return APIHelper::jsonRender('Sorry ,Error On Out Side', [], 401);
-            }
-        }
-        public function signupByGoogle(SignupByRequest $request)
-        {
-            if ($request->hasError)
-            {
-                return $request->response;
-            }
-
-            try {
-                $response = $this->client->get(env('GOOGLE_SERVICE_GRAPH_URL').'?id_token='.$request->input('token'));
-                $response = json_decode($response->getBody()->getContents());
-
-                if (User::where('google_id','=',$response->sub)->get()->first()===null)
-                {
-                    $user = User::where('email','=',$response->email)->get()->first();
-                    if ($user===null)
-                    {
-                        $user = new User();
-                        $user->firstname = $response->given_name;
-                        $user->lastname = $response->family_name;
-                        $user->email = $response->email;
-                        $user->email_verified_at = now();
-                        if ((bool)$request->input('uuid')) $user->uuid = $request->input('uuid');
-
-                        $img = uniqid('user_', true).'.jpeg';
-                        file_put_contents('images/users/'.$img, file_get_contents(str_replace('s96-c', 's200-c', $response->picture)));
-                        $user->img = $img;
-                    }
-                    $user->google_id = $response->sub;
-                    if ($user->save())
-                    {
-                        \Mail::to($user)->send(new signup());
-                        return APIHelper::jsonRender('Successfully created user!', $user, 201);
-                    }
-
-                    return APIHelper::error('error creating user', []);
-                }
-                return APIHelper::error('There is a user already registered with this account', []);
-            }catch (ClientException $e)
-            {
-                return APIHelper::jsonRender('Please Provide A Valid Access Token',[],403);
-            }catch (ConnectException $e)
-            {
-                return APIHelper::jsonRender('Sorry ,Error On Out Side', [], 401);
-            }
         }
 
         public function verify(VerifyRequest $request,$type)
@@ -228,13 +178,17 @@
             $credentials = request(['email', 'password']);
 
             if(!Auth::attempt($credentials))
+            {
+                $user = User::where('email','=',$request->input('email'))->first();
+                if ($user!==null&&$user->password===null && ($user->facebook_id!==null || $user->google_id!==null)) return APIHelper::jsonRender('Try Logging in Using Social Media Buttons', [], 400);
                 return APIHelper::jsonRender('Username Or Password is wrong', [], 401);
+            }
 
             $user = $request->user();
 
             if ($user->hasVerifiedEmail())
             {
-                $reset = PasswordReset::where('email','=',$user->email)->get()->first();
+                $reset = PasswordReset::where('email','=',$user->email)->first();
                 if ($reset!==null)
                     $reset->delete();
 
@@ -274,23 +228,18 @@
                 {
                     Auth::login($user);
                     $user = $request->user();
-                    if ($user->hasVerifiedEmail())
-                    {
-                        $tokenResult = $user->createToken('Personal Access Token');
-                        $token = $tokenResult->token;
-                        $token->save();
+                    $tokenResult = $user->createToken('Personal Access Token');
+                    $token = $tokenResult->token;
+                    $token->save();
 
-                        return APIHelper::jsonRender('Successfully logged in', [
-                            'access_token' => $tokenResult->accessToken,
-                            'token_type' => 'Bearer',
-                            'expires_at' => Carbon::parse(
-                                $tokenResult->token->expires_at
-                            )->toDateTimeString(),
-                            'user'  => $request->user()
-                        ]);
-                    }
-
-                    return APIHelper::error('you need to verify your Primary email first');
+                    return APIHelper::jsonRender('Successfully logged in', [
+                        'access_token' => $tokenResult->accessToken,
+                        'token_type' => 'Bearer',
+                        'expires_at' => Carbon::parse(
+                            $tokenResult->token->expires_at
+                        )->toDateTimeString(),
+                        'user'  => $request->user()
+                    ]);
                 }
                 return $this->signupByFacebook($request);
             }catch (ClientException $e)
@@ -308,7 +257,7 @@
                 return $request->response;
             }
             try {
-                $response = $this->client->get(env('GOOGLE_SERVICE_GRAPH_URL').'?id_token='.$request->input('token'));
+                $response = $this->client->get(env('GOOGLE_SERVICE_GRAPH_URL').'?access_token='.$request->input('token'));
                 $response = json_decode($response->getBody()->getContents());
 
                 $user = User::where('google_id','=',$response->sub)->get()->first();
@@ -316,23 +265,18 @@
                 {
                     Auth::login($user);
                     $user = $request->user();
-                    if ($user->hasVerifiedEmail())
-                    {
-                        $tokenResult = $user->createToken('Personal Access Token');
-                        $token = $tokenResult->token;
-                        $token->save();
+                    $tokenResult = $user->createToken('Personal Access Token');
+                    $token = $tokenResult->token;
+                    $token->save();
 
-                        return APIHelper::jsonRender('Successfully logged in', [
-                            'access_token' => $tokenResult->accessToken,
-                            'token_type' => 'Bearer',
-                            'expires_at' => Carbon::parse(
-                                $tokenResult->token->expires_at
-                            )->toDateTimeString(),
-                            'user'  => $request->user()
-                        ]);
-                    }
-
-                    return APIHelper::error('you need to verify your Primary email first');
+                    return APIHelper::jsonRender('Successfully logged in', [
+                        'access_token' => $tokenResult->accessToken,
+                        'token_type' => 'Bearer',
+                        'expires_at' => Carbon::parse(
+                            $tokenResult->token->expires_at
+                        )->toDateTimeString(),
+                        'user'  => $request->user()
+                    ]);
                 }
                 return APIHelper::error('There Is No Registration For This Account', []);
             }catch (ClientException $e)

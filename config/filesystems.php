@@ -42,6 +42,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'users' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/users')
+        ],
+
         'blog_post' => [
             'driver' => 'local',
             'root' => storage_path('app/public/blog_post')

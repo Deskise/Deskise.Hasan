@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\APIHelper;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +29,8 @@ class User extends Authenticatable
         'password',
         'img',
         'location',
+        'facebook_id',
+        'google_id'
     ];
 
     /**
@@ -57,6 +60,11 @@ class User extends Authenticatable
         'is_closed'                 => 'boolean',
         'is_hidden'                 => 'boolean',
     ];
+
+    public function getImgAttribute($value)
+    {
+        return APIHelper::getImageUrl('users', $value);
+    }
 
     public function links()
     {
