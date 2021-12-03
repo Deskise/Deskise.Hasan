@@ -2,31 +2,38 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-5">
+        <div class="col-lg-5 col-12">
           <h1 class="mb-4 text-left">Login</h1>
           <div class="row">
-            <input
-              type="email"
-              class="form-control col-12 mx-2 mb-2 py-3"
-              placeholder="E-MAIL"
-              v-model="form.email"
-              @keydown="$event.target.classList.remove('invalid')"
-            />
-            <input
-              type="password"
-              class="form-control col-12 mx-2 mb-2 py-3"
-              placeholder="PASSWORD"
-              v-model="form.password"
-              @keydown="$event.target.classList.remove('invalid')"
-            />
-            <button
-              class="btn btn-primary form-control col-12 mx-2 mb-3 py-3"
-              @click="check"
-            >
-              Login
-            </button>
+            <div class="input-group mx-0 mb-2">
+              <input
+                type="email"
+                class="form-control col-12 py-3"
+                placeholder="E-MAIL"
+                v-model="form.email"
+                @keydown="$event.target.classList.remove('invalid')"
+              />
+            </div>
 
-            <div class="row mx-2 mb-3 px-0">
+            <div class="input-group mx-0 mb-2">
+              <input
+                type="password"
+                class="form-control col-12 py-3"
+                placeholder="PASSWORD"
+                v-model="form.password"
+                @keydown="$event.target.classList.remove('invalid')"
+              />
+            </div>
+            <div class="input-group mx-0 mb-3">
+              <button
+                class="btn btn-primary form-control col-12 py-3"
+                @click="check"
+              >
+                Login
+              </button>
+            </div>
+
+            <div class="input-group mx-0 mb-3">
               <div class="radio text-left col-6 px-0">
                 <circle-checkbox
                   text="Remember Password"
@@ -39,9 +46,9 @@
                 >
               </div>
             </div>
-            <div class="row other-login mx-2 mb-2 px-0 overflow-hidden">
+            <div class="input-group other-login mx-0 mb-2 overflow-hidden">
               <hr class="or col-12 mb-3" />
-              <div class="col-6 ps-0">
+              <div class="col ps-0 me-2">
                 <button
                   class="btn form-control btn-login-facebook w-100 mb-2 py-3"
                   @click.prevent="login('facebook')"
@@ -49,7 +56,7 @@
                   Facebook
                 </button>
               </div>
-              <div class="col-6 pe-0">
+              <div class="col pe-0 ms-2">
                 <button
                   class="btn form-control btn-login-google w-100 mb-2 py-3"
                   @click.prevent="login('google')"

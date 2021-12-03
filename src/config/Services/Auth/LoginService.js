@@ -2,7 +2,6 @@ import apiClient from "@/config/axios";
 
 export default {
   via(v, token) {
-    console.log(token);
     return apiClient.post("/auth/login/" + v.toLowerCase(), {
       token,
     });

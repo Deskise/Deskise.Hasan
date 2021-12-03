@@ -40,7 +40,8 @@ export const Via = {
         exp: data.response.extra.expires_at,
       });
       Notification.addNotification(data.response.message, true);
-      router.push({ name: "products" });
+      //TODO: CHECK PASSWORD AND OTHER PROFILE DATA AND REDIRECT USER TO COMPLETE PROFILE FIRST
+      router.push(this.$route.query.redirect ?? { name: "products" });
     },
 
     async signup(
@@ -106,8 +107,12 @@ export const Via = {
     },
 
     signupCallback(data) {
+      console.log(data.response.extra[0].email, data);
       Notification.addNotification(data.response.message, true);
-      router.push({ name: "login" });
+      router.push({
+        name: "verify",
+        query: { email: data.response.extra[0].email },
+      });
     },
   },
 };

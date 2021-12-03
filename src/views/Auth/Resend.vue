@@ -3,23 +3,40 @@
     <div class="container">
       <div class="row">
         <div class="col-md-5">
-          <h1 class="mb-4 text-left">Forgot password!</h1>
-          <div class="input-group mx-0">
+          <h1 class="mb-4 text-left">Resend Verification Code</h1>
+
+          <div class="input-group mx-0 mb-2">
             <input
               type="email"
-              class="form-control col-12 mb-2 py-3"
+              class="form-control col-12 py-3"
               placeholder="E-MAIL"
               v-model="form.email"
               @keydown="$event.target.classList.remove('invalid')"
             />
           </div>
-          <div class="input-group mx-0">
+          <div class="input-group mx-0 mb-3">
             <button
-              class="btn btn-primary form-control col-12 mb-3 py-3"
+              class="btn btn-primary form-control col-12 py-3"
               @click="check"
             >
-              Send
+              Resend
             </button>
+          </div>
+
+          <div class="input-group other-login mx-0 mb-2 overflow-hidden">
+            <hr class="or col-12 mb-3" />
+            <div class="col-12 justify-content-center">
+              <p class="lead">
+                Recieved Code?
+                <router-link
+                  :to="{
+                    name: 'verify',
+                    query: { email: $route.query.email },
+                  }"
+                  >Verify Code</router-link
+                >
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -31,13 +48,13 @@
 <script>
 import manimg from "@/components/template/manImg.vue";
 import { required, email } from "../../Mixins/Validations";
-import ForgotService from "@/config/Services/Auth/ForgotService";
+import VerifyService from "@/config/Services/Auth/VerifyService";
 import Notification from "../../config/Notification";
 export default {
   data() {
     return {
       form: {
-        email: "",
+        email: this.$route.query.email,
       },
       isError: false,
     };
@@ -57,10 +74,13 @@ export default {
 
       if (this.isError) return;
 
-      await ForgotService.verify(this.form.email).then(
+      await VerifyService.resend(this.form.email).then(
         ({ data }) => {
           Notification.addNotification(data.response.message, true);
-          this.form.email = "";
+          this.$router.push({
+            name: "verify",
+            query: { email: this.$route.query.email },
+          });
         },
         (err) => Notification.addNotification(err.message, false)
       );

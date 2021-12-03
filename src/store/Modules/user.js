@@ -28,6 +28,14 @@ export const mutations = {
 
     localStorage.setItem("deskies_user", JSON.stringify(state.data));
   },
+  ERASE_USER_DATA(state) {
+    state.data = null;
+    localStorage.removeItem("deskies_user");
+  },
+  CHANGE_UUID(state, UUID) {
+    state.uuid = UUID;
+    localStorage.setItem("deskies_user_uuid", UUID);
+  },
 };
 
 export const actions = {
@@ -43,6 +51,10 @@ export const actions = {
   },
   setToken({ commit }, { token, type, exp }) {
     commit("SET_TOKEN", { token, type, exp });
+  },
+  logout({ commit }) {
+    commit("ERASE_USER_DATA");
+    commit("CHANGE_UUID", v4().substr(0, 30));
   },
 };
 

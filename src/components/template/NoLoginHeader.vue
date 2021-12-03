@@ -117,6 +117,14 @@ nav.noLogin {
   padding: 20px 7%;
   border-color: #898989;
   background-color: transparent;
+  z-index: 10;
+  @media (max-width: 992px) {
+    .navbar-collapse {
+      background-color: white;
+      box-shadow: 0 0 30px 0 #00000015;
+      padding: 10px 0;
+    }
+  }
 
   img {
     border-color: $gray;
@@ -176,6 +184,12 @@ nav.noLogin {
         width: 250%;
         border: 0;
         box-shadow: 0 0 20px 0 #00000015;
+      }
+      @media (max-width: 992px) {
+        &.dropdown-menu {
+          width: 100%;
+          box-shadow: 0 0 30px 0 #00000015;
+        }
       }
     }
 

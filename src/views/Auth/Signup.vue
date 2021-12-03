@@ -2,7 +2,7 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-5">
+        <div class="col-md-5">
           <h1 class="mb-4 text-left">Signup</h1>
           <div class="row">
             <div class="input-group mx-0 mb-2">
@@ -82,9 +82,9 @@
               ></circle-checkbox>
             </div>
 
-            <div class="row other-login mx-2 mb-2 px-0 overflow-hidden">
+            <div class="input-group other-login mx-0 mb-2 overflow-hidden">
               <hr class="or col-12 mb-3" />
-              <div class="col-6 ps-0">
+              <div class="col ps-0 me-2">
                 <button
                   class="btn form-control btn-login-facebook w-100 mb-2 py-3"
                   @click.prevent="signup('facebook')"
@@ -92,7 +92,7 @@
                   Facebook
                 </button>
               </div>
-              <div class="col-6 pe-0">
+              <div class="col pe-0 ms-2">
                 <button
                   class="btn form-control btn-login-google w-100 mb-2 py-3"
                   @click.prevent="signup('google')"

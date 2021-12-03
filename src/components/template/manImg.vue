@@ -1,5 +1,5 @@
 <template>
-  <div class="col d-none d-md-block">
+  <div class="col d-none d-lg-block">
     <img src="@/assets/bg1.png" alt="bg1" />
     <img src="@/assets/bg2.png" alt="bg2" />
   </div>

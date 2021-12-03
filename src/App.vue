@@ -3,6 +3,10 @@
   <NotificationBar></NotificationBar>
   <component :is="headerComponent"></component>
   <router-view class="page" />
+  <cookie-agreement
+    v-if="!cookieAccepted"
+    @accept="$store.dispatch('AcceptCookies')"
+  ></cookie-agreement>
   <Footer></Footer>
 </template>
 
@@ -13,13 +17,14 @@ import NotificationBar from "./components/template/NotificationBar.vue";
 import Footer from "./components/template/Footer.vue";
 import Loader from "./components/template/Loader.vue";
 import { mapState } from "vuex";
+import CookieAgreement from "./components/template/CookieAgreement.vue";
 
 export default {
   created() {
     this.$store.dispatch("category/fetch");
     this.$store.dispatch("user/getUUID");
   },
-  components: { NotificationBar, Footer, Loader },
+  components: { NotificationBar, Footer, Loader, CookieAgreement },
   data() {
     return {};
   },
@@ -29,7 +34,7 @@ export default {
         ? LoggedInHeader
         : NoLoginHeader;
     },
-    ...mapState(["Loading", "ready"]),
+    ...mapState(["Loading", "ready", "cookieAccepted"]),
   },
 };
 </script>

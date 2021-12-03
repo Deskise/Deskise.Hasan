@@ -2,68 +2,48 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-5">
-          <h1 class="mb-4 text-left">Login</h1>
-          <div class="row">
+        <div class="col-md-5">
+          <h1 class="mb-4 text-left">Verify Your Email</h1>
+          <div class="input-group mx-0">
             <input
               type="email"
-              class="form-control col-12 mx-2 mb-2 py-3"
+              class="form-control col-12 mb-2 py-3"
               placeholder="E-MAIL"
               v-model="form.email"
               @keydown="$event.target.classList.remove('invalid')"
             />
+          </div>
+          <div class="input-group mx-0">
             <input
-              type="password"
-              class="form-control col-12 mx-2 mb-2 py-3"
-              placeholder="PASSWORD"
-              v-model="form.password"
+              type="text"
+              class="form-control col-12 mb-2 py-3"
+              placeholder="Verification Code"
+              v-model="form.code"
               @keydown="$event.target.classList.remove('invalid')"
             />
+          </div>
+          <div class="input-group mx-0">
             <button
-              class="btn btn-primary form-control col-12 mx-2 mb-3 py-3"
+              class="btn btn-primary form-control col-12 mb-3 py-3"
               @click="check"
             >
-              Login
+              Verify Email
             </button>
+          </div>
 
-            <div class="row mx-2 mb-3 px-0">
-              <div class="radio text-left col-6 px-0">
-                <circle-checkbox
-                  text="Remember Password"
-                  @check="r"
-                ></circle-checkbox>
-              </div>
-              <div class="col-6 text-right px-0">
-                <router-link :to="{ name: 'forget' }"
-                  >Forget Password</router-link
+          <div class="input-group other-login mx-0 mb-2 overflow-hidden">
+            <hr class="or col-12 mb-3" />
+            <div class="col-12 justify-content-center">
+              <p class="lead">
+                Didn't Recieve Code?
+                <router-link
+                  :to="{
+                    name: 'resend',
+                    query: { email: $route.query.email },
+                  }"
+                  >Resend It Now</router-link
                 >
-              </div>
-            </div>
-            <div class="row other-login mx-2 mb-2 px-0 overflow-hidden">
-              <hr class="or col-12 mb-3" />
-              <div class="col-6 ps-0">
-                <button
-                  class="btn form-control btn-login-facebook w-100 mb-2 py-3"
-                  @click.prevent="login('facebook')"
-                >
-                  Facebook
-                </button>
-              </div>
-              <div class="col-6 pe-0">
-                <button
-                  class="btn form-control btn-login-google w-100 mb-2 py-3"
-                  @click.prevent="login('google')"
-                >
-                  Google
-                </button>
-              </div>
-
-              <div class="col-12 justify-content-center">
-                <p class="lead">
-                  Don't Have An Account?
-                  <router-link :to="{ name: 'signup' }">Register</router-link>
-                </p>
-              </div>
+              </p>
             </div>
           </div>
         </div>
@@ -75,26 +55,22 @@
 
 <script>
 import manimg from "@/components/template/manImg.vue";
-import { Via } from "@/Mixins/Via";
 import { required, email } from "../../Mixins/Validations";
+import VerifyService from "@/config/Services/Auth/VerifyService";
+import Notification from "../../config/Notification";
 export default {
   data() {
     return {
       form: {
-        email: "",
-        password: "",
-        remember_me: false,
+        email: this.$route.query.email,
       },
       isError: false,
     };
   },
   components: { manimg },
-  mixins: [Via],
+  mixins: [],
   methods: {
-    r(e) {
-      this.form.remember_me = e;
-    },
-    check() {
+    async check() {
       this.isError = false;
       let inv = document.querySelectorAll(".invalid");
       if (inv) inv.forEach((el) => el.classList.remove("invalid"));
@@ -104,18 +80,22 @@ export default {
         this.isError = true;
       }
 
-      if (!required(this.form.password)) {
-        document.querySelector("input[type=password]").classList.add("invalid");
+      if (!required(this.form.code)) {
+        document.querySelector("input[type=text]").classList.add("invalid");
         this.isError = true;
       }
 
       if (this.isError) return;
 
-      this.login(
-        "email",
-        this.form.email,
-        this.form.password,
-        this.form.remember_me
+      await VerifyService.verify(this.form.email, this.form.code).then(
+        ({ data }) => {
+          Notification.addNotification(data.response.message, true);
+          this.$router.push({
+            name: "login",
+            query: { email: this.$route.query.email },
+          });
+        },
+        (err) => Notification.addNotification(err.message, false)
       );
     },
   },

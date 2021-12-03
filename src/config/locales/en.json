@@ -11,6 +11,9 @@
       "FAQ": "Common Questions",
       "blog": "Blog",
       "login": "Login/Signup"
+    },
+    "login": {
+      "sales": "Sales"
     }
   },
 

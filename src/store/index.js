@@ -9,6 +9,7 @@ export default createStore({
   state: {
     Loading: false,
     ready: false,
+    cookieAccepted: false,
   },
   mutations: {
     CHANGE_LOADING_STATE(state, to = null) {
@@ -17,10 +18,16 @@ export default createStore({
     READY_STATE_CHANGE(state) {
       state.ready = true;
     },
+    ACCEPT_COOKIES(state) {
+      state.cookieAccepted = true;
+    },
   },
   actions: {
     ChangeLoading({ commit }, to = null) {
       commit("CHANGE_LOADING_STATE", to);
+    },
+    AcceptCookies({ commit }) {
+      commit("ACCEPT_COOKIES");
     },
   },
   modules: {

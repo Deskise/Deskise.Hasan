@@ -10,6 +10,9 @@ export const routes = [
     path: "/",
     name: "home",
     component: Home,
+    beforeEnter: (to, from, next) => {
+      store.getters["user/isLoggedIn"] ? next({ name: "products" }) : next();
+    },
   },
   {
     path: "/about",

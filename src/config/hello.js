@@ -9,3 +9,4 @@ const h = hello.init(
   { redirect_uri: process.env.VUE_APP_HELLO_REDIRECT_URL }
 );
 Vue.config.globalProperties.h = h;
+window.h = h;
