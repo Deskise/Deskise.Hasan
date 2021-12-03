@@ -63,6 +63,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 ## Commands To Run This Project
+- ```cp .env.example .env```
 - ```composer install```
 - ```artisan serve```
 - ```artisan schedule:run```
