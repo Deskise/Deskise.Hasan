@@ -2,6 +2,7 @@ import about from "@/config/Services/Data/AboutService";
 import terms from "@/config/Services/Data/TermsService";
 import packageService from "@/config/Services/Data/PackagesService";
 import faq from "@/config/Services/Data/FaqService";
+import comments from "@/config/Services/Data/CommentsService";
 
 export const namespaced = true;
 
@@ -18,6 +19,8 @@ export const state = {
 
   packages: [],
 
+  comments: [],
+
   faq: {},
 };
 
@@ -30,6 +33,9 @@ export const mutations = {
   },
   FETCH_PACKAGES(state, $packages) {
     state.packages = $packages;
+  },
+  FETCH_COMMENTS(state, $comments) {
+    state.comments = $comments;
   },
   FETCH_FAQ(state, $faqs) {
     if (state.faq.data === undefined) {
@@ -83,6 +89,16 @@ export const actions = {
       .then((response) => {
         let faqs = response.data.response.extra[0];
         commit("FETCH_FAQ", faqs);
+      })
+      .catch(() => {});
+  },
+
+  async comments({ commit }) {
+    await comments
+      .fetch()
+      .then((response) => {
+        let comments = response.data.response.extra;
+        commit("FETCH_COMMENTS", comments);
       })
       .catch(() => {});
   },

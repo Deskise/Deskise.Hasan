@@ -1,4 +1,5 @@
 import Products from "@/views/Products/main.vue";
+import Request from "@/views/Products/Request.vue";
 export const routes = [
   {
     path: "/products",
@@ -8,6 +9,7 @@ export const routes = [
   {
     path: "/product/request",
     name: "requestProduct",
+    component: Request,
   },
   {
     path: "/products/category/:id",

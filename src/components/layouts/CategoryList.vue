@@ -24,6 +24,7 @@
 </template>
 
 <script>
+//TODO: Make This As Slider
 import { mapState } from "vuex";
 export default {
   computed: {

@@ -48,6 +48,16 @@ export default {
   color: white;
   border: 0;
   width: 25%;
+  @media (max-width: 1200px) {
+    & {
+      width: 50%;
+    }
+  }
+  @media (max-width: 776px) {
+    & {
+      width: calc(98% - 20px);
+    }
+  }
   margin-left: auto;
   position: relative;
   bottom: 0;

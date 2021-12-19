@@ -10,8 +10,8 @@
         v-model="search"
         :class="{ shown: classes }"
       />
-      <div class="icon bg-primary">
-        <FlatIconComponent icon="search" @click="toggleSearch" />
+      <div class="icon bg-primary" @click="toggleSearch">
+        <FlatIconComponent icon="search" />
       </div>
     </div>
   </div>

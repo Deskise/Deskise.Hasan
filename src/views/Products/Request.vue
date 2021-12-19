@@ -1,0 +1,149 @@
+<template>
+  <div class="login d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <h1 class="mb-4 text-left">Request A Product</h1>
+          <div class="row">
+            <div class="input-group mx-0 mb-2">
+              <select
+                class="form-select col-12 py-3"
+                v-model="category_id"
+                @keydown="$event.target.classList.remove('invalid')"
+              >
+                <option value="" selected disabled>Product category</option>
+                <option
+                  v-for="category in categories"
+                  :key="category.id"
+                  :value="category.id"
+                >
+                  {{ category.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="input-group mx-0 mb-2">
+              <select
+                class="form-select col-12 py-3"
+                v-model="subcategory_id"
+                @keydown="$event.target.classList.remove('invalid')"
+              >
+                <option value="" selected disabled>Product Type</option>
+                <option
+                  v-for="subCategory in subcategories"
+                  :key="subCategory.id"
+                  :value="subCategory.id"
+                >
+                  {{ subCategory.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="input-group mx-0 mb-2">
+              <input
+                type="email"
+                class="form-control col-12 py-3"
+                placeholder="E-MAIL"
+                v-model="email"
+                @keydown="$event.target.classList.remove('invalid')"
+              />
+            </div>
+
+            <div class="input-group mx-0 mb-2">
+              <input
+                type="number"
+                class="form-control col-12 py-3"
+                placeholder="Price estimate"
+                v-model="price"
+                @keydown="$event.target.classList.remove('invalid')"
+              />
+            </div>
+
+            <div class="input-group mx-0 mb-2">
+              <textarea
+                class="form-control col-12 mb-2"
+                cols="30"
+                rows="8"
+                v-model="explain"
+                placeholder="General explanation of the product"
+                @keydown="$event.target.classList.remove('invalid')"
+              ></textarea>
+            </div>
+
+            <div class="input-group mx-0 mb-3">
+              <button
+                class="btn btn-primary form-control col-12 py-3"
+                @click="check"
+              >
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <manimg></manimg>
+  </div>
+</template>
+
+<script>
+import manimg from "@/components/template/manImg.vue";
+// import { required, same } from "../../Mixins/Validations";
+// import Notification from "../../config/Notification";
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {
+      category_id: "",
+      subcategory_id: "",
+      email: "",
+      price: "",
+      explain: "",
+
+      subcategories: [],
+      isError: false,
+    };
+  },
+  components: { manimg },
+  mixins: [],
+  computed: {
+    ...mapState("category", ["categories"]),
+  },
+  watch: {
+    category_id(v) {
+      this.subcategory_id = "";
+      if (v === "") this.subcategories = [];
+      else
+        this.subcategories = this.categories.filter(
+          (e) => e.id === this.category_id
+        )[0].subcategories;
+    },
+  },
+  methods: {
+    async check() {
+      //TODO: Connect With The Backend
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.login {
+  min-height: calc(85vh - 70px);
+  h1 {
+    text-transform: uppercase;
+    font-family: Barlow;
+    font-weight: bold;
+  }
+
+  .invalid {
+    &:not(label) {
+      border: 1px solid red;
+    }
+    color: red;
+    &::placeholder {
+      color: red;
+    }
+  }
+}
+</style>

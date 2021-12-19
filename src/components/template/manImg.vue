@@ -22,9 +22,25 @@ div {
     top: 21%;
     right: 20vw;
     height: 75%;
+    @media (max-width: 1500px) {
+      & {
+        right: 10vw;
+      }
+    }
+    @media (max-width: 1200px) {
+      & {
+        right: 8vw;
+        height: 64%;
+      }
+    }
 
     &:first-of-type {
       height: 85%;
+      @media (max-width: 1200px) {
+        & {
+          height: 75%;
+        }
+      }
       top: 0;
     }
   }

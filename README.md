@@ -33,3 +33,7 @@ npm run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### My Notes:
+
+[ ] Make The Categories Component A Slider So It Will Be Responsive.

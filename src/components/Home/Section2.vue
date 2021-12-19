@@ -1,0 +1,90 @@
+<template>
+  <section
+    class="bg-gray-e d-flex"
+    :style="{ backgroundImage: `url(${getImage})` }"
+  >
+    <div class="blocks container">
+      <div class="row">
+        <div class="block col first">Categories</div>
+        <div
+          v-for="(category, index) in categories.slice(0, 4)"
+          :key="index"
+          :class="{
+            'block col bg-white bg-hover-gradiant text-gray': true,
+            'd-none d-md-flex': index < 1 && index !== 3,
+            'd-none d-lg-flex': index === 3,
+          }"
+        >
+          {{ category.name }}
+        </div>
+      </div>
+      <div class="row">
+        <div
+          v-for="(category, index) in categories.slice(4, 8)"
+          :key="index"
+          :class="{
+            'block col bg-white bg-hover-gradiant text-gray': true,
+            'd-none d-md-flex': index < 1 && index !== 3,
+            'd-none d-lg-flex': index === 3,
+          }"
+        >
+          {{ category.name }}
+        </div>
+        <div class="block last col">More+</div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+import { mapState } from "vuex";
+export default {
+  computed: {
+    getImage() {
+      let image = require("@/assets/waves.png");
+      return image;
+    },
+    ...mapState("category", ["categories"]),
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import "@/sass/_globals/_variables.scss";
+section {
+  height: 67vh;
+  justify-content: center;
+  align-items: center;
+
+  .block {
+    font-size: 28px;
+    @media (max-width: 992px) {
+      & {
+        font-size: 18px;
+      }
+    }
+    text-transform: capitalize;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    margin: 10px;
+    border-radius: 5px;
+
+    &.last,
+    &.first {
+      color: #040506;
+      font-weight: bold;
+      font-size: 34px;
+      text-transform: uppercase;
+
+      @media (max-width: 992px) {
+        & {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+</style>

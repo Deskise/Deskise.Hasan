@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg border-bottom noLogin">
     <div class="container-fluid">
-      <router-link class="navbar-brand" to="/">
+      <router-link class="navbar-brand col-lg" to="/">
         <img
           src="@/assets/logo.png"
           alt="logo"
@@ -19,7 +19,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse col-lg" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
             <router-link class="nav-link" to="/">
@@ -115,6 +115,16 @@ export default {
 @import "@/sass/_globals/_variables.scss";
 nav.noLogin {
   padding: 20px 7%;
+  @media (max-width: 1600px) {
+    & {
+      padding: 20px 4%;
+    }
+  }
+  @media (max-width: 1220px) {
+    & {
+      padding: 20px 0%;
+    }
+  }
   border-color: #898989;
   background-color: transparent;
   z-index: 10;
@@ -126,8 +136,23 @@ nav.noLogin {
     }
   }
 
-  img {
-    border-color: $gray;
+  a {
+    @media (max-width: 1300px) {
+      & {
+        margin-right: 0;
+      }
+    }
+    @media (max-width: 1125px) and (min-width: 992px) {
+      &.navbar-brand {
+        display: none;
+      }
+    }
+    img {
+      border-color: $gray;
+      width: 100%;
+      max-width: 225px;
+      min-width: 150px;
+    }
   }
   div {
     flex-wrap: wrap;
@@ -137,11 +162,31 @@ nav.noLogin {
       align-items: center;
       flex-grow: 1;
       margin-right: 50px;
+      @media (max-width: 1420px) {
+        & {
+          margin-right: 16px;
+        }
+      }
+      @media (max-width: 1300px) {
+        & {
+          margin-right: 0;
+        }
+      }
 
       li {
         a {
           color: $gray;
           font-size: 18px;
+          @media (max-width: 1420px) {
+            & {
+              font-size: 16px;
+            }
+          }
+          @media (max-width: 1300px) {
+            & {
+              margin-right: 0;
+            }
+          }
           text-transform: capitalize;
 
           &:hover,
@@ -217,8 +262,18 @@ nav.noLogin {
     button.login {
       flex-grow: 1;
       height: 57px;
-      width: 157px;
+      width: 100%;
       font-size: 20px;
+      @media (max-width: 1420px) {
+        & {
+          font-size: 16px;
+        }
+      }
+      @media (max-width: 1300px) {
+        & {
+          margin-right: 12px;
+        }
+      }
     }
   }
 }

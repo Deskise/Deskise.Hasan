@@ -1,5 +1,46 @@
 <template>
-  <i :class="getClass"></i>
+  <Head>
+    <link
+      rel="stylesheet"
+      href="css/fonts/uicons-regular-straight.css"
+      v-if="getState === 'rs'"
+    />
+    <link
+      rel="stylesheet"
+      href="css/fonts/uicons-bold-straight.css"
+      v-if="getState === 'bs'"
+    />
+    <link
+      rel="stylesheet"
+      href="css/fonts/uicons-solid-straight.css"
+      v-if="getState === 'ss'"
+    />
+
+    <link
+      rel="stylesheet"
+      href="css/fonts/uicons-regular-rounded.css"
+      v-if="getState === 'rr'"
+    />
+    <link
+      rel="stylesheet"
+      href="css/fonts/uicons-bold-rounded.css"
+      v-if="getState === 'br'"
+    />
+    <link
+      rel="stylesheet"
+      href="css/fonts/uicons-solid-rounded.css"
+      v-if="getState === 'sr'"
+    />
+  </Head>
+  <button
+    v-if="btn"
+    :class="getClass"
+    :style="style"
+    @click="(event) => $emit('ev', event)"
+  >
+    <i :class="getIcon"></i>
+  </button>
+  <i v-else :class="getIcon + getClass" :style="style"></i>
 </template>
 
 <script>
@@ -9,33 +50,37 @@ export default {
       required: true,
       type: String,
     },
-    solid: {
-      type: Boolean,
-      default: false,
+    type: {
+      type: String,
+      default: "r",
     },
     straight: {
       type: Boolean,
       default: false,
     },
+    class: {
+      type: String,
+      default: "",
+    },
+    style: {
+      type: Object,
+      default: () => {},
+    },
+    btn: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
+    getState() {
+      return this.type.toLowerCase().charAt(0) + (this.straight ? "s" : "r");
+    },
+    getIcon() {
+      return `fi fi-${this.getState}-${this.icon} `;
+    },
     getClass() {
-      return `fi-${(this.solid ? "s" : "r") + (this.straight ? "s" : "r")}-${
-        this.icon
-      }`;
+      return this.class;
     },
   },
 };
 </script>
-
-<style lang="scss">
-//rounded:
-@import url("https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css");
-@import url("https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css");
-@import url("https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css");
-
-// Straight:
-@import url("https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css");
-@import url("https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css");
-@import url("https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css");
-</style>

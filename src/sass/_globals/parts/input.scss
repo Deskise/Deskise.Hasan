@@ -1,5 +1,5 @@
-.btn-primary,
-.btn-primary:focus {
+.input-primary,
+.input-primary:focus {
   background-color: $primary;
   border-color: $primary;
   color: white;
@@ -19,8 +19,8 @@
     border: 0;
   }
 }
-.btn-secondary,
-.btn-secondary:focus {
+.input-secondary,
+.input-secondary:focus {
   background-color: $secondary;
   border-color: $secondary;
   color: white;
@@ -39,8 +39,8 @@
   }
 }
 
-.btn-outline-primary,
-.btn-outline-primary:focus {
+.input-outline-primary,
+.input-outline-primary:focus {
   background-color: transparent;
   border-color: $primary;
   color: $primary;
@@ -50,35 +50,25 @@
     color: white;
     border-color: $primary;
   }
-  &:disabled {
-    color: $secondary;
-    border-color: $secondary;
-  }
   &:focus,
   &:focus-visible {
     box-shadow: none !important;
   }
 }
-.btn-outline-secondary,
-.btn-outline-secondary:focus {
+.input-outline-secondary,
+.input-outline-secondary:focus {
   background-color: transparent;
   border-color: $secondary;
   color: $secondary;
 
-  &:hover,
-  &:active {
-    background-color: $secondary;
-    color: white;
-    border-color: $secondary;
-  }
   &:focus,
   &:focus-visible {
     box-shadow: none !important;
   }
 }
 
-.btn-login-google,
-.btn-login-google:focus {
+.input-login-google,
+.input-login-google:focus {
   background-color: transparent;
   border-color: #ea4335;
   color: #ea4335;
@@ -94,8 +84,8 @@
   }
 }
 
-.btn-login-facebook,
-.btn-login-facebook:focus {
+.input-login-facebook,
+.input-login-facebook:focus {
   background-color: transparent;
   border-color: #1977f3;
   color: #1977f3;
