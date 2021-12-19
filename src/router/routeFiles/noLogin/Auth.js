@@ -1,17 +1,15 @@
-import Login from "@/views/Auth/Login.vue";
-import Signup from "@/views/Auth/Signup.vue";
-import Verify from "@/views/Auth/Verify.vue";
-import Resend from "@/views/Auth/Resend.vue";
-import Forget from "@/views/Auth/Forget.vue";
-import Reset from "@/views/Auth/Reset.vue";
 import store from "../../../store";
 import Notification from "../../../config/Notification";
+
+function lazyLoad(view) {
+  return import(/* webpackChunkName: "Auth" */ `@/views/Auth/${view}.vue`);
+}
 
 export const routes = [
   {
     path: "/auth/login",
     name: "login",
-    component: Login,
+    component: lazyLoad("Login"),
     meta: {
       noAuth: true,
     },
@@ -19,7 +17,7 @@ export const routes = [
   {
     path: "/auth/signup",
     name: "signup",
-    component: Signup,
+    component: lazyLoad("Signup"),
     meta: {
       noAuth: true,
     },
@@ -27,7 +25,7 @@ export const routes = [
   {
     path: "/auth/verify",
     name: "verify",
-    component: Verify,
+    component: lazyLoad("Verify"),
     meta: {
       noAuth: true,
     },
@@ -35,7 +33,7 @@ export const routes = [
   {
     path: "/auth/verify/resend",
     name: "resend",
-    component: Resend,
+    component: lazyLoad("Resend"),
     meta: {
       noAuth: true,
     },
@@ -43,7 +41,7 @@ export const routes = [
   {
     path: "/auth/forget",
     name: "forget",
-    component: Forget,
+    component: lazyLoad("Forget"),
     meta: {
       noAuth: true,
     },
@@ -51,7 +49,7 @@ export const routes = [
   {
     path: "/auth/reset",
     name: "reset",
-    component: Reset,
+    component: lazyLoad("Reset"),
     meta: {
       noAuth: true,
     },

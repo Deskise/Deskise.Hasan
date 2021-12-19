@@ -1,15 +1,19 @@
-import Products from "@/views/Products/main.vue";
-import Request from "@/views/Products/Request.vue";
+function lazyLoad(view) {
+  return import(
+    /* webpackChunkName: "Products" */ `@/views/Products/${view}.vue`
+  );
+}
+
 export const routes = [
   {
     path: "/products",
     name: "products",
-    component: Products,
+    component: lazyLoad("main"),
   },
   {
     path: "/product/request",
     name: "requestProduct",
-    component: Request,
+    component: lazyLoad("Request"),
   },
   {
     path: "/products/category/:id",
