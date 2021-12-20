@@ -45,7 +45,7 @@
                 $category->name = $category->{'name_'.self::$language};
                 $data = $category->load('subcategories:id,name_'.self::$language.' as name');
             }else {
-                $data = Category::select('id','name_'.self::$language.' as name','data')->latest()->with('subcategories')->get();
+                $data = Category::select('id','name_'.self::$language.' as name','data')->latest()->with('subcategories:id,category_id,name_'.self::$language.' as name')->get();
             }
 
             return APIHelper::jsonRender('', $data);
@@ -60,7 +60,7 @@
 
         public function comments()
         {
-            $data = ClientComment::select('id','name_'.self::$language.' as name','comment_'.self::$language.' as comment')->latest()->get();
+            $data = ClientComment::select('id','name_'.self::$language.' as name','comment_'.self::$language.' as comment','img')->orderBy('id','desc')->latest()->get();
             return APIHelper::jsonRender('', $data);
         }
 

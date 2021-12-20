@@ -18,7 +18,7 @@ class CreateClientCommentsTable extends Migration
             foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
             {
                 $table->string('name_'.$lang, 30);
-                $table->longText('comment_'.$lang);
+                $table->string('comment_'.$lang,150);
             }
             $table->string('img');
             $table->timestamps();

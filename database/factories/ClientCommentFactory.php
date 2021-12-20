@@ -25,7 +25,7 @@ class ClientCommentFactory extends Factory
         foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
         {
             $data['name_'.$lang] = $this->faker->text(30);
-            $data['comment_'.$lang] = $this->faker->text(1000);
+            $data['comment_'.$lang] = $this->faker->text(150);
         }
         $data['img'] = 'default.png';
 
