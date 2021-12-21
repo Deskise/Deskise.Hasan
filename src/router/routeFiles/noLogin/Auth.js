@@ -2,7 +2,8 @@ import store from "../../../store";
 import Notification from "../../../config/Notification";
 
 function lazyLoad(view) {
-  return import(/* webpackChunkName: "Auth" */ `@/views/Auth/${view}.vue`);
+  return () =>
+    import(/* webpackChunkName: "Auth" */ `@/views/Auth/${view}.vue`);
 }
 
 export const routes = [

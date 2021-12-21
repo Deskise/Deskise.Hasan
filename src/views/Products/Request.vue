@@ -8,6 +8,7 @@
             <div class="input-group mx-0 mb-2">
               <select
                 class="form-select col-12 py-3"
+                id="category"
                 v-model="category_id"
                 @keydown="$event.target.classList.remove('invalid')"
               >
@@ -25,6 +26,7 @@
             <div class="input-group mx-0 mb-2">
               <select
                 class="form-select col-12 py-3"
+                id="sub_category"
                 v-model="subcategory_id"
                 @keydown="$event.target.classList.remove('invalid')"
               >
@@ -53,6 +55,7 @@
               <input
                 type="number"
                 class="form-control col-12 py-3"
+                id="price"
                 placeholder="Price estimate"
                 v-model="price"
                 @keydown="$event.target.classList.remove('invalid')"
@@ -88,8 +91,9 @@
 
 <script>
 import manimg from "@/components/template/manImg.vue";
-// import { required, same } from "../../Mixins/Validations";
-// import Notification from "../../config/Notification";
+import { required, email, fromList, number } from "../../Mixins/Validations";
+import Notification from "@/config/Notification";
+import RequestService from "../../config/Services/Products/RequestService";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -121,7 +125,52 @@ export default {
   },
   methods: {
     async check() {
-      //TODO: Connect With The Backend
+      if (
+        !required(this.category_id) ||
+        !fromList(this.category_id, this.categories)
+      ) {
+        document.querySelector("#category").classList.add("invalid");
+        this.isError = true;
+      }
+      if (
+        !required(this.subcategory_id) ||
+        !fromList(this.subcategory_id, this.subcategories)
+      ) {
+        document.querySelector("#sub_category").classList.add("invalid");
+        this.isError = true;
+      }
+      if (!required(this.email) || !email(this.email)) {
+        document.querySelector("input[type=email]").classList.add("invalid");
+        this.isError = true;
+      }
+      if (!required(this.price) || !number(this.price)) {
+        document.querySelector("#price").classList.add("invalid");
+        this.isError = true;
+      }
+      if (!required(this.explain)) {
+        document.querySelector("textarea").classList.add("invalid");
+        this.isError = true;
+      }
+
+      if (this.isError) return;
+      await RequestService.send(
+        this.category_id,
+        this.subcategory_id,
+        this.price,
+        this.explain,
+        this.email
+      ).then(
+        ({ data }) => {
+          this.category_id =
+            this.subcategory_id =
+            this.email =
+            this.explain =
+            this.price =
+              "";
+          Notification.addNotification(data.response.message, true);
+        },
+        (err) => Notification.addNotification(err.error.message, false)
+      );
     },
   },
 };

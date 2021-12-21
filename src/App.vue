@@ -1,13 +1,15 @@
 <template>
-  <Loader v-if="Loading || !ready"></Loader>
-  <NotificationBar></NotificationBar>
-  <component :is="headerComponent"></component>
-  <router-view class="page" />
-  <cookie-agreement
-    v-if="!cookieAccepted"
-    @accept="$store.dispatch('AcceptCookies')"
-  ></cookie-agreement>
-  <Footer></Footer>
+  <perfect-scrollbar ref="scroll" class="scrollbar">
+    <Loader v-if="Loading || !ready"></Loader>
+    <NotificationBar></NotificationBar>
+    <component :is="headerComponent"></component>
+    <router-view class="page" />
+    <cookie-agreement
+      v-if="!cookieAccepted"
+      @accept="$store.dispatch('AcceptCookies')"
+    ></cookie-agreement>
+    <Footer></Footer>
+  </perfect-scrollbar>
 </template>
 
 <script>
@@ -36,10 +38,30 @@ export default {
     },
     ...mapState(["Loading", "ready", "cookieAccepted"]),
   },
+  watch: {
+    $route() {
+      this.$refs.scroll.$el.scrollTop = 0;
+    },
+  },
 };
 </script>
 
 <style lang="scss">
+.ps:not(.scrollbar) {
+  .ps__rail-y {
+    width: 10px;
+    &:hover > .ps__thumb-y,
+    &:focus > .ps__thumb-y,
+    &.ps--clicking .ps__thumb-y {
+      width: 6px;
+      background-color: #4e1b56;
+    }
+    .ps__thumb-y {
+      background-color: #3eadb7;
+      width: 2px;
+    }
+  }
+}
 #app {
   font-family: Barlow, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -49,6 +71,20 @@ export default {
   .page {
     margin: 30px 0 70px 0;
     min-height: 89vh;
+  }
+  .scrollbar {
+    height: 100vh;
+    & > .ps__rail-y {
+      z-index: 11;
+      &:hover > .ps__thumb-y,
+      &:focus > .ps__thumb-y,
+      &.ps--clicking .ps__thumb-y {
+        background-color: #4e1b56;
+      }
+      .ps__thumb-y {
+        background-color: #3eadb7;
+      }
+    }
   }
 }
 

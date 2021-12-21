@@ -6,23 +6,23 @@
       </div>
       <div class="ms-5 col-md-5 h-100 text">
         <div class="actions d-flex flex-column align-items-end w-100">
-          <div class="exit">
-            <flat-icon-component
-              icon="cross"
-              @click="this.$router.push({ name: 'blog' })"
-            />
+          <div class="exit" @click="$router.push({ name: 'blog' })">
+            <flat-icon-component icon="cross" />
           </div>
           <div class="like" @click="like">
-            <flat-icon-component icon="heart" :solid="post.liked" />
+            <flat-icon-component
+              icon="heart"
+              :type="post.liked ? 'solid' : 'rounded'"
+            />
             <p>{{ post.likes }}</p>
           </div>
         </div>
         <div class="d-flex flex-column justify-content-end">
-          <h5>{{ post.title + post.id }}</h5>
+          <h5>{{ post.title }}</h5>
           <p class="date" v-date="post.date"></p>
-          <p class="content">
+          <perfect-scrollbar class="content">
             {{ post.details }}
-          </p>
+          </perfect-scrollbar>
         </div>
       </div>
     </div>

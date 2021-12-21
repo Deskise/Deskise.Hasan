@@ -4,6 +4,9 @@ import store from "./store";
 import { createHead } from "@vueuse/head";
 import "./global/components/globalComponents";
 import "./config/hello";
+import PerfectScrollbar from "vue3-perfect-scrollbar";
+
+import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
 
 // import normalize.css
 import "normalize.css";
@@ -37,5 +40,6 @@ Vue.use(i18n)
   .use(store)
   .use(VueLoaders)
   .use(router)
+  .use(PerfectScrollbar)
   .use(createHead())
   .mount("#app");

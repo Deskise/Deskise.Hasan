@@ -3,9 +3,8 @@ import Home from "@/views/website/Home";
 import About from "@/views/website/About.vue";
 
 function lazyLoad(view) {
-  return import(
-    /* webpackChunkName: "website" */ `@/views/website/${view}.vue`
-  );
+  return () =>
+    import(/* webpackChunkName: "website" */ `@/views/website/${view}.vue`);
 }
 
 export const routes = [

@@ -43,6 +43,8 @@
 
 <script>
 import { required, email } from "../../Mixins/Validations";
+import Notification from "@/config/Notification";
+import ContactService from "../../config/Services/Data/ContactService.js";
 export default {
   data() {
     return {
@@ -52,7 +54,7 @@ export default {
     };
   },
   methods: {
-    send() {
+    async send() {
       this.isError = false;
       let inv = document.querySelectorAll(".invalid");
       if (inv) inv.forEach((el) => el.classList.remove("invalid"));
@@ -71,7 +73,13 @@ export default {
       }
 
       if (this.isError) return;
-      //TODO: Connect With The Backend
+      await ContactService.send(this.name, this.email, this.message).then(
+        ({ data }) => {
+          this.name = this.email = this.message = "";
+          Notification.addNotification(data.response.message, true);
+        },
+        (err) => Notification.addNotification(err.error.message, false)
+      );
     },
   },
 };

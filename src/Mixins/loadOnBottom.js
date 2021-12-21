@@ -7,17 +7,9 @@ export const mixin = {
   },
   methods: {
     async scroll(data, func) {
-      window.onscroll = async () => {
-        let bottomOfWindow =
-          Math.max(
-            window.pageYOffset,
-            document.documentElement.scrollTop,
-            document.body.scrollTop
-          ) +
-            window.innerHeight ===
-          document.documentElement.offsetHeight;
-
-        if (bottomOfWindow) {
+      document
+        .querySelector(".ps")
+        .addEventListener("ps-y-reach-end", async () => {
           let next_page_url = this.$store.state;
           data.split(".").forEach((element) => {
             next_page_url = next_page_url[element];
@@ -29,8 +21,7 @@ export const mixin = {
             this.isLoading = true;
             func();
           }
-        }
-      };
+        });
     },
   },
 };

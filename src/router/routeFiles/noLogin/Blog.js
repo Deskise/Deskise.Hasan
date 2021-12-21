@@ -1,7 +1,8 @@
 import store from "@/store";
 
 function lazyLoad(view) {
-  return import(/* webpackChunkName: "Blog" */ `@/views/Blog/${view}.vue`);
+  return () =>
+    import(/* webpackChunkName: "Blog" */ `@/views/Blog/${view}.vue`);
 }
 
 export const routes = [

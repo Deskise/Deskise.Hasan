@@ -1,50 +1,25 @@
 <template>
-  <Head>
-    <link
-      rel="stylesheet"
-      href="css/fonts/uicons-regular-straight.css"
-      v-if="getState === 'rs'"
-    />
-    <link
-      rel="stylesheet"
-      href="css/fonts/uicons-bold-straight.css"
-      v-if="getState === 'bs'"
-    />
-    <link
-      rel="stylesheet"
-      href="css/fonts/uicons-solid-straight.css"
-      v-if="getState === 'ss'"
-    />
-
-    <link
-      rel="stylesheet"
-      href="css/fonts/uicons-regular-rounded.css"
-      v-if="getState === 'rr'"
-    />
-    <link
-      rel="stylesheet"
-      href="css/fonts/uicons-bold-rounded.css"
-      v-if="getState === 'br'"
-    />
-    <link
-      rel="stylesheet"
-      href="css/fonts/uicons-solid-rounded.css"
-      v-if="getState === 'sr'"
-    />
-  </Head>
   <button
     v-if="btn"
     :class="getClass"
     :style="style"
-    @click="(event) => $emit('ev', event)"
+    @click="$emit('click', $event)"
   >
     <i :class="getIcon"></i>
   </button>
-  <i v-else :class="getIcon + getClass" :style="style"></i>
+  <i
+    v-else
+    :class="getIcon + getClass"
+    :style="style"
+    @click="$emit('click', $event)"
+  ></i>
 </template>
 
 <script>
 export default {
+  mounted() {
+    this.createHead();
+  },
   props: {
     icon: {
       required: true,
@@ -71,6 +46,7 @@ export default {
       default: false,
     },
   },
+  emits: ["click"],
   computed: {
     getState() {
       return this.type.toLowerCase().charAt(0) + (this.straight ? "s" : "r");
@@ -80,6 +56,48 @@ export default {
     },
     getClass() {
       return this.class;
+    },
+    getCSSFileName() {
+      let $file;
+      switch (this.getState) {
+        case "rs":
+          $file = "regular-straight";
+          break;
+        case "bs":
+          $file = "bold-straight";
+          break;
+        case "ss":
+          $file = "solid-straight";
+          break;
+
+        case "br":
+          $file = "bold-rounded";
+          break;
+        case "sr":
+          $file = "solid-rounded";
+          break;
+        case "rr":
+        default:
+          $file = "regular-rounded";
+          break;
+      }
+      return "/css/fonts/uicons-" + $file + ".css";
+    },
+  },
+  watch: {
+    type() {
+      this.createHead();
+    },
+  },
+  methods: {
+    createHead() {
+      let file = this.getCSSFileName;
+      if (document.querySelector('head link[href="' + file + '"]') === null) {
+        let link = document.createElement("link");
+        link.href = file;
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
+      }
     },
   },
 };

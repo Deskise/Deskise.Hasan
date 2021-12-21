@@ -1,7 +1,6 @@
 function lazyLoad(view) {
-  return import(
-    /* webpackChunkName: "Products" */ `@/views/Products/${view}.vue`
-  );
+  return () =>
+    import(/* webpackChunkName: "Products" */ `@/views/Products/${view}.vue`);
 }
 
 export const routes = [

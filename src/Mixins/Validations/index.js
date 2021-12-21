@@ -15,3 +15,11 @@ export const required = (field) => {
 export const same = (val1, val2) => {
   return val1 === val2;
 };
+
+export const fromList = (val, list, col = "id") => {
+  return list.filter((e) => e[col] === val).length > 0;
+};
+
+export const number = (val) => {
+  return !isNaN(val);
+};

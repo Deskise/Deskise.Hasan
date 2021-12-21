@@ -8,9 +8,11 @@
         {{ pack.price }}
       </p>
     </div>
-    <div class="body my-3 text-gray">
-      {{ pack.details }}
-    </div>
+    <perfect-scrollbar class="body">
+      <div class="my-3 text-gray">
+        {{ pack.details }}
+      </div></perfect-scrollbar
+    >
     <div class="end text-gray">
       <p>{{ pack.quantity }} {{ pack.duration }}</p>
     </div>
@@ -68,7 +70,6 @@ export default {
 
   .body {
     height: 400px;
-    overflow-y: scroll;
   }
 
   .end {
