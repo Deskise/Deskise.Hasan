@@ -26,7 +26,6 @@ router.beforeEach((to, from, next) => {
     }
   } else if (to.matched.some((record) => record.meta.noAuth)) {
     if (store.getters["user/isLoggedIn"]) {
-      console.log("yes");
       router.go(-1);
     }
   }

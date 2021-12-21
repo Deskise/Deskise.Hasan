@@ -13,18 +13,6 @@ export default {
     facebook_id = null,
     image = null
   ) {
-    console.log(
-      firstname,
-      lastname,
-      email,
-      newsletter_subscribe,
-      terms,
-      uuid,
-      password,
-      google_id,
-      facebook_id,
-      image
-    );
     return apiClient.post("/auth/signup", {
       firstname,
       lastname,

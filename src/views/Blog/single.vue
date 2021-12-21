@@ -79,7 +79,6 @@ export default {
       this.$store.state.blog.SinglePostData === [] ||
       this.$store.state.blog.SinglePostData[to.params.id] === undefined
     ) {
-      console.log("hi");
       await this.$store.dispatch("blog/fetchOne", { id: to.params.id });
     }
     this.post = this.$store.state.blog.SinglePostData[to.params.id];

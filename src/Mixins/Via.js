@@ -4,11 +4,6 @@ import Notification from "../config/Notification";
 import store from "../store";
 import router from "../router";
 export const Via = {
-  // mounted() {
-  //   this.h.on("auth.login", (auth) => {
-  //     console.log(auth.network + ": " + auth.authResponse.access_token);
-  //   });
-  // },
   methods: {
     async login($service, email, password, remember_me) {
       if ($service.toLowerCase() !== "email")
@@ -107,7 +102,6 @@ export const Via = {
     },
 
     signupCallback(data) {
-      console.log(data.response.extra[0].email, data);
       Notification.addNotification(data.response.message, true);
       router.push({
         name: "verify",
