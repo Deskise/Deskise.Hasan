@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
     {
         Category::factory(8)->create();
         Subcategory::factory(10)->create();
-        BlogPost::factory(10)->create();
+        BlogPost::factory(50)->create();
         ClientComment::factory(10)->create();
         Package::factory(7)->create();
         AboutUs::factory(1)->create();
