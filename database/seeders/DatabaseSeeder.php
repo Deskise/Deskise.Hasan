@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         ClientComment::factory(10)->create();
         Package::factory(7)->create();
         AboutUs::factory(1)->create();
-        FAQ::factory(10)->create();
+        FAQ::factory(50)->create();
         TermsOfUse::factory(2)->create();
         SocialMediaAccount::factory(5)->create();
     }

@@ -25,7 +25,7 @@ class FAQFactory extends Factory
         foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
         {
             $data['question_'.$lang] = $this->faker->text(350);
-            $data['answer_'.$lang] = $this->faker->text(10000);
+            $data['answer_'.$lang] = $this->faker->text(450);
         }
         return $data;
     }

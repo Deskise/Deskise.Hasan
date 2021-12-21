@@ -18,7 +18,7 @@ class CreateFAQSTable extends Migration
             foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
             {
                 $table->string('question_'.$lang, 350);
-                $table->longText('answer_'.$lang);
+                $table->string('answer_'.$lang,450);
             }
             $table->timestamps();
             $table->softDeletes();
