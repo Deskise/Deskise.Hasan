@@ -8,6 +8,7 @@
         "php": "^7.4|^8.0",
         "ext-json": "*",
         "ext-pdo": "*",
+        "beyondcode/laravel-websockets": "^1.12",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -16,6 +17,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "mcamara/laravel-localization": "^1.6",
+        "pusher/pusher-php-server": "^5.0",
         "staudenmeir/eloquent-eager-limit": "^1.6"
     },
     "require-dev": {

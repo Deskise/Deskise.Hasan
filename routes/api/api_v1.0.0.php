@@ -63,8 +63,8 @@ Route::group(['prefix' => 'blog'], function (){
 Route::group(['prefix' => 'auth'], function(){
 
     Route::post('/signup', 'Auth\AuthController@signup');
-    Route::post('/signup/facebook', 'Auth\AuthController@signupByFacebook');
-    Route::post('/signup/google', 'Auth\AuthController@signupByGoogle');
+//    Route::post('/signup/facebook', 'Auth\AuthController@signupByFacebook');
+//    Route::post('/signup/google', 'Auth\AuthController@signupByGoogle');
 
     Route::post('/verify/{type}','Auth\AuthController@verify')->middleware('HaveType:email');
     Route::post('/verify/{type}/resend','Auth\AuthController@resendVerification')->middleware('HaveType:email');
