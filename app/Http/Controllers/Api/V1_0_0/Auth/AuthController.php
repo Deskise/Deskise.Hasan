@@ -244,7 +244,7 @@
                         'user'  => $request->user()
                     ]);
                 }
-                return $this->signupByFacebook($request);
+                return APIHelper::error('There Is No Registration For This Account', []);
             }catch (ClientException $e)
             {
                 return APIHelper::jsonRender('Please Provide A Valid Access Token',[],403);
