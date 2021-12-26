@@ -61,6 +61,22 @@ class User extends Authenticatable
         'is_hidden'                 => 'boolean',
     ];
 
+    protected static function boot()
+    {
+        static::created(function ($user){
+            $user->settings()->create([
+                'allowed_alarms'    =>  [
+                    'email' =>  true,
+                    'admin' =>  true,
+                    'message' =>  true,
+                    'call' =>  true,
+                ],
+                'affiliate_links'   =>  true
+            ]);
+        });
+        parent::boot();
+    }
+
     public function getImgAttribute($value)
     {
         return APIHelper::getImageUrl('users', $value);
@@ -86,7 +102,7 @@ class User extends Authenticatable
     }
     public function packages()
     {
-        return $this->hasMany(Package::class);
+        return $this->hasMany(UserPackage::class);
     }
     public function settings()
     {

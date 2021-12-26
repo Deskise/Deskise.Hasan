@@ -10,6 +10,8 @@ class UserSettings extends Model
     use HasFactory;
     use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
+    protected $fillable = ['allowed_alarms','affiliate_links'];
+
     protected $hidden = [
         'created_at',
         'updated_at',
@@ -17,7 +19,7 @@ class UserSettings extends Model
     ];
 
     protected $casts = [
-        'allowed_alarms'    =>  'array',
+        'allowed_alarms'    =>  'json',
         'affiliate_links'   =>  'boolean'
     ];
 

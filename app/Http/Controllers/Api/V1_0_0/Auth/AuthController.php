@@ -210,7 +210,7 @@
                     'expires_at' => Carbon::parse(
                         $tokenResult->token->expires_at
                     )->toDateTimeString(),
-                    'user'  => $request->user()
+                    'user'  => $request->user()->load(['links','verifyAssets'])
                 ]);
             }
 
@@ -241,7 +241,7 @@
                         'expires_at' => Carbon::parse(
                             $tokenResult->token->expires_at
                         )->toDateTimeString(),
-                        'user'  => $request->user()
+                        'user'  => $request->user()->load(['links','verifyAssets'])
                     ]);
                 }
                 return APIHelper::error('There Is No Registration For This Account', []);
@@ -278,7 +278,7 @@
                         'expires_at' => Carbon::parse(
                             $tokenResult->token->expires_at
                         )->toDateTimeString(),
-                        'user'  => $request->user()
+                        'user'  => $request->user()->load(['links','verifyAssets'])
                     ]);
                 }
                 return APIHelper::error('There Is No Registration For This Account', []);
@@ -345,10 +345,22 @@
 
         public function user()
         {
-            $user = \request()->user();
+            $user = \request()->user()->load(['links','verifyAssets','packages']);
             $user->facebook_login = $user->facebook_id??false;
             $user->google_login = $user->google_id??false;
-            unset($user->email_verified_at,$user->backup_email_verified_at,$user->phone_verified_at,$user->backup_phone_verified_at,$user->id_verified_at,$user->is_closed,$user->is_hidden,$user->google_id,$user->facebook_id);
+            unset($user->is_closed,$user->is_hidden,$user->google_id,$user->facebook_id);
             return APIHelper::jsonRender('', $user);
+        }
+
+        public function userAlerts()
+        {
+            $user = \request()->user();
+            $alerts = new \stdClass();
+            $alerts->email = false;
+            $alerts->admin = false;
+            $alerts->message = false;
+            $alerts->call = false;
+
+            return APIHelper::jsonRender('', $alerts);
         }
     }

@@ -3,6 +3,7 @@
     use App\Helpers\APIHelper;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Route;
+    use \App\Http\Controllers\Api\V1_0_0\ProfileController as Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,8 +64,6 @@ Route::group(['prefix' => 'blog'], function (){
 Route::group(['prefix' => 'auth'], function(){
 
     Route::post('/signup', 'Auth\AuthController@signup');
-//    Route::post('/signup/facebook', 'Auth\AuthController@signupByFacebook');
-//    Route::post('/signup/google', 'Auth\AuthController@signupByGoogle');
 
     Route::post('/verify/{type}','Auth\AuthController@verify')->middleware('HaveType:email');
     Route::post('/verify/{type}/resend','Auth\AuthController@resendVerification')->middleware('HaveType:email');
@@ -81,6 +80,12 @@ Route::group(['prefix' => 'auth'], function(){
 
         Route::get('user','Auth\AuthController@user');
     });
+});
+Route::group([
+    'prefix' => 'dashboard',
+    'middleware' => 'auth:api'
+], function() {
+    Route::post('/user/data', [Profile::class, 'userData']);
 });
 
 // Product things:

@@ -15,12 +15,12 @@ class CreateUserVerificationAssetsTable extends Migration
     {
         Schema::create('user_verification_assets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('user_id');
             $table->json('assets');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('product_id')->references('id')->on((new \App\Models\Product())->getTable());
+            $table->foreign('user_id')->references('id')->on((new \App\Models\User())->getTable());
         });
     }
 
