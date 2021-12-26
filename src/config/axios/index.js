@@ -6,11 +6,12 @@ import Notification from "../Notification";
 
 const apiClient = axios.create({
   baseURL: process.env.VUE_APP_BACKEND_API_URL,
-  withCredentials: false, // This is the default
+  withCredentials: false,
   headers: {
     Accept: "application/json",
     "content-type": "application/json",
     "accept-language": i18n.global.locale,
+    "Content-Type": "multipart/form-data",
   },
 });
 
@@ -28,6 +29,7 @@ apiClient.interceptors.response.use(
       let { data } = err.response;
       switch (data.code) {
         case 401:
+          store.dispatch("user/logout");
           Notification.addNotification(data.response.message, false);
           router.push({ name: "login" });
           break;
@@ -46,20 +48,20 @@ export default {
     if ($auth === true)
       if (store.getters["user/isLoggedIn"])
         $headers.Authorization = "Bearer " + store.state.user.data.token;
-      else router.push("/login");
+      else router.push({ name: "login" });
 
-    return await apiClient.post($url, $data, $headers);
+    return await apiClient.post($url, $data, { headers: $headers });
   },
 
   async get($url, $data = [], $auth = false, $headers = {}) {
     if ($auth === true)
       if (store.getters["user/isLoggedIn"])
         $headers.Authorization = "Bearer " + store.state.user.data.token;
-      else router.push("/login");
+      else router.push({ name: "login" });
 
     return await apiClient.get(
       $url + "?" + $data.join("&").split(".").join("="),
-      $headers
+      { headers: $headers }
     );
   },
 };

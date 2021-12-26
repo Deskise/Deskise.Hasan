@@ -4,6 +4,7 @@ import store from "./store";
 import { createHead } from "@vueuse/head";
 import "./global/components/globalComponents";
 import "./config/hello";
+import "./config/Echo";
 import PerfectScrollbar from "vue3-perfect-scrollbar";
 
 import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";

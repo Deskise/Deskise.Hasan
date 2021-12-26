@@ -1,6 +1,11 @@
 <template>
   <label>
-    <input type="checkbox" @change="$emit('check', $event.target.checked)" />
+    <input
+      type="checkbox"
+      @change="$emit('check', $event.target.checked)"
+      :checked="value"
+      :disabled="isReadonly"
+    />
     <span></span>
     <span>{{ text }}</span>
   </label>
@@ -12,6 +17,14 @@ export default {
     text: {
       type: String,
       default: "",
+    },
+    value: {
+      type: Boolean,
+      default: false,
+    },
+    isReadonly: {
+      type: Boolean,
+      default: false,
     },
   },
 };
@@ -25,6 +38,7 @@ label {
   text-transform: uppercase;
 
   span {
+    margin: 0 5px;
     transition: all linear 0.3s;
   }
 

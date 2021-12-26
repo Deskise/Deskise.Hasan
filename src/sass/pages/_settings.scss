@@ -1,0 +1,388 @@
+.evaluation-questions th,
+.evaluation-questions td {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.table-responsive {
+  color: $primary;
+  position: relative;
+  border-collapse: collapse;
+}
+
+.table-with-scroll {
+  max-height: 350px;
+  overflow-y: scroll;
+}
+
+.account-settings {
+  .add-card {
+    background-color: #fcfcfc;
+    padding: 15px;
+  }
+
+  .evaluation-questions {
+    th:first-child {
+      border-right: none;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: white;
+    }
+
+    .table-striped tbody tr:nth-of-type(even),
+    .table-striped thead {
+      background-color: #f1f1f1;
+    }
+
+    thead tr th {
+      background-color: #f1f1f1;
+    }
+
+    td:nth-child(3) {
+      color: $primary;
+    }
+
+    td:last-child {
+      color: $primary;
+    }
+  }
+
+  .pagination {
+    .page-link {
+      padding: 0.5rem 0.7rem;
+
+      &.next {
+        padding: 0.5rem 0.9rem;
+      }
+    }
+
+    @media (min-width: $minLarge) {
+      .page-link {
+        padding: 0.5rem 0.9rem;
+
+        &.next {
+          padding: 0.5rem 1.3rem;
+        }
+      }
+    }
+
+    a.page-link {
+      border: none;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+      margin: 3px;
+      border-radius: 5px;
+      color: black;
+    }
+
+    .page-item.active .page-link {
+      z-index: 1;
+      color: black;
+      background-color: #f1f1f1;
+      border-color: white;
+      margin-top: 3px;
+      border-radius: 5px;
+    }
+  }
+
+  .table-special {
+    th,
+    td {
+      @media (min-width: $minSmall) {
+        padding-right: 6px;
+        padding-left: 15px;
+      }
+    }
+
+    td:last-child,
+    td:nth-child(3) {
+      color: inherit;
+    }
+
+    td.successfully {
+      color: $primary;
+    }
+
+    td.failure {
+      color: #ec5e4b;
+    }
+  }
+
+  .buttons-close {
+    button {
+      background-color: #fb5b5b;
+      color: white;
+
+      &:hover {
+        background-color: $secondary;
+      }
+    }
+  }
+
+  .agree-of-terms {
+    input,
+    label {
+      color: $secondary;
+    }
+  }
+
+  #Payment-Record {
+    h6 {
+      color: #4fa0ca;
+    }
+
+    color: #161c2a;
+
+    .order-data {
+      font-size: 14px;
+    }
+
+    .time {
+      border-left: 1px solid $gray;
+      margin-left: 40px;
+      padding: 0 5px;
+      @media (max-width: $maxMobile) {
+        margin-left: 20px;
+      }
+    }
+
+    .order-number {
+      border-bottom: 1px solid $formColor;
+    }
+  }
+}
+
+.form-verification {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    content: "";
+    border: 3px solid $gray-50;
+    width: 80%;
+    bottom: -15px;
+  }
+}
+
+.Subscribed {
+  .card {
+    border: 1px solid $gray-50;
+    border-radius: 10px;
+    color: $gray;
+
+    .card-body,
+    .card-header,
+    .card-footer {
+      background-color: rgba($light-gray, 0.23);
+    }
+
+    h2 {
+      color: #040506;
+      font-size: 40px;
+      font-weight: bold;
+      position: relative;
+
+      span {
+        position: absolute;
+        top: 6px;
+        margin-left: -9px;
+      }
+    }
+
+    &:hover {
+      background: linear-gradient(146deg, $primary, 27%, $secondary);
+      border: none;
+      color: white;
+
+      .card-header,
+      .card-footer {
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+      }
+
+      h2 {
+        color: white;
+      }
+    }
+  }
+
+  .subscribe {
+    @media (min-width: $maxMedium) and (max-width: $minLarge) {
+      padding: 8px;
+    }
+  }
+}
+
+#Payment {
+  h6 {
+    color: #4fa0ca;
+  }
+
+  color: #161c2a;
+
+  .order-data {
+    font-size: 14px;
+  }
+
+  .time {
+    border-left: 1px solid $gray;
+    margin-left: 40px;
+    padding: 0 5px;
+    @media (max-width: $maxMobile) {
+      margin-left: 20px;
+    }
+  }
+
+  .order-number {
+    border-bottom: 1px solid $formColor;
+  }
+}
+
+.modal-close-account {
+  p {
+    width: 70%;
+    margin: auto;
+    color: #c9c9c9;
+
+    @media (min-width: $minLarge) {
+      width: 82%;
+    }
+  }
+}
+
+.modal-backdrop.show {
+  background-color: #c9c9c9 !important;
+  opacity: 0.3;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 500px;
+    margin: -30px auto;
+  }
+}
+
+.payment-cards {
+  .img-visa {
+    width: 47px;
+  }
+
+  ul.first-star-of-life {
+    padding: 0 10px 0 3px;
+  }
+
+  li {
+    i.fa-star-of-life {
+      font-size: 8px;
+      margin: 1px;
+    }
+  }
+
+  span {
+    font-weight: bold;
+  }
+
+  span.date-of-visa {
+    margin: 0 10px;
+  }
+}
+
+.view-number {
+  color: $primary;
+}
+
+.head-view {
+  color: $gray;
+}
+
+.credit-card {
+  .card {
+    background: linear-gradient(146deg, $primary, 27%, #79d9e2);
+
+    img {
+      max-width: 70px;
+    }
+  }
+}
+
+.form-credit {
+  label {
+    font-weight: bold;
+  }
+
+  input::placeholder {
+    color: #bcbcbc;
+  }
+
+  .card-number {
+    input {
+      font-size: 14px;
+
+      text-align: center;
+      width: 60px;
+      background: rgba(255, 255, 255, 0.1);
+      //border-radius:5px;
+      border: 0;
+      transition: 0.2s;
+      display: inline-block;
+      border-bottom: 1px solid #f1f1f1;
+      outline: 0;
+      border-radius: 0;
+
+      &:focus {
+        background: rgba(255, 255, 255, 0.05);
+        outline: none;
+      }
+    }
+  }
+}
+
+.card-border {
+  border-bottom: 1px solid #f1f1f1;
+  padding-bottom: 10px;
+}
+
+.form-verification-credit:before {
+  width: 100%;
+  bottom: -45px;
+  @media (max-width: $maxMedium) {
+    bottom: -25px;
+  }
+}
+
+.manage {
+  .custom-checkbox input:checked ~ .checkmark {
+    border: 1.5px solid $secondary;
+    border-radius: 50%;
+  }
+  .custom-checkbox:hover input ~ .checkmark {
+    border: 1.5px solid $secondary;
+    border-radius: 50%;
+  }
+  .custom-checkbox {
+    margin-bottom: 0;
+    border-radius: 50%;
+  }
+  .checkmark {
+    border: 1.5px solid $secondary;
+    border-radius: 50%;
+
+    height: 16px;
+    width: 16px;
+    top: 2px;
+  }
+  .custom-checkbox .checkmark:after {
+    left: 4px;
+    top: 0.5px;
+    width: 6px;
+    height: 9.5px;
+    border: solid $secondary;
+    border-width: 0 2.5px 2.5px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  label {
+    color: $secondary;
+  }
+}

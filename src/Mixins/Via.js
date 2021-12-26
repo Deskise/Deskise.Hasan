@@ -35,8 +35,12 @@ export const Via = {
         exp: data.response.extra.expires_at,
       });
       Notification.addNotification(data.response.message, true);
-      //TODO: CHECK PASSWORD AND OTHER PROFILE DATA AND REDIRECT USER TO COMPLETE PROFILE FIRST
-      router.push(this.$route.query.redirect ?? { name: "products" });
+      router.push(
+        this.$route.query.redirect ??
+          (store.state.user.data.phone === null
+            ? { name: "dashboard.index" }
+            : { name: "products" })
+      );
     },
 
     async signup(

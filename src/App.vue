@@ -47,6 +47,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/sass/_globals/_variables";
 .ps:not(.scrollbar) {
   .ps__rail-y {
     width: 10px;

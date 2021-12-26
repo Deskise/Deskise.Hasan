@@ -1,0 +1,86 @@
+<template>
+  <div id="Manage-Email" class="content">
+    <h5>Manage Alerts Emails</h5>
+    <div>
+      <ul class="manage col-lg-8">
+        <li>
+          <circle-checkbox
+            text="Email Alerts"
+            :value="alarms.email"
+            @check="(e) => (alarms.email = e)"
+          ></circle-checkbox>
+        </li>
+        <li>
+          <circle-checkbox
+            text="Administration Alerts"
+            :value="alarms.admin"
+            @check="(e) => (alarms.admin = e)"
+          ></circle-checkbox>
+        </li>
+        <li>
+          <circle-checkbox
+            text="Message Alerts"
+            :value="alarms.message"
+            @check="(e) => (alarms.message = e)"
+          ></circle-checkbox>
+        </li>
+        <li>
+          <circle-checkbox
+            text="Call Alerts"
+            :value="alarms.call"
+            @check="(e) => (alarms.call = e)"
+          ></circle-checkbox>
+        </li>
+      </ul>
+      <div class="col-lg-5 m-auto text-center p-1">
+        <div class="form-group">
+          <button
+            type="button"
+            class="btn w-100 btn-primary mt-2"
+            @click="send()"
+          >
+            SAVE
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import CircleCheckbox from "../../../components/layouts/CircleCheckbox.vue";
+export default {
+  components: { CircleCheckbox },
+  data() {
+    return {
+      alarms: {
+        email: true,
+        admin: false,
+        message: false,
+        call: false,
+      },
+    };
+  },
+  methods: {
+    send() {
+      //TODO: CONNECT WITH BACKEND
+      return true;
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import "@/sass/_globals/_variables";
+ul.manage {
+  li {
+    color: $secondary;
+    padding: 5px 0;
+    list-style-type: none;
+  }
+
+  li:not(:last-child) {
+    border-bottom: 3px solid $gray-50;
+  }
+}
+</style>

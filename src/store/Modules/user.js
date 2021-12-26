@@ -1,9 +1,13 @@
 import { v4 } from "uuid";
+import SocialMedia from "@/config/Services/Data/SocialMedia";
+import UserData from "@/config/Services/Auth/UserData";
 
 export const namespaced = true;
 export const state = {
   data: null,
   uuid: null,
+  socialMedia: [],
+  alerts: null,
 };
 
 export const mutations = {
@@ -16,8 +20,14 @@ export const mutations = {
     }
   },
   SET_DATA(state, data) {
-    state.data = data;
-    state.data["uuid"] = state.uuid;
+    let d = data;
+    d["uuid"] = state.uuid;
+    if (state.data !== null) {
+      d["token"] = state.data["token"];
+      d["token_expire"] = state.data["token_expire"];
+      d["token_type"] = state.data["token_type"];
+    }
+    state.data = d;
 
     localStorage.setItem("deskies_user", JSON.stringify(state.data));
   },
@@ -27,6 +37,12 @@ export const mutations = {
     state.data["token_expire"] = exp;
 
     localStorage.setItem("deskies_user", JSON.stringify(state.data));
+  },
+  SET_SOCIAL_MEDIA(state, socialMedia) {
+    state.socialMedia = socialMedia;
+  },
+  SET_ALERTS(state, alerts) {
+    state.alerts = alerts;
   },
   ERASE_USER_DATA(state) {
     state.data = null;
@@ -52,6 +68,31 @@ export const actions = {
   setToken({ commit }, { token, type, exp }) {
     commit("SET_TOKEN", { token, type, exp });
   },
+
+  async fetchSocailMedia({ commit }) {
+    await SocialMedia.fetch()
+      .then((response) => {
+        let socialMedia = response.data.response.extra;
+        commit("SET_SOCIAL_MEDIA", socialMedia);
+      })
+      .catch(() => {});
+  },
+  async fetchAlerts({ commit }) {
+    await UserData.alerts()
+      .then((response) => {
+        let alerts = response.data.response.extra;
+        commit("SET_ALERTS", alerts);
+      })
+      .catch(() => {});
+  },
+  async getData({ commit }) {
+    await UserData.data()
+      .then(({ data }) => {
+        commit("SET_DATA", data.response.extra[0]);
+      })
+      .catch(() => {});
+  },
+
   logout({ commit }) {
     commit("ERASE_USER_DATA");
     commit("CHANGE_UUID", v4().substr(0, 30));
@@ -65,5 +106,20 @@ export const getters = {
       typeof state.data !== "object" ||
       state.data.token === null
     );
+  },
+  getUserData: (state) => {
+    return {
+      backup_email: state.data.backup_email,
+      backup_phone: state.data.backup_phone,
+      bio: state.data.bio,
+      email: state.data.email,
+      firstname: state.data.firstname,
+      id: state.data.id,
+      img: state.data.img,
+      lastname: state.data.lastname,
+      links: state.data.links,
+      location: state.data.location,
+      phone: state.data.phone,
+    };
   },
 };
