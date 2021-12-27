@@ -13,6 +13,7 @@ class UserSettings extends Model
     protected $fillable = ['allowed_alarms','affiliate_links'];
 
     protected $hidden = [
+        'user_id',
         'created_at',
         'updated_at',
         'deleted_at',

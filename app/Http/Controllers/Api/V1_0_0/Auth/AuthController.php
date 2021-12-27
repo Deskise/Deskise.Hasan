@@ -352,15 +352,8 @@
             return APIHelper::jsonRender('', $user);
         }
 
-        public function userAlerts()
+        public function userSettings()
         {
-            $user = \request()->user();
-            $alerts = new \stdClass();
-            $alerts->email = false;
-            $alerts->admin = false;
-            $alerts->message = false;
-            $alerts->call = false;
-
-            return APIHelper::jsonRender('', $alerts);
+            return APIHelper::jsonRender('', \request()->user()->settings);
         }
     }

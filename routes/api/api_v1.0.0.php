@@ -79,6 +79,7 @@ Route::group(['prefix' => 'auth'], function(){
         Route::get('logout', 'Auth\AuthController@logout');
 
         Route::get('user','Auth\AuthController@user');
+        Route::get('user/settings','Auth\AuthController@userSettings');
     });
 });
 Route::group([
@@ -86,6 +87,7 @@ Route::group([
     'middleware' => 'auth:api'
 ], function() {
     Route::post('/user/data', [Profile::class, 'userData']);
+    Route::post('/user/alerts', [Profile::class, 'alerts']);
 });
 
 // Product things:

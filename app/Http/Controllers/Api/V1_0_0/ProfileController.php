@@ -57,4 +57,20 @@ class ProfileController extends Controller
 
         return APIHelper::jsonRender('Data Updated Successfully',$user->load(['links','verifyAssets','packages']));
     }
+
+    public function alerts(Request $request)
+    {
+        $request->validate([
+            'email'     => 'required|boolean',
+            'admin'     => 'required|boolean',
+            'message'   => 'required|boolean',
+            'call'      => 'required|boolean',
+        ]);
+
+        $request->user()->settings()->update([
+            'allowed_alarms'    =>  $request->all()
+        ]);
+
+        return APIHelper::jsonRender('Data Updated Successfully',[]);
+    }
 }
