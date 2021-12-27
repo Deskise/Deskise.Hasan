@@ -4,7 +4,7 @@ export default {
   data() {
     return apiClient.get("/auth/user", [], true);
   },
-  alerts() {
-    return apiClient.get("auth/user/alerts", [], true);
+  settings() {
+    return apiClient.get("/auth/user/settings", [], true);
   },
 };

@@ -4,6 +4,6 @@ export default {
     return apiClient.post("/dashboard/user/data", data, true);
   },
   alerts(alerts) {
-    return apiClient.get("/dashboard/user/alerts", alerts, true);
+    return apiClient.post("/dashboard/user/alerts", alerts, true);
   },
 };

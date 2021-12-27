@@ -31,6 +31,12 @@ export const routes = [
         path: "alerts",
         name: "dashboard.alerts",
         component: lazyLoad("Alerts"),
+        beforeEnter: async (to, from, next) => {
+          if (store.state.user.settings === null) {
+            await store.dispatch("user/fetchSettings");
+          }
+          next();
+        },
       },
       {
         path: "password",

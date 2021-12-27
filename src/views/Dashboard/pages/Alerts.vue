@@ -48,23 +48,19 @@
 </template>
 
 <script>
-import CircleCheckbox from "../../../components/layouts/CircleCheckbox.vue";
+import Notification from "@/config/Notification";
+import Dashboard from "@/config/Services/Dashboard";
 export default {
-  components: { CircleCheckbox },
   data() {
     return {
-      alarms: {
-        email: true,
-        admin: false,
-        message: false,
-        call: false,
-      },
+      alarms: this.$store.state.user.settings.allowed_alarms,
     };
   },
   methods: {
-    send() {
-      //TODO: CONNECT WITH BACKEND
-      return true;
+    async send() {
+      await Dashboard.alerts(this.alarms).then(({ data }) => {
+        Notification.addNotification(data.response.message, true);
+      });
     },
   },
 };

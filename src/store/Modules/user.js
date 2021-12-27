@@ -7,7 +7,7 @@ export const state = {
   data: null,
   uuid: null,
   socialMedia: [],
-  alerts: null,
+  settings: null,
 };
 
 export const mutations = {
@@ -41,8 +41,8 @@ export const mutations = {
   SET_SOCIAL_MEDIA(state, socialMedia) {
     state.socialMedia = socialMedia;
   },
-  SET_ALERTS(state, alerts) {
-    state.alerts = alerts;
+  SET_SETTINGS(state, settings) {
+    state.settings = settings;
   },
   ERASE_USER_DATA(state) {
     state.data = null;
@@ -77,11 +77,11 @@ export const actions = {
       })
       .catch(() => {});
   },
-  async fetchAlerts({ commit }) {
-    await UserData.alerts()
+  async fetchSettings({ commit }) {
+    await UserData.settings()
       .then((response) => {
-        let alerts = response.data.response.extra;
-        commit("SET_ALERTS", alerts);
+        let settings = response.data.response.extra;
+        commit("SET_SETTINGS", settings[0]);
       })
       .catch(() => {});
   },
