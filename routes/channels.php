@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-//header('Access-Control-Allow-Origin: *');
-//header('Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS');
-//header('Access-Control-Allow-Headers: Accept, Authorization, Content-Type, X-Requested-With');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS');
+header('Access-Control-Allow-Headers: Accept, Authorization, Content-Type, X-Requested-With');
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+Broadcast::channel('notification.{id}', function ($user, $id){
+    return true;
 });

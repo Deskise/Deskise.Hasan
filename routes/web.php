@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('{for}/images/{image}',function ($for,$image){
     return Storage::disk($for)->download($image);
 })->name('images');
+
+Route::get('/send',function (){
+    broadcast(new \App\Events\NewNotification('hiiiiiiiiiii'));
+    return 'yes';
+});
