@@ -20,6 +20,8 @@ class UserVerificationAssets extends Model
         'deleted_at',
     ];
 
+    protected $primaryKey = 'user_id';
+
     public function user()
     {
         return $this->belongsTo(User::class);

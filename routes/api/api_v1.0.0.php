@@ -88,6 +88,8 @@ Route::group([
 ], function() {
     Route::post('/user/data', [Profile::class, 'userData']);
     Route::post('/user/alerts', [Profile::class, 'alerts']);
+    Route::post('/user/password/change', [Profile::class, 'changePassword']);
+    Route::post('/user/account/close', [Profile::class, 'closeAccount']);
 });
 
 // Product things:

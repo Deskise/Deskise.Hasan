@@ -14,8 +14,7 @@ class CreateUserVerificationAssetsTable extends Migration
     public function up()
     {
         Schema::create('user_verification_assets', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->id('user_id');
             $table->json('assets');
             $table->timestamps();
             $table->softDeletes();

@@ -188,6 +188,7 @@
             }
 
             $user = $request->user();
+            if ($user->is_closed) return APIHelper::error('This Account Has Been Closed, Call Support To Re-Open It');
 
             if ($user->hasVerifiedEmail())
             {
@@ -345,7 +346,7 @@
 
         public function user()
         {
-            $user = \request()->user()->load(['links','verifyAssets','packages']);
+            $user = \request()->user()->load(['links','verifyAssets','packages','packages.package']);
             $user->facebook_login = $user->facebook_id??false;
             $user->google_login = $user->google_id??false;
             unset($user->is_closed,$user->is_hidden,$user->google_id,$user->facebook_id);

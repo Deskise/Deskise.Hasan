@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +23,6 @@ class UserPackage extends Model
     }
     public function package()
     {
-        return $this->belongsTo(Package::class);
+        return $this->belongsTo(Package::class)->select('id','dur as quantity','duration','price','details_'.Controller::$language.' as details','name_'.Controller::$language.' as name');
     }
 }

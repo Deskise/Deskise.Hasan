@@ -73,4 +73,28 @@ class ProfileController extends Controller
 
         return APIHelper::jsonRender('Data Updated Successfully',[]);
     }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password'      =>  'required|string',
+            'new_password'      =>  'required|string|confirmed',
+        ]);
+
+        if (!\Hash::check($request->input('old_password'),$request->user()->password)) return APIHelper::error('old password is not right');
+
+        $request->user()->update([
+            'password'  =>  \Hash::make($request->input('new_password'))
+        ]);
+
+        return APIHelper::jsonRender('Data Updated Successfully', []);
+    }
+
+    public function closeAccount(Request $request)
+    {
+        $request->user()->update([
+            'is_closed' => true
+        ]);
+        return APIHelper::jsonRender('Account Has Been Closed Successfully',[]);
+    }
 }

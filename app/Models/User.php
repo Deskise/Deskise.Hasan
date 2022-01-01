@@ -30,7 +30,9 @@ class User extends Authenticatable
         'img',
         'location',
         'facebook_id',
-        'google_id'
+        'google_id',
+        'is_hidden',
+        'is_closed'
     ];
 
     /**
