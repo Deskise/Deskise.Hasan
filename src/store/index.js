@@ -5,6 +5,8 @@ import * as category from "./Modules/Category";
 import * as data from "./Modules/Data";
 import * as blog from "./Modules/Blog";
 
+import * as sockets from "./Modules/Sockets";
+
 export default createStore({
   state: {
     Loading: false,
@@ -36,5 +38,6 @@ export default createStore({
     category,
     data,
     blog,
+    sockets,
   },
 });

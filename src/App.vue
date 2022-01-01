@@ -25,6 +25,8 @@ export default {
   created() {
     this.$store.dispatch("category/fetch");
     this.$store.dispatch("user/getUUID");
+    this.$store.dispatch("sockets/init_echo");
+    this.$store.dispatch("sockets/connect_sockets");
   },
   components: { NotificationBar, Footer, Loader, CookieAgreement },
   data() {
