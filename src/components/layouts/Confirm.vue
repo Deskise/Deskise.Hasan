@@ -118,4 +118,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/sass/_globals/_variables";
+.font-weight-bold {
+  font-weight: 700;
+}
+p {
+  width: 70%;
+  margin: auto;
+  color: #c9c9c9;
+
+  @media (min-width: $minLarge) {
+    width: 82%;
+  }
+}
+</style>

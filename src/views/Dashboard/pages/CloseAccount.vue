@@ -26,11 +26,11 @@
     </p>
     <form action="">
       <div class="manage">
-        <label class="custom-checkbox font-weight-normal">
-          Agree to the terms of the site
-          <input type="checkbox" checked="checked" />
-          <span class="checkmark"></span>
-        </label>
+        <circle-checkbox
+          text="Agree to the terms of the site"
+          id="terms"
+          @check="(e) => (acceptTerms = e)"
+        ></circle-checkbox>
       </div>
 
       <div class="form-group text-center">
@@ -38,10 +38,8 @@
           <button
             type="button"
             class="btn btn-outline w-100 btn-modal mt-2"
-            data-toggle="modal"
-            data-target="#close-accounts"
-            value="Send"
-            name="submit"
+            data-bs-toggle="modal"
+            data-bs-target="#close-accounts"
           >
             Close Account
           </button>
@@ -49,10 +47,60 @@
       </div>
     </form>
   </div>
+  <Confirm
+    id="close-accounts"
+    title="Close Account"
+    desc="Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut"
+    submit="Close Account"
+    close="Back"
+    submitClass="btn-danger"
+    closeClass="btn-primary"
+    @submit="submit()"
+  ></Confirm>
 </template>
 
 <script>
-export default {};
+import { required } from "@/Mixins/Validations";
+import Notification from "@/config/Notification";
+import Dashboard from "@/config/Services/Dashboard";
+
+export default {
+  data() {
+    return {
+      acceptTerms: false,
+    };
+  },
+  watch: {
+    acceptTerms() {
+      document.querySelector("#terms").classList.remove("invalid");
+    },
+  },
+  methods: {
+    async submit() {
+      if (!required(this.acceptTerms)) {
+        document.querySelector("#terms").classList.add("invalid");
+        return;
+      }
+
+      await Dashboard.close().then(({ data }) => {
+        Notification.addNotification(data.response.message, true);
+        this.$store.dispatch("user/logout");
+      });
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/sass/_globals/_variables";
+.buttons-close {
+  button {
+    background-color: #fb5b5b;
+    color: white;
+
+    &:hover {
+      background-color: $secondary;
+    }
+  }
+}
+</style>

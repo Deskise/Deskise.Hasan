@@ -64,6 +64,11 @@ export default {
   color: #040506;
   font-weight: 500;
   text-align: left;
+  article {
+    border-radius: 6px;
+    background-color: white;
+    border: 1px solid rgba(201, 201, 201, 0.23);
+  }
 
   form input,
   form textarea,
@@ -80,11 +85,17 @@ export default {
     }
   }
 
-  .invalid {
+  input.invalid {
     border: 1px solid red;
     color: red;
     &::placeholder {
       color: red;
+    }
+  }
+  label.invalid {
+    color: red;
+    span:first-of-type {
+      border-color: red;
     }
   }
 }

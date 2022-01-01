@@ -46,6 +46,7 @@ export const mutations = {
   },
   ERASE_USER_DATA(state) {
     state.data = null;
+    state.settings = null;
     localStorage.removeItem("deskies_user");
   },
   CHANGE_UUID(state, UUID) {

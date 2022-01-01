@@ -5,6 +5,7 @@ import { routes as Blog } from "./noLogin/Blog";
 
 import { routes as Product } from "./needLogin/Product";
 import { routes as Dashboard } from "./needLogin/Dashboard";
+import { routes as Chat } from "./needLogin/Chat";
 
 export const routes = [
   ...Data,
@@ -14,4 +15,5 @@ export const routes = [
 
   ...Product,
   ...Dashboard,
+  ...Chat,
 ];

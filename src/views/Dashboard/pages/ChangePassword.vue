@@ -9,7 +9,7 @@
           placeholder="old Password"
           name="password"
           style="font-size: 90%"
-          required
+          @keydown="$event.target.classList.remove('invalid')"
           v-model="old_password"
         />
       </div>
@@ -21,7 +21,7 @@
           placeholder="New Password"
           name="password"
           style="font-size: 90%"
-          required
+          @keydown="$event.target.classList.remove('invalid')"
           v-model="new_password"
         />
       </div>
@@ -33,7 +33,7 @@
           placeholder="Confirm Password"
           name="password"
           style="font-size: 90%"
-          required
+          @keydown="$event.target.classList.remove('invalid')"
           v-model="re_new_password"
         />
       </div>
@@ -57,6 +57,9 @@
 </template>
 
 <script>
+import Notification from "@/config/Notification";
+import { required, same } from "@/Mixins/Validations";
+import Dashboard from "@/config/Services/Dashboard";
 export default {
   data() {
     return {
@@ -66,9 +69,37 @@ export default {
     };
   },
   methods: {
-    send() {
-      //TODO: CONNECT WITH BACKEND
-      return true;
+    async send() {
+      let isError = false;
+
+      if (!required(this.old_password)) {
+        document.querySelector("#old_password").classList.add("invalid");
+        isError = true;
+      }
+      if (
+        !required(this.new_password) ||
+        same(this.new_password, this.old_password)
+      ) {
+        document.querySelector("#new_password").classList.add("invalid");
+        isError = true;
+      }
+      if (
+        !required(this.re_new_password) ||
+        !same(this.re_new_password, this.new_password)
+      ) {
+        document.querySelector("#re_new_password").classList.add("invalid");
+        isError = true;
+      }
+
+      if (isError) return;
+      await Dashboard.changePassword(
+        this.old_password,
+        this.new_password,
+        this.re_new_password
+      ).then(({ data }) => {
+        Notification.addNotification(data.response.message, true);
+        this.old_password = this.new_password = this.re_new_password = "";
+      });
     },
   },
 };
