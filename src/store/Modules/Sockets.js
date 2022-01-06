@@ -5,33 +5,23 @@ export const namespaced = true;
 export const state = {
   sockets: [
     {
-      name: "Notification",
-      channel: "notification.::id::",
+      id: "Public",
+      name: "Public",
+      channel: "user.public.::id::",
       status: false,
       listen: {
         NewNotification: (e) => {
           console.log(e);
         },
+        admin: (e) => {
+          console.log(e);
+        },
+        messages: (e) => {
+          console.log(e);
+        },
       },
     },
-    // {
-    //   name: "messages",
-    //   channel: "",
-    //   variables: [],
-    //   status: false,
-    // },
-    // {
-    //   name: "calls",
-    //   channel: "",
-    //   variables: [],
-    //   status: false,
-    // },
-    // {
-    //   name: "admin",
-    //   channel: "",
-    //   variables: [],
-    //   status: false,
-    // },
+    //TODO: Calls Websocket Connection.
   ],
 };
 
@@ -79,7 +69,7 @@ export const actions = {
       commit("INIT_ECHO");
   },
   connect_sockets({ commit }) {
-    commit("CONNECT_SOCKETS");
+    if (store.getters["user/isLoggedIn"]) commit("CONNECT_SOCKETS");
   },
 };
 

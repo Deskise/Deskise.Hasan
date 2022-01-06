@@ -35,7 +35,6 @@ export default {
       let dash = this.$router.options.routes.filter(
         (e) => e.name === "dash"
       )[0];
-      console.log();
       if (
         this.$route.path.match(
           dash.path +

@@ -231,6 +231,7 @@ export default {
         this.isError = true;
       }
       if (
+        !required(this.user.phone) ||
         !optional(this.user.backup_phone, [number]) ||
         same(this.user.backup_phone, this.user.phone)
       ) {

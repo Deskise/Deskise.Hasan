@@ -176,6 +176,7 @@ h3 {
     border-radius: 3px;
     color: #040506;
     font-size: 16px;
+    min-height: 80px;
 
     &.router-link-active {
       color: white !important;

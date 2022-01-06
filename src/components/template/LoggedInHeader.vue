@@ -58,8 +58,8 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'requestProduct' }">
-              {{ __("footer.request") }}
+            <router-link class="nav-link" :to="{ name: 'dashboard.index' }">
+              Dashboard
             </router-link>
           </li>
           <li class="nav-item">
