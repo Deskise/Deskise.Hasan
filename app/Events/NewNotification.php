@@ -34,6 +34,6 @@ class NewNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('notification.'.$this->user->id);
+        return new PrivateChannel('user.public.'.$this->user->id);
     }
 }

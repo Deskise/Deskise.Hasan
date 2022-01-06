@@ -20,6 +20,6 @@ header('Access-Control-Allow-Headers: Accept, Authorization, Content-Type, X-Req
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
-Broadcast::channel('notification.{id}', function ($user, $id){
+Broadcast::channel('user.public.{id}', function ($user, $id){
     return true;
 });
