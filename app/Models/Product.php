@@ -69,4 +69,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductLikes::class);
     }
+
+    public function hasHiddenSeller()
+    {
+        return $this->user->ishiddem;
+    }
 }

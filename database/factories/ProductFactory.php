@@ -31,11 +31,16 @@ class ProductFactory extends Factory
             $data['description_'.$lang] = $this->faker->text(10000);
             $data['summary_'.$lang] = $this->faker->text(350);
         }
+        $data['user_id'] = User::all()->random()->id;
+
         $data['price'] = $this->faker->randomFloat('2','10','1000');
+        $data['img'] = 'default.png';
         $data['category_id'] = Category::all()->random()->id;
-        $data['subcategory_id'] = Subcategory::all()->random()->id;
         $data['special'] = $this->faker->boolean;
         $data['verified'] = $this->faker->boolean;
+        $data['status'] = $this->faker->randomElement(['sold','available','canceled','under_verify']);
+        $data['is_lifetime'] = $this->faker->boolean;
+        $data['until'] = ($data['is_lifetime'])?$this->faker->date:null;
 
         return $data;
     }

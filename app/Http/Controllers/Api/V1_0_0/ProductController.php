@@ -79,7 +79,7 @@
         {
 
             $query = $this->filter(
-                Product::select('id','name', 'summary','price',
+                Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as description','price',
                     'special','verified','category_id', 'user_id')
                     ->with('category:id,name_'.self::$language.' as name')
                     ->with('data:id,subcategory_id')

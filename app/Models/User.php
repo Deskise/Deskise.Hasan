@@ -32,7 +32,8 @@ class User extends Authenticatable
         'facebook_id',
         'google_id',
         'is_hidden',
-        'is_closed'
+        'is_closed',
+        'id_verified_at'
     ];
 
     /**
