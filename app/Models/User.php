@@ -28,6 +28,7 @@ class User extends Authenticatable
         'backup_phone',
         'password',
         'img',
+        'banner',
         'location',
         'facebook_id',
         'google_id',
@@ -81,6 +82,11 @@ class User extends Authenticatable
     }
 
     public function getImgAttribute($value)
+    {
+        return APIHelper::getImageUrl('users', $value);
+    }
+
+    public function getBannerAttribute($value)
     {
         return APIHelper::getImageUrl('users', $value);
     }

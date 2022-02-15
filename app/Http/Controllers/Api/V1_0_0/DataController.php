@@ -15,6 +15,7 @@
     use App\Models\Newsletter;
     use App\Models\Package;
     use App\Models\SocialMediaAccount;
+    use App\Models\Subcategory;
     use App\Models\TermsOfUse;
     use Illuminate\Http\Request;
 
@@ -51,11 +52,15 @@
             return APIHelper::jsonRender('', $data);
         }
 
-        public function subcategories(Category $category)
+        public function subcategories($category)
         {
-            $data = $category->load('subcategories:id,name_'.self::$language.' as name');
-
-            return APIHelper::jsonRender('', $data);
+            if((int)($category)!==0)
+            {
+                $data = Subcategory::select('id','name_'.self::$language.' as name')->where('category_id',$category)->get();
+            }else{
+                $data = Subcategory::select('id','name_'.self::$language.' as name')->get();
+            }
+            return APIHelper::jsonRender('', ['subcategories' => $data]);
         }
 
         public function comments()

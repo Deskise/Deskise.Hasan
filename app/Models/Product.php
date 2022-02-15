@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\APIHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +24,10 @@ class Product extends Model
         'updated_at',
         'deleted_at',
     ];
-
+    public function getImgAttribute($value)
+    {
+        return APIHelper::getImageUrl('products',$value);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -101,7 +101,7 @@
             {
                 $verification = $user->verifications()->create([
                     'verifyFor' =>  'email',
-                    'verifyCode'=>  \Str::random(8),
+                    'verifyCode'=>  (env('APP_ENV')==='local'||env('APP_ENV')==='testing')?'12345678':\Str::random(8),
                 ]);
                 \Mail::to($user)->send(new verify($verification));
             }

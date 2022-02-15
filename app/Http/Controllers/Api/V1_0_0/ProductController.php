@@ -25,7 +25,7 @@
         use ProductFilter;
         public function __construct()
         {
-            $this->middleware('auth:api')->except(['request','list','best','search']);
+            $this->middleware('auth:api')->except(['request','list','best','search', 'single']);
         }
 
         public function request(ProdRequest $request)
@@ -79,11 +79,8 @@
         {
 
             $query = $this->filter(
-                Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as description','price',
-                    'special','verified','category_id', 'user_id')
-                    ->with('category:id,name_'.self::$language.' as name')
-                    ->with('data:id,subcategory_id')
-                    ->with('data.subcategory:id,name_'.self::$language.' as name')
+                Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as details','price',
+                    'special','verified', 'img','status')
                     ->where('status','!=','under_verify')
                     ->where('status','!=','canceled')
             );
@@ -99,15 +96,13 @@
 
         public function single($id, $prod=false)
         {
-            $product = Product::select('id','name','description','price',
-                    'category_id','user_id', 'special','verified','status','is_lifetime','until')
+            $product = Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as summary',
+                'description_'.self::$language.' as description','price','user_id','img', 'special','verified','status','is_lifetime','until')
                 ->with('user:id,firstname,lastname,img,is_hidden')
-                ->with('category:id,name_'.self::$language . ' as name')
                 ->with('data')
                 ->with('data.subcategory:id,name_'.self::$language . ' as name')
                 ->with('social.account:id,name_'.self::$language.' as name,description_'.self::$language.' as description')
                 ->with('assets')
-                ->with('packages.package:name_'.self::$language.' as name,details_'.self::$language.' as details,id,price,duration')
                 ->find($id);
 
             if ($product===Null)
@@ -116,7 +111,7 @@
             if ($product->status === 'canceled'  && $product->user_id !== request()->user()->id)
                 return APIHelper::jsonRender('Requested Product Has Been Cancelled', [], 403);
 
-            if ($product->status === 'under_verify' && $product->user_id !== request()->user()->id)
+            if ($product->status === 'under_verify' && (request()->user() === null || $product->user_id !== request()->user()->id))
                 return APIHelper::jsonRender('Requested Product Still Under verification', [], 403);
 
             $bought = $product->bought();
@@ -128,18 +123,19 @@
             })];
 
             $product->likes = $product->likes()->count();
-            $product->liked = $product->likes()->where('user_id','=',request()->user()->id)->first()!==null;
+            if (\request()->user()) {
+                $product->liked = $product->likes()->where('user_id', '=', request()->user()->id)->first() !== null;
+                $product->mine = ($product->user_id===request()->user()->id);
+            }else{
+                if ($product->user->is_hidden)
+                {
+                    $person = new \Faker\Provider\en_US\Person(new Generator());
 
-            if ($product->user->is_hidden)
-            {
-                $person = new \Faker\Provider\en_US\Person(new Generator());
-
-                $product->user->firstname = $person->firstName($person::GENDER_MALE);
-                $product->user->lastname = $person->lastname();
-                $product->user->img = 'default.png';
+                    $product->user->firstname = $person->firstName($person::GENDER_MALE);
+                    $product->user->lastname = $person->lastname();
+                    $product->user->img = 'default.png';
+                }
             }
-
-            $product->mine = ($product->user_id===request()->user()->id);
 
             unset($product->user_id,$product->category_id,$product->subcategory_id);
             if ($prod) return $product;

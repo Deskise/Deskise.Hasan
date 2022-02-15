@@ -3,7 +3,9 @@
     use App\Helpers\APIHelper;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Route;
+    use \App\Http\Controllers\Api\V1_0_0\DataController as Data;
     use \App\Http\Controllers\Api\V1_0_0\ProfileController as Profile;
+    use App\Http\Controllers\Api\V1_0_0\ProductController as Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,31 +21,31 @@
 // API Data things:
 Route::group(['prefix' => 'data'], function (){
     Route::group(['prefix' => 'terms'], function (){
-        Route::get('/terms', 'DataController@termsandconditions');
-        Route::get('/privacy', 'DataController@privacy');
+        Route::get('/terms', [Data::class,'termsandconditions']);
+        Route::get('/privacy', [Data::class,'privacy']);
     });
 
     Route::group(['prefix' => 'categories'], function (){
-        Route::get('/{category?}','DataController@categories');
-        Route::get('/{category}/subcategories','DataController@subcategories');
+        Route::get('/{category?}',[Data::class,'categories']);
+        Route::get('/{category?}/subcategories',[Data::class,'subcategories']);
     });
 
     Route::group(['prefix' => 'api'], function (){
-        Route::get('/version','DataController@version');
+        Route::get('/version',[Data::class,'version']);
     });
 
     Route::group(['prefix' => 'about'], function (){
-        Route::get('/home','DataController@aboutHome');
-        Route::get('/page','DataController@aboutPage');
+        Route::get('/home',[Data::class,'aboutHome']);
+        Route::get('/page',[Data::class,'aboutPage']);
     });
 
-    Route::get('/packages','DataController@packages');
-    Route::get('/comments','DataController@comments');
-    Route::get('/faq','DataController@faq');
-    Route::post('/newsletter','DataController@news');
+    Route::get('/packages',[Data::class,'packages']);
+    Route::get('/comments',[Data::class,'comments']);
+    Route::get('/faq',[Data::class,'faq']);
+    Route::post('/newsletter',[Data::class,'news']);
 
-    Route::post('/contactus','DataController@contact');
-    Route::get('/social','DataController@social');
+    Route::post('/contactus',[Data::class,'contact']);
+    Route::get('/social',[Data::class,'social']);
 
 });
 
@@ -95,22 +97,22 @@ Route::group([
 // Product things:
 Route::group(['prefix' => 'products'], function (){
 
-    Route::post('request','productController@request');
-    Route::get('request','productController@best');
+    Route::post('request',[Product::class,'request']);
+    Route::get('request',[Product::class,'best']);
 
-    Route::get('list/{category?}','productController@list');
-    Route::get('single/{id}','productController@single');
-    Route::get('single/{product}/like','productController@like');
-    Route::get('search','productController@search');
-    Route::get('best','productController@best');
+    Route::get('list/{category?}',[Product::class,'list']);
+    Route::get('single/{id}',[Product::class,'single']);
+    Route::get('single/{product}/like',[Product::class,'like']);
+    Route::get('search',[Product::class,'search']);
+    Route::get('best',[Product::class,'best']);
 
-    Route::get('edit/{id}','productController@edit');
-    Route::post('edit/{id}/publish','productController@publish');
-    Route::post('edit/{id}/save','productController@saveDraft');
-    Route::post('edit/{id}/upload','productController@upload');
+    Route::get('edit/{id}',[Product::class,'edit']);
+    Route::post('edit/{id}/publish',[Product::class,'publish']);
+    Route::post('edit/{id}/save',[Product::class,'saveDraft']);
+    Route::post('edit/{id}/upload',[Product::class,'upload']);
 
-    Route::post('add','productController@publish')->name('add');
-    Route::post('add/save','productController@saveDraft');
+    Route::post('add',[Product::class,'publish'])->name('add');
+    Route::post('add/save',[Product::class,'saveDraft']);
 });
 
 // Status Fallback:
