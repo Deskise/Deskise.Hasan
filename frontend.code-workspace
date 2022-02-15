@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\Ahmed_Front"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Ahmed_Front"
+	}
+}

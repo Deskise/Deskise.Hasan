@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import NewLetter from "@/config/Services/Data/NewsLetter";
 import store from "@/store";
 export default {
@@ -120,7 +120,7 @@ export default {
     },
   },
   computed: {
-    ...mapState("category", ["categories"]),
+    ...mapGetters("category", ["categories"]),
   },
 };
 </script>

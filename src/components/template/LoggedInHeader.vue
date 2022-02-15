@@ -1,50 +1,31 @@
 <template>
   <nav class="navbar navbar-expand-lg border-bottom noLogin">
-    <div class="container-fluid">
-      <router-link class="navbar-brand" to="/">
-        <img
-          src="@/assets/logo.png"
-          alt="logo"
-          class="img-fluid border-right"
-        />
-      </router-link>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/">
+    <div class="logo">
+      <img src="@/assets/logo.png" />
+    </div>
+    <div class="nav-content">
+      <div class="dash-nav-links">
+        <ul class="dash-menu-links">
+          <li class="dash-menu-item">
+            <a href="javascript:void(0)" class="dash-menu-link active">
               {{ __("header.nologin.home") }}
-            </router-link>
+            </a>
           </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+          <li class="dash-menu-item dash-has-menu">
+            <a href="javascript:void(0)" class="dash-menu-link">
               {{ __("header.nologin.category") }}
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li v-for="(category, index) in categories" :key="index">
+            <ul class="dash-sub-menu">
+              <li
+                class="dash-sub-menu-item"
+                v-for="(category, index) in categories"
+                :key="index"
+              >
                 <router-link
                   :to="{
                     name: 'productsByCategory',
                     params: { id: category.id },
                   }"
-                  class="dropdown-item"
                 >
                   {{ category.name }}
                   <span></span>
@@ -52,34 +33,162 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'requestProduct' }">
+          <li class="dash-menu-item">
+            <router-link
+              class="dash-menu-link"
+              :to="{ name: 'requestProduct' }"
+            >
               {{ __("footer.request") }}
             </router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'dashboard.index' }">
-              Dashboard
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'blog' }">
+          <li class="dash-menu-item">
+            <router-link class="dash-menu-link" :to="{ name: 'blog' }">
               {{ __("header.nologin.blog") }}
             </router-link>
           </li>
         </ul>
-        <router-link :to="{ name: 'sales' }">
-          <button class="btn btn-primary login">
-            {{ __("header.login.sales") }}
-          </button>
-        </router-link>
       </div>
+      <div class="dash-search">
+        <input placeholder="Search" />
+        <flat-icon-component
+          icon="search"
+          class="serach-icon"
+        ></flat-icon-component>
+      </div>
+      <ul class="dash-right-menu">
+        <li id="dash-notifications-toggle">
+          <a href="javascript:void(0)" class="icon-menu">
+            <span class="dash-count">1</span>
+            <flat-icon-component icon="bell"></flat-icon-component>
+          </a>
+          <ul id="dash-notifications-menu">
+            <li class="dash-notification-item">
+              <a class="" href="javascript:void(0)">
+                <span class="order-number">#32123</span>
+                <span class="order-status">Correspondence Request</span>
+                <span class="order-icon">
+                  <flat-icon-component icon="arrow-right"></flat-icon-component>
+                </span>
+              </a>
+            </li>
+            <li class="dash-notification-item">
+              <a class="" href="javascript:void(0)">
+                <span class="order-number">#32123</span>
+                <span class="order-status">Correspondence Request</span>
+                <span class="order-icon">
+                  <flat-icon-component icon="arrow-right"></flat-icon-component>
+                </span>
+              </a>
+            </li>
+            <li class="dash-notification-item">
+              <a class="" href="javascript:void(0)">
+                <span class="order-number">#32123</span>
+                <span class="order-status">Correspondence Request</span>
+                <span class="order-icon">
+                  <flat-icon-component icon="arrow-right"></flat-icon-component>
+                </span>
+              </a>
+            </li>
+            <li class="dash-notification-item">
+              <a class="" href="javascript:void(0)">
+                <span class="order-number">#32123</span>
+                <span class="order-status">Correspondence Request</span>
+                <span class="order-icon">
+                  <flat-icon-component icon="arrow-right"></flat-icon-component>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="icon-menu">
+            <span class="dash-count">1</span>
+            <flat-icon-component icon="envelope"></flat-icon-component>
+          </a>
+        </li>
+        <li class="dash-has-menu">
+          <a href="javascript:void(0)" class="avatar-menu">
+            <img :src="$store.state.user.data.img" />
+          </a>
+          <ul class="dash-sub-menu">
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)"
+                >Dashboard
+                <span></span>
+              </a>
+            </li>
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)"
+                >See Profile
+                <span></span>
+              </a>
+            </li>
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)"
+                >Affiliate links
+                <span></span>
+              </a>
+            </li>
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)"
+                >Logoff
+                <span></span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="dash-has-menu">
+          <a href="javascript:void(0)" class="dash-menu-terms">
+            <flat-icon-component icon="bars"></flat-icon-component>
+          </a>
+          <ul class="dash-sub-menu">
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)"
+                >Terms of Use<span></span
+              ></a>
+            </li>
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)"
+                >Subscription Packages<span></span
+              ></a>
+            </li>
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)">About Us<span></span></a>
+            </li>
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)"
+                >Common Questions<span></span
+              ></a>
+            </li>
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)"
+                >Privacy Policy<span></span
+              ></a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <router-link :to="{ name: 'sales' }">
+            <button class="btn btn-primary login dash-btn btn-sales">
+              {{ __("header.login.sales") }}
+            </button>
+          </router-link>
+        </li>
+      </ul>
     </div>
+
+    <button class="menu-icon-btn">
+      <span class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
   </nav>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   methods: {
     inLogin: function () {
@@ -87,120 +196,362 @@ export default {
     },
   },
   computed: {
-    ...mapState("category", ["categories"]),
+    ...mapGetters("category", ["categories"]),
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/sass/_globals/_variables.scss";
-nav.noLogin {
-  padding: 20px 7%;
-  border-color: #898989;
-  background-color: transparent;
-  z-index: 10;
-  @media (max-width: 992px) {
-    .navbar-collapse {
-      background-color: white;
-      box-shadow: 0 0 30px 0 #00000015;
-      padding: 10px 0;
+
+nav {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 25px;
+  position: relative;
+
+  .logo {
+    max-width: 100%;
+    img {
+      display: block;
+      max-width: 180px;
+      margin-right: 90px;
     }
   }
 
-  img {
-    border-color: $gray;
+  .nav-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  div {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    ul {
-      justify-content: space-around;
-      align-items: center;
-      flex-grow: 1;
-      margin-right: 50px;
 
-      li {
-        a {
-          color: $gray;
-          font-size: 18px;
-          text-transform: capitalize;
+  .dash-menu-links {
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    margin-right: 100px;
+  }
+  .dash-menu-item {
+    padding: 10px 0;
+  }
 
-          &:hover,
-          &:focus {
-            color: $secondary;
-          }
+  .dash-menu-link {
+    font-size: 18px;
+    font-weight: bold;
+    color: #9d9d9d;
+    &.active {
+      font-size: 18px;
+      color: #4e1b56;
+    }
+  }
 
-          &.dropdown-item {
-            position: relative;
-            color: black;
-            padding: 10px 8px 10px 8px;
-            transition: all 0.3s ease-in-out;
-            overflow: hidden;
-            border-left: 0px solid $primary;
-            span {
-              width: 100%;
-              height: 2px;
-              background-color: #3eadb758;
-              position: absolute;
-              top: 98%;
-              left: -100%;
-              transition: all 0.5s ease-in-out;
-              transition-delay: 0.1s;
-            }
-          }
+  .dash-search {
+    position: relative;
+    margin-right: 30px;
+    input {
+      border: 1px solid #9d9d9d;
+      border-radius: 4px;
+      padding: 15px 25px;
+      color: #9d9d9d;
+      width: 325px;
+      font-size: 18px;
+    }
+    .serach-icon {
+      position: absolute;
+      right: 25px;
+      font-size: 18px;
+      top: calc(50% - 9px);
+      color: #9d9d9d;
+    }
+  }
 
-          &.dropdown-item:focus,
-          &.dropdown-item:hover {
-            background-color: inherit;
-            border-left: 3px solid $primary;
-            span {
-              left: 0;
-            }
-          }
-        }
-      }
+  .dash-right-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 38px;
 
-      &.dropdown-menu {
-        padding: 0;
-        width: 250%;
-        border: 0;
-        box-shadow: 0 0 20px 0 #00000015;
-      }
-      @media (max-width: 992px) {
-        &.dropdown-menu {
-          width: 100%;
-          box-shadow: 0 0 30px 0 #00000015;
-        }
+    .icon-menu {
+      font-size: 24px;
+      color: #040506;
+      position: relative;
+      .dash-count {
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        /* padding: 2px; */
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+        text-align: center;
+        font-size: 10px;
+        color: #040506;
+        background-color: #fff;
+        font-weight: bold;
       }
     }
 
-    a.router-link-exact-active,
-    a.router-link-active {
-      color: $secondary;
-      font-weight: bold;
-
-      button {
-        background-color: $secondary;
-        border-color: $secondary;
-        color: white;
-        box-shadow: 0 0 0 0 ($secondary + a5) !important;
-
-        &:hover,
-        &:active {
-          background-color: transparent;
-          color: $secondary;
-          border-color: $secondary;
-          box-shadow: 0 0 0 0.25rem ($secondary + a5) !important;
-        }
+    .avatar-menu {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        display: block;
+        margin: auto;
+        max-width: 100%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
       }
     }
 
-    button.login {
-      flex-grow: 1;
-      height: 57px;
-      width: 157px;
+    .dash-menu-terms {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #4e1b56;
+      color: #fff;
       font-size: 20px;
+      text-align: center;
+      display: inline-block;
+      line-height: 40px;
     }
+  }
+}
+
+nav .dash-btn.btn-sales {
+  padding: 15px 60px;
+  margin-left: 10px;
+}
+
+@media (min-width: 1251px) {
+  nav .dash-has-menu:hover .dash-sub-menu {
+    display: block !important;
+    opacity: 1;
+  }
+}
+
+nav .dash-has-menu,
+nav #dash-notifications-toggle {
+  position: relative;
+}
+
+nav .dash-sub-menu,
+nav #dash-notifications-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 300px;
+  background-color: #fff;
+  padding: 10px 0;
+  display: none;
+  transition: all 1s ease;
+  z-index: 20;
+}
+
+nav #dash-notifications-menu {
+  min-width: 420px;
+}
+
+nav .dash-sub-menu li a {
+  font-size: 18px;
+  color: #040506;
+  width: 100%;
+  display: block;
+  padding: 8px 0px;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  border-left: 0px solid $primary;
+  position: relative;
+  span {
+    width: 100%;
+    height: 2px;
+    background-color: #3eadb758;
+    position: absolute;
+    top: 98%;
+    left: -100%;
+    transition: all 0.5s ease-in-out;
+    transition-delay: 0.1s;
+  }
+}
+
+nav .dash-sub-menu li a:hover {
+  background-color: inherit;
+  border-left: 3px solid $primary;
+  span {
+    left: 0;
+  }
+}
+
+nav .dash-notification-item {
+  padding: 5px 10px;
+}
+
+nav .dash-notification-item:hover {
+  border-right: 3px solid #3eadb7;
+}
+
+nav .dash-notification-item a {
+  display: block;
+  background-color: #3eadb7;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 10px;
+  border-radius: 8px;
+}
+
+nav .dash-notification-item a .order-number {
+  padding-right: 10px;
+  border-right: 1px dashed #fff;
+}
+
+nav .dash-notification-item a .order-status {
+  flex-grow: 1;
+  padding-left: 10px;
+}
+
+.menu-icon-btn {
+  border: none;
+  background: none;
+  display: none;
+}
+
+span.menu-icon {
+  display: block;
+  height: 1.25rem;
+  width: 1.875rem;
+  cursor: pointer;
+  position: relative;
+}
+
+span.menu-icon span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #3a3a3a;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  transition: all 0.2s ease-in-out 0s;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  -o-transition: all 0.2s ease-in-out 0s;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  -ms-border-radius: 9px;
+  -o-border-radius: 9px;
+}
+
+span.menu-icon span:nth-child(1) {
+  top: 0;
+}
+
+span.menu-icon span:nth-child(2) {
+  top: 9px;
+  width: 80%;
+}
+
+span.menu-icon span:nth-child(3) {
+  top: 1.125rem;
+}
+
+span.menu-icon.active span {
+  background: #e590b5;
+  width: 100% !important;
+}
+
+@media (max-width: 1700px) {
+  nav .logo img {
+    margin-right: 40px;
+  }
+  nav .dash-menu-links {
+    gap: 20px;
+  }
+
+  nav .dash-menu-links {
+    margin-right: 40px;
+  }
+}
+
+@media (max-width: 1510px) {
+  nav .dash-search {
+    margin-right: 15px;
+  }
+  nav .dash-search input {
+    width: 220px;
+  }
+}
+
+@media (max-width: 1390px) {
+  nav .logo img {
+    margin-right: 20px;
+    max-width: 140px;
+  }
+
+  nav .dash-right-menu {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1320px) {
+  nav #dash-notifications-menu {
+    min-width: 320px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .menu-icon-btn {
+    display: block;
+  }
+
+  nav .logo {
+    flex-grow: 1;
+    text-align: center;
+  }
+  nav .logo img {
+    margin: auto;
+  }
+
+  nav .nav-content {
+    position: absolute;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 10;
+    padding: 20px;
+    display: none;
+  }
+  nav .nav-content > * {
+    width: 100%;
+  }
+  nav .dash-menu-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  nav .dash-search {
+    margin-bottom: 15px;
+  }
+  nav .dash-search input {
+    width: 100%;
+  }
+  nav .dash-right-menu {
+    flex-wrap: wrap;
   }
 }
 </style>

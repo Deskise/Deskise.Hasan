@@ -1,22 +1,22 @@
 <template>
   <div class="categories">
     <div
-      :class="{ 'category p-3 px-5': true, active: this.category === 0 }"
-      @click="
-        this.category = 0;
-        $emit('category', 0);
-      "
+      :class="{
+        'category p-3 px-5': true,
+        active: this.category === 0 && this.cat == 0,
+      }"
+      @click="doAction(0)"
     >
       <h4>All</h4>
     </div>
     <div
       v-for="(item, index) in categories"
       :key="index"
-      :class="{ 'category p-3': true, active: this.category === item.id }"
-      @click="
-        this.category = item.id;
-        $emit('category', item.id);
-      "
+      :class="{
+        'category p-3': true,
+        active: this.category === item.id || this.cat == item.id,
+      }"
+      @click="doAction(item.id)"
     >
       <h4>{{ item.name }}</h4>
     </div>
@@ -25,15 +25,35 @@
 
 <script>
 //TODO: Make This As Slider
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
+  props: {
+    link: {
+      type: String,
+      default: "",
+    },
+    cat: {
+      type: String,
+      default: "0",
+    },
+  },
   computed: {
-    ...mapState("category", ["categories"]),
+    ...mapGetters("category", ["categories"]),
   },
   data() {
     return {
       category: 0,
     };
+  },
+  methods: {
+    doAction(id) {
+      if (this.link !== "")
+        return this.$router.push({ name: this.link, params: { id } });
+      else {
+        this.category = id;
+        this.$emit("category", id);
+      }
+    },
   },
 };
 </script>

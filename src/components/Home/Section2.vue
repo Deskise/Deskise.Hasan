@@ -37,14 +37,14 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   computed: {
     getImage() {
       let image = require("@/assets/waves.png");
       return image;
     },
-    ...mapState("category", ["categories"]),
+    ...mapGetters("category", ["categories"]),
   },
 };
 </script>

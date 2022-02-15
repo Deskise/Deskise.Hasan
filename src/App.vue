@@ -90,6 +90,18 @@ export default {
     }
   }
 }
+* {
+  font-family: "Barlow", sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none !important;
+}
 
 nav {
   max-height: 11vh;

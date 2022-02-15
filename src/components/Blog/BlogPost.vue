@@ -29,11 +29,6 @@ export default {
       required: true,
     },
   },
-  computed: {
-    getRandImg: () => {
-      return require(`@/assets/blog${Math.ceil(Math.random() * 3)}.png`);
-    },
-  },
 };
 </script>
 

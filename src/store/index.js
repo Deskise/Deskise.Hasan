@@ -4,6 +4,7 @@ import * as notification from "./Modules/Notification";
 import * as category from "./Modules/Category";
 import * as data from "./Modules/Data";
 import * as blog from "./Modules/Blog";
+import * as product from "./Modules/Product";
 
 import * as sockets from "./Modules/Sockets";
 
@@ -39,5 +40,6 @@ export default createStore({
     data,
     blog,
     sockets,
+    product,
   },
 });

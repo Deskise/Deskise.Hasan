@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   methods: {
     inLogin: function () {
@@ -106,7 +106,7 @@ export default {
     },
   },
   computed: {
-    ...mapState("category", ["categories"]),
+    ...mapGetters("category", ["categories"]),
   },
 };
 </script>
