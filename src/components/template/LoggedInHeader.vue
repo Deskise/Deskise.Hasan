@@ -7,9 +7,9 @@
       <div class="dash-nav-links">
         <ul class="dash-menu-links">
           <li class="dash-menu-item">
-            <a href="javascript:void(0)" class="dash-menu-link active">
+            <router-link class="dash-menu-link" :to="{ name: 'products' }">
               {{ __("header.nologin.home") }}
-            </a>
+            </router-link>
           </li>
           <li class="dash-menu-item dash-has-menu">
             <a href="javascript:void(0)" class="dash-menu-link">
@@ -57,38 +57,18 @@
       </div>
       <ul class="dash-right-menu">
         <li id="dash-notifications-toggle">
-          <a href="javascript:void(0)" class="icon-menu">
+          <a
+            href="javascript:void(0)"
+            class="icon-menu"
+            @click="toggleNotification"
+          >
             <span class="dash-count">1</span>
-            <flat-icon-component icon="bell"></flat-icon-component>
+            <flat-icon-component icon="bell" type="s"></flat-icon-component>
           </a>
-          <ul id="dash-notifications-menu">
-            <li class="dash-notification-item">
-              <a class="" href="javascript:void(0)">
-                <span class="order-number">#32123</span>
-                <span class="order-status">Correspondence Request</span>
-                <span class="order-icon">
-                  <flat-icon-component icon="arrow-right"></flat-icon-component>
-                </span>
-              </a>
-            </li>
-            <li class="dash-notification-item">
-              <a class="" href="javascript:void(0)">
-                <span class="order-number">#32123</span>
-                <span class="order-status">Correspondence Request</span>
-                <span class="order-icon">
-                  <flat-icon-component icon="arrow-right"></flat-icon-component>
-                </span>
-              </a>
-            </li>
-            <li class="dash-notification-item">
-              <a class="" href="javascript:void(0)">
-                <span class="order-number">#32123</span>
-                <span class="order-status">Correspondence Request</span>
-                <span class="order-icon">
-                  <flat-icon-component icon="arrow-right"></flat-icon-component>
-                </span>
-              </a>
-            </li>
+          <ul
+            id="dash-notifications-menu"
+            :class="{ 'd-block': showNotificationList }"
+          >
             <li class="dash-notification-item">
               <a class="" href="javascript:void(0)">
                 <span class="order-number">#32123</span>
@@ -101,10 +81,10 @@
           </ul>
         </li>
         <li>
-          <a href="javascript:void(0)" class="icon-menu">
+          <router-link :to="{ name: 'chat' }" class="icon-menu">
             <span class="dash-count">1</span>
-            <flat-icon-component icon="envelope"></flat-icon-component>
-          </a>
+            <flat-icon-component icon="envelope" type="s"></flat-icon-component>
+          </router-link>
         </li>
         <li class="dash-has-menu">
           <a href="javascript:void(0)" class="avatar-menu">
@@ -112,58 +92,60 @@
           </a>
           <ul class="dash-sub-menu">
             <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)"
-                >Dashboard
+              <router-link :to="{ name: 'dashboard.index' }">
+                Dashboard
+                <span></span>
+              </router-link>
+            </li>
+            <li class="dash-sub-menu-item">
+              <router-link :to="{ name: 'profile' }">
+                See Profile
+                <span></span>
+              </router-link>
+            </li>
+            <li class="dash-sub-menu-item">
+              <a class="" href="javascript:void(0)">
+                Affiliate links
                 <span></span>
               </a>
             </li>
             <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)"
-                >See Profile
+              <router-link :to="{ name: 'logout' }">
+                Logoff
                 <span></span>
-              </a>
-            </li>
-            <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)"
-                >Affiliate links
-                <span></span>
-              </a>
-            </li>
-            <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)"
-                >Logoff
-                <span></span>
-              </a>
+              </router-link>
             </li>
           </ul>
         </li>
         <li class="dash-has-menu">
           <a href="javascript:void(0)" class="dash-menu-terms">
-            <flat-icon-component icon="bars"></flat-icon-component>
+            <flat-icon-component icon="menu-burger"></flat-icon-component>
           </a>
           <ul class="dash-sub-menu">
             <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)"
-                >Terms of Use<span></span
-              ></a>
+              <router-link :to="{ name: 'terms' }">
+                Terms of Use<span></span>
+              </router-link>
             </li>
             <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)"
-                >Subscription Packages<span></span
-              ></a>
+              <router-link :to="{ name: 'dashboard.packages' }">
+                Subscription Packages<span></span>
+              </router-link>
             </li>
             <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)">About Us<span></span></a>
+              <router-link :to="{ name: 'about' }">
+                About Us<span></span>
+              </router-link>
             </li>
             <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)"
-                >Common Questions<span></span
-              ></a>
+              <router-link :to="{ name: 'faq' }">
+                Common Questions<span></span>
+              </router-link>
             </li>
             <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)"
-                >Privacy Policy<span></span
-              ></a>
+              <router-link :to="{ name: 'privacy' }">
+                Privacy Policy<span></span>
+              </router-link>
             </li>
           </ul>
         </li>
@@ -188,11 +170,43 @@
 </template>
 
 <script>
+//TODO: notification menu show/hide.
+//TODO: notifiaction component.
 import { mapGetters } from "vuex";
 export default {
+  mounted() {
+    // Array.from(document.querySelectorAll("#app *")).forEach((e) => {
+    //   e.addEventListener("click", this.closeNotification);
+    // });
+    // console.log(
+    //   document.querySelectorAll(
+    //     "#dash-notifications-toggle, #dash-notifications-toggle *"
+    //   )
+    // );
+    // Array.from(
+    //   document.querySelectorAll(
+    //     "#dash-notifications-toggle, #dash-notifications-toggle *"
+    //   )
+    // ).forEach((e) => {
+    //   e.addEventListener("click", () => this.toggleNotification);
+    // });
+  },
+  data() {
+    return {
+      showNotificationList: false,
+    };
+  },
   methods: {
     inLogin: function () {
       return this.$route.path.includes("auth");
+    },
+    toggleNotification(ev) {
+      ev.preventDefault();
+      this.showNotificationList = !this.showNotificationList;
+    },
+    closeNotification(e) {
+      console.log(e);
+      this.showNotificationList = false;
     },
   },
   computed: {
@@ -238,9 +252,18 @@ nav {
   }
 
   .dash-menu-link {
+    color: $gray;
     font-size: 18px;
-    font-weight: bold;
-    color: #9d9d9d;
+    text-transform: capitalize;
+    &:hover,
+    &:focus {
+      color: $secondary;
+    }
+    &.router-link-exact-active,
+    &.router-link-active {
+      color: $secondary;
+      font-weight: bold;
+    }
     &.active {
       font-size: 18px;
       color: #4e1b56;
@@ -357,6 +380,7 @@ nav #dash-notifications-menu {
 
 nav #dash-notifications-menu {
   min-width: 420px;
+  z-index: 30;
 }
 
 nav .dash-sub-menu li a {
@@ -364,11 +388,12 @@ nav .dash-sub-menu li a {
   color: #040506;
   width: 100%;
   display: block;
-  padding: 8px 0px;
+  padding: 8px 10px;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   border-left: 0px solid $primary;
   position: relative;
+  text-align: left;
   span {
     width: 100%;
     height: 2px;
@@ -393,13 +418,12 @@ nav .dash-notification-item {
   padding: 5px 10px;
 }
 
-nav .dash-notification-item:hover {
-  border-right: 3px solid #3eadb7;
-}
-
 nav .dash-notification-item a {
   display: block;
-  background-color: #3eadb7;
+  background-color: $primary;
+  &:hover {
+    background-color: $secondary;
+  }
   color: #fff;
   display: flex;
   justify-content: space-between;

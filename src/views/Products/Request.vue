@@ -94,7 +94,7 @@ import manimg from "@/components/template/manImg.vue";
 import { required, email, fromList, number } from "../../Mixins/Validations";
 import Notification from "@/config/Notification";
 import RequestService from "../../config/Services/Products/RequestService";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -111,7 +111,7 @@ export default {
   components: { manimg },
   mixins: [],
   computed: {
-    ...mapState("category", ["categories"]),
+    ...mapGetters("category", ["categories"]),
   },
   watch: {
     category_id(v) {

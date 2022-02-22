@@ -1,6 +1,7 @@
 import { v4 } from "uuid";
 import SocialMedia from "@/config/Services/Data/SocialMedia";
 import UserData from "@/config/Services/Auth/UserData";
+import OtherUserData from "@/config/Services/Data/UserData";
 
 export const namespaced = true;
 export const state = {
@@ -8,6 +9,7 @@ export const state = {
   uuid: null,
   socialMedia: [],
   settings: null,
+  otherUser: null,
 };
 
 export const mutations = {
@@ -30,6 +32,20 @@ export const mutations = {
     state.data = d;
 
     localStorage.setItem("deskies_user", JSON.stringify(state.data));
+  },
+  SET_OTHER_USER_DATA(state, data) {
+    state.otherUser = data;
+  },
+  SET_OTHER_USER_PRODUCTS(state, data) {
+    if (state.otherUser.products === undefined) {
+      state.otherUser.products = {};
+      state.otherUser.products.data = [];
+    }
+    state.otherUser.products.current_page = data.current_page;
+    state.otherUser.products.next_page_url = data.next_page_url;
+    data.data.forEach((d) => {
+      state.otherUser.products.data.push(d);
+    });
   },
   SET_TOKEN(state, { token, type, exp }) {
     state.data["token"] = token;
@@ -93,6 +109,16 @@ export const actions = {
       })
       .catch(() => {});
   },
+  async getOtherData({ commit }, { id }) {
+    await OtherUserData.data(id).then((res) => {
+      commit("SET_OTHER_USER_DATA", res.data.response.extra[0]);
+    });
+  },
+  async getOtherProducts({ commit }, { id, page }) {
+    await OtherUserData.products(id, page).then(({ data }) => {
+      commit("SET_OTHER_USER_PRODUCTS", data.response.extra[0]);
+    });
+  },
 
   logout({ commit }) {
     commit("ERASE_USER_DATA");
@@ -122,5 +148,8 @@ export const getters = {
       location: state.data.location,
       phone: state.data.phone,
     };
+  },
+  sameUser: (state) => {
+    return state.otherUser.id === state.data.id;
   },
 };

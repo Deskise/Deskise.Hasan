@@ -16,8 +16,19 @@
               params: { id: product.id },
             }"
             class="btn btn-outline-primary w-100"
+            v-if="!stopSelling"
           >
             {{ __("see") }}
+          </router-link>
+          <router-link
+            :to="{
+              name: 'Product.stop',
+              params: { id: product.id },
+            }"
+            class="btn btn-outline-primary w-100"
+            v-else
+          >
+            Stop Selling
           </router-link>
         </div>
         <div class="flexer">
@@ -59,6 +70,10 @@ export default {
     product: {
       type: Object,
       required: true,
+    },
+    stopSelling: {
+      type: Boolean,
+      defualt: false,
     },
   },
 };
@@ -117,7 +132,7 @@ export default {
         }
         & > *:last-child {
           flex-shrink: 0;
-          flex-basis: 35%;
+          flex-basis: 38%;
         }
       }
       h5 {

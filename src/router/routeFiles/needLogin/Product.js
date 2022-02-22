@@ -16,6 +16,11 @@ export const routes = [
     name: "requestProduct",
     component: lazyLoad("Request"),
   },
+  {
+    path: "/product/stop",
+    name: "Product.stop",
+    component: lazyLoad("Request"),
+  },
 
   {
     path: "/products",

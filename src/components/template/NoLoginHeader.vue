@@ -177,6 +177,7 @@ nav.noLogin {
         a {
           color: $gray;
           font-size: 18px;
+          text-transform: capitalize;
           @media (max-width: 1420px) {
             & {
               font-size: 16px;
@@ -187,7 +188,6 @@ nav.noLogin {
               margin-right: 0;
             }
           }
-          text-transform: capitalize;
 
           &:hover,
           &:focus {
