@@ -1,15 +1,7 @@
 <template>
   <div class="d-flex search mb-3">
-    <h2>
-      {{ __("faqs.search") }}
-    </h2>
     <div class="search-input d-flex">
-      <input
-        type="search"
-        placeholder="Type Somethng ..."
-        v-model="search"
-        :class="{ shown: classes }"
-      />
+      <input type="search" :placeholder="__('faqs.search')" v-model="search" />
       <div class="icon bg-primary" @click="toggleSearch">
         <FlatIconComponent icon="search" />
       </div>
@@ -21,13 +13,12 @@
 export default {
   data() {
     return {
-      classes: false,
       search: null,
     };
   },
   methods: {
     toggleSearch() {
-      this.classes = !this.classes;
+      document.querySelector("input[type=search]").focus();
     },
   },
 };
@@ -38,22 +29,21 @@ export default {
 .search {
   padding: 3px;
   justify-content: space-between;
-  border-bottom: 1px solid $gray;
-  h2 {
-    color: #040506;
-    font-size: 28px;
-  }
+
   .search-input {
     justify-content: flex-end;
     width: stretch;
+    position: relative;
     input {
       transition: all 0.3s ease-in-out;
-      width: 0;
-      border: 0;
-      &.shown {
-        width: 30%;
-        border-bottom: 1px solid;
-      }
+      width: 100%;
+      font-size: 28px;
+      color: #040506;
+      border: none;
+      border-bottom: 1px solid rgba(137, 137, 137, 0.23);
+      padding: 10px;
+      padding-right: 60px;
+
       &:focus {
         outline: 0;
       }
@@ -67,6 +57,9 @@ export default {
       align-items: center;
       border-radius: 50%;
       cursor: pointer;
+      position: absolute;
+      top: calc(50% - 21px);
+      right: 20px;
     }
   }
 }

@@ -104,10 +104,10 @@
               </router-link>
             </li>
             <li class="dash-sub-menu-item">
-              <a class="" href="javascript:void(0)">
+              <router-link :to="{ name: 'profile.affiliate' }">
                 Affiliate links
                 <span></span>
-              </a>
+              </router-link>
             </li>
             <li class="dash-sub-menu-item">
               <router-link :to="{ name: 'logout' }">

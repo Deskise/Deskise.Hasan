@@ -25,4 +25,12 @@ export const routes = [
       next();
     },
   },
+  {
+    path: "/affiliate",
+    component: lazyLoad("affiliate"),
+    name: "profile.affiliate",
+    meta: {
+      requireAuth: true,
+    },
+  },
 ];
