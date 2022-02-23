@@ -26,6 +26,6 @@ class SocialMediaLink extends Model
 
     public function account()
     {
-        return $this->belongsTo(SocialMediaAccount::class);
+        return $this->belongsTo(SocialMediaAccount::class, 'social_id','id');
     }
 }

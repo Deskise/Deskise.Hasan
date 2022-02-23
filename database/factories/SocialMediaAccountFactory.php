@@ -13,6 +13,8 @@ class SocialMediaAccountFactory extends Factory
      * @var string
      */
     protected $model = SocialMediaAccount::class;
+    protected $icons = ['facebook','linkedin','instagram','twitter','youtube','whatsapp'];
+    protected $next=0;
 
     /**
      * Define the model's default state.
@@ -28,6 +30,7 @@ class SocialMediaAccountFactory extends Factory
             $data['name_'.$lang] = $this->faker->text(20);
             $data['description_'.$lang] = $this->faker->text(120);
         }
+        $data['icon'] = $this->icons[$this->next++];
 
         return $data;
     }

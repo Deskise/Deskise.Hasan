@@ -20,6 +20,7 @@ class CreateSocialMediaAccountsTable extends Migration
                 $table->string('name_'.$lang,20);
                 $table->string('description_'.$lang,120);
             }
+            $table->string('icon', 30);
             $table->timestamps();
             $table->softDeletes();
         });

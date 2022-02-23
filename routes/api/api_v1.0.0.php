@@ -47,6 +47,8 @@ Route::group(['prefix' => 'data'], function (){
     Route::post('/contactus',[Data::class,'contact']);
     Route::get('/social',[Data::class,'social']);
 
+    Route::get('/users/{id}', [Data::class,'user']);
+    Route::get('/users/{user}/products', [Data::class,'products']);
 });
 
 // Blog Things:

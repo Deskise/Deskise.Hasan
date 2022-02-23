@@ -93,7 +93,7 @@ class User extends Authenticatable
 
     public function links()
     {
-        return $this->hasMany(SocialMediaLink::class);
+        return $this->hasMany(SocialMediaLink::class)->with('account:id,icon');
     }
 
     public function verifications()

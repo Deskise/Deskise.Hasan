@@ -17,6 +17,7 @@
     use App\Models\SocialMediaAccount;
     use App\Models\Subcategory;
     use App\Models\TermsOfUse;
+    use App\Models\User;
     use Illuminate\Http\Request;
 
     class DataController extends Controller
@@ -142,5 +143,15 @@
         {
             $data = SocialMediaAccount::select('id','name_'.self::$language.' as name','description_'.self::$language.' as description')->get();
             return APIHelper::jsonRender('', $data);
+        }
+
+        public function user($id)
+        {
+            return APIHelper::jsonRender('',User::find($id)->load('links'));
+        }
+        public function products(User $user)
+        {
+            return APIHelper::jsonRender('',[$user->products()->select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as details','price',
+                'special','verified', 'img','status')->paginate(5)]);
         }
     }
