@@ -73,5 +73,6 @@ export const routes = [
     meta: {
       requireAuth: true,
     },
+    component: lazyLoad("Sales"),
   },
 ];

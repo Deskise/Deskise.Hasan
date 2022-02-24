@@ -12,7 +12,7 @@
             v-for="product in products"
             :key="product.id"
           >
-            <product :product="product" stopSelling></product>
+            <product :product="product" :stopSelling="sameUser"></product>
           </div>
         </div>
       </div>
@@ -25,6 +25,7 @@ import Banner from "../../components/Profile/Banner.vue";
 import { mixin as loadOnBottom } from "@/Mixins/loadOnBottom.js";
 import PersonalData from "../../components/Profile/PersonalData.vue";
 import Product from "../../components/Products/Product.vue";
+import { mapGetters } from "vuex";
 export default {
   components: { Banner, PersonalData, Product },
   props: {
@@ -50,6 +51,7 @@ export default {
     products() {
       return this.$store.state.user.otherUser.products.data;
     },
+    ...mapGetters("user", ["sameUser"]),
   },
   async beforeRouteUpdate(routeTo, from, next) {
     let id = routeTo.query.id ?? this.$store.state.user.data.id;

@@ -17,6 +17,7 @@
 
 <script>
 import { v4 } from "uuid";
+import noUiSlider from "@/assets/js/slider";
 export default {
   //TODO: Return The Data
   data() {
@@ -25,6 +26,7 @@ export default {
     };
   },
   mounted() {
+    // console.log(slider);
     let format = wNumb({
       decimals: 0,
       thousand: ",",
@@ -41,7 +43,7 @@ export default {
       format: format,
       connect: true,
     });
-    el.noUiSlider.on("update", (values, handle) => {
+    el.noUiSlider.on("update", (values) => {
       document.getElementById(`slider-range-min-${this.uid}`).innerHTML =
         values[0];
       document.getElementById(`slider-range-max-${this.uid}`).innerHTML =

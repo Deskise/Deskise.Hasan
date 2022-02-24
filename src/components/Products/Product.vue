@@ -1,7 +1,7 @@
 <template>
   <div class="product">
     <div :class="'tag ' + product.status.toLowerCase()">
-      {{ product.status }}
+      {{ product.status.split("_").join(" ") }}
     </div>
     <div>
       <div class="image mb-2">
@@ -92,7 +92,7 @@ export default {
 
   div.tag {
     position: absolute;
-    width: 80px;
+    width: 100px;
     height: 30px;
     left: 0;
     top: 30px;
@@ -109,6 +109,12 @@ export default {
     }
     &.available {
       background: $primary;
+    }
+    &.canceled {
+      background: #dc3545;
+    }
+    &.under_verify {
+      background: #ffc107;
     }
   }
 

@@ -13,6 +13,8 @@ module.exports = {
   },
   globals: {
     FB: "readonly",
+    wNumb: "readonly",
+    noUiSlider: "readonly",
   },
   overrides: [
     {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 // https://refreshless.com/nouislider/
 /*! nouislider - 8.3.0 - 2016-02-14 17:37:19 */
 (function (factory) {
@@ -39,7 +40,7 @@
     }
     return {
       top: rect.top + pageOffset.y - docElem.clientTop,
-      left: rect.left + pageOffset.x - docElem.clientLeft
+      left: rect.left + pageOffset.x - docElem.clientLeft,
     };
   }
   // Checks whether a value is numerical.
@@ -125,7 +126,7 @@
         : document.body.scrollTop;
     return {
       x: x,
-      y: y
+      y: y,
     };
   }
   // Shorthand for stopPropagation so we don't have to create a dynamic method
@@ -147,18 +148,18 @@
       ? {
           start: "pointerdown",
           move: "pointermove",
-          end: "pointerup"
+          end: "pointerup",
         }
       : window.navigator.msPointerEnabled
       ? {
           start: "MSPointerDown",
           move: "MSPointerMove",
-          end: "MSPointerUp"
+          end: "MSPointerUp",
         }
       : {
           start: "mousedown touchstart",
           move: "mousemove touchmove",
-          end: "mouseup touchend"
+          end: "mouseup touchend",
         },
     defaultCssPrefix = "noUi-";
   // Value calculation
@@ -381,7 +382,7 @@
     return [
       this.xNumSteps[j - 2],
       this.xVal[j - offset],
-      this.xNumSteps[j - offset]
+      this.xNumSteps[j - offset],
     ];
   };
   // Outside testing
@@ -404,7 +405,7 @@
     to: function (value) {
       return value !== undefined && value.toFixed(2);
     },
-    from: Number
+    from: Number,
   };
 
   function testStep(parsed, entry) {
@@ -568,7 +569,7 @@
       drag: drag,
       fixed: fixed,
       snap: snap,
-      hover: hover
+      hover: hover,
     };
   }
 
@@ -624,73 +625,73 @@
         margin: 0,
         limit: 0,
         animate: true,
-        format: defaultFormatter
+        format: defaultFormatter,
       },
       tests;
     // Tests are executed in the order they are presented here.
     tests = {
       step: {
         r: false,
-        t: testStep
+        t: testStep,
       },
       start: {
         r: true,
-        t: testStart
+        t: testStart,
       },
       connect: {
         r: true,
-        t: testConnect
+        t: testConnect,
       },
       direction: {
         r: true,
-        t: testDirection
+        t: testDirection,
       },
       snap: {
         r: false,
-        t: testSnap
+        t: testSnap,
       },
       animate: {
         r: false,
-        t: testAnimate
+        t: testAnimate,
       },
       range: {
         r: true,
-        t: testRange
+        t: testRange,
       },
       orientation: {
         r: false,
-        t: testOrientation
+        t: testOrientation,
       },
       margin: {
         r: false,
-        t: testMargin
+        t: testMargin,
       },
       limit: {
         r: false,
-        t: testLimit
+        t: testLimit,
       },
       behaviour: {
         r: true,
-        t: testBehaviour
+        t: testBehaviour,
       },
       format: {
         r: false,
-        t: testFormat
+        t: testFormat,
       },
       tooltips: {
         r: false,
-        t: testTooltips
+        t: testTooltips,
       },
       cssPrefix: {
         r: false,
-        t: testCssPrefix
-      }
+        t: testCssPrefix,
+      },
     };
     var defaults = {
       connect: false,
       direction: "ltr",
       behaviour: "tap",
-      orientation: "horizontal"
+      orientation: "horizontal",
     };
     // Run all options through a testing mechanism to ensure correct
     // input. It should be noted that options might get modified to
@@ -771,7 +772,7 @@
       /* 21 */
       "marker",
       /* 22 */
-      "value"
+      "value",
     ].map(addCssPrefix(options.cssPrefix || defaultCssPrefix));
     // Delimit proposed values for handle positions.
     function getPositions(a, b, delimit) {
@@ -1128,7 +1129,7 @@
         group = getGroup(mode, values, stepped),
         spread = generateSpread(density, mode, group),
         format = grid.format || {
-          to: Math.round
+          to: Math.round,
         };
       return scope_Target.appendChild(addMarking(spread, filter, format));
     }
@@ -1331,16 +1332,16 @@
           buttonsProperty: event.buttons,
           positions: [
             scope_Locations[0],
-            scope_Locations[scope_Handles.length - 1]
-          ]
+            scope_Locations[scope_Handles.length - 1],
+          ],
         }),
         endEvent = attach(actions.end, d, end, {
           handles: data.handles,
-          handleNumber: data.handleNumber
+          handleNumber: data.handleNumber,
         });
       var outEvent = attach("mouseout", d, documentLeave, {
         handles: data.handles,
-        handleNumber: data.handleNumber
+        handleNumber: data.handleNumber,
       });
       d.noUiListeners = moveEvent.concat(endEvent, outEvent);
       // Text selection isn't an issue on touch devices,
@@ -1402,7 +1403,7 @@
       fireEvent("change", handleNumber, true);
       if (options.events.snap) {
         start(event, {
-          handles: [scope_Handles[handleNumber]]
+          handles: [scope_Handles[handleNumber]],
         });
       }
     }
@@ -1431,20 +1432,20 @@
           // element, not the 'real' origin element.
           attach(actions.start, scope_Handles[i].children[0], start, {
             handles: [scope_Handles[i]],
-            handleNumber: i
+            handleNumber: i,
           });
         }
       }
       // Attach the tap event to the slider base.
       if (behaviour.tap) {
         attach(actions.start, scope_Base, tap, {
-          handles: scope_Handles
+          handles: scope_Handles,
         });
       }
       // Fire hover events
       if (behaviour.hover) {
         attach(actions.move, scope_Base, hover, {
-          hover: true
+          hover: true,
         });
         for (i = 0; i < scope_Handles.length; i += 1) {
           ["mousemove MSPointerMove pointermove"].forEach(function (eventName) {
@@ -1471,7 +1472,7 @@
         }
         drag.forEach(function (element) {
           attach(actions.start, element, start, {
-            handles: scope_Handles
+            handles: scope_Handles,
           });
         });
       }
@@ -1703,7 +1704,7 @@
           snap:
             optionsToUpdate.snap === undefined
               ? options.snap
-              : optionsToUpdate.snap
+              : optionsToUpdate.snap,
         });
       ["margin", "limit", "step", "range", "animate"].forEach(function (name) {
         if (optionsToUpdate[name] !== undefined) {
@@ -1747,7 +1748,7 @@
       updateOptions: updateOptions,
       options: options, // Issue #600
       target: scope_Target, // Issue #597
-      pips: pips // Issue #594
+      pips: pips, // Issue #594
     };
     // Attach user events.
     events(options.events);
@@ -1769,7 +1770,7 @@
   }
   // Use an object instead of a function for future expansibility;
   return {
-    create: initialize
+    create: initialize,
   };
 });
 
@@ -1788,7 +1789,7 @@
       "negativeBefore",
       "negative",
       "edit",
-      "undo"
+      "undo",
     ];
   // General
   // Reverse a string
@@ -1976,7 +1977,7 @@
     // Add the number
     output += input;
     // Trim all non-numeric characters (allow '.' and '-');
-    output = output.replace(/[^0-9\.\-.]/g, "");
+    output = output.replace(/[^0-9.\-.]/g, "");
     // The value contains no parse-able number.
     if (output === "") {
       return false;

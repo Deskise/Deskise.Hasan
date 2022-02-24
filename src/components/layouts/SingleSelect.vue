@@ -108,6 +108,7 @@ ul {
         color: #9d9d9d;
         font-size: 18px;
         padding: 10px 30px;
+        text-transform: capitalize;
       }
     }
   }
