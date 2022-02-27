@@ -151,7 +151,12 @@
         }
         public function products(User $user)
         {
-            return APIHelper::jsonRender('',[$user->products()->select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as details','price',
-                'special','verified', 'img','status')->paginate(5)]);
+            $products = $user->products()->select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as details','price',
+                'special','verified', 'img','status');
+            if (!\Auth::user() || \Auth::user()->id !== $user->id)
+                $products->where('status','!=','under_verify')
+                    ->where('status','!=','canceled');
+
+            return APIHelper::jsonRender('',[$products->paginate(5)]);
         }
     }

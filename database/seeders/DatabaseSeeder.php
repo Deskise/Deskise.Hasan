@@ -26,18 +26,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(5)->create();
+//        User::factory(5)->create();
         Category::factory(8)->create();
-        Subcategory::factory(10)->create();
-        BlogPost::factory(50)->create();
-        ClientComment::factory(10)->create();
-        Package::factory(7)->create();
-        AboutUs::factory(1)->create();
-        FAQ::factory(50)->create();
-        TermsOfUse::factory(2)->create();
-        SocialMediaAccount::factory(5)->create();
-
-        Product::factory(50)->create();
-        ProductData::factory(50)->create();
+//        Subcategory::factory(10)->create();
+//        BlogPost::factory(50)->create();
+//        ClientComment::factory(10)->create();
+//        Package::factory(7)->create();
+//        AboutUs::factory(1)->create();
+//        FAQ::factory(50)->create();
+//        TermsOfUse::factory(2)->create();
+//        SocialMediaAccount::factory(5)->create();
+//
+//        Product::factory(50)->create();
+//        ProductData::factory(50)->create();
     }
 }
