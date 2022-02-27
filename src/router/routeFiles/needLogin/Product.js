@@ -75,4 +75,12 @@ export const routes = [
     },
     component: lazyLoad("Sales"),
   },
+  {
+    path: "/sales-data/:cat",
+    name: "sales.data",
+    meta: {
+      requireAuth: true,
+    },
+    component: lazyLoad("Sales-data"),
+  },
 ];

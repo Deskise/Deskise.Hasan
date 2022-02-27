@@ -40,4 +40,16 @@ export const getters = {
   categories: (state) => {
     return state.categories.filter((e) => e !== null && e !== undefined);
   },
+  getFields: (getters) => (cat, active) => {
+    return getters.categories.filter(
+      (e) => e !== null && Number.parseInt(e.id) === Number.parseInt(cat)
+    )[0]?.data[active];
+  },
+  getPages: (getters) => (cat) => {
+    return getters.categories
+      .filter(
+        (e) => e !== null && Number.parseInt(e.id) === Number.parseInt(cat)
+      )[0]
+      ?.data.map((e) => e.title);
+  },
 };

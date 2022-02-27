@@ -15,7 +15,7 @@
         <a href="javascript:void(0)">{{ placeholder }}</a>
       </li>
       <li v-for="(item, key) in NotNullData" :key="key">
-        <a href="javascript:void(0)">{{ item }}</a>
+        <a href="javascript:void(0)">{{ item[0] + " " + item[1] }}</a>
       </li>
     </ul>
   </div>
@@ -35,6 +35,7 @@ export default {
   },
   computed: {
     NotNullData() {
+      console.log(this.data);
       return this.data.filter((e) => e !== null && e !== undefined);
     },
   },
