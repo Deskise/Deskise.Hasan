@@ -116,43 +116,12 @@
           <div class="col-lg-12 p-1 text-left">
             <label>Social Media</label>
           </div>
-          <div
-            class="col-lg-12 p-1"
-            v-for="(link, index) in user.links"
-            :key="index"
-          >
-            <input
-              type="text"
-              class="form-control"
-              style="font-size: 90%"
-              :id="`slink_${link.social_id}`"
-              :title="
-                socialMedia.filter((e) => e.id === link.social_id)[0].name
-              "
-              v-model="link.link"
-              @keydown="$event.target.classList.remove('invalid')"
-            />
-          </div>
-
-          <div class="col-lg-12 p-1">
-            <div id="items"></div>
-            <div class="add-input">
-              <input
-                id="textinput"
-                type="text"
-                class="form-control mb-2"
-                style="font-size: 90%"
-              />
-              <button
-                class="btn add-more bg-transparent"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#add"
-              >
-                <flat-icon-component icon="plus" type="b"></flat-icon-component>
-              </button>
-            </div>
-          </div>
+          <social-media-link-input
+            @submit="(e) => addLink(e)"
+            :links="user.links"
+            id_prefix="slink"
+            style="font-size: 90%"
+          ></social-media-link-input>
 
           <div class="col-lg-5 m-auto text-center p-1">
             <div class="form-group">
@@ -170,28 +139,17 @@
       </div>
     </div>
   </div>
-  <Confirm
-    id="add"
-    title="Add Social Media Account"
-    submit="Add"
-    close="close"
-    desc="lorem"
-    :options="socialMedia"
-    :selectedOpt="user.links.map(({ social_id }) => social_id)"
-    @submit="(e) => addLink(e)"
-  ></Confirm>
 </template>
 
 <script>
 import Dashboard from "@/config/Services/Dashboard";
 import { required, email, number, optional, url } from "@/Mixins/Validations";
-import { mapState } from "vuex";
 import Notification from "@/config/Notification";
 import { same } from "../../../Mixins/Validations";
+import SocialMediaLinkInput from "../../../components/Dashboard/SocialMediaLinkInput.vue";
 export default {
-  computed: {
-    ...mapState("user", ["socialMedia"]),
-  },
+  components: { SocialMediaLinkInput },
+
   data() {
     return {
       user: this.$store.getters["user/getUserData"],
@@ -240,7 +198,6 @@ export default {
       }
 
       this.user.links.forEach((link) => {
-        console.log(url(link.link));
         if (!required(link.link) || !url(link.link)) {
           document
             .querySelector(`#slink_${link.social_id}`)
@@ -416,16 +373,6 @@ export default {
       @media (min-width: $minLarge) {
         font-size: 20px;
       }
-    }
-  }
-  .add-input {
-    position: relative;
-
-    .add-more {
-      width: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
     }
   }
 }

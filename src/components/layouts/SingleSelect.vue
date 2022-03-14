@@ -1,7 +1,7 @@
 <template>
   <div class="drop-down">
     <div class="drop-down-title" @click="toggle">
-      <span class="title">{{ placeholder }}</span>
+      <span class="title">{{ getName }}</span>
       <span class="icon">
         <flat-icon-component
           icon="angle-down"
@@ -11,11 +11,17 @@
       </span>
     </div>
     <ul class="drop-down-items">
-      <li class="active">
+      <li :class="{ disabled: true, active: active === '' }" @click.prevent>
         <a href="javascript:void(0)">{{ placeholder }}</a>
       </li>
-      <li v-for="(item, key) in NotNullData" :key="key">
-        <a href="javascript:void(0)">{{ item[0] + " " + item[1] }}</a>
+      <li
+        v-for="(item, key) in NotNullData"
+        :key="key"
+        :class="{ active: active === item[0] }"
+      >
+        <a href="javascript:void(0)" @click.prevent="choose(item[0])">
+          {{ item[0] + " " + item[1] }}
+        </a>
       </li>
     </ul>
   </div>
@@ -33,10 +39,19 @@ export default {
       default: () => [],
     },
   },
+  data() {
+    return {
+      active: "",
+    };
+  },
   computed: {
     NotNullData() {
-      console.log(this.data);
       return this.data.filter((e) => e !== null && e !== undefined);
+    },
+    getName() {
+      return this.active === ""
+        ? this.placeholder
+        : this.NotNullData.filter((e) => e[0] === this.active)[0][1];
     },
   },
   methods: {
@@ -81,6 +96,10 @@ export default {
         );
       }
     },
+    choose(e) {
+      this.active = e;
+      this.$emit("choose", e);
+    },
   },
 };
 </script>
@@ -101,8 +120,14 @@ ul {
       display: block;
     }
     li {
-      &.active {
+      &.disabled {
         background-color: rgba(201, 201, 201, 0.23);
+        a {
+          cursor: not-allowed;
+        }
+      }
+      &.active {
+        background-color: rgba(201, 201, 201, 0.45);
       }
       a {
         display: block;

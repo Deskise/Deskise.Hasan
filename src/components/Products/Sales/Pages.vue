@@ -43,19 +43,26 @@
               {{ f.placeholder }}
             </button>
 
+            <Datepicker
+              v-else-if="f.type === 'date'"
+              :placeholder="f.placeholder"
+            ></Datepicker>
+
+            <circle-checkbox
+              v-else-if="f.type === 'checkbox'"
+              :text="f.placeholder"
+            ></circle-checkbox>
+
+            <social-media-link-input
+              v-else-if="f.type === 'links'"
+              @submit="(e) => addLink(e)"
+              :links="product.links"
+              id_prefix="slink"
+              style="max-width: 520px"
+            ></social-media-link-input>
+
             <div v-else>{{ f }}</div>
           </div>
-        </div>
-      </div>
-
-      <div class="form-feilds">
-        <div class="form-step-title">Business Assets Included</div>
-        <div class="form-step-feilds">
-          <input type="text" placeholder="Domain" />
-          <input type="text" placeholder="Social Media Account" />
-          <button class="btn add-btn">
-            <i class="fa fa-plus"></i>
-          </button>
         </div>
       </div>
 
@@ -103,6 +110,10 @@
 </template>
 
 <script>
+import Datepicker from "vue3-date-time-picker";
+import "vue3-date-time-picker/dist/main.css";
+import SocialMediaLinkInput from "../../../components/Dashboard/SocialMediaLinkInput.vue";
+
 export default {
   props: {
     fields: {
@@ -110,7 +121,13 @@ export default {
       required: true,
     },
   },
+  components: { Datepicker, SocialMediaLinkInput },
+  data() {
+    return {
+      product: { links: [] },
+    };
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style la CircleCheckboxng="scss" scoped></style>

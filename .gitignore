@@ -22,4 +22,5 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-.gitCommitMessage 
+.gitCommitMessage
+package-lock.json

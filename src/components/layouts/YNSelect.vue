@@ -2,6 +2,7 @@
   <single-select
     :placeholder="placeholder"
     :data="Object.keys(values).map((e) => [e, values[e]])"
+    @choose="(e) => $emit('choose', e)"
   ></single-select>
 </template>
 

@@ -82,5 +82,11 @@ export const routes = [
       requireAuth: true,
     },
     component: lazyLoad("Sales-data"),
+    beforeEnter: async function (routeTo, from, next) {
+      if (store.state.user.socialMedia.length === 0) {
+        await store.dispatch("user/fetchSocailMedia");
+      }
+      next();
+    },
   },
 ];

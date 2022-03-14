@@ -106,4 +106,14 @@ a {
 nav {
   max-height: 11vh;
 }
+
+.dp__active_date {
+  background: $primary !important;
+}
+.dp__select {
+  color: $primary !important;
+}
+.dp__today {
+  border: 1px solid $secondary !important;
+}
 </style>

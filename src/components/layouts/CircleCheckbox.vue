@@ -69,7 +69,7 @@ label {
   }
 
   input {
-    display: none;
+    display: none !important;
     &:checked ~ span {
       border-color: $secondary;
       color: $secondary;
