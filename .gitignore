@@ -24,3 +24,5 @@ pnpm-debug.log*
 *.sw?
 .gitCommitMessage
 package-lock.json
+
+*.code-workspace
