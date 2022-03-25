@@ -114,16 +114,12 @@ class CategoryFactory extends Factory
                         [
                             'placeholder'=> 'Price',
                             'type'  =>  'number'
+                        ],[
+                            'type'  =>  'checkbox',
+                            'placeholder'=> 'Automatic Expiration Setting And Automatic Price Determination From The Expiration Date.',
                         ]
                     ]
-                ],[
-                    'title' =>  'Automatic Expiration Setting And Automatic Price Determination From The Expiration Date.',
-                    'fields' => [
-                        [
-                            'type'  =>  'checkbox'
-                        ]
-                    ]
-                ],
+                ]
             ],
             [
                 'title' => 'Site Service',
@@ -133,14 +129,9 @@ class CategoryFactory extends Factory
                         [
                             'placeholder'=> 'Price',
                             'type'  =>  'number'
-                        ]
-                    ]
-                ],
-                [
-                    'title' =>  'Automatic Expiration Setting And Automatic Price Determination From The Expiration Date.',
-                    'fields' => [
-                        [
-                            'type'  =>  'checkbox'
+                        ],[
+                            'type'  =>  'checkbox',
+                            'placeholder'=> 'Automatic Expiration Setting And Automatic Price Determination From The Expiration Date.',
                         ]
                     ]
                 ],

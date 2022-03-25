@@ -97,7 +97,7 @@
         public function single($id, $prod=false)
         {
             $product = Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as summary',
-                'description_'.self::$language.' as description','price','user_id','img', 'special','verified','status','is_lifetime','until')
+                'description_'.self::$language.' as description','price','user_id','img', 'special','verified','status','is_lifetime','until', 'category_id', 'updated_at', 'created_at')
                 ->with('user:id,firstname,lastname,img,is_hidden')
                 ->with('data')
                 ->with('data.subcategory:id,name_'.self::$language . ' as name')
@@ -136,8 +136,8 @@
                     $product->user->img = 'default.png';
                 }
             }
-
-            unset($product->user_id,$product->category_id,$product->subcategory_id);
+            $product->dates = ['new'=>$product->updated_at, 'old'=>$product->created_at];
+            unset($product->user_id,$product->subcategory_id);
             if ($prod) return $product;
 
             return APIHelper::jsonRender('', $product);
