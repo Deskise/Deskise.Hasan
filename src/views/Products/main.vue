@@ -60,10 +60,10 @@
           <div class="row">
             <div
               class="col-12 col-md-6 col-lg-4 mb-4 pe-0"
-              v-for="p in products"
+              v-for="p in productByCategoryId"
               :key="p.id"
             >
-              <product :product="p"></product>
+              <product :id="p"></product>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@ export default {
   computed: {
     ...mapGetters("product", ["products"]),
     productByCategoryId() {
-      return this.products(this.category);
+      return this.products({ category: this.category });
     },
     subcategories() {
       if (this.category === 0) return this.$store.state.category.subcategories;

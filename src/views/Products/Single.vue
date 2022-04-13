@@ -1,73 +1,250 @@
 <template>
-  <div class="single-post container-fluid">
-    <div class="w-100 row data mb-5">
-      <div class="col-md-6 h-100">
-        <img :src="post.img" alt="image" class="h-100 w-100" />
+  <div class="dash-product-page">
+    <div class="dash-product-details">
+      <div class="dash-slider-images">
+        <div class="main-image">
+          <span :class="`status ${product.status.toLowerCase()}`">
+            {{ product.status.split("_").join(" ") }}
+          </span>
+          <img :src="product.img" />
+        </div>
       </div>
-      <div class="ms-5 col-md-5 h-100 text">
-        <div class="actions d-flex flex-column align-items-end w-100">
-          <div class="exit" @click="$router.go(-1)">
-            <flat-icon-component icon="cross" />
+      <div class="dash-details">
+        <div class="person-info">
+          <div class="image">
+            <img :src="product.user.img" />
           </div>
-          <div class="like" @click="like">
-            <flat-icon-component
-              icon="heart"
-              :type="post.liked ? 'solid' : 'rounded'"
-            />
-            <p>{{ post.likes }}</p>
+          <div class="data">
+            <div class="name">
+              {{ product.user.firstname + " " + product.user.firstname }}
+            </div>
+            <div class="dates">
+              <span class="new" v-date="product.dates.new"></span>&nbsp;
+              <span class="old" v-date="product.dates.old"></span>
+            </div>
           </div>
         </div>
-        <div class="d-flex flex-column justify-content-end">
-          <h5>{{ post.name }}</h5>
-          <p class="date" v-date="post.date"></p>
-          <perfect-scrollbar class="content">
-            {{ post.description }}
+        <div class="product-info">
+          <div class="title">{{ product.name }}</div>
+          <div class="price-category-order">
+            <div class="price">
+              <span class="new">{{ product.price }}$</span>
+              <span class="old">350$</span>
+            </div>
+            <div class="categroy-order">
+              <span class="categroy">{{
+                this.$store.state.category.categories[product.category_id].name
+              }}</span
+              >&nbsp;
+              <span class="order">#{{ product.id }}</span>
+            </div>
+          </div>
+          <perfect-scrollbar class="description">
+            {{ product.description }}
           </perfect-scrollbar>
+
+          <div class="footer-details">
+            <p class="mb-0" v-if="product.is_lifetime">
+              Is The License For Life!<br /><span class="date">{{
+                product.until
+              }}</span>
+            </p>
+            <p class="mt-0">
+              Select Business Model
+              <span class="business-model">Lorem Ipsum</span>
+            </p>
+            URL:
+            <span class="url">
+              <!-- TODO: DO THE LINK HERE -->
+              <a href=""> Https://Www.Behance.Net/Sammeer12591d4 </a>
+            </span>
+          </div>
+          <div class="reviewers">
+            <div class="images">
+              <div
+                class="image"
+                v-for="img in product.bought.user_imgs"
+                :key="img"
+              >
+                <img :src="img" />
+              </div>
+            </div>
+            <div class="number">{{ product.bought.count }}</div>
+          </div>
+          <div class="footer-buttons">
+            <button class="dash-button buy-icon">
+              <span>Buy</span>
+              <span>
+                <font-awesome-component
+                  icon="dollar-sign"
+                  :bold="false"
+                ></font-awesome-component>
+              </span>
+            </button>
+            <button class="dash-button buy-icon">
+              <span>Message Request</span>
+              <span>
+                <font-awesome-component
+                  icon="telegram-plane"
+                ></font-awesome-component>
+              </span>
+            </button>
+          </div>
+          <div class="footer-features">
+            <div class="feature" v-if="product.verified">
+              <flat-icon-component
+                icon="crown"
+                class="icon"
+              ></flat-icon-component>
+              Verified Deskise
+            </div>
+            <div class="feature" v-if="product.special">
+              <flat-icon-component
+                icon="shield-check"
+                class="icon"
+              ></flat-icon-component>
+              Special Item
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="blog-posts row pt-5">
-      <h2 class="mb-5">Similer</h2>
-      <div
-        class="col-6 col-md-4 col-lg-3"
-        v-for="(item, index) in posts"
-        :key="index"
-      >
-        <product :product="item"></product>
+    <div class="dash-product-statistics">
+      <div class="profile-statistics">
+        <div class="statistics">
+          <div class="statistic">
+            <div class="key">Average monthly traffic</div>
+            <div class="value">30K$</div>
+          </div>
+          <div class="statistic">
+            <div class="key">business start</div>
+            <div class="value">3 years ago</div>
+          </div>
+          <div class="statistic">
+            <div class="key">business start making money</div>
+            <div class="value">2 years ago</div>
+          </div>
+          <div class="statistic">
+            <div class="key">Profits last 3 months</div>
+            <div class="value">30K$</div>
+          </div>
+          <div class="statistic">
+            <div class="key">Profits last 6 months</div>
+            <div class="value">60K$</div>
+          </div>
+          <div class="statistic">
+            <div class="key">Profits last 12 months</div>
+            <div class="value">500K$</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-statistics">
+        <div class="statistic">
+          <div class="labels">
+            <div class="label">
+              <div class="key">Traffic</div>
+            </div>
+            <div class="label">
+              <div class="key">Page Views</div>
+              <div class="value">100.8356 P/MO</div>
+            </div>
+            <div class="label">
+              <div class="key">Visits</div>
+              <div class="value">100.8356 P/MO</div>
+            </div>
+          </div>
+          <canvas id="price-chart" height="250" role="img"></canvas>
+        </div>
+        <div class="statistic">
+          <div class="labels">
+            <div class="label">
+              <div class="key">Earnings</div>
+            </div>
+            <div class="label">
+              <div class="key">Net Profit</div>
+              <div class="value">100.8356 P/MO</div>
+            </div>
+            <div class="label">
+              <div class="key">Total</div>
+              <div class="value">100.8356 P/MO</div>
+            </div>
+          </div>
+          <canvas id="earnings-chart" height="250" role="img"></canvas>
+        </div>
+      </div>
+      <div class="assets-statistics">
+        <div class="title">Business Assets Included</div>
+        <div class="statistic">
+          <span class="key">Domain</span>
+          <span class="value"
+            ><a href="javascript:void(0)"
+              >Https://Www.Behance.Net/Sammeer12591d4</a
+            ></span
+          >
+        </div>
+        <div class="statistic">
+          <span class="key">Instagram</span>
+          <span class="value"
+            ><a href="javascript:void(0)"
+              >Https://Www.Behance.Net/Sammeer12591d4</a
+            ></span
+          >
+        </div>
+        <div class="statistic">
+          <span class="key">Twitter</span>
+          <span class="value"
+            ><a href="javascript:void(0)"
+              >Https://Www.Behance.Net/Sammeer12591d4</a
+            ></span
+          >
+        </div>
+        <div class="statistic">
+          <span class="key">Web</span>
+          <span class="value"
+            ><a href="javascript:void(0)"
+              >Https://Www.Behance.Net/Sammeer12591d4</a
+            ></span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="similar-products">
+      <div class="title">Similar</div>
+      <div class="dash-products row">
+        <div
+          class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4 pe-0"
+          v-for="p in ps"
+          :key="p.id"
+        >
+          <product :id="p"></product>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Product from "../../components/Products/Product.vue";
 export default {
   props: {
     id: {
-      type: String,
+      type: Number,
       required: true,
     },
   },
   data() {
     return {
-      post: this.$store.state.product.products.data[this.id],
+      product: this.$store.state.product.products.data[this.id],
     };
   },
   methods: {
-    async like() {
-      // await this.$store.dispatch("blog/LikePost", this.post);
-      // if (!this.$store.state.blog.SinglePostData[this.id].liked) {
-      //   this.$store.state.blog.SinglePostData[this.id].liked = true;
-      //   this.$store.state.blog.SinglePostData[this.id].likes++;
-      // } else {
-      //   this.$store.state.blog.SinglePostData[this.id].liked = false;
-      //   this.$store.state.blog.SinglePostData[this.id].likes--;
-      // }
-    },
+    async like() {},
   },
   computed: {
-    posts() {
-      return [];
+    ...mapGetters("product", ["products"]),
+    ps() {
+      return this.products({ not: this.id });
     },
   },
   components: {
@@ -75,13 +252,7 @@ export default {
   },
 
   async beforeRouteUpdate(to, from, next) {
-    if (
-      this.$store.state.blog.SinglePostData === [] ||
-      this.$store.state.blog.SinglePostData[to.params.id] === undefined
-    ) {
-      await this.$store.dispatch("blog/fetchOne", { id: to.params.id });
-    }
-    this.post = this.$store.state.blog.SinglePostData[to.params.id];
+    await this.$store.dispatch("product/single", { id: to.params.id });
 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0;
@@ -90,82 +261,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.single-post {
-  padding: 20px 7%;
-  background: white;
-
-  .data {
-    height: calc(100vh - 180px);
-
-    .text {
-      height: 100%;
-      position: relative;
-
-      .actions {
-        position: absolute;
-        height: auto;
-
-        div {
-          width: 40px;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          border-radius: 50%;
-          margin: 5px;
-
-          * {
-            transform: translateY(12%);
-          }
-        }
-        .exit {
-          background: #fb5b5b;
-          color: white;
-        }
-        .like {
-          background: transparent;
-          color: #c9c9c9;
-          border: 1px solid #c9c9c9;
-          position: relative;
-          p {
-            position: absolute;
-            margin: 0;
-            bottom: -20px;
-          }
-        }
-      }
-
-      div:not(.actions, .exit, .like) {
-        height: 100%;
-        text-align: left;
-        max-height: 100%;
-        h5 {
-          font-weight: bold;
-          font-size: 38px;
-          color: #040506;
-        }
-        p.date {
-          font-size: 18px;
-          color: #9d9d9d;
-        }
-        .content {
-          font-size: 18px;
-          color: #9d9d9d;
-          height: 70%;
-          overflow: scroll;
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-
-  .blog-posts {
-    h2 {
-      font-size: 60px;
-      color: #040506;
-    }
-  }
-}
-</style>
+<style lang="css" scoped src="./Single.css"></style>

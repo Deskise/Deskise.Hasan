@@ -24,11 +24,15 @@ export default {
       type: Object,
       default: () => {},
     },
+    bold: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ["click"],
   computed: {
     getIcon() {
-      return `fab fa-${this.icon}`;
+      return `fa${this.bold ? "b" : ""} fa-${this.icon}`;
     },
     getClass() {
       return this.class;

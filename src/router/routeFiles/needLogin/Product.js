@@ -7,11 +7,6 @@ function lazyLoad(view) {
 
 export const routes = [
   {
-    path: "/icons",
-    name: "icons",
-    component: lazyLoad("Icons"),
-  },
-  {
     path: "/product/request",
     name: "requestProduct",
     component: lazyLoad("Request"),
@@ -52,17 +47,7 @@ export const routes = [
     name: "singleProduct",
     component: lazyLoad("Single"),
     beforeEnter: async function (routeTo, from, next) {
-      console.log(
-        store.state.product.products.data,
-        store.state.product.products.data[routeTo.params.id]
-      );
-      if (
-        store.state.product.products.data === {} ||
-        store.state.product.products.data[routeTo.params.id] === undefined ||
-        store.state.product.products.data[routeTo.params.id] === null
-      ) {
-        await store.dispatch("product/single", { id: routeTo.params.id });
-      }
+      await store.dispatch("product/single", { id: routeTo.params.id });
       next();
     },
   },

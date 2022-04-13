@@ -204,8 +204,7 @@ export default {
       ev.preventDefault();
       this.showNotificationList = !this.showNotificationList;
     },
-    closeNotification(e) {
-      console.log(e);
+    closeNotification() {
       this.showNotificationList = false;
     },
   },

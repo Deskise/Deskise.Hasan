@@ -44,14 +44,7 @@
           <div class="data">
             <div class="row">
               <router-link
-                class="
-                  col-3
-                  category
-                  d-flex
-                  justify-content-center
-                  align-items-center
-                  bg-gray-e bg-hover-gradiant
-                "
+                class="col-3 category d-flex justify-content-center align-items-center bg-gray-e bg-hover-gradiant"
                 v-for="(category, index) in categories"
                 :key="index"
                 :to="{
@@ -87,13 +80,7 @@
     </div>
     <div class="row">
       <div
-        class="
-          col-12
-          bg-gray-e
-          d-flex
-          justify-content-center
-          align-items-center
-        "
+        class="col-12 bg-gray-e d-flex justify-content-center align-items-center"
       >
         <p class="lead my-2">&copy; 2021, Deskise, All Rights Reserved</p>
       </div>

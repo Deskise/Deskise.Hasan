@@ -66,9 +66,6 @@ export default {
     back() {
       this.component = "First";
     },
-    log(e) {
-      console.log(e);
-    },
   },
 };
 </script>

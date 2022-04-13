@@ -67,7 +67,7 @@
 <script>
 export default {
   props: {
-    product: {
+    id: {
       type: Object,
       required: true,
     },
@@ -75,6 +75,11 @@ export default {
       type: Boolean,
       defualt: false,
     },
+  },
+  data() {
+    return {
+      product: this.$store.state.product.products.data[this.id],
+    };
   },
 };
 </script>

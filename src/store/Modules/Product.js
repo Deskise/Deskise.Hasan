@@ -38,7 +38,13 @@ export const actions = {
 };
 
 export const getters = {
-  products: (state) => {
-    return state.products.data;
-  },
+  products:
+    (state) =>
+    ({ not = 0 }) => {
+      return Object.keys(state.products.data)
+        .map((i) => {
+          if (i != not) return state.products.data[i].id;
+        })
+        .filter((e) => e !== undefined && e !== null);
+    },
 };

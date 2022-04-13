@@ -26,13 +26,7 @@
         <label class="col-12">Id Verification </label>
 
         <div
-          class="
-            profile-pic
-            img-replace-square
-            me-3
-            mb-3col-6
-            col-md-4 col-lg-3
-          "
+          class="profile-pic img-replace-square me-3 mb-3col-6 col-md-4 col-lg-3"
           v-if="user.id_verified_at === null"
         >
           <label class="-label" for="file2">
@@ -47,14 +41,7 @@
         </div>
 
         <div
-          class="
-            profile-pic
-            img-replace-square
-            me-3
-            mb-3
-            p-2
-            col-6 col-md-4 col-lg-3
-          "
+          class="profile-pic img-replace-square me-3 mb-3 p-2 col-6 col-md-4 col-lg-3"
         >
           <img src="@/assets/Path56647.png" style="width: 100%; height: 100%" />
         </div>

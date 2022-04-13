@@ -1,14 +1,6 @@
 <template>
   <div
-    class="
-      loader
-      w-100
-      h-100
-      d-flex
-      justify-content-center
-      align-items-center
-      bg-dark
-    "
+    class="loader w-100 h-100 d-flex justify-content-center align-items-center bg-dark"
   ></div>
 </template>
 

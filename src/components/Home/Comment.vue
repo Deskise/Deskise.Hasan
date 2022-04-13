@@ -2,12 +2,7 @@
   <div class="container comment">
     <div class="row">
       <div
-        class="
-          col-md-12 col-lg-2
-          d-flex
-          justify-content-center
-          align-items-center
-        "
+        class="col-md-12 col-lg-2 d-flex justify-content-center align-items-center"
       >
         <img :src="comment.img" :alt="comment.name" />
       </div>

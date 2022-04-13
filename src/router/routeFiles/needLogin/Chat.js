@@ -9,5 +9,9 @@ export const routes = [
     path: "/chat",
     name: "chat",
     component: lazyLoad("index"),
+    meta: {
+      requireAuth: true,
+      noFooter: true,
+    },
   },
 ];

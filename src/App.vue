@@ -8,7 +8,7 @@
       v-if="!cookieAccepted"
       @accept="$store.dispatch('AcceptCookies')"
     ></cookie-agreement>
-    <Footer></Footer>
+    <Footer v-if="!noFooter"></Footer>
   </perfect-scrollbar>
 </template>
 
@@ -30,7 +30,9 @@ export default {
   },
   components: { NotificationBar, Footer, Loader, CookieAgreement },
   data() {
-    return {};
+    return {
+      noFooter: false,
+    };
   },
   computed: {
     headerComponent() {
@@ -43,6 +45,9 @@ export default {
   watch: {
     $route() {
       this.$refs.scroll.$el.scrollTop = 0;
+      this.noFooter =
+        this.$route.meta.noFooter !== undefined &&
+        this.$route.meta.noFooter == true;
     },
   },
 };
@@ -73,7 +78,7 @@ export default {
   color: #2c3e50;
   .page {
     margin: 30px 0 70px 0;
-    min-height: 89vh;
+    min-height: 90vh;
   }
   .scrollbar {
     height: 100vh;
@@ -104,7 +109,7 @@ a {
 }
 
 nav {
-  max-height: 11vh;
+  max-height: 10vh;
 }
 
 .dp__active_date {

@@ -22,7 +22,6 @@ export default {
     }
 
     document.onload = function () {
-      console.log("clicked");
       document.querySelector(".hi").click();
     };
   },
