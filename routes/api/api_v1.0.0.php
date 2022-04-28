@@ -100,7 +100,6 @@ Route::group([
 Route::group(['prefix' => 'products'], function (){
 
     Route::post('request',[Product::class,'request']);
-    Route::get('request',[Product::class,'best']);
 
     Route::get('list/{category?}',[Product::class,'list']);
     Route::get('single/{id}',[Product::class,'single']);

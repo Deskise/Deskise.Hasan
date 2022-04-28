@@ -72,7 +72,10 @@
         public function best()
         {
             ///TODO: Get Packages Data and Things And find a way to get the pinned ones here to show on the homepage
-            return APIHelper::jsonRender('', Product::paginate(10));
+            return APIHelper::jsonRender('', Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as details','price',
+                'special','verified', 'img','status')
+                ->where('status','!=','under_verify')
+                ->where('status','!=','canceled')->paginate(10));
         }
 
         public function list($category=false)
