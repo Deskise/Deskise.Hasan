@@ -11,8 +11,8 @@
     <perfect-scrollbar class="body">
       <div class="my-3 text-gray">
         {{ pack.details }}
-      </div></perfect-scrollbar
-    >
+      </div>
+    </perfect-scrollbar>
     <div class="end text-gray">
       <p>{{ pack.quantity }} {{ pack.duration }}</p>
     </div>

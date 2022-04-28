@@ -5,7 +5,7 @@ import router from "@/router";
 import Notification from "../Notification";
 
 const apiClient = axios.create({
-  baseURL: process.env.VUE_APP_BACKEND_API_URL,
+  baseURL: "http://" + window.location.hostname + ":8000/api/v1",
   withCredentials: false,
   headers: {
     Accept: "application/json",

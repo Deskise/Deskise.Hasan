@@ -4,6 +4,7 @@ export const namespaced = true;
 
 export const state = {
   products: { current_page: null, next_page_url: null, data: {}, category: 0 },
+  best: [],
 };
 
 export const mutations = {
@@ -21,6 +22,9 @@ export const mutations = {
   SINGLE(state, prod) {
     state.products.data[prod.id] = prod;
   },
+  BEST(state, prod) {
+    state.best = prod;
+  },
 };
 
 export const actions = {
@@ -33,6 +37,11 @@ export const actions = {
   async single({ commit }, { id }) {
     await Product.single(id).then((e) => {
       commit("SINGLE", e.data.response.extra[0]);
+    });
+  },
+  async best({ commit }) {
+    await Product.best().then((e) => {
+      commit("BEST", e.data.response.extra[0]);
     });
   },
 };

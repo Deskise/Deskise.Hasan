@@ -23,6 +23,10 @@ export default createStore({
     },
     ACCEPT_COOKIES(state) {
       state.cookieAccepted = true;
+      localStorage.setItem("accept_cookies", true);
+    },
+    CANCEL_COOKIES(state) {
+      state.cookieAccepted = true;
     },
   },
   actions: {
@@ -31,6 +35,17 @@ export default createStore({
     },
     AcceptCookies({ commit }) {
       commit("ACCEPT_COOKIES");
+    },
+    CancelCookies({ commit }) {
+      commit("CANCEL_COOKIES");
+    },
+    getCookieStatus({ state }) {
+      if (
+        localStorage.getItem("accept_cookies") !== undefined &&
+        localStorage.getItem("accept_cookies") !== null
+      ) {
+        state.cookieAccepted = localStorage.getItem("accept_cookies");
+      }
     },
   },
   modules: {

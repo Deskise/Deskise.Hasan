@@ -5,7 +5,7 @@
   >
     <div class="blocks container">
       <div class="row">
-        <div class="block col first">Categories</div>
+        <div class="block col-3 col-md first">Categories</div>
         <div
           v-for="(category, index) in categories.slice(0, 4)"
           :key="index"
@@ -30,7 +30,7 @@
         >
           {{ category.name }}
         </div>
-        <div class="block last col">More+</div>
+        <div class="block last col-3 col-md">More+</div>
       </div>
     </div>
   </section>

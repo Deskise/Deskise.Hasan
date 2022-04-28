@@ -10,4 +10,7 @@ export default {
   single(id) {
     return apiClient.get("/products/single/" + id);
   },
+  best() {
+    return apiClient.get("/products/best");
+  },
 };

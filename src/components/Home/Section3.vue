@@ -12,7 +12,7 @@
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
           </p>
-          <router-link to="" class="read">
+          <router-link :to="{ name: 'about' }" class="read">
             read more
             <flat-icon-component
               icon="arrow-right"
@@ -29,7 +29,7 @@
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
           </p>
-          <router-link to="" class="read">
+          <router-link :to="{ name: 'about' }" class="read">
             read more
             <flat-icon-component
               icon="arrow-right"
@@ -46,7 +46,7 @@
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
           </p>
-          <router-link to="" class="read">
+          <router-link :to="{ name: 'about' }" class="read">
             read more
             <flat-icon-component
               icon="arrow-right"
@@ -74,10 +74,16 @@ section {
   h1 {
     color: #040506;
     font-size: 60px;
+    @media (max-width: 760px) {
+      font-size: 40px;
+    }
   }
 
   .row .col-lg {
     text-align: left;
+    @media (max-width: 760px) {
+      text-align: center;
+    }
     .icon {
       color: #3eadb7;
       font-size: 24px;

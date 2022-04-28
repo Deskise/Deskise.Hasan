@@ -66,7 +66,7 @@ section {
     text-transform: capitalize;
     @media (max-width: 776px) {
       & {
-        font-size: 40px;
+        font-size: 35px;
       }
     }
   }

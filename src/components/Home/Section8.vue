@@ -87,22 +87,22 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  height: 67vh;
   justify-content: center;
   align-items: center;
   padding: 70px 0;
 
   h1 {
     font-size: 40px;
+    @media (max-width: 760px) {
+      font-size: 30px;
+    }
     font-weight: bold;
   }
   p {
     color: #9d9d9d;
     font-size: 20px;
     @media (max-width: 776px) {
-      & {
-        font-size: 18px;
-      }
+      font-size: 14px;
     }
   }
 

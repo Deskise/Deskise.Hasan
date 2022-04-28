@@ -70,6 +70,9 @@ section {
 
   h1 {
     font-size: 60px;
+    @media (max-width: 760px) {
+      font-size: 40px;
+    }
     font-weight: 400;
     margin-bottom: 50px;
   }

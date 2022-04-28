@@ -27,6 +27,7 @@ export default {
     this.$store.dispatch("user/getUUID");
     this.$store.dispatch("sockets/init_echo");
     this.$store.dispatch("sockets/connect_sockets");
+    this.$store.dispatch("getCookieStatus");
   },
   components: { NotificationBar, Footer, Loader, CookieAgreement },
   data() {
@@ -78,7 +79,7 @@ export default {
   color: #2c3e50;
   .page {
     margin: 30px 0 70px 0;
-    min-height: 90vh;
+    min-height: 100vh;
   }
   .scrollbar {
     height: 100vh;

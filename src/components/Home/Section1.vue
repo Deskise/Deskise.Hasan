@@ -2,7 +2,7 @@
   <section class="section1 d-flex">
     <div class="container">
       <div class="row">
-        <div class="col-lg-5 row">
+        <div class="col-lg-5 row mx-auto mx-md-0">
           <h1 class="p-lg-0">Lorem ipsum</h1>
           <p class="lead p-lg-0">
             Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
@@ -56,7 +56,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/sass/_globals/_variables.scss";
 .section1 {
-  min-height: 89vh;
+  min-height: 100vh;
   text-align: left;
   @media (max-width: 760px) {
     & {
@@ -65,20 +65,26 @@ export default {
   }
   align-items: center;
   .container {
+    transform: translateY(-10vh);
+
     @media (min-width: 1200px) {
-      & {
-        transform: translateY(-14vh);
-      }
+      transform: translateY(-14vh);
     }
     h1 {
       text-transform: uppercase;
       font-size: 60px;
+      @media (max-width: 760px) {
+        font-size: 40px;
+      }
       font-weight: bold;
       color: $dark;
     }
 
     p {
       font-size: 28px;
+      @media (max-width: 760px) {
+        font-size: 20px;
+      }
       color: $gray;
     }
 

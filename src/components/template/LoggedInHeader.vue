@@ -1,7 +1,14 @@
 <template>
-  <nav class="navbar navbar-expand-lg border-bottom noLogin">
+  <nav
+    :class="{
+      'navbar navbar-expand-lg border-bottom noLogin': true,
+      'bg-white': scrolled,
+    }"
+  >
     <div class="logo">
-      <img src="@/assets/logo.png" />
+      <router-link :to="{ name: 'home' }">
+        <img src="@/assets/logo.png" />
+      </router-link>
     </div>
     <div class="nav-content">
       <div class="dash-nav-links">
@@ -194,6 +201,7 @@ export default {
   data() {
     return {
       showNotificationList: false,
+      scrolled: false,
     };
   },
   methods: {
@@ -224,6 +232,8 @@ nav {
   align-items: center;
   padding: 10px 25px;
   position: relative;
+  position: fixed;
+  width: 100%;
 
   .logo {
     max-width: 100%;

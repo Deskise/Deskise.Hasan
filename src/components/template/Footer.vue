@@ -70,7 +70,10 @@
               <button type="submit" class="btn btn-primary col">
                 {{ __("footer.subscripe") }}
               </button>
-              <router-link to="/" class="btn btn-outline-secondary col">
+              <router-link
+                :to="{ name: 'requestProduct' }"
+                class="btn btn-outline-secondary col"
+              >
                 {{ __("footer.request") }}</router-link
               >
             </form>
@@ -121,6 +124,9 @@ a {
 h3 {
   color: #4e4e4e;
   text-align: left;
+  @media (max-width: 760px) {
+    text-align: center;
+  }
   position: relative;
   padding: 10px 0;
   margin-bottom: 20px;
@@ -133,11 +139,17 @@ h3 {
     position: absolute;
     bottom: 0;
     left: 0;
+    @media (max-width: 760px) {
+      left: 40%;
+    }
   }
 }
 .data {
   padding: 15px;
   text-align: left;
+  @media (max-width: 760px) {
+    text-align: center;
+  }
 
   ul {
     list-style: none;

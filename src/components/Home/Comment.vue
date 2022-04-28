@@ -50,10 +50,16 @@ export default {
     font-weight: bold;
     margin-bottom: 2px;
     font-size: 24px;
+    @media (max-width: 760px) {
+      font-size: 18px;
+    }
   }
 
   p {
     font-size: 22px;
+    @media (max-width: 760px) {
+      font-size: 16px;
+    }
     line-height: 30px;
   }
 }

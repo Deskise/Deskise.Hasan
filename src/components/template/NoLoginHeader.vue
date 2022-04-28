@@ -114,7 +114,11 @@ export default {
 <style lang="scss" scoped>
 @import "@/sass/_globals/_variables.scss";
 nav.noLogin {
+  background-color: rgba($color: #fff, $alpha: 1);
   padding: 20px 7%;
+  position: fixed;
+  width: 100%;
+
   @media (max-width: 1600px) {
     & {
       padding: 20px 4%;
@@ -126,7 +130,6 @@ nav.noLogin {
     }
   }
   border-color: #898989;
-  background-color: transparent;
   z-index: 10;
   @media (max-width: 992px) {
     .navbar-collapse {
