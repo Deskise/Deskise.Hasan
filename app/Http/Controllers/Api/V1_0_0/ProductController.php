@@ -75,7 +75,7 @@
             return APIHelper::jsonRender('', Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as details','price',
                 'special','verified', 'img','status')
                 ->where('status','!=','under_verify')
-                ->where('status','!=','canceled')->paginate(10));
+                ->where('status','!=','canceled')->paginate(4));
         }
 
         public function list($category=false)
