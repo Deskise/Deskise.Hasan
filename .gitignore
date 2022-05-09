@@ -16,3 +16,4 @@ yarn-error.log
 .gitCommitMessage
 *.txt
 .rnd
+composer.lock
