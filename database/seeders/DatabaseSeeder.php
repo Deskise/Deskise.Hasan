@@ -7,6 +7,7 @@ use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\ClientComment;
 use App\Models\FAQ;
+use App\Models\HomeText;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\ProductData;
@@ -15,6 +16,7 @@ use App\Models\SocialMediaLink;
 use App\Models\Subcategory;
 use App\Models\TermsOfUse;
 use App\Models\User;
+use App\Models\UserID;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -39,5 +41,54 @@ class DatabaseSeeder extends Seeder
 
         Product::factory(50)->create();
         ProductData::factory(50)->create();
+
+        //aya
+        HomeText::query()->create([
+            'key' => 'first_section',
+            'value' => 'some text'
+        ]);
+        HomeText::query()->create([
+            'key' => 'cookie',
+            'value' => 'some text'
+        ]);
+        HomeText::query()->create([
+            'key' => 'deskise',
+            'value' => 'some text'
+        ]);
+        HomeText::query()->create([
+            'key' => 'request_product',
+            'value' => 'some text'
+        ]);
+        HomeText::query()->create([
+            'key' => 'about_us',
+            'value' => 'some text'
+        ]);
+        HomeText::query()->create([
+            'key' => 'staff',
+            'value' => 'some text'
+        ]);
+        HomeText::query()->create([
+            'key' => 'trust_clients',
+            'value' => 'some text'
+        ]);
+        HomeText::query()->create([
+            'key' => 'connect_us',
+            'value' => 'some text'
+        ]);
+        HomeText::query()->create([
+            'key' => 'close_account',
+            'value' => 'some text'
+        ]);
+        HomeText::query()->create([
+            'key' => 'payout_request',
+            'value' => 'some text'
+        ]);
+
+        //User Id veri
+        collect([1,2,3,4,5])->map(function ($user){
+            UserID::query()->create([
+                'user_id' => $user,
+            ]);
+        });
     }
 }

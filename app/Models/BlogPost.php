@@ -40,4 +40,9 @@ class BlogPost extends Model
     {
         return $this->hasMany(BlogPostLike::class);
     }
+
+    public function blogPostTags()
+    {
+        return $this->hasMany(BlogPostTags::class);
+    }
 }
