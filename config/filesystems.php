@@ -61,6 +61,10 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/products')
         ],
+        'user_assets' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/users/assets')
+        ],
 
         's3' => [
             'driver' => 's3',
