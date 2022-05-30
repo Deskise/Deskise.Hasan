@@ -51,7 +51,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="post" action="{{ route('edit_home',$txt->id) }}">
+                                                <form method="post" action="{{ url('admin/edit_home/'.$txt->id) }}">
                                                     @csrf
                                                     @method("PUT")
                                                     <div class="row form-row">

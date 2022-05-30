@@ -1,29 +1,26 @@
 @extends('layout.dashborad')
 @section('name','Blog Post')
 @section('btn')
-    <button type="button" class="btn btn-success btn-fw">Add</button>
+    <a  class="btn btn-success btn-fw" style="margin: 10px" href="{{url('admin/blog_posts/create')}}">Add Plog</a>
 @endsection
 @section('css')
-    .pagination a {
-    margin: 0 4px;
-    background-color: #ecf3f4;
-    }
+
 @endsection
 @section('content')
     <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card" style="background-color: #ecf3f4;">
+        <div class="card" >
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th> #</th>
-                            <th> title_en</th>
+                            <th> Title</th>
                             {{--                            <th> title_ar </th>--}}
-                            <th> details_en</th>
+                            <th> Details</th>
                             {{--                            <th> details_ar </th>--}}
-                            <th> img</th>
-                            <th> category</th>
+                            <th> Image</th>
+                            <th> Category</th>
                             <th> Actions</th>
                         </tr>
                         </thead>
@@ -92,3 +89,5 @@
 
     </script>
 @endsection
+
+

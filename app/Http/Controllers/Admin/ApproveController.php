@@ -18,14 +18,14 @@ class ApproveController extends Controller
             'status' => 'available'
         ]);
         \Session::flash("msg","Product verify successfully");
-        return redirect(route('getProducts'));
+        return redirect(route('admin.getProducts'));
     }
     public function reject($id){
         Product::query()->findOrFail($id)->update([
             'status' => 'canceled'
         ]);
         \Session::flash("msg","Product rejected successfully");
-        return redirect(route('getProducts'));
+        return redirect(route('admin.getProducts'));
 
     }
 }

@@ -121,7 +121,7 @@ $body-color: #ffffff;
 
 
 ///////// CARD ////////
-$card-bg: #3eadb7;
+$card-bg: #191c24;
 $card-description-color: #bfbfbf;
 $card-title-color: #ffffff;
 ///////// CARD ////////
@@ -144,7 +144,7 @@ $modal-content-bg: $content-bg;
 ////////// MODALS VARIABLES //////////
 
 ///////// NAVBAR ////////
-$navbar-bg: #3eadb7;
+$navbar-bg: #191c24;
 $navbar-brand-wrapper-tinted-bg: #fa424a;
 $navbar-height: 70px;
 $navbar-menu-color: #ffffff;
@@ -158,7 +158,7 @@ $sidebar-width-lg: 244px;
 $sidebar-width-mini: 185px;
 $sidebar-width-icon: 70px;
 
-$sidebar-dark-bg: #3eadb7;
+$sidebar-dark-bg: #191c24;
 $sidebar-dark-menu-color: $text-muted;
 $sidebar-dark-menu-active-bg: darken($sidebar-dark-bg, 5%);
 $sidebar-dark-menu-active-color: #ffffff;
@@ -298,8 +298,8 @@ $progress-bg: $content-bg;
 $boxed-container-width: 1200px;
 $border-property: 1px solid $border-color;
 $card-spacing-y: 2.5rem;  
-$card-padding-y: 0rem;
-$card-padding-x: 0rem;
+$card-padding-y: 1.75rem;
+$card-padding-x: 1.5625rem;
 $card-border-radius: 0.25rem;
 $grid-gutter-width: 1.5rem;
 $action-transition-duration: 0.25s;

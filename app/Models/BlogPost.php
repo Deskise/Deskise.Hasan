@@ -17,6 +17,14 @@ class BlogPost extends Model
         parent::__construct($attributes);
     }
 
+    protected $fillable = [
+        'title_en',
+        'category_id' ,
+        'details_en' ,
+        ''
+
+    ];
+
     protected $guarded = [];
 
     protected $hidden = [
@@ -44,5 +52,10 @@ class BlogPost extends Model
     public function blogPostTags()
     {
         return $this->hasMany(BlogPostTags::class);
+    }
+
+    public function tag()
+    {
+        return $this->belongsToMany(Tag::class, 'blog_post_tags');
     }
 }

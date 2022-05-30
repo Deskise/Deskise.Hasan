@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
+
 Route::get('{for}/images/{image}', function ($for, $image) {
     return Storage::disk($for)->download($image);
 })->name('images');
@@ -27,11 +31,28 @@ Route::get('/send', function () {
     return 'yes';
 });
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 
+Route::prefix('admin')->group(function () {
+    Route::redirect('/', '/login');
+    Auth::routes(['register' => false]);
+});
+
+Route::resource('admin/blog_posts', AdminBlogPostController::class);
+Route::get("admin/blog_posts/{id}",[AdminBlogPostController::class,'destroy'])->name("blog_posts.delete");
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+
+
+
+   // Route::resource('blog-posts', 'AdminBlogPostController');
+    //Route::get("blog_posts/{id}",[AdminBlogPostController::class,'destroy'])->name("blog_posts.delete");
+
+    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/home', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/setting', [DashboardController::class, 'setting'])->name('setting');
     Route::put('/edit_home/{id}', [DashboardController::class, 'editHome'])->name('edit_home');
+
+
+    Route::get('/checkidentity', [DashboardController::class, 'checkidentity'])->name('dashboard');
 
     Route::prefix('about_us')->group(function () {
         Route::get('/', [AboutUsController::class, 'about_us']);
@@ -48,12 +69,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/', [AboutUsController::class, 'privacy_policy_update'])->name('privacy_update');
     });
 
-    Route::resource('blog_posts', AdminBlogPostController::class);
-    Route::get("blog_posts/{id}",[AdminBlogPostController::class,'destroy'])->name("blog_posts.delete");
+
 
     Route::prefix('get_products')->group(function () {
         Route::get('/', [ApproveController::class, 'getProducts'])->name('getProducts');
-        Route::get('/verify/{product_id}', [ApproveController::class, 'verify'])->name('verify');
+        Route::get('/verify/{product_id}', [ApproveController::class, 'verify'])->name('get_products.verify');
         Route::get('/reject/{product_id}', [ApproveController::class, 'reject'])->name('reject');
     });
 
@@ -62,4 +82,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/verify_ID/{user_id}', [ApproveUserIdController::class, 'verifyID'])->name('verifyID');
         Route::get('/reject_ID/{user_id}', [ApproveUserIdController::class, 'rejectID'])->name('rejectID');
     });
+
+
 });

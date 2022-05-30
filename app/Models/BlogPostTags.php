@@ -14,4 +14,9 @@ class BlogPostTags extends Model
     {
         return $this->belongsTo(BlogPost::class);
     }
+
+    public function tag()
+    {
+        return $this->belongsTo(Tag::class );
+}
 }

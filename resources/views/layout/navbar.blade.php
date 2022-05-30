@@ -35,7 +35,7 @@
                                 <i class="mdi mdi-logout text-danger"></i>
                             </div>
                         </div>
-                        <div class="preview-item-content">
+                        <div class="preview-item-content" onclick="event.preventDefault(); document.getElementById('logoutform').submit();" >
                             <p class="preview-subject mb-1">Log out</p>
                         </div>
                     </a>
