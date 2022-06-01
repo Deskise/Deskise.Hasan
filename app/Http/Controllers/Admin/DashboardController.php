@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
+use App\Models\Category;
 use App\Models\Chat;
 use App\Models\ChatAgreement;
 use App\Models\HomeText;
+use App\Models\Product;
 use App\Models\ProductBuy;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -24,9 +28,51 @@ class DashboardController extends Controller
 
         $ProductBuy = ProductBuy::query()->count();
 
-      //  $this_month =
 
-        return view('dashboard.admin',compact('new_users','users','chats','chat_agrees','ProductBuy'));
+
+        //dd(Carbon::now()->month);
+        $date = \Carbon\Carbon::now();
+        $months[] = Carbon::now()->month;
+        $months[] =  $date->subMonth(1)->month;
+        $months[] =  $date->subMonth(1)->month;
+        $months[] =  $date->subMonth(1)->month;
+        $months[] =  $date->subMonth(1)->month;
+
+        foreach ($months as $month ){
+            $this_month = ProductBuy::whereMonth('created_at', $month)->count();
+            $values[] =$this_month ;
+        }
+
+        $values  = json_encode(  $values);
+        $months  = json_encode(  $months);
+
+
+        $categories = Category::all();
+        foreach ($categories as $cat){
+            $porducts_ids  = Product::where('category_id' , $cat->id)->pluck('id')->toArray();
+           // $porducts_ids = implode($porducts_ids  ,',');
+           // dd(  $porducts_ids );
+           $db = DB::table('product_buys')
+               ->join('products', 'products.id', '=', 'product_buys.product_id')
+               ->select(DB::raw('products.* , product_id ,COUNT(*) c'))
+               ->whereIn('product_id',  $porducts_ids)
+               ->groupBy('product_id')
+               ->orderBy('c' , 'desc')
+              // ->raw('SELECT product_id ,COUNT(*) c  where product_id in ('. $porducts_ids .') GROUP BY name;')
+              ->limit(3)->get();
+
+            $cat->top_products =  $db ;
+             // now we want to get  most repeat product id
+           // dd( $db);
+
+        }
+
+
+       // dd($categories);
+        //dd( $values,   $months ) ;
+
+        return view('dashboard.admin',compact('new_users',
+            'users','chats','chat_agrees','ProductBuy' , 'values' ,'months','categories' ));
     }
 
     public function setting(){

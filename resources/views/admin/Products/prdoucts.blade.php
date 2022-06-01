@@ -40,10 +40,13 @@
                         <td class="text-center">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <a type="button" href='{{ url("admin/get_products/verify/".$txt->id) }}'
+
+                                    <a type="button" onclick="openPopUp({{$txt->id}})"
                                        class="btn btn-outline-success btn-md" title="verify">
                                         verify <i class="mdi mdi-file-check btn-icon-append"></i>
                                     </a>
+
+
                                 </div>
                                 <div class="col-sm-6">
                                     <a type="button" href='{{ url("admin/get_products/reject/".$txt->id) }}'
@@ -64,8 +67,75 @@
 
 
 
+    <div class="modal" tabindex="-1" role="dialog" id="modalAccept">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Accept Product</h5>
+                    <button type="button" class="close" onclick="cancel()" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" onclick="cancel()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label> Url Product</label>
+                        <input type="text" class="form-control" name="product_url" id="product_url" >
 
+                    </div>
+
+
+                    <input type="hidden" class="form-control" name="product_id" id="product_id" >
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="sendAccept()">حفظ</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancel()">اغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
+
+@push('js')
+    <script>
+        function openPopUp(id){
+            $('#modalAccept').modal('show');
+            $('#product_id').val(id);
+        }
+
+        function cancel(){
+            $('#modalAccept').modal('hide');
+        }
+
+        function sendAccept(){
+
+
+              $('#modalAccept').modal('hide');
+
+
+              product_url =  $('#product_url').val();
+              product_id =  $('#product_id').val();
+
+                data={
+                    '_token' :"{{csrf_token()}}" ,
+                    'url' : product_url ,
+                    'id' : product_id
+                };
+
+
+                $.ajax({
+                    type:'POST',
+                    url:'{{url('admin/acceptProduct')}}',
+                    data:data,
+                    success:function(data) {
+                        location.reload();
+                    }
+                });
+
+        }
+    </script>
+
+    @endpush
 
 

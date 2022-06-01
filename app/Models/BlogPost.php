@@ -21,7 +21,7 @@ class BlogPost extends Model
         'title_en',
         'category_id' ,
         'details_en' ,
-        ''
+        'img'
 
     ];
 

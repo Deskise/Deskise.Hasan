@@ -138,6 +138,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(ProductLikes::class);
     }
+
+    public function assets()
+    {
+        return $this->hasOne(UserVerificationAssets::class);
+    }
+
     public function products()
     {
         return $this->hasMany(Product::class);

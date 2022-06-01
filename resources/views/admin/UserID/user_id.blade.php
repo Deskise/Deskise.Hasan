@@ -29,7 +29,13 @@
                             <img src="{{$user->user->img}}" alt="">
                             {{  $user->user->firstname .' ' .$user->user->lastname }}
                         </td>
-                        <td>{{ $user->identity}}</td>
+                        <td>
+                            @if( isset($user->user->assets) && count($user->user->assets->assets ) > 0)
+                               @foreach($user->user->assets->assets as $image)
+                                 <img src="{{ route('images', ['for'=>'user_assets', 'image'=>$image]) }}" height="200">
+                                @endforeach
+                            @endif
+                        </td>
 
                         <td class="text-center">
                             <div class="row">

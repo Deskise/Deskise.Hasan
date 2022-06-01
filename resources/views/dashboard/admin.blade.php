@@ -93,7 +93,7 @@
         </div>
         <div class="row">
 
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                         <h4 class="card-title">Payments Process</h4>
@@ -104,6 +104,53 @@
 
         </div>
         <div class="row">
+
+            @foreach($categories as $cat)
+
+                @if( count($cat->top_products) > 0 )
+            <div class="col-6 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ $cat->name_en }}</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+
+                                    <th> Image </th>
+                                    <th> Product Name </th>
+                                    <th> Buys Count </th>
+
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if( count($cat->top_products) > 0 )
+                                    @foreach($cat->top_products as $prod)
+                                <tr>
+
+                                    <td>
+                                        <img src="{{route('images', ['for'=>'images', 'image'=>$prod->img])}}" alt="image">
+
+                                    </td>
+                                    <td>{{$prod->name_en}}</td>
+                                    <td> {{$prod->c}} </td>
+
+
+
+                                </tr>
+                                    @endforeach
+                                 @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                @endif
+            @endforeach
 
         </div>
 
@@ -119,10 +166,10 @@
 @push('js')
     <script>
         var data = {
-            labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+            labels: {{ $months }},
             datasets: [{
                 label: '# of Votes',
-                data: [10, 19, 3, 5, 2, 3],
+                data: {{ $values }},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

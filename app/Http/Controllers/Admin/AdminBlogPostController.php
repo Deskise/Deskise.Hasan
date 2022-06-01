@@ -7,6 +7,7 @@ use App\Models\BlogPost;
 use App\Models\BlogPostTags;
 use App\Models\Category;
 use App\Models\Tag;
+
 use Illuminate\Http\Request;
 
 class AdminBlogPostController extends Controller
@@ -27,6 +28,14 @@ class AdminBlogPostController extends Controller
 
     public function store(Request $request)
     {
+
+
+
+        $validated = $request->validate([
+            'title_en'=>'required',
+            'img'=>'required' ,
+            'details_en'=> 'required' ,
+        ]);
 
         $requestData = $request->all();
         if($request->img){
@@ -114,7 +123,7 @@ class AdminBlogPostController extends Controller
         if(count( $arr_ids) > 0 )
             $itemDB->tag()->sync(  $arr_ids);
 
-        session()->flash("msg","s:تم التحديث بنجاح ");
+        session()->flash("msg","Post Was Updated successfully");
         return redirect(route("blog_posts.index"));
 
     }
