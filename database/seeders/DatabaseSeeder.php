@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\AboutUs;
+use App\Models\Admin;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\ClientComment;
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(5)->create();
+        Admin::factory(1)->create();
         Category::factory(8)->create();
         Subcategory::factory(10)->create();
         BlogPost::factory(50)->create();
