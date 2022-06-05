@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(5)->create();
-        Admin::factory(1)->create();
+
         Category::factory(8)->create();
         Subcategory::factory(10)->create();
         BlogPost::factory(50)->create();
