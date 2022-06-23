@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminBlogPostController;
 use App\Http\Controllers\Admin\ApproveController;
 use App\Http\Controllers\Admin\ApproveUserIdController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,8 @@ Route::prefix('admin')->group(function () {
 
 Route::resource('admin/blog_posts', AdminBlogPostController::class);
 Route::get("admin/blog_posts/{id}",[AdminBlogPostController::class,'destroy'])->name("blog_posts.delete");
+//Hala and omar
+Route::resource('/settings' , SettingsController::class);
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
 
 
@@ -68,6 +71,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
         Route::get('/', [AboutUsController::class, 'privacy_policy']);
         Route::post('/', [AboutUsController::class, 'privacy_policy_update'])->name('privacy_update');
     });
+
+
+
 
 
     Route::post('/acceptProduct', [ApproveController::class, 'acceptProduct'])->name('acceptProduct');

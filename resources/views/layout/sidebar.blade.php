@@ -78,6 +78,17 @@
             </a>
         </li>
 
+
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{route('settings.create')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-table-large"></i>
+              </span>
+                <span class="menu-title">Settings</span>
+            </a>
+        </li>
+
+
         <!--
         <li class="nav-item menu-items">
             <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">

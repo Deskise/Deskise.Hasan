@@ -174,6 +174,8 @@
 
         public function login(LoginRequest $request)
         {
+            //check all
+            // dd($request->all());
             if ($request->hasError)
             {
                 return $request->response;
@@ -183,11 +185,18 @@
             if(!Auth::attempt($credentials))
             {
                 $user = User::where('email','=',$request->input('email'))->first();
+                // dd($user);
+                // dd($user !== null && $user->password === null && ($user->facebook_id !== null || $user->google_id !== null)); //false
                 if ($user!==null&&$user->password===null && ($user->facebook_id!==null || $user->google_id!==null)) return APIHelper::jsonRender('Try Logging in Using Social Media Buttons', [], 400);
+
+                else if($user == null){
                 return APIHelper::jsonRender('Username Or Password is wrong', [], 401);
+                }
+               
             }
 
-            $user = $request->user();
+
+            // $user = $request->user();
             if ($user->is_closed) return APIHelper::error('This Account Has Been Closed, Call Support To Re-Open It');
 
             if ($user->hasVerifiedEmail())
@@ -203,7 +212,7 @@
                     $token->expires_at = Carbon::now()->addWeeks(1);
 
                 $token->save();
-                $request->user()->makeHidden(['email_verified_at','backup_email_verified_at','phone_verified_at','backup_phone_verified_at','id_verified_at','is_hidden','is_closed']);
+                $user->makeHidden(['email_verified_at','backup_email_verified_at','phone_verified_at','backup_phone_verified_at','id_verified_at','is_hidden','is_closed']);
 
                 return APIHelper::jsonRender('Successfully logged in', [
                     'access_token' => $tokenResult->accessToken,
@@ -211,12 +220,14 @@
                     'expires_at' => Carbon::parse(
                         $tokenResult->token->expires_at
                     )->toDateTimeString(),
-                    'user'  => $request->user()->load(['links','verifyAssets'])
+                    'user'  => $user->load(['links','verifyAssets'])
                 ]);
             }
 
             return APIHelper::error('you need to verify your Primary email first');
         }
+
+
         public function loginByFacebook(SignupByRequest $request)
         {
             if ($request->hasError)
