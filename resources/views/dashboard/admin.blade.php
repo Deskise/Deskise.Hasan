@@ -160,6 +160,36 @@
         <div class="row">
 
         </div>
+
+
+        <div class="col-md-6 col-xl-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-row justify-content-between">
+                        <h4 class="card-title">Best Sellers</h4>
+                    </div>
+                    <div class="preview-list">
+                        @foreach($topUsers as $top)
+                        <div class="preview-item border-bottom">
+                            <div class="preview-thumbnail">
+                                <img src="{{$top->img}}" alt="image" class="rounded-circle">
+                            </div>
+                            <div class="preview-item-content d-flex flex-grow">
+                                <div class="flex-grow">
+                                    <div class="d-flex d-md-block d-xl-flex justify-content-between">
+                                        <h6 class="preview-subject">{{$top->firstname .' ' . $top->lastname}}</h6>
+                                        <p class="text-muted">{{$top->email}}</p>
+                                        <p class="text-muted">{{$top->phone}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 

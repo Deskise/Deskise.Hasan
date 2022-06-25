@@ -245,6 +245,8 @@
             $product->img = $request->input('img') ?? $product->img;
             $product->is_lifetime = $request->input('lifetime') ?? $product->is_lifetime;
 
+            $product->verified= true;
+
             if (\Route::currentRouteName()==='add' && $request->input('category'))
             {
                 $product->category_id = $request->input('category');

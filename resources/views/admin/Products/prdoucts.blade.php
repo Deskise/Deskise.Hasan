@@ -38,16 +38,16 @@
                         <td>{{ $txt->price  }}</td>
 
                         <td class="text-center">
-                            <div class="row">
-                                <div class="col-sm-6">
+{{--                            <div class="row">--}}
+{{--                                <div class="col-sm-6">--}}
 
-                                    <a type="button" onclick="openPopUp({{$txt->id}})"
-                                       class="btn btn-outline-success btn-md" title="verify">
-                                        verify <i class="mdi mdi-file-check btn-icon-append"></i>
-                                    </a>
+{{--                                    <a type="button" onclick="openPopUp({{$txt->id}})"--}}
+{{--                                       class="btn btn-outline-success btn-md" title="verify">--}}
+{{--                                        verify <i class="mdi mdi-file-check btn-icon-append"></i>--}}
+{{--                                    </a>--}}
 
 
-                                </div>
+{{--                                </div>--}}
                                 <div class="col-sm-6">
                                     <a type="button" href='{{ url("admin/get_products/reject/".$txt->id) }}'
                                        class="btn btn-outline-warning btn-md" title="cancel">

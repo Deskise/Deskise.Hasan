@@ -68,11 +68,14 @@ class DashboardController extends Controller
         }
 
 
+    $topUsers=  Product::with('user')->withCount('bought')->orderBy('bought_count')->limit(5)->get()->pluck('user');
+         dd($topUsers);
+
        // dd($categories);
         //dd( $values,   $months ) ;
 
         return view('dashboard.admin',compact('new_users',
-            'users','chats','chat_agrees','ProductBuy' , 'values' ,'months','categories' ));
+            'users','chats','chat_agrees','ProductBuy' , 'values' ,'months','categories' ,'topUsers'));
     }
 
     public function setting(){

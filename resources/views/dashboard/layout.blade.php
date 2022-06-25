@@ -146,6 +146,9 @@
             });
         </script>
     </div>
+
+
+
     <script>
         $("#week").click(function() {
             document.getElementById("aya").style.display = "none";
