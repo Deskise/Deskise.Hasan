@@ -4,7 +4,7 @@ export const namespaced = true;
 
 export const state = {
   products: { current_page: null, next_page_url: null, data: {}, category: 0 },
-  best: {},
+  best: { current_page: null, next_page_url: null, data: {}, category: 0 },
 };
 
 export const mutations = {
@@ -23,7 +23,11 @@ export const mutations = {
     state.products.data[prod.id] = prod;
   },
   BEST(state, prod) {
-    state.best = prod;
+    state.best.current_page = prod.current_page;
+    state.best.next_page_url = prod.next_page_url;
+    prod.data.forEach((element) => {
+      state.best.data[element.id] = element;
+    });
   },
 };
 

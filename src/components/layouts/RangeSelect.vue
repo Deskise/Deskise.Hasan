@@ -19,7 +19,7 @@
 import { v4 } from "uuid";
 import noUiSlider from "@/assets/js/slider";
 export default {
-  //TODO: Return The Data
+  //TODO: Return The Data you get from the user
   data() {
     return {
       uid: v4(),

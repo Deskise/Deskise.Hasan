@@ -21,7 +21,7 @@ export const state = {
         },
       },
     },
-    //TODO: Calls Websocket Connection.
+    //TODO: Calls Public Websocket Connection.
   ],
 };
 

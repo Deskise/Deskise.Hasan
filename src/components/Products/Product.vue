@@ -83,7 +83,7 @@ export default {
   computed: {
     product() {
       let s = this.$store.state.product;
-      return !this.bast ? s.products.data[this.id] : s.best.data[this.id];
+      return !this.best ? s.products.data[this.id] : s.best.data[this.id];
     },
   },
 };
