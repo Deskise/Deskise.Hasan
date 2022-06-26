@@ -69,7 +69,7 @@ class DashboardController extends Controller
 
 
     $topUsers=  Product::with('user')->withCount('bought')->orderBy('bought_count')->limit(5)->get()->pluck('user');
-         dd($topUsers);
+//         dd($topUsers);
 
        // dd($categories);
         //dd( $values,   $months ) ;
