@@ -4,7 +4,7 @@ export const namespaced = true;
 
 export const state = {
   products: { current_page: null, next_page_url: null, data: {}, category: 0 },
-  best: [],
+  best: {},
 };
 
 export const mutations = {

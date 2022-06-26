@@ -71,15 +71,20 @@ export default {
       type: Object,
       required: true,
     },
+    best: {
+      type: Boolean,
+      defualt: false,
+    },
     stopSelling: {
       type: Boolean,
       defualt: false,
     },
   },
-  data() {
-    return {
-      product: this.$store.state.product.products.data[this.id],
-    };
+  computed: {
+    product() {
+      let s = this.$store.state.product;
+      return !this.bast ? s.products.data[this.id] : s.best.data[this.id];
+    },
   },
 };
 </script>

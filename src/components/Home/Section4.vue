@@ -1,17 +1,14 @@
 <template>
   <div class="products">
     <div class="container-fluid">
-      <div class="row">
-        <div class="main col-md-9 row">
-          <div class="row">
-            <div
-              class="col-12 col-md-6 col-lg-4 mb-4 pe-0"
-              v-for="p in products"
-              :key="p.id"
-            >
-              <product :id="p"></product>
-            </div>
-          </div>
+      <h1 class="mb-5">Best Products</h1>
+      <div class="main col-md-12 row">
+        <div
+          class="col-12 col-md-4 col-lg-3 mb-4 pe-0"
+          v-for="(p, index) in products"
+          :key="p.id"
+        >
+          <product :id="index" best></product>
         </div>
       </div>
     </div>
@@ -26,8 +23,8 @@ export default {
   components: {
     Product,
   },
-  mounted() {
-    this.$store.dispatch("product/best");
+  async mounted() {
+    await this.$store.dispatch("product/best");
   },
   computed: {
     products() {
@@ -37,4 +34,23 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.products {
+  width: 67vh;
+  background: inherit;
+  padding: 70px 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  .container-fluid {
+    padding: 5%;
+  }
+  h1 {
+    color: #040506;
+    font-size: 60px;
+    @media (max-width: 760px) {
+      font-size: 40px;
+    }
+  }
+}
+</style>

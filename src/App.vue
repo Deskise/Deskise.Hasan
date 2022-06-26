@@ -78,7 +78,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   .page {
-    margin: 30px 0 70px 0;
+    margin: 12vh 0 70px 0;
     min-height: 100vh;
   }
   .scrollbar {
