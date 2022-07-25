@@ -1,9 +1,9 @@
 <template>
   <div id="Payment" class="content">
     <div class="form-verification mb-4">
-      <label for="">Credit/Debit Cards </label>
-      <div class="row m-0">
-        <div class="col-lg-9 m-auto p-2 border payment-cards">
+      <label for="" class="mb-2">Credit/Debit Cards </label>
+      <div class="row m-0 mb-4">
+        <div class="col-md-9 m-auto p-2 border payment-cards">
           <div class="row">
             <div class="col-5 col-lg-4 d-flex align-items-center">
               <div class="img-visa">
@@ -57,14 +57,16 @@
           </div>
         </div>
 
-        <div class="col-lg-3 m-auto text-center p-1">
+        <div class="col-md-3 ml-2 text-center mt-2 mt-md-0">
           <div class="input-btn buttons-close">
             <button type="submit" class="btn w-100" value="Send" name="submit">
               Delete
             </button>
           </div>
         </div>
-        <div class="col-lg-9 m-auto p-2 border payment-cards">
+        </div>
+        <div class="row  m-0 mb-2">
+        <div class="col-md-9 m-auto p-2 border payment-cards">
           <div class="row">
             <div class="col-5 col-lg-4 d-flex align-items-center">
               <div class="img-visa">
@@ -118,7 +120,7 @@
           </div>
         </div>
 
-        <div class="col-lg-3 m-auto text-center p-1">
+        <div class="col-md-3 ml-2 text-center  mt-2 mt-md-0">
           <div class="input-btn buttons-close">
             <button type="submit" class="btn w-100" value="Send" name="submit">
               Delete
@@ -130,9 +132,9 @@
 
     <h5 class="font-weight-bold">My transaction history</h5>
     <div class="pr-2 pl-2">
-      <div class="date mb-2">Thursday, November 27</div>
-      <div class="row order-data p-2 pr-lg-5 pl-lg-5">
-        <div class="col-6 col-lg-4 order-number mb-1">
+      <div class="date">Thursday, November 27</div>
+      <div class="row order-data p-2 pr-lg-5 pl-lg-5 mb-2">
+        <div class="col-6 col-sm-5 col-lg-4 order-number mb-1  px-5 pe-1">
           <h6 class="order mb-0">#89087678</h6>
           <div class="d-flex mb-1">
             <div>Deskise</div>
@@ -140,8 +142,7 @@
             <div class="time">03:31PM</div>
           </div>
         </div>
-        <div class="offset-lg-1"></div>
-        <div class="col-6 col-lg-4 order-visa mb-1 d-flex justify-content-end">
+        <div class="col-6  col-sm-5 col-lg-4 order-visa mb-1 d-flex justify-content-end">
           <div class="d-flex flex-column">
             <h6 class="order mb-0">-$ 10.00</h6>
 
@@ -150,9 +151,9 @@
         </div>
       </div>
 
-      <div class="date mb-2">Thursday, November 27</div>
+      <div class="date">Thursday, November 27</div>
       <div class="row order-data p-2 pr-lg-5 pl-lg-5">
-        <div class="col-6 col-lg-4 order-number mb-1">
+        <div class="col-6 col-sm-5 col-lg-4 order-number mb-1 px-5 pe-1">
           <h6 class="order mb-0">#89087678</h6>
           <div class="d-flex mb-1">
             <div>Deskise</div>
@@ -160,8 +161,7 @@
             <div class="time">03:31PM</div>
           </div>
         </div>
-        <div class="offset-lg-1"></div>
-        <div class="col-6 col-lg-4 order-visa mb-1 d-flex justify-content-end">
+        <div class="col-6 col-sm-5 col-lg-4 order-visa mb-1 d-flex justify-content-end">
           <div class="d-flex flex-column">
             <h6 class="order mb-0">-$ 10.00</h6>
 
@@ -177,4 +177,37 @@
 export default {};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.payment-cards img{
+  width: 40px;
+}
+.payment-cards{
+  font-size: 14px;
+  border-radius: 6px;
+}
+.payment-cards >div >div{
+  display: flex;
+  align-items: center;
+}
+.buttons-close {
+  height: 100%;
+}
+.buttons-close button{
+  background-color: #FB5B5B;
+  color: white;
+  height: 100%;
+}
+h5{
+  font-size: 17px;
+}
+.date{
+  font-size: 13px;
+  color: grey;
+}
+.order {
+  color: #62AAD0;
+}
+.order-data{
+  font-size: 14px;
+}
+</style>

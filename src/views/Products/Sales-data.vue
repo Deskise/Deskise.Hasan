@@ -1,177 +1,184 @@
 <template>
-  <div class="dash-sell-page">
+  <div class="container dash-sell-page mb-5">
     <steps-banner :steps="steps" :active="active"></steps-banner>
-
+  
     <div class="dash-step-contents">
-      <div class="dash-step-content">
-        <Pages :fields="fields"></Pages>
+      <div class="row">
+        <div class="col-12 col-lg-5 pe-0 pe-lg-5">
+            <div class="dash-step-content">
+              <Pages :fields="fields"></Pages>
 
-        <!-- <div class="price-content step-content">
-          <div class="dash-sell-form">
-            <div class="form-feilds">
-              <div class="form-step-title">Price</div>
-              <div class="form-step-feilds">
-                <input type="text" placeholder="Price" />
-                <label for="automatic-price">
-                  <input type="radio" id="automatic-price" />
-                  Automatic Expiration Setting And Automatic Price Determination
-                  From The Expiration Date.
-                </label>
+              <!-- <div class="price-content step-content">
+                <div class="dash-sell-form">
+                  <div class="form-feilds">
+                    <div class="form-step-title">Price</div>
+                    <div class="form-step-feilds">
+                      <input type="text" placeholder="Price" />
+                      <label for="automatic-price">
+                        <input type="radio" id="automatic-price" />
+                        Automatic Expiration Setting And Automatic Price Determination
+                        From The Expiration Date.
+                      </label>
+                    </div>
+                  </div>
+                  <button
+                    class="btn next-btn"
+                    data-content=".step-content.site-service-content"
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
+
+              <div class="site-service-content step-content">
+                <div class="dash-sell-form">
+                  <div class="form-feilds">
+                    <div class="form-step-title">
+                      Verify the ownership of the item
+                    </div>
+                    <div class="form-step-feilds" style="height: 300px"></div>
+                  </div>
+                  <div class="form-feilds">
+                    <div class="form-step-title">
+                      Take charge of the sales process
+                      <span class="price">(50$)</span>
+                    </div>
+                    <div class="form-step-feilds">
+                      <select>
+                        <option>Yes</option>
+                      </select>
+                      <button class="btn verify-google-btn">
+                        Add open-source files Or e-mails, passwords and all the
+                        details
+                      </button>
+                    </div>
+                  </div>
+                  <div class="form-feilds">
+                    <div class="form-step-title">Email Marketing</div>
+                    <div class="form-step-feilds">
+                      <div class="radio-boxes">
+                        <label class="radio-box" for="email-marketing">
+                          <div class="input-content">
+                            <input type="radio" id="email-marketing" />
+                            Email Marketing
+                          </div>
+                          <div class="price"><sup>$</sup>10</div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-feilds">
+                    <div class="form-step-title">Premium Listing</div>
+                    <div class="form-step-feilds">
+                      <div class="radio-boxes">
+                        <label class="radio-box" for="category-has-pin">
+                          <div class="input-content">
+                            <input type="radio" id="category-has-pin" />
+                            Pin On The Top Each Category Has Pin On The Top
+                          </div>
+                          <div class="price"><sup>$</sup>20</div>
+                        </label>
+
+                        <label class="radio-box" for="verify-by-deskise">
+                          <div class="input-content">
+                            <input type="radio" id="verify-by-deskise" />
+                            Verified By Deskise
+                          </div>
+                          <div class="price"><sup>$</sup>15</div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-feilds">
+                    <div class="form-step-title with-icon">
+                      Signing a copyright disclaimer agreement
+                      <span class="icon"><i class="fa fa-angle-down"></i></span>
+                      <p class="description-subject">
+                        Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed
+                        Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
+                        Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
+                        Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
+                        Sea Takimata Sanctus Est Lorem Ipsum Dolor Sit Amet. Lorem
+                        Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
+                        Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
+                        Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
+                        Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
+                        Sea
+                      </p>
+                    </div>
+                    <div class="form-step-feilds">
+                      <label for="copyright">
+                        <input type="radio" id="copyright" />
+                        Signing A Copyright Disclaimer Agreement
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-feilds">
+                    <div class="form-step-title with-icon">
+                      Confirm the information and agree to the terms
+                      <span class="icon"><i class="fa fa-angle-down"></i></span>
+                      <p class="description-subject">
+                        Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed
+                        Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
+                        Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
+                        Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
+                        Sea Takimata Sanctus Est Lorem Ipsum Dolor Sit Amet. Lorem
+                        Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
+                        Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
+                        Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
+                        Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
+                        Sea
+                      </p>
+                    </div>
+                    <div class="form-step-feilds">
+                      <label for="terms-and-agreement">
+                        <input type="radio" id="terms-and-agreement" />
+                        Confirm The Information And Agree To The Terms
+                      </label>
+                    </div>
+                  </div>
+
+                  <button class="btn publish-btn">Publish The Product</button>
+                </div>
+              </div> -->
             </div>
-            <button
-              class="btn next-btn"
-              data-content=".step-content.site-service-content"
-            >
-              Next
-            </button>
-          </div>
         </div>
-
-        <div class="site-service-content step-content">
-          <div class="dash-sell-form">
-            <div class="form-feilds">
-              <div class="form-step-title">
-                Verify the ownership of the item
-              </div>
-              <div class="form-step-feilds" style="height: 300px"></div>
+        <div class="col-12 col-lg-7">
+           <div class="dash-sell-tips">
+              <div class="tips-title">Help and Tips</div>
+              <p class="tips-content">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+                rebum. Stet clita kasd gubergren, no sea
+              </p>
+              <p class="tips-content">
+                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+                amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+                invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
+                kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                amet.
+              </p>
+              <p class="tips-content">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+                rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+                ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+                sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+                et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+                takimata sanctus est Lorem ipsum dolor sit amet.
+              </p>
             </div>
-            <div class="form-feilds">
-              <div class="form-step-title">
-                Take charge of the sales process
-                <span class="price">(50$)</span>
-              </div>
-              <div class="form-step-feilds">
-                <select>
-                  <option>Yes</option>
-                </select>
-                <button class="btn verify-google-btn">
-                  Add open-source files Or e-mails, passwords and all the
-                  details
-                </button>
-              </div>
-            </div>
-            <div class="form-feilds">
-              <div class="form-step-title">Email Marketing</div>
-              <div class="form-step-feilds">
-                <div class="radio-boxes">
-                  <label class="radio-box" for="email-marketing">
-                    <div class="input-content">
-                      <input type="radio" id="email-marketing" />
-                      Email Marketing
-                    </div>
-                    <div class="price"><sup>$</sup>10</div>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-feilds">
-              <div class="form-step-title">Premium Listing</div>
-              <div class="form-step-feilds">
-                <div class="radio-boxes">
-                  <label class="radio-box" for="category-has-pin">
-                    <div class="input-content">
-                      <input type="radio" id="category-has-pin" />
-                      Pin On The Top Each Category Has Pin On The Top
-                    </div>
-                    <div class="price"><sup>$</sup>20</div>
-                  </label>
-
-                  <label class="radio-box" for="verify-by-deskise">
-                    <div class="input-content">
-                      <input type="radio" id="verify-by-deskise" />
-                      Verified By Deskise
-                    </div>
-                    <div class="price"><sup>$</sup>15</div>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-feilds">
-              <div class="form-step-title with-icon">
-                Signing a copyright disclaimer agreement
-                <span class="icon"><i class="fa fa-angle-down"></i></span>
-                <p class="description-subject">
-                  Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed
-                  Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
-                  Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
-                  Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
-                  Sea Takimata Sanctus Est Lorem Ipsum Dolor Sit Amet. Lorem
-                  Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
-                  Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
-                  Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
-                  Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
-                  Sea
-                </p>
-              </div>
-              <div class="form-step-feilds">
-                <label for="copyright">
-                  <input type="radio" id="copyright" />
-                  Signing A Copyright Disclaimer Agreement
-                </label>
-              </div>
-            </div>
-
-            <div class="form-feilds">
-              <div class="form-step-title with-icon">
-                Confirm the information and agree to the terms
-                <span class="icon"><i class="fa fa-angle-down"></i></span>
-                <p class="description-subject">
-                  Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed
-                  Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
-                  Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
-                  Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
-                  Sea Takimata Sanctus Est Lorem Ipsum Dolor Sit Amet. Lorem
-                  Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
-                  Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
-                  Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
-                  Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
-                  Sea
-                </p>
-              </div>
-              <div class="form-step-feilds">
-                <label for="terms-and-agreement">
-                  <input type="radio" id="terms-and-agreement" />
-                  Confirm The Information And Agree To The Terms
-                </label>
-              </div>
-            </div>
-
-            <button class="btn publish-btn">Publish The Product</button>
-          </div>
-        </div> -->
+        </div>
       </div>
 
-      <div class="dash-sell-tips">
-        <div class="tips-title">Help and Tips</div>
-        <p class="tips-content">
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea
-        </p>
-        <p class="tips-content">
-          takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-          amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-          invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-          kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-          amet.
-        </p>
-        <p class="tips-content">
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-          ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-          sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-          et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-          takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-      </div>
+     
     </div>
   </div>
 
@@ -229,21 +236,11 @@ export default {
 /* Sell Product page */
 
 .dash-sell-page {
-  max-width: 1500px;
-  margin: auto;
   padding: 10px;
   text-align: left;
 }
-
-.dash-step-contents {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 150px;
-}
-
 .dash-sell-form .form-feilds {
-  border-bottom: 3px solid rgba(137, 137, 137, 23%);
+  border-bottom: 2px solid #eee;
   margin-bottom: 20px;
   padding: 5px 0;
 }
@@ -252,6 +249,11 @@ export default {
   font-size: 24px;
   margin-bottom: 15px;
   color: #040506;
+  @media (max-width: 1400px) {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  }
 }
 
 .dash-sell-form .form-feilds .form-step-title span.price {
@@ -272,7 +274,6 @@ export default {
 }
 
 .dash-sell-form .form-feilds .form-step-title.with-icon .description-subject {
-  font-size: 18px;
   padding: 30px;
   position: absolute;
   top: 100%;
@@ -284,6 +285,11 @@ export default {
   line-height: 40px;
   color: #9d9d9d;
   display: none;
+   @media (max-width: 1400px) {
+  font-size: 15px;
+  padding: 15px;
+  line-height: 30px;
+  }
 }
 
 .dash-sell-form
@@ -305,12 +311,18 @@ export default {
   padding: 15px 30px;
   color: #9d9d9d;
   display: block;
-  max-width: 520px;
   margin-bottom: 15px;
   font-size: 20px;
   width: 100%;
+  @media (max-width: 1400px) {
+  font-size: 15px;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  }
 }
-
+.dash-sell-form .form-feilds textarea::placeholder{
+  color: #ccc;
+}
 .dash-sell-form label input[type="radio"] {
   width: auto;
   display: inline-block;
@@ -319,56 +331,54 @@ export default {
 .dash-sell-form label {
   font-size: 18px;
   display: block;
-  max-width: 520px;
+  @media (max-width: 1400px) {
+  font-size: 16px;
+  }
 }
 
 .dash-sell-form .form-feilds textarea {
-  min-height: 250px;
+  min-height: 150px;
 }
 
 .form-feilds button.verify-google-btn {
   width: 100%;
   color: #9d9d9d;
   background-color: rgba(201, 201, 201, 23%);
-  max-width: 520px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
   padding: 15px 20px;
+  
 }
 
 .form-feilds button.add-btn {
   display: block;
-  max-width: 520px;
   width: 100%;
   background-color: #fff;
   color: #9d9d9d;
   border: 1px solid #9d9d9d;
 }
-
-.form-feilds .upload-images {
+.form-feilds .upload-images{
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
 }
 .form-feilds .upload-images > div {
   position: relative;
-  width: 137px;
-  height: 143px;
+  width: 100px;
+  height: 100px;
   border-radius: 10px;
-  background-color: rgba(201, 201, 201, 23%);
+  background-color: #eee;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 10px;
 }
 
 .form-feilds .upload-images .add-new-image {
-  font-size: 24px;
-  color: #9d9d9d;
+  cursor: pointer;
 }
 
 .form-feilds .upload-images div.image {
-  width: 119px;
-  height: 119px;
+  width: 90%;
+  height: 90%;
 }
 
 .form-feilds .upload-images div.image img {
@@ -379,31 +389,29 @@ export default {
 }
 
 .form-feilds .close-content {
-  width: 42px;
-  height: 42px;
-  line-height: 42px;
+  width: 26px;
+  height: 26px;
   text-align: center;
   background-color: #fb5b5b;
   color: #fff;
   border-radius: 50%;
-  font-size: 18px;
+  font-size: 15px;
   position: absolute;
-  top: -12px;
-  right: -12px;
+  top: -8px;
+  right: -8px;
   cursor: pointer;
 }
 
-.dash-step-contents .dash-step-content {
-  flex-grow: 1;
-}
 
-.dash-step-contents .dash-sell-tips {
-  max-width: 640px;
-}
 
 .dash-step-contents .dash-sell-tips .tips-title {
   font-size: 24px;
   margin-bottom: 20px;
+   @media (max-width: 1400px) {
+   font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  }
 }
 
 .dash-step-contents .dash-sell-tips .tips-content {
@@ -412,6 +420,12 @@ export default {
   color: #9d9d9d;
   line-height: 40px;
   font-size: 24px;
+  @media (max-width: 1400px) {
+   font-size: 16px;
+  margin-bottom: 30px;
+  line-height: 30px;
+  margin-left: 10px;
+  }
 }
 
 .dash-sell-form button.next-btn,
@@ -419,7 +433,6 @@ export default {
   width: 100%;
   background: #3eadb7;
   color: #fff;
-  max-width: 520px;
 }
 
 .dash-sell-form .radio-boxes {
@@ -432,8 +445,6 @@ export default {
 .dash-sell-form .radio-boxes label.radio-box {
   display: flex;
   flex-direction: column;
-  max-width: 280px;
-  width: 100%;
   background-color: rgba(201, 201, 201, 23%);
   border: 1px solid #707070;
   padding: 10px 12px;
@@ -455,6 +466,10 @@ export default {
   .input-content
   input[type="radio"] {
   margin-right: 20px;
+     @media (max-width: 1400px) {
+   font-size: 15px;
+  margin-right: 10px;
+  }
 }
 
 .dash-sell-form .radio-boxes label.radio-box .price {
@@ -463,82 +478,39 @@ export default {
   color: #040506;
   width: 100%;
   text-align: center;
+   @media (max-width: 1400px) {
+   font-size: 40px;
+  }
 }
 .dash-sell-form .radio-boxes label.radio-box .price sup {
   font-size: 27px;
-}
-
-@media (max-width: 1300px) {
-  .dash-step-contents {
-    gap: 40px;
-  }
-  .dash-step-contents .dash-sell-tips .tips-content {
-    font-size: 20px;
-    line-height: 30px;
+  @media (max-width: 1400px) {
+   font-size: 20px;
   }
 }
 
-@media (max-width: 1200px) {
-  .dash-step-contents .dash-sell-tips {
-    max-width: 500px;
-  }
-}
-
-@media (max-width: 1000px) {
-  .dash-step-contents {
-    flex-wrap: wrap;
-  }
-  .dash-step-contents .dash-sell-tips,
-  .dash-step-contents .dash-step-content {
-    max-width: 100%;
-    flex-grow: 1;
-  }
-  .dash-step-contents .dash-sell-tips .tips-content {
-    margin-left: 0px;
-  }
-  .dash-step-contents .dash-sell-tips .tips-content {
-    margin-bottom: 40px;
-  }
-}
 
 @media (max-width: 600px) {
-  .dash-sell-form .radio-boxes label.radio-box {
-    max-width: 240px;
-  }
   .dash-sell-form .radio-boxes label.radio-box .input-content {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .dash-sell-form .radio-boxes label.radio-box .price {
-    font-size: 40px;
+    font-size: 30px;
   }
 
-  .dash-sell-form .form-feilds .form-step-title {
-    font-size: 20px;
-  }
   .dash-sell-form label {
-    font-size: 16px;
-  }
-  .dash-sell-form .form-feilds .form-step-title.with-icon .description-subject {
-    font-size: 16px;
-    padding: 10px;
-    line-height: 30px;
+    font-size: 15px;
   }
   .btn {
-    padding: 15px 20px;
+    padding: 10px 15px;
   }
 
-  .dash-sell-form .form-feilds .form-step-title span.price {
-    margin-left: 0px;
-  }
   .dash-sell-form .form-feilds input,
   .dash-sell-form .form-feilds select,
   .dash-sell-form .form-feilds textarea {
-    padding: 15px 10px;
-    font-size: 16px;
-  }
-  .dash-step-contents .dash-sell-tips .tips-content {
-    font-size: 18px;
+    padding: 10px 10px;
+    font-size: 14px;
   }
 }
 

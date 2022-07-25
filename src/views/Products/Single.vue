@@ -1,115 +1,140 @@
 <template>
-  <div class="dash-product-page">
-    <div class="dash-product-details">
-      <div class="dash-slider-images">
-        <div class="main-image">
-          <span :class="`status ${product.status.toLowerCase()}`">
-            {{ product.status.split("_").join(" ") }}
-          </span>
-          <img :src="product.img" />
-        </div>
-      </div>
-      <div class="dash-details">
-        <div class="person-info">
-          <div class="image">
-            <img :src="product.user.img" />
-          </div>
-          <div class="data">
-            <div class="name">
-              {{ product.user.firstname + " " + product.user.firstname }}
-            </div>
-            <div class="dates">
-              <span class="new" v-date="product.dates.new"></span>&nbsp;
-              <span class="old" v-date="product.dates.old"></span>
+  <div class="dash-product-page ">
+    <div class="container pt-3 dash-product-details">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <div class="dash-slider-images">
+            <div class="main-image">
+              <span :class="`status ${product.status.toLowerCase()}`">
+                {{ product.status.split("_").join(" ") }}
+              </span>
+              <img :src="product.img" />
             </div>
           </div>
         </div>
-        <div class="product-info">
-          <div class="title">{{ product.name }}</div>
-          <div class="price-category-order">
-            <div class="price">
-              <span class="new">{{ product.price }}$</span>
-              <span class="old">350$</span>
+        <div class="col-12 col-lg-6">
+          <div class="dash-details">
+            <div class="person-info">
+            <div v-if="!this.$store.getters['user/isLoggedIn']" class="outerLogin">
+                <div>
+                  <div>
+                    <p>
+                      <font-awesome-component
+                      icon="shield-check"
+                      :bold="false"
+                    ></font-awesome-component>
+                    </p>
+                    <p>Create Your Acount to View Details Information</p>
+                    <p>this text can replace with any anter text</p>
+                    <router-link>
+                      Message Request
+                    </router-link>
+                  </div>
+                </div>
             </div>
-            <div class="categroy-order">
-              <span class="categroy">{{
-                this.$store.state.category.categories[product.category_id].name
-              }}</span
-              >&nbsp;
-              <span class="order">#{{ product.id }}</span>
-            </div>
-          </div>
-          <perfect-scrollbar class="description">
-            {{ product.description }}
-          </perfect-scrollbar>
-
-          <div class="footer-details">
-            <p class="mb-0" v-if="product.is_lifetime">
-              Is The License For Life!<br /><span class="date">{{
-                product.until
-              }}</span>
-            </p>
-            <p class="mt-0">
-              Select Business Model
-              <span class="business-model">Lorem Ipsum</span>
-            </p>
-            URL:
-            <span class="url">
-              <!-- TODO: DO THE LINK HERE -->
-              <a href=""> Https://Www.Behance.Net/Sammeer12591d4 </a>
-            </span>
-          </div>
-          <div class="reviewers">
-            <div class="images">
-              <div
-                class="image"
-                v-for="img in product.bought.user_imgs"
-                :key="img"
-              >
-                <img :src="img" />
+              <div>
+                <div class="image">
+                <img :src="product.user.img" />
               </div>
+              <div class="data">
+                <div class="name">
+                  {{ product.user.firstname + " " + product.user.firstname }}
+                </div>
+                <div class="dates">
+                  <span class="new" v-date="product.dates.new"></span>&nbsp;
+                  <span class="old" v-date="product.dates.old"></span>
+                </div>
+              </div>
+              </div>
+              <div class="title">{{ product.name }}</div>
             </div>
-            <div class="number">{{ product.bought.count }}</div>
-          </div>
-          <div class="footer-buttons">
-            <button class="dash-button buy-icon">
-              <span>Buy</span>
-              <span>
-                <font-awesome-component
-                  icon="dollar-sign"
-                  :bold="false"
-                ></font-awesome-component>
-              </span>
-            </button>
-            <button class="dash-button buy-icon">
-              <span>Message Request</span>
-              <span>
-                <font-awesome-component
-                  icon="telegram-plane"
-                ></font-awesome-component>
-              </span>
-            </button>
-          </div>
-          <div class="footer-features">
-            <div class="feature" v-if="product.verified">
-              <flat-icon-component
-                icon="crown"
-                class="icon"
-              ></flat-icon-component>
-              Verified Deskise
-            </div>
-            <div class="feature" v-if="product.special">
-              <flat-icon-component
-                icon="shield-check"
-                class="icon"
-              ></flat-icon-component>
-              Special Item
+            <div class="product-info">
+              <div class="price-category-order">
+                <div class="price">
+                  <span class="new">{{ product.price }}$</span>
+                  <span class="old">350$</span>
+                </div>
+                <div class="categroy-order">
+                  <span class="categroy">{{
+                    this.$store.state.category.categories[product.category_id].name
+                  }}</span
+                  >&nbsp;
+                  <span class="order">#{{ product.id }}</span>
+                </div>
+              </div>
+              <perfect-scrollbar class="description">
+                {{ product.description }}
+              </perfect-scrollbar>
+
+              <div class="footer-details">
+                <p class="mb-0" v-if="product.is_lifetime">
+                  Is The License For Life!<br /><span class="date">{{
+                    product.until
+                  }}</span>
+                </p>
+                <p class="mt-0 mb-1">
+                  Select Business Model
+                  <span class="business-model">Lorem Ipsum</span>
+                </p>
+                URL:
+                <span class="url">
+                  <!-- TODO: DO THE LINK HERE -->
+                  <a href=""> Https://Www.Behance.Net/Sammeer12591d4 </a>
+                </span>
+              </div>
+              <div class="reviewers">
+                <div class="images">
+                  <div
+                    class="image"
+                    v-for="img in product.bought.user_imgs"
+                    :key="img"
+                  >
+                    <img :src="img" />
+                  </div>
+                </div>
+                <div class="number">{{ product.bought.count }}</div>
+              </div>
+              <div class="footer-buttons">
+                <button class="dash-button buy-icon">
+                  <span>Buy</span>
+                  <span>
+                    <font-awesome-component
+                      icon="dollar-sign"
+                      :bold="false"
+                    ></font-awesome-component>
+                  </span>
+                </button>
+                <button class="dash-button buy-icon">
+                  <span>Message Request</span>
+                  <span>
+                    <font-awesome-component
+                      icon="telegram-plane"
+                    ></font-awesome-component>
+                  </span>
+                </button>
+              </div>
+              <div class="footer-features">
+                <div class="feature" v-if="product.verified">
+                  <flat-icon-component
+                    icon="crown"
+                    class="icon"
+                  ></flat-icon-component>
+                  Verified Deskise
+                </div>
+                <div class="feature" v-if="product.special">
+                  <flat-icon-component
+                    icon="shield-check"
+                    class="icon"
+                  ></flat-icon-component>
+                  Special Item
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="dash-product-statistics">
+    <div class="mt-5 container dash-product-statistics">
       <div class="profile-statistics">
         <div class="statistics">
           <div class="statistic">
@@ -208,7 +233,7 @@
         </div>
       </div>
     </div>
-    <div class="similar-products">
+    <div class="container similar-products">
       <div class="title">Similar</div>
       <div class="dash-products row">
         <div
@@ -261,4 +286,6 @@ export default {
 };
 </script>
 
-<style lang="css" scoped src="./Single.css"></style>
+<style lang="css" scoped src="./Single.css">
+
+</style>

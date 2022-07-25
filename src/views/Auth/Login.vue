@@ -2,13 +2,13 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-lg-5 col-12">
+        <div class="col-md-12 col-lg-8 col-xl-5 ">
           <h1 class="mb-4 text-left">Login</h1>
           <div class="row">
             <div class="input-group mx-0 mb-2">
               <input
                 type="email"
-                class="form-control col-12 py-3"
+                class="form-control col-12 py-1"
                 placeholder="E-MAIL"
                 v-model="form.email"
                 @keydown="$event.target.classList.remove('invalid')"
@@ -18,7 +18,7 @@
             <div class="input-group mx-0 mb-2">
               <input
                 type="password"
-                class="form-control col-12 py-3"
+                class="form-control col-12 py-1"
                 placeholder="PASSWORD"
                 v-model="form.password"
                 @keydown="$event.target.classList.remove('invalid')"
@@ -26,7 +26,7 @@
             </div>
             <div class="input-group mx-0 mb-3">
               <button
-                class="btn btn-primary form-control col-12 py-3"
+                class="btn btn-primary form-control col-12 py-1"
                 @click="check"
               >
                 Login
@@ -40,17 +40,17 @@
                   @check="r"
                 ></circle-checkbox>
               </div>
-              <div class="col-6 text-right px-0">
+              <div class="col-6 text-right px-0 forget">
                 <router-link :to="{ name: 'forget' }"
                   >Forget Password</router-link
                 >
               </div>
             </div>
             <div class="input-group other-login mx-0 mb-2 overflow-hidden">
-              <hr class="or col-12 mb-3" />
+              <hr class="or col-12 mb-4" />
               <div class="col ps-0 me-2">
                 <button
-                  class="btn form-control btn-login-facebook w-100 mb-2 py-3"
+                  class="btn form-control btn-login-facebook w-100 mb-2 py-1"
                   @click.prevent="login('facebook')"
                 >
                   Facebook
@@ -58,7 +58,7 @@
               </div>
               <div class="col pe-0 ms-2">
                 <button
-                  class="btn form-control btn-login-google w-100 mb-2 py-3"
+                  class="btn form-control btn-login-google w-100 mb-2 py-1"
                   @click.prevent="login('google')"
                 >
                   Google
@@ -131,13 +131,77 @@ export default {
 
 <style lang="scss" scoped>
 .login {
-  min-height: calc(85vh - 70px);
+  min-height: calc(105vh - 70px)!important;
+  
   h1 {
     text-transform: uppercase;
     font-family: Barlow;
     font-weight: bold;
+    margin-top: 0px;
   }
-
+  .input-group input{
+      height: 50px;
+     @media (max-width: 1410px) {
+        height: 50px;
+    }
+    @media (max-width: 576px) {
+        height: 40px;
+        font-size: 14px;
+    } 
+  }
+  button{
+    height: 50px;
+    @media (max-width: 1410px) {
+        height: 50px;
+    }
+    @media (max-width: 576px) {
+        font-size: 14px;
+    } 
+  } 
+  .btn-login-facebook,.btn-login-google{
+@media (max-width: 1410px) {
+        height: 40px;
+    }
+    @media (max-width: 576px) {
+        height: 35px;
+        font-size: 14px;
+    } 
+  }
+  .forget{
+     @media (max-width: 1410px) {
+       font-size: 14px;
+    }
+  }
+  .radio{
+    @media (max-width: 1410px) {
+       font-size: 14px;
+       cursor: pointer;
+    }
+    @media (max-width: 576px) {
+        font-size: 12px;
+    } 
+  }
+  .or{
+    border-color: #eee;
+    position: relative;
+    &::before{
+      content:"OR";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      background-color: white;
+      padding: 10px 30px;
+      color: #000!important;
+      font-weight: 700;
+    }
+  }
+  .lead{
+    @media (max-width: 1410px) {
+       font-size: 16px;
+       color: #ccc;
+    }
+  }
   .invalid {
     border: 1px solid red;
     color: red;

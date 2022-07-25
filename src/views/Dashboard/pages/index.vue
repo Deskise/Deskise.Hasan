@@ -123,7 +123,7 @@
             style="font-size: 90%"
           ></social-media-link-input>
 
-          <div class="col-lg-5 m-auto text-center p-1">
+          <div class="col-md-5 col-lg-3 m-auto text-center p-1">
             <div class="form-group">
               <button
                 type="submit"
@@ -249,6 +249,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 @import "@/sass/_globals/_variables";
 #Profile {
   .replace-img {

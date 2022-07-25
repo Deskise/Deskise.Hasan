@@ -13,6 +13,7 @@
           :disabled="!condition"
         />
         <circle-checkbox
+          class="checkCondion"
           :value="true"
           :isReadonly="true"
           :text="`${text} Verified`"
@@ -52,4 +53,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.form-verification label{
+  font-size: 14px;
+}
+.form-verification .checkCondion{
+  font-size: 12px;
+}
+</style>

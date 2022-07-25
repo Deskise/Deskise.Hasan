@@ -2,17 +2,22 @@
   <div class="profile">
     <banner></banner>
 
-    <div class="dash-profile-container">
-      <personal-data></personal-data>
-
-      <div class="dash-profile-products">
-        <div class="dash-products">
-          <div
-            class="dash-product"
-            v-for="product in products"
-            :key="product.id"
-          >
-            <product :product="product" :stopSelling="sameUser"></product>
+    <div class="dash-profile-container container">
+      <div class="row">
+        <div class="col-12 col-md-4 col-lg-3">
+           <personal-data></personal-data>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9">
+          <div class="dash-profile-products">
+            <div class="dash-products">
+              <div
+                class="dash-product"
+                v-for="product in products"
+                :key="product.id"
+              >
+                <product :product="product" :stopSelling="sameUser"></product>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -83,15 +88,15 @@ export default {
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
+    @media  (max-width: 1400px) {
+      padding: 10px 40px;
+        font-size: 14px;
+        margin-top: 20px;
+  }
   }
 
   .dash-profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
     position: relative;
-    gap: 16px;
-    padding: 0px 10px;
   }
 
   .dash-product-order,
@@ -100,22 +105,7 @@ export default {
     color: #9d9d9d;
   }
 }
-@media (min-width: 1px) and (max-width: 1200px) {
-  .dash-profile-container {
-    flex: wrap;
-  }
-  .dash-profile-products {
-    width: 100%;
-  }
-}
 
-.dash-profile-products {
-  max-width: 1230px;
-
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: 65%;
-}
 
 .dash-products {
   display: flex;

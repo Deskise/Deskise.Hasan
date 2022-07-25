@@ -2,13 +2,13 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-md-5">
-          <h1 class="mb-4 text-left">Reset Password</h1>
+        <div class="col-md-12 col-lg-8 col-xl-5 ">
+          <h1 class="mb-2 text-left">Reset Password</h1>
           <div class="row">
             <div class="input-group mx-0 mb-2">
               <input
                 type="text"
-                class="form-control col-12 py-3"
+                class="form-control col-12 py-1"
                 placeholder="Reset Token"
                 v-model="form.hash"
                 id="hash"
@@ -19,7 +19,7 @@
             <div class="input-group mx-0 mb-2">
               <input
                 type="password"
-                class="form-control col-12 py-3"
+                class="form-control col-12 py-1"
                 placeholder="Password"
                 v-model="form.password"
                 id="password"
@@ -40,7 +40,7 @@
 
             <div class="input-group mx-0 mb-3">
               <button
-                class="btn btn-primary form-control col-12 py-3"
+                class="btn btn-primary form-control col-12 py-1"
                 @click="check"
               >
                 Reset Password
@@ -121,6 +121,15 @@ export default {
     text-transform: uppercase;
     font-family: Barlow;
     font-weight: bold;
+  }
+   input,button{
+       height: 45px;
+      @media (max-width: 1410px) {
+        height: 45px;
+    }
+     @media (max-width: 576px) {
+        font-size: 14px;
+    } 
   }
 
   .invalid {

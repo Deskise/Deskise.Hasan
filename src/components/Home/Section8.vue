@@ -93,6 +93,9 @@ section {
 
   h1 {
     font-size: 40px;
+    @media (max-width: 1400px) {
+      font-size: 35px;
+    }
     @media (max-width: 760px) {
       font-size: 30px;
     }
@@ -101,6 +104,9 @@ section {
   p {
     color: #9d9d9d;
     font-size: 20px;
+    @media (max-width: 1400px) {
+      font-size: 15px;
+    }
     @media (max-width: 776px) {
       font-size: 14px;
     }
@@ -108,7 +114,7 @@ section {
 
   form {
     flex-direction: column;
-    padding: 0 28%;
+    padding: 0 30%;
     @media (max-width: 1200px) {
       & {
         padding: 0 20%;
@@ -125,7 +131,7 @@ section {
       }
     }
     input {
-      height: 50px;
+      height: 45px;
     }
   }
 }

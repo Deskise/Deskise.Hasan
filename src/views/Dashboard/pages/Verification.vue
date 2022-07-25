@@ -53,7 +53,7 @@
           v-if="!user.id_verified_at === null"
         ></circle-checkbox>
       </div>
-      <div class="col-lg-5 m-auto text-center p-1">
+      <div class="col-md-5 col-lg-3 m-auto text-center p-1">
         <div class="form-group">
           <button
             type="submit"
@@ -88,6 +88,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.btn{
+  font-size: 14px
+}
 @import "@/sass/_globals/_variables";
 .add-img {
   @mixin object-center {

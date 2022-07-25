@@ -15,7 +15,7 @@
               name: 'singleProduct',
               params: { id: product.id },
             }"
-            class="btn btn-outline-primary w-100"
+            class="btn btn-outline-primary "
             v-if="!stopSelling"
           >
             {{ __("see") }}
@@ -37,9 +37,9 @@
           </p>
           <p class="id">#{{ product.id }}</p>
         </div>
-        <p class="description">{{ product.details.substring(0, 220) }}</p>
+        <p class="description">{{ product.details.substring(0, 150) }}</p>
       </div>
-      <div class="footer border-top">
+      <div :class="{'footer':true, 'border-top':product.verified || product.special}">
         <div class="icons">
           <div
             :class="{ verified: true, 'border-end': product.special }"
@@ -93,25 +93,26 @@ export default {
 @import "@/sass/_globals/_variables.scss";
 .product {
   background: white;
-  box-shadow: 0 0 20px rgba($color: #c9c9c9, $alpha: 0.16);
+  box-shadow:  0 8px 10px #d3d3d3;
   border-radius: 20px;
   padding: 10px !important;
   text-align: left;
   position: relative;
-  height: 100%;
-
+  height: 100%!important;
+  border: 1px solid #eee;
+  margin: 5px;
   div.tag {
     position: absolute;
     width: 100px;
     height: 30px;
-    left: 0;
+    left: -2px;
     top: 30px;
     border-radius: 0 5px 5px 0;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     text-transform: capitalize;
 
     &.sold {
@@ -132,12 +133,17 @@ export default {
     width: 100%;
     height: 400px;
     border-radius: 20px;
+    @media (max-width: 1410px) {
+         height: 300px;
+        }
   }
   .body {
     padding-left: 10px;
     font-size: 18px;
     color: #9d9d9d;
-
+    @media (max-width: 1410px) {
+          font-size: 15px;
+        }
     div {
       &.flexer {
         display: flex;
@@ -149,36 +155,66 @@ export default {
         & > *:last-child {
           flex-shrink: 0;
           flex-basis: 38%;
+          @media (max-width: 1410px) {
+        flex-basis: 28%;
+        }
         }
       }
       h5 {
         font-weight: bold;
         font-size: 20px;
         color: #040506;
+         @media (max-width: 1410px) {
+        font-size: 15px;
+        margin-bottom: 5px;
+        }
       }
       .btn {
         font-size: 20px;
         padding: 5px 11px;
+        @media (max-width: 1410px) {
+        font-size: 13px;
+        padding: 3px;
+        margin-bottom: 5px;
+        }
       }
       .price {
         color: $primary;
         font-size: 20px;
         font-weight: bold;
+        @media (max-width: 1410px) {
+          font-size: 14px;
+          margin-bottom:0px;
+        }
         .old-price {
           color: $gray;
           font-size: 16px;
           font-weight: normal;
           text-decoration: line-through;
+          @media (max-width: 1410px) {
+          font-size: 12px;
+          margin-left: 5px;
+        }
         }
       }
       .id {
         text-align: right;
         padding-right: 30px;
+         @media (max-width: 1410px) {
+          padding-right: 10px;
+          margin-bottom: 0px;
+          font-size: 14px;
+        }
       }
-      .description {
-        line-height: 20px;
-      }
+     
     }
+     .description {
+        line-height: 20px;
+        @media (max-width: 1410px) {
+        font-size: 13px!important;
+        margin-bottom: 30px;
+        }
+      }
   }
   .footer {
     display: flex;
@@ -203,7 +239,11 @@ export default {
         color: #040506;
         text-transform: capitalize;
         border-color: #c9c9c9;
-
+        @media (max-width: 1410px) {
+          font-size: 12px;
+          font-weight: 700;
+          padding-bottom: 5%;
+        }
         .icon {
           height: 28px;
           width: 28px;
@@ -214,6 +254,10 @@ export default {
           align-items: center;
           float: left;
           margin-right: 5px;
+          @media (max-width: 1410px) {
+          height: 20px;
+          width: 20px;
+        }
         }
         span {
           position: relative;

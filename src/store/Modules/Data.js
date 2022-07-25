@@ -22,8 +22,9 @@ export const state = {
   comments: [],
 
   faq: {},
+  search:""
 };
-
+  // 
 export const mutations = {
   ABOUT(state, { $for, aboutText }) {
     state.about[$for] = aboutText;
@@ -36,6 +37,9 @@ export const mutations = {
   },
   FETCH_COMMENTS(state, $comments) {
     state.comments = $comments;
+  },
+  searchFAQ(state, text) {
+    state.search=text
   },
   FETCH_FAQ(state, $faqs) {
     if (state.faq.data === undefined) {
@@ -87,8 +91,18 @@ export const actions = {
     await faq
       .fetch(page)
       .then((response) => {
-        let faqs = response.data.response.extra[0];
-        commit("FETCH_FAQ", faqs);
+        let QUAS = response.data.response.extra[0];
+// ................................
+        let quastions = JSON.parse(JSON.stringify(QUAS.data))
+        let faqs = [];
+        for (let i = 0; i < quastions.length; i++){
+          if (quastions[i].question.includes(state.search)) {
+              faqs.push(quastions[i])
+          }
+        }
+        QUAS.data=faqs
+//................................
+        commit("FETCH_FAQ", QUAS);
       })
       .catch(() => {});
   },

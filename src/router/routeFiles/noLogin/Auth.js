@@ -22,7 +22,7 @@ export const routes = [
     meta: {
       noAuth: true,
     },
-  },
+  }, 
   {
     path: "/auth/verify",
     name: "verify",

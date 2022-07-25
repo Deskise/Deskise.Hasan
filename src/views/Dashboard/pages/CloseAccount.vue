@@ -1,6 +1,6 @@
 <template>
   <div id="Close-Account" class="content">
-    <h4 class="font-weight-normal">Close Account</h4>
+    <h5 class="font-weight-normal">Close Account</h5>
     <p class="mb-4">
       Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy
       Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam Erat, Sed Diam
@@ -97,10 +97,23 @@ export default {
   button {
     background-color: #fb5b5b;
     color: white;
+    font-size: 15px;
 
     &:hover {
       background-color: $secondary;
     }
   }
+}
+h5{
+  font-size: 17px;
+}
+p{
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: grey;
+}
+.manage{
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 </style>

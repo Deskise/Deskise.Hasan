@@ -39,6 +39,10 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+    }
+  },
   computed: {
     getImage() {
       let image = require("@/assets/waves.png");
@@ -55,12 +59,25 @@ section {
   height: 67vh;
   justify-content: center;
   align-items: center;
-
+  @media (max-width: 576px) {
+      & {
+        height: 57vh;
+        margin-bottom: 20vh;
+      }
+    }
   .block {
     font-size: 28px;
-    @media (max-width: 992px) {
+    @media (max-width: 1410px) {
       & {
-        font-size: 18px;
+        font-size: 19px;
+        height: 120px;
+      }
+    }
+    @media (max-width: 576px) {
+      & {
+        font-size: 16px;
+        height: 100px;
+          margin: 7px;
       }
     }
     text-transform: capitalize;
@@ -79,12 +96,23 @@ section {
       font-size: 34px;
       text-transform: uppercase;
 
+      @media (max-width: 1410px) {
+        & {
+          font-size: 26px;
+        }
+      }
       @media (max-width: 992px) {
         & {
           font-size: 20px;
         }
       }
+      @media (max-width: 576px) {
+      & {
+        font-size:18px;
+      }
+    }
     }
   }
 }
+
 </style>

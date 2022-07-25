@@ -73,10 +73,14 @@ ul.manage {
     color: $secondary;
     padding: 5px 0;
     list-style-type: none;
-  }
+    font-size: 15px;
+ }
 
   li:not(:last-child) {
     border-bottom: 3px solid $gray-50;
   }
+}
+h5{
+  font-size: 17px;
 }
 </style>

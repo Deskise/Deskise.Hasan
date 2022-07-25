@@ -64,7 +64,7 @@ export const routes = [
     path: "/sales-data/:cat",
     name: "sales.data",
     meta: {
-      requireAuth: true,
+       requireAuth: true,
     },
     component: lazyLoad("Sales-data"),
     beforeEnter: async function (routeTo, from, next) {

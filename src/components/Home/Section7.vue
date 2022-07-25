@@ -2,7 +2,7 @@
   <section>
     <div class="container">
       <div class="row">
-        <h1>Trusted Clients</h1>
+        <h2>Trusted Clients</h2>
         <div class="container-fluid">
           <swiper
             :slidesPerView="1"
@@ -49,7 +49,8 @@ export default {
     Comment,
   },
   data() {
-    return {};
+    return {
+    };
   },
   computed: {
     getImage() {
@@ -68,8 +69,12 @@ section {
   justify-content: center;
   align-items: center;
 
-  h1 {
+  h2 {
     font-size: 60px;
+     @media (max-width: 1400px) {
+        font-size: 47px;
+        margin-bottom: 30px;
+    }
     @media (max-width: 760px) {
       font-size: 40px;
     }
@@ -84,7 +89,8 @@ section {
       height: 100%;
       min-height: 160px;
       align-content: center;
-
+     border-radius: 10px;
+      border: 1px solid #eee;
       .swiper-slide {
         display: flex;
         justify-content: center;

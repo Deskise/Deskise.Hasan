@@ -58,28 +58,26 @@ export default {
 
 .dash-profile-details {
   background: #fff;
-  box-shadow: 0px 0px 0px 6px rgba(201, 201, 201, 16/100);
+  box-shadow: 1px 1px 4px rgb(177, 177, 177);
   padding: 20px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 400px;
   position: relative;
   top: -120px;
   border-radius: 20px;
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: 35%;
-
+  @media  (max-width: 1400px) {
+  top: -90px;
+  }
   & > * {
     margin-bottom: 15px;
   }
 
   .dash-profile-image {
-    width: 250px;
-    height: 250px;
+    width: 60%;
     border: 2px solid rgba(201, 201, 201, 56/100);
     border-radius: 50%;
+    
     img {
       width: 100%;
       height: 100%;
@@ -92,15 +90,26 @@ export default {
     font-size: 20px;
     font-weight: bold;
     text-transform: capitalize;
+    @media  (max-width: 1400px) {
+        font-size: 17px;
+  }
   }
   .dash-profile-bio,
   .dash-profile-address,
   .dash-profile-email {
     color: #9d9d9d;
+      @media  (max-width: 1400px) {
+        font-size: 14px;
+        margin-bottom: 10px;
+  }
   }
   .dash-profile-bio {
     font-size: 18px;
     text-align: center;
+     @media  (max-width: 1400px) {
+        font-size: 14px;
+        margin-bottom: 10px;
+  }
   }
   .dash-profile-address i,
   .dash-profile-email i {
@@ -109,6 +118,7 @@ export default {
   }
   .chat-btn {
     margin-bottom: 25px;
+     
   }
 
   .dash-profile-socails {

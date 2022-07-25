@@ -4,14 +4,14 @@
   <section>
     <div class="container-fluid mb-5">
       <search></search>
-      <div class="row">
-        <div class="filters me-2 col-md">
+      <div class="row mt-5">
+        <div class="filters  pe-md-3 pe-lg-4 col-12 col-md-4 col-lg-3">
           <single-select
             placeholder="Subcategory"
             :data="subcategories"
           ></single-select>
           <single-select placeholder="Seller Location"></single-select>
-          <single-select placeholder="Time Left"></single-select>
+          <single-select placeholder="Time Left" class="mb-4"></single-select>
 
           <range-select
             name="Price Range"
@@ -49,7 +49,7 @@
             :vend="6.789"
           ></range-select>
         </div>
-        <div class="main col-md-9 row">
+        <div class="main col-12 col-md-8 col-lg-9 ">
           <div class="categories">
             <category-list
               class="mb-2"
@@ -59,7 +59,7 @@
           </div>
           <div class="row">
             <div
-              class="col-12 col-md-6 col-lg-4 mb-4 pe-0"
+              class="col-12 col-md-6 col-lg-4 px-0 mb-4"
               v-for="p in productByCategoryId"
               :key="p.id"
             >
@@ -136,12 +136,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 section {
   div.container-fluid {
     padding: 0 8%;
   }
-  .filters {
-    width: 20vw;
-  }
+  
 }
+
 </style>

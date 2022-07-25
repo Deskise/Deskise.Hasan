@@ -1,5 +1,5 @@
 <template>
-  <perfect-scrollbar ref="scroll" class="scrollbar">
+  <perfect-scrollbar ref="scroll" class="scrollbar" @scroll="handleScroll">
     <Loader v-if="Loading || !ready"></Loader>
     <NotificationBar></NotificationBar>
     <component :is="headerComponent"></component>
@@ -40,22 +40,46 @@ export default {
       return this.$store.getters["user/isLoggedIn"]
         ? LoggedInHeader
         : NoLoginHeader;
-    },
+    }, 
     ...mapState(["Loading", "ready", "cookieAccepted"]),
   },
   watch: {
     $route() {
       this.$refs.scroll.$el.scrollTop = 0;
+       console.log(this.$refs.scroll.$el.scrollTop );
       this.noFooter =
         this.$route.meta.noFooter !== undefined &&
         this.$route.meta.noFooter == true;
     },
+  },
+  methods: {
+    handleScroll() {
+      if (this.$refs.scroll.$el.scrollTop > 50) {
+        this.$store.commit("CHANGE_PAGEY",true)
+      }
+      if (this.$refs.scroll.$el.scrollTop < 50) {
+        this.$store.commit("CHANGE_PAGEY",false)
+      }
+    },
+   
   },
 };
 </script>
 
 <style lang="scss">
 @import "@/sass/_globals/_variables";
+body {
+  overflow: hidden;
+}
+section{
+  width:100%;
+  overflow: hidden;
+  @media (max-width: 576px) {
+    width:100%;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}
 .ps:not(.scrollbar) {
   .ps__rail-y {
     width: 10px;
@@ -78,8 +102,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   .page {
-    margin: 12vh 0 70px 0;
+    margin: 14vh 0 70px 0;
     min-height: 100vh;
+    @media (max-width: 1400px) {
+    min-height: 90vh;
+  }
   }
   .scrollbar {
     height: 100vh;

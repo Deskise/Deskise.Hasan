@@ -92,6 +92,7 @@ export default {
   .item {
     text-align: left;
     padding: 18px 0 18px 18%;
+    background-color: rgb(250, 250, 250);
     h6 {
       font-weight: 500;
     }
@@ -99,7 +100,8 @@ export default {
     &.selected {
       background-color: $gray-50;
       position: relative;
-
+      padding-top: 30px;
+      padding-bottom: 30px;
       &:before {
         content: " ";
         position: absolute;

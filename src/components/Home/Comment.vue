@@ -45,18 +45,30 @@ export default {
     width: 120px;
     height: 120px;
     border-radius: 50%;
+    @media (max-width: 1400px) {
+      width: 80px;
+       height: 80px;
+    }
   }
   h3 {
     font-weight: bold;
     margin-bottom: 2px;
     font-size: 24px;
+    @media (max-width: 1400px) {
+     margin-bottom: 10px;
+    }
     @media (max-width: 760px) {
       font-size: 18px;
     }
   }
 
   p {
-    font-size: 22px;
+    font-size: 21px;
+    margin-bottom: 0;
+    @media (max-width: 1400px) {
+      font-size: 17px;
+      line-height: 25px;
+    }
     @media (max-width: 760px) {
       font-size: 16px;
     }

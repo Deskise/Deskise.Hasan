@@ -1,10 +1,11 @@
 <template>
-  <div class="single-post container-fluid">
+  <div class="single-post">
+    <div class="container">
     <div class="w-100 row data mb-5">
-      <div class="col-md-6 h-100">
+      <div class="col-12 offset-md-2 offset-lg-0 col-md-8 col-lg-6">
         <img :src="post.img" alt="image" class="h-100 w-100" />
       </div>
-      <div class="ms-5 col-md-5 h-100 text">
+      <div class="col-12 col-md-12 col-lg-6 h-100 text px-2 px-md-5 pe-md-2">
         <div class="actions d-flex flex-column align-items-end w-100">
           <div class="exit" @click="$router.push({ name: 'blog' })">
             <flat-icon-component icon="cross" />
@@ -29,13 +30,14 @@
     <div class="blog-posts row pt-5">
       <h2 class="mb-5">Similer</h2>
       <div
-        class="col-6 col-md-4 col-lg-3"
+        class="col-12 col-md-6 col-lg-4 col-xl-3"
         v-for="(item, index) in posts"
         :key="index"
       >
         <blog-post :post="item"></blog-post>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -92,20 +94,28 @@ export default {
 
 <style lang="scss" scoped>
 .single-post {
-  padding: 20px 7%;
   background: white;
-
+  margin: 0!important;
+  margin-top: 120px!important;
+  height: unset!important;
   .data {
-    height: calc(100vh - 180px);
-
+    margin: 0  0 20px 0;
+    & > div:first-of-type{
+      border-radius: 10px;
+      background: #fff;
+      padding: 10px;
+      box-shadow: 2px 3px 7px #f0f0f0;
+      height: 500px;
+      img{
+        border-radius: 10px!important;
+      }
+    }
     .text {
       height: 100%;
       position: relative;
 
       .actions {
-        position: absolute;
         height: auto;
-
         div {
           width: 40px;
           height: 40px;
@@ -115,9 +125,17 @@ export default {
           cursor: pointer;
           border-radius: 50%;
           margin: 5px;
-
+          margin-bottom: 10px;
+          @media (max-width: 1410px) {
+          width: 35px;
+          height: 35px;
+         }
           * {
             transform: translateY(12%);
+            @media (max-width: 1410px) {
+          font-size: 14px;
+                      transform: translateY(9%);
+         }
           }
         }
         .exit {
@@ -138,24 +156,32 @@ export default {
       }
 
       div:not(.actions, .exit, .like) {
-        height: 100%;
         text-align: left;
-        max-height: 100%;
         h5 {
           font-weight: bold;
           font-size: 38px;
           color: #040506;
+          @media (max-width: 1410px) {
+          font-size: 27px;
+         }
         }
         p.date {
           font-size: 18px;
           color: #9d9d9d;
+          @media (max-width: 1410px) {
+          font-size: 14px;
+         }
         }
         .content {
           font-size: 18px;
           color: #9d9d9d;
-          height: 70%;
+          height: 320px;
           overflow: scroll;
           margin-bottom: 0;
+          @media (max-width: 1410px) {
+          font-size: 16px;
+          padding-right: 10px;
+         }
         }
       }
     }
@@ -165,6 +191,9 @@ export default {
     h2 {
       font-size: 60px;
       color: #040506;
+       @media (max-width: 1410px) {
+      font-size: 50px;
+}
     }
   }
 }

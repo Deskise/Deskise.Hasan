@@ -11,6 +11,10 @@ import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
 // import normalize.css
 import "normalize.css";
 
+// Datepicker
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 //Add bootstrap to your project
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -40,6 +44,7 @@ Vue.use(i18n)
   .use(store)
   .use(VueLoaders)
   .use(router)
+  .use('Datepicker', Datepicker)
   .use(PerfectScrollbar)
   .use(createHead())
   .mount("#app");

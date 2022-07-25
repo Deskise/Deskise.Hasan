@@ -8,7 +8,7 @@
         </div>
         <div class="blog-posts row">
           <div
-            class="col-6 col-md-4 col-lg-3"
+            class="col-12 col-md-6 col-lg-4 col-xl-3"
             v-for="(item, index) in posts"
             :key="index"
           >
@@ -68,5 +68,6 @@ export default {
 <style lang="scss" scoped>
 .Blog > div.container-fluid {
   padding: 0 8%;
+ 
 }
 </style>

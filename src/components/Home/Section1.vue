@@ -2,7 +2,7 @@
   <section class="section1 d-flex">
     <div class="container">
       <div class="row">
-        <div class="col-lg-5 row mx-auto mx-md-0">
+        <div class="col-lg-7 col-xl-5 mx-auto mx-md-0">
           <h1 class="p-lg-0">Lorem ipsum</h1>
           <p class="lead p-lg-0">
             Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
@@ -56,8 +56,9 @@ export default {
 <style lang="scss" scoped>
 @import "@/sass/_globals/_variables.scss";
 .section1 {
-  min-height: 100vh;
+  min-height: 94vh;
   text-align: left;
+  z-index: 11!important;
   @media (max-width: 760px) {
     & {
       text-align: inherit;
@@ -65,16 +66,14 @@ export default {
   }
   align-items: center;
   .container {
-    transform: translateY(-10vh);
-
-    @media (min-width: 1200px) {
-      transform: translateY(-14vh);
-    }
     h1 {
       text-transform: uppercase;
-      font-size: 60px;
+      font-size:60px;
       @media (max-width: 760px) {
         font-size: 40px;
+      }
+      @media (max-width: 1410px) {
+        font-size: 45px;
       }
       font-weight: bold;
       color: $dark;
@@ -85,12 +84,18 @@ export default {
       @media (max-width: 760px) {
         font-size: 20px;
       }
+      @media (max-width: 1410px) {
+        font-size: 21px;
+      }
       color: $gray;
     }
 
     .input-group {
       input {
         height: 50px;
+         @media (max-width: 1410px) {
+        height: 45px;
+      }
       }
     }
 
@@ -103,6 +108,9 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+          @media (max-width: 1410px) {
+        height: 45px;
+      }
       }
     }
   }

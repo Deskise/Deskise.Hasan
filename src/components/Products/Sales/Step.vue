@@ -4,7 +4,7 @@
       step: true,
       active: active,
       before: before,
-    }"
+    }" 
     data-content=".step-content.price-content"
     :to="{ name: $router.currentRoute.name, hash: `#${index}` }"
   >

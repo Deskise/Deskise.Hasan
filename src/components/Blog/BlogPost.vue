@@ -6,7 +6,7 @@
       </div>
       <div class="content w-100">
         <h5 class="name mb-0">{{ post.title }}</h5>
-        <p class="date" v-date="post.date"></p>
+        <p class="date mb-1" v-date="post.date"></p>
         <p class="description">{{ post.details.substring(0, 100) }}</p>
       </div>
       <router-link
@@ -44,19 +44,42 @@ export default {
     width: 100%;
     height: 400px;
     border-radius: 20px;
+      @media (max-width: 1410px) {
+       height: 300px;
+    }
   }
   .content {
     padding-left: 10px;
     font-size: 18px;
     color: #9d9d9d;
-    h5,
+    h5{
+       @media (max-width: 1410px) {
+        font-weight: bold;
+       font-size: 16px!important;
+    }
+    }
     .date {
       font-weight: bold;
       font-size: 20px;
+        @media (max-width: 1410px) {
+          font-weight: 700;
+       font-size: 16px!important;
+    }
+    }
+    
+    .description{
+        @media (max-width: 1410px) {
+       font-size: 14px!important;
+    }
     }
     h5 {
       color: #040506;
     }
   }
 }
+.btn{
+        @media (max-width: 1410px) {
+       font-size: 13px!important;
+    }
+    }
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <div class="sell-product-welcome">
+  <div class="sell-product-welcome ">
     <div class="content-page">
       <div v-if="component === 'First'">
         <div class="main-title">what do you sell!</div>
         <p class="hint">250,000+ buyers are waiting</p>
-        <p class="hint">Choose Categories</p>
-        <single-select
+        <p class="hint mb-4">Choose Categories</p>
+        <single-select 
           placeholder="Category"
           :data="Gs"
           @choose="
@@ -77,27 +77,40 @@ export default {
   justify-content: center;
   flex-direction: column;
   .content-page {
-    min-width: 520px;
     padding: 0px;
     text-align: center;
-
+      @media (max-width: 1400px) {
+        width: 40%;
+      }
+      @media (max-width: 992px) {
+        width: 60%;
+      }
+      @media (max-width: 798px) {
+        width: 70%;
+      }
+      @media (max-width: 576px) {
+        width: 90%;
+      }
     .main-title {
       font-size: 40px;
       color: #040506;
       font-weight: bold;
       margin-bottom: 10px;
       text-transform: uppercase;
-      @media (max-width: 500px) {
+      @media (max-width: 1400px) {
         font-size: 35px;
+        margin-bottom: 0px;
       }
     }
     .hint {
       font-size: 28px;
       color: #9d9d9d;
       margin-bottom: 10px;
-      @media (max-width: 500px) {
+      @media (max-width: 1400px) {
         font-size: 20px;
+        margin: 5px 0
       }
+      
     }
 
     button {
@@ -107,7 +120,11 @@ export default {
       font-weight: bold;
       font-size: 20px;
       border-radius: 5px;
-
+ @media (max-width: 1400px) {
+        height: 50px;
+         padding: 5px;
+      font-size: 15px;
+      }
       &.back-btn {
         color: #000;
         background: #fff;

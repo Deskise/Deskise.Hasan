@@ -38,7 +38,7 @@ label {
   text-transform: uppercase;
 
   span {
-    margin: 0 5px;
+    margin: 0 3px;
     transition: all linear 0.3s;
   }
 

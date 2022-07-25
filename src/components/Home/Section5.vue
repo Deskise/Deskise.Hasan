@@ -35,7 +35,12 @@
           <span></span>
           <h3>About Us& Staff</h3>
           <p>
-            {{ about }}
+            <!-- {{ about }} -->
+            Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
+            Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam
+            Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et Justo Duo Dolores
+            Et Ea Rebum. Stet Clita Kasd Gubergren, No Sea Takimata Sanctus Est
+            Lorem Ipsum Dolor Sit Amet. Lorem Ipsum
           </p>
           <router-link :to="{ name: 'about' }" class="read">
             read more
@@ -90,13 +95,14 @@ section {
     position: relative;
     align-items: center;
     z-index: 1;
-    @media (max-width: 776px) {
+    @media (max-width: 576px) {
       & {
         text-align: center;
       }
       span,
       img {
-        display: none;
+        z-index: -1;
+        opacity: .3;
       }
     }
 
@@ -117,6 +123,16 @@ section {
     img {
       width: 69%;
       position: absolute;
+       @media (max-width: 1400px) {
+        & {
+           width: 55%;
+        }
+      }
+      @media (max-width: 992px) {
+        & {
+          width: 77%;
+        }
+      }
       &.img1 {
         bottom: -16px;
         @media (max-width: 1200px) {
@@ -130,6 +146,19 @@ section {
         bottom: 0;
         left: -23%;
         max-height: 120%;
+        @media (max-width: 1400px) {
+        & {
+          left: -15%;
+           width: 50%;
+        }
+      }
+        @media (max-width: 992px) {
+        & {
+          width: 60%;
+          left: -15%;
+        max-height: 120%;
+        }
+      }
       }
     }
     h3 {
@@ -140,7 +169,7 @@ section {
       margin-bottom: 20px;
       @media (max-width: 1400px) {
         & {
-          font-size: 45px;
+          font-size: 42px;
         }
       }
       @media (max-width: 992px) {
@@ -157,14 +186,16 @@ section {
       margin-bottom: 30px;
       @media (max-width: 1400px) {
         & {
-          width: 100%;
-          font-size: 24px;
+           width: 75%;
+          font-size: 18px;
+          margin-bottom: 20px;
         }
       }
       @media (max-width: 992px) {
         & {
           margin-bottom: 15px;
           font-size: 17px;
+          width: 95%;
         }
       }
     }
@@ -173,6 +204,11 @@ section {
       color: #3eadb7;
       text-decoration: none;
       font-size: 24px;
+       @media (max-width: 1400px) {
+        & {
+           font-size: 20px
+        }
+      }
       @media (max-width: 992px) {
         & {
           font-size: 17px;
@@ -182,6 +218,11 @@ section {
       button {
         height: 50px;
         width: 40%;
+        @media (max-width: 1400px) {
+          width: 37%;
+            height: 40px;
+            font-size: 15px;
+      }
         @media (max-width: 992px) {
           & {
             width: 50%;

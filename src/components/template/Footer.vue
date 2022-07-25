@@ -43,10 +43,10 @@
           <h3>{{ __("header.nologin.category") }}</h3>
           <div class="data">
             <div class="row">
-              <router-link
-                class="col-3 category d-flex justify-content-center align-items-center bg-gray-e bg-hover-gradiant"
-                v-for="(category, index) in categories"
-                :key="index"
+              <div class="col-4 mb-1 px-1" v-for="(category, index) in categories"
+                :key="index">
+                <router-link
+                class="category w-100 d-flex justify-content-center align-items-center bg-gray-e bg-hover-gradiant"
                 :to="{
                   name: 'productsByCategory',
                   params: { id: category.id },
@@ -54,6 +54,8 @@
               >
                 {{ category.name }}
               </router-link>
+              </div>
+              
             </div>
           </div>
         </div>
@@ -63,16 +65,16 @@
             <form @submit.prevent="subscripeToNewsLetter" class="row">
               <input
                 type="text"
-                class="form-control col-12 newsletter mb-4 px-3 py-2"
+                class="form-control col-12 newsletter mb-2 mb-lg-4 px-3 py-2"
                 v-model="email"
                 :placeholder="__('Forms.email')"
               />
-              <button type="submit" class="btn btn-primary col">
+              <button type="submit" class="btn btn-primary col-12 col-lg mb-2 mb-lg-0">
                 {{ __("footer.subscripe") }}
               </button>
               <router-link
                 :to="{ name: 'requestProduct' }"
-                class="btn btn-outline-secondary col"
+                class="btn btn-outline-secondary  col-12 col-lg"
               >
                 {{ __("footer.request") }}</router-link
               >
@@ -81,7 +83,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row last">
       <div
         class="col-12 bg-gray-e d-flex justify-content-center align-items-center"
       >
@@ -116,6 +118,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+footer,.last{
+  overflow: hidden;
+}
 $primary: #3eadb7;
 $secondary: #4e1b56;
 a {
@@ -124,6 +129,13 @@ a {
 h3 {
   color: #4e4e4e;
   text-align: left;
+  @media (max-width: 1400px) {
+    font-size: 20px;
+     margin-bottom: 0px;
+  }
+  @media (max-width: 992px) {
+     font-size: 17px;
+  }
   @media (max-width: 760px) {
     text-align: center;
   }
@@ -140,15 +152,18 @@ h3 {
     bottom: 0;
     left: 0;
     @media (max-width: 760px) {
-      left: 40%;
+       width: 60%;
+      left: 20%;
     }
   }
 }
 .data {
   padding: 15px;
   text-align: left;
+ 
   @media (max-width: 760px) {
     text-align: center;
+    padding-top: 5px;
   }
 
   ul {
@@ -157,10 +172,15 @@ h3 {
 
     li {
       margin: 3px 0;
-
       a {
         color: #595a5a;
         font-size: 16px;
+         @media (max-width: 1400px) {
+          font-size: 13px;;
+        }
+        @media (max-width: 992px) {
+         font-size: 12px;
+        }
         &:hover,
         &.router-link-active {
           font-weight: bold;
@@ -170,13 +190,16 @@ h3 {
   }
 
   .category {
-    margin: 5px;
+    margin:3px;
     padding: 7px;
     border-radius: 3px;
     color: #040506;
     font-size: 16px;
     min-height: 80px;
-
+      @media (max-width: 1400px) {
+         font-size: 13px;
+         min-height: 50px;
+        }
     &.router-link-active {
       color: white !important;
       background: linear-gradient(0.4turn, $primary, $secondary) !important;
@@ -188,15 +211,23 @@ h3 {
       border: 1px solid #9d9d9d;
       border-radius: 5px;
       font-size: 18px;
+      @media (max-width: 1400px) {
+         font-size: 15px;
+        }
     }
 
     .btn {
       padding: 10px 0;
-
+       @media (max-width: 1400px) {
+          padding: 5px 0;
+        }
       &:is(button) {
         margin-right: 15px;
       }
     }
   }
+}
+.lead{
+  font-size: 17px;
 }
 </style>

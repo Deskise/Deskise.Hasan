@@ -2,9 +2,9 @@
   <div class="action">
     <div class="container-fluid">
       <div class="row">
-        <h2 class="mb-3">{{ __("header.nologin.mech") }}</h2>
+        <h2 class="mb-3 mt-5">{{ __("header.nologin.mech") }}</h2>
       </div>
-      <div class="container-fluid packages-container">
+      <div class="container packages-container">
         <p class="text-gray lead mb-4">{{ __("mech.text") }}</p>
         <swiper :slidesPerView="slides" :spaceBetween="15" class="packages">
           <swiper-slide v-for="pack in packages" :key="pack.id">
@@ -59,8 +59,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/sass/_globals/_variables.scss";
 .packages-container {
-  width: 75%;
-
   & > p {
     font-size: 24px;
     width: 100%;
@@ -68,6 +66,10 @@ export default {
     word-break: break-word;
     margin: auto;
     text-transform: capitalize;
+  @media (max-width: 1410px) {
+        font-size: 19px;
+        margin-bottom: 30px!important;
+}
   }
   .packages {
     width: 100%;

@@ -2,13 +2,13 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-md-5">
-          <h1 class="mb-4 text-left">Resend Verification Code</h1>
+        <div class="col-md-12 col-lg-8 col-xl-5 ">
+          <h1 class="mb-2 text-left">Resend Verification Code</h1>
 
           <div class="input-group mx-0 mb-2">
             <input
               type="email"
-              class="form-control col-12 py-3"
+              class="form-control col-12 py-1"
               placeholder="E-MAIL"
               v-model="form.email"
               @keydown="$event.target.classList.remove('invalid')"
@@ -16,7 +16,7 @@
           </div>
           <div class="input-group mx-0 mb-3">
             <button
-              class="btn btn-primary form-control col-12 py-3"
+              class="btn btn-primary form-control col-12 py-1"
               @click="check"
             >
               Resend
@@ -97,7 +97,36 @@ export default {
     font-family: Barlow;
     font-weight: bold;
   }
-
+input,button{
+     height: 45px;
+      @media (max-width: 1410px) {
+        height: 45px;
+    }
+     @media (max-width: 576px) {
+        font-size: 14px;
+    } 
+  }
+  .or{
+    border-color: #eee;
+    position: relative;
+    &::before{
+      content:"OR";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      background-color: white;
+      padding: 10px 30px;
+      color: #000!important;
+      font-weight: 700;
+    }
+  }
+   .lead{
+    @media (max-width: 1410px) {
+       font-size: 16px;
+       color: #ccc;
+    }
+  }
   .invalid {
     border: 1px solid red;
     color: red;

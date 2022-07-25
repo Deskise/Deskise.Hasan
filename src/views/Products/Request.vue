@@ -2,12 +2,12 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-lg-5">
-          <h1 class="mb-4 text-left">Request A Product</h1>
+        <div class="col-md-12 col-lg-8 col-xl-5">
+          <h1 class="mb-4 mt-0 text-left">Request A Product</h1>
           <div class="row">
-            <div class="input-group mx-0 mb-2">
+            <div class="input-group mx-0 mb-1">
               <select
-                class="form-select col-12 py-3"
+                class="form-select col-12"
                 id="category"
                 v-model="category_id"
                 @keydown="$event.target.classList.remove('invalid')"
@@ -23,9 +23,9 @@
               </select>
             </div>
 
-            <div class="input-group mx-0 mb-2">
+            <div class="input-group mx-0 mb-1">
               <select
-                class="form-select col-12 py-3"
+                class="form-select col-12"
                 id="sub_category"
                 v-model="subcategory_id"
                 @keydown="$event.target.classList.remove('invalid')"
@@ -41,20 +41,20 @@
               </select>
             </div>
 
-            <div class="input-group mx-0 mb-2">
+            <div class="input-group mx-0 mb-1">
               <input
                 type="email"
-                class="form-control col-12 py-3"
+                class="form-control col-12 py-1"
                 placeholder="E-MAIL"
                 v-model="email"
                 @keydown="$event.target.classList.remove('invalid')"
               />
             </div>
 
-            <div class="input-group mx-0 mb-2">
+            <div class="input-group mx-0 mb-1">
               <input
                 type="number"
-                class="form-control col-12 py-3"
+                class="form-control col-12 py-1"
                 id="price"
                 placeholder="Price estimate"
                 v-model="price"
@@ -62,11 +62,11 @@
               />
             </div>
 
-            <div class="input-group mx-0 mb-2">
+            <div class="input-group mx-0 mb-1">
               <textarea
                 class="form-control col-12 mb-2"
                 cols="30"
-                rows="8"
+                rows="5"
                 v-model="explain"
                 placeholder="General explanation of the product"
                 @keydown="$event.target.classList.remove('invalid')"
@@ -75,7 +75,7 @@
 
             <div class="input-group mx-0 mb-3">
               <button
-                class="btn btn-primary form-control col-12 py-3"
+                class="btn btn-primary form-control col-12 py-1"
                 @click="check"
               >
                 Send
@@ -179,10 +179,31 @@ export default {
 <style lang="scss" scoped>
 .login {
   min-height: calc(85vh - 70px);
+  margin-top: 80px!important;
   h1 {
     text-transform: uppercase;
     font-family: Barlow;
     font-weight: bold;
+  }
+   button{
+    height: 50px;
+    @media (max-width: 1410px) {
+        height: 50px;
+    }
+    @media (max-width: 576px) {
+        font-size: 14px;
+    } 
+  }
+   .input-group input,select{
+      height: 50px;
+      margin-bottom: 10px;
+     @media (max-width: 1410px) {
+        height: 45px;
+    }
+    @media (max-width: 576px) {
+        height: 40px;
+        font-size: 14px;
+    } 
   }
 
   .invalid {

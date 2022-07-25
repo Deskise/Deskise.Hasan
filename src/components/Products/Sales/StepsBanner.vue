@@ -1,5 +1,5 @@
 <template>
-  <div class="dash-steps">
+  <div class="mt-5 dash-steps">
     <div class="steps">
       <Step
         v-for="(step, index) in steps"

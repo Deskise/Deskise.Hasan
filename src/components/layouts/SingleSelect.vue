@@ -148,6 +148,18 @@ ul {
     border: 1px solid rgba(157, 157, 157, 0.23);
     border-radius: 5px;
     cursor: pointer;
+    @media (max-width: 1410px) {
+      font-size: 16px;
+    }
   }
+  
 }
+.drop-down .drop-down-items li a{
+ @media (max-width: 1410px) {
+      font-size: 15px!important;
+    }
+  }
+  .icon{
+    font-size: 12px;
+  }
 </style>

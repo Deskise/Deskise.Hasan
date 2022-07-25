@@ -1,7 +1,7 @@
 <template>
   <div class="faqs">
     <div class="container-fluid mb-5">
-      <search />
+      <search @searchHandler="searchHandler" />
       <div class="row questions mb-5">
         <div>
           <question
@@ -30,11 +30,9 @@ export default {
   },
   mounted() {
     this.scroll("data.faq", async () => {
-      await this.$store
-        .dispatch("data/faqs", {
+      await this.$store.dispatch("data/faqs", {
           page: this.faq.current_page + 1,
-        })
-        .then(() => {
+        }).then(() => {
           this.isLoading = false;
           this.scrolledToBottom = true;
         });
@@ -44,7 +42,11 @@ export default {
     return {};
   },
   mixins: [loadOnBottom],
-  methods: {},
+  methods: {
+   async searchHandler(text) {
+      await this.$store.commit("data/searchFAQ", text);
+    }
+  },
   computed: {
     ...mapState("data", ["faq"]),
   },
@@ -55,13 +57,11 @@ export default {
 .faqs > div.container-fluid {
   padding: 0 8%;
   .questions {
-    border: 1.5px solid rgba(#707070, 0.16);
     border-radius: 5px;
     padding: 10px;
     & > div:not(.vue-loaders) {
       border-radius: 5px;
-      padding: 20px 10px;
-      background-color: #f7f7f7;
+    
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div id="Subscribed-Packages" class="content">
-    <h4 class="font-weight-normal">Subscribed-Packages</h4>
+    <h5 class="font-weight-normal">Subscribed-Packages</h5>
     <div class="row Subscribed">
       <div
         class="col-12 col-md-6 col-lg-3 px-1 mb-2"
@@ -25,4 +25,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+h5{
+  font-size: 17px;
+}
+</style>

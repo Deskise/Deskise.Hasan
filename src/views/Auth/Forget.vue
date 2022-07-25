@@ -2,12 +2,12 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-12 col-lg-8 col-xl-5 ">
           <h1 class="mb-4 text-left">Forgot password!</h1>
           <div class="input-group mx-0">
             <input
               type="email"
-              class="form-control col-12 mb-2 py-3"
+              class="form-control col-12 mb-2 py-1"
               placeholder="E-MAIL"
               v-model="form.email"
               @keydown="$event.target.classList.remove('invalid')"
@@ -15,7 +15,7 @@
           </div>
           <div class="input-group mx-0">
             <button
-              class="btn btn-primary form-control col-12 mb-3 py-3"
+              class="btn btn-primary form-control col-12 mb-3 py-1"
               @click="check"
             >
               Send
@@ -76,6 +76,15 @@ export default {
     text-transform: uppercase;
     font-family: Barlow;
     font-weight: bold;
+  }
+  input,button{
+    height: 50px;
+      @media (max-width: 1410px) {
+        height: 50px;
+    }
+     @media (max-width: 576px) {
+        font-size: 14px;
+    } 
   }
 
   .invalid {

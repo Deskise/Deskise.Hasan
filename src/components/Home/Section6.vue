@@ -4,8 +4,8 @@
       <div class="row">
         <h2 class="mb-4">{{ __("header.nologin.mech") }}</h2>
       </div>
-      <div class="container-fluid packages-container">
-        <swiper :slidesPerView="slides" :spaceBetween="15" class="packages">
+      <div class="container packages-container">
+        <swiper :slidesPerView="slides" :spaceBetween="10" class="packages">
           <swiper-slide v-for="pack in packages" :key="pack.id">
             <action-slide :pack="pack"></action-slide>
           </swiper-slide>
@@ -43,12 +43,14 @@ export default {
   methods: {
     getSlides() {
       if (window.matchMedia("(max-width: 576px").matches) this.slides = 1;
+      else if (window.matchMedia("(max-width: 568px").matches)
+        this.slides = 1;
       else if (window.matchMedia("(max-width: 768px").matches)
-        this.slides = 1.5;
+        this.slides = 2;
       else if (window.matchMedia("(max-width: 998px").matches)
-        this.slides = 2.5;
+        this.slides = 3;
       else if (window.matchMedia("(max-width: 1200px").matches)
-        this.slides = 3.5;
+        this.slides = 4;
       else if (window.matchMedia("(max-width: 1500px").matches) this.slides = 4;
       else this.slides = 5;
     },
@@ -60,10 +62,15 @@ export default {
 @import "@/sass/_globals/_variables.scss";
 section {
   margin-bottom: 70px;
-
   h2 {
     font-size: 60px;
     text-transform: capitalize;
+    @media (max-width: 1400px) {
+      & {
+        font-size: 42px;
+        margin-bottom: 40px!important;
+      }
+    }
     @media (max-width: 776px) {
       & {
         font-size: 35px;
@@ -73,7 +80,11 @@ section {
 
   .packages-container {
     width: 75%;
-
+    @media (max-width: 1400px) {
+      & {
+        width: 100%;
+      }
+    }
     & > p {
       font-size: 24px;
       width: 100%;
@@ -81,12 +92,12 @@ section {
       word-break: break-word;
       margin: auto;
       text-transform: capitalize;
+      
     }
     .packages {
       width: 100%;
       height: 100%;
       align-content: center;
-
       .swiper-slide {
         text-align: center;
         font-size: 20px !important;

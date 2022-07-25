@@ -1,14 +1,18 @@
 <template>
-  <div class="col d-none d-lg-block">
-    <img src="@/assets/bg1.png" alt="bg1" />
-    <img src="@/assets/bg2.png" alt="bg2" />
+  <div class="col d-sm-block">
+    <img src="@/assets/bg1.png" alt="bg1" class="bg1"/>
+    <img src="@/assets/bg2.png" alt="bg2" class="bg2"/>
   </div>
 </template>
-
+  
 <script>
 export default {};
 </script>
-
+<style>
+.bg1{
+  z-index: 5!important;
+}
+</style>
 <style lang="scss" scoped>
 div {
   position: absolute;
@@ -16,33 +20,48 @@ div {
   top: -11vh;
   height: 100vh !important;
   z-index: -1;
-
   img {
     position: absolute;
-    top: 21%;
+    top: 31%;
     right: 20vw;
     height: 75%;
     @media (max-width: 1500px) {
       & {
-        right: 10vw;
+        right: 16vw;
+         
       }
     }
     @media (max-width: 1200px) {
       & {
         right: 8vw;
-        height: 64%;
+        height: 40%;
+      }
+    }
+    @media (max-width: 992px) {
+       height: 33%;
+       opacity: .5;
+    }
+    @media (max-width: 576px) {
+      & {
+       height: 26%;
       }
     }
 
     &:first-of-type {
-      height: 85%;
+      height: 95%;
+      z-index: -1!important;
       @media (max-width: 1200px) {
-        & {
-          height: 75%;
-        }
+          height: 85%;
       }
+      @media (max-width: 992px) {
+       height: 70%;
+    }
+      @media (max-width: 576px) {
+       height:60%;
+    }
       top: 0;
     }
   }
+  
 }
 </style>

@@ -1,26 +1,15 @@
 /* Product Page */
 
 .dash-product-page {
-  max-width: 1680px;
-  margin-right: auto !important;
-  margin-left: auto !important;
-  padding: 0px 20px;
+
 }
 .dash-product-page * {
   text-align: left;
 }
 
 .dash-product-details {
-  display: flex;
-  justify-content: space-between;
-  gap: 50px;
-  margin-bottom: 50px;
 }
 
-.dash-product-details .dash-slider-images {
-  min-width: 840px;
-  flex-grow: 1;
-}
 
 .dash-product-details .dash-slider-images .main-image {
   position: relative;
@@ -60,14 +49,11 @@
   background: #ffc107;
 }
 
-.dash-product-details .dash-details {
-  flex-grow: 1;
-}
 
-.dash-product-details .dash-details .person-info {
+.dash-product-details .dash-details .person-info >div:first-of-type {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .dash-product-details .person-info .image {
@@ -76,6 +62,7 @@
   border-radius: 50%;
   margin-right: 10px;
   overflow: hidden;
+
 }
 
 .dash-product-details .person-info .image img {
@@ -91,7 +78,20 @@
   color: #040506;
   font-size: 18px;
 }
+.person-info{
+  position: relative;
+}
+.outerLogin{
+    position: absolute;
+    background: transparent white 0% 0% no-repeat padding-box;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  .outerLogin > div{
 
+  }
 .dash-product-details .person-info .data .dates .new {
   color: #040506;
 }
@@ -101,8 +101,8 @@
   text-decoration: line-through;
 }
 
-.dash-product-details .product-info .title {
-  font-size: 38px;
+.dash-product-details .title {
+  font-size: 27px;
   color: #040506;
   margin-bottom: 10px;
   font-weight: bold;
@@ -249,7 +249,7 @@
 }
 
 .dash-product-page .similar-products .title {
-  font-size: 60px;
+  font-size: 50px;
   margin-bottom: 40px;
   text-align: center;
 }
@@ -261,7 +261,6 @@
 
 .dash-product-statistics {
   margin-bottom: 50px;
-  max-width: 840px;
   padding: 10px;
   border-radius: 20px;
   box-shadow: 0px 0px 20px rgba(201, 201, 201, 16%);
@@ -300,9 +299,6 @@
   border-right: 1px solid rgba(157, 157, 157, 23%);
 }
 
-.dash-product-statistics .assets-statistics {
-  padding: 30px;
-}
 
 .dash-product-statistics .assets-statistics .title {
   font-size: 20px;
@@ -328,37 +324,118 @@
   color: #3eadb7;
   word-break: break-all;
 }
-
-@media (max-width: 1500px) {
-  .dash-product-details .dash-slider-images {
-    min-width: 700px;
-  }
+ @media (max-width: 1410px) {
+    .dash-product-details .person-info .image {
+ width: 70px;
+  height: 70px;
+}
+.dash-product-details .person-info .data .name {
+  margin-bottom: 0px;
+  font-size: 18px;
+}
+.dash-product-details .person-info .data .dates {
+  font-size: 12px;
+}
+.dash-product-details .person-info .data .old {
+  font-size: 12px;
+}
+.dash-product-details .dash-details .person-info{
+  margin-bottom: 10px;
+}
+.dash-product-details .product-info .title{
+  font-size: 27px;
+  margin-bottom: 0px;
+}
+.dash-product-details .product-info .price-category-order{
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.dash-product-details .product-info .price .new{
+font-size: 16px;
+}
+.dash-product-details .product-info .price .old{
+font-size: 14px;
+}
+.dash-product-details .product-info .description{
+  font-size: 15px;
+  margin-bottom: 10px;
+  line-height: 24px;
+  height: 220px;
+}
+.dash-product-details .product-info .footer-details{
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.dash-product-details .reviewers .images{
+  width: 60px;
+    height: 20px;
+}
+.dash-product-details .footer-buttons{
+    margin-bottom: 15px;
+}
+.dash-product-details .footer-buttons button{
+font-size: 16px;
+    padding: 10px 20px;
+}
+.dash-product-details .footer-features{
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.dash-product-details .product-info .reviewers{
+   font-size: 15px;
+   margin-bottom: 10px;
 }
 
-@media (max-width: 1300px) {
-  .dash-product-details .dash-slider-images {
-    min-width: 600px;
-  }
+.dash-product-statistics .profile-statistics .statistic .key{
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 0;
+}
+.dash-product-statistics .profile-statistics .statistic .value{
+  text-align: center;
+}
+.chart-statistics .labels{
+  font-size: 17px!important;
+  margin-right: 20px!important;
+}
+.dash-product-statistics .assets-statistics .title{
+  font-size: 18px;
+    margin-bottom: 15px;
+}
+.dash-product-statistics .assets-statistics .key{
+  font-size: 16px;
+    margin-right: 6px;
+    min-width: 100px;
+}
+.dash-product-statistics .assets-statistics .value a{
+  font-size: 15px;
+}
+.dash-product-page .similar-products .title{
+  font-size: 45px;
+    margin-bottom: 20px;
 }
 
+
+}
 @media (max-width: 1200px) {
   .dash-product-details {
     flex-wrap: wrap;
   }
-
-  .dash-product-details .dash-slider-images {
-    min-width: 100%;
-    margin-bottom: 25px;
-  }
-
-  .dash-product-details .dash-details,
-  .dash-product-statistics {
-    max-width: 1000px;
-    margin: auto;
-  }
 }
 
 @media (max-width: 800px) {
+  .dash-product-statistics{
+    width: 90%;
+    margin-left:5%;
+  }
+  .dash-product-details .dash-slider-images .main-image{
+    width: 80%;
+    margin:0px auto 30px;
+  }
+  .dash-product-details .dash-slider-images .main-image img{
+    width: 100%;
+    height: 400px;
+  }
   .dash-product-page .similar-products .dash-products .dash-product {
     flex-basis: 350px;
     max-width: 350px;
@@ -395,26 +472,11 @@
 }
 
 @media (max-width: 480px) {
-  .dash-product-details .person-info .image {
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-  }
-
   .dash-product-details .product-info .price-category-order {
     flex-wrap: wrap;
   }
-
-  .dash-product-details .product-info .title {
-    font-size: 28px;
-  }
-
   .dash-product-details .footer-buttons {
     flex-wrap: wrap;
-  }
-
-  .dash-product-details .product-info .description {
-    font-size: 16px;
   }
 }
 
@@ -423,13 +485,13 @@
 .chart-statistics .statistic {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .chart-statistics .labels {
   font-size: 20px;
   color: #9d9d9d;
-  margin-right: 50px;
+  margin-right: 20px;
 }
 
 .chart-statistics .labels .label {
@@ -467,5 +529,10 @@
     margin-right: 0px;
     max-width: 100%;
     width: 100%;
+  }
+}
+@media (max-width: 576px) {
+.chart-statistics .labels {
+    display: block;
   }
 }

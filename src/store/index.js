@@ -10,9 +10,11 @@ import * as sockets from "./Modules/Sockets";
 
 export default createStore({
   state: {
+    pageY:false,
     Loading: false,
     ready: false,
     cookieAccepted: false,
+    heightHeader:0
   },
   mutations: {
     CHANGE_LOADING_STATE(state, to = null) {
@@ -27,6 +29,12 @@ export default createStore({
     },
     CANCEL_COOKIES(state) {
       state.cookieAccepted = true;
+    },
+    CHANGE_PAGEY(state,action) {
+      state.pageY = action;
+    },
+    CHANGE_heightHeader(state,action) {
+      state.heightHeader = action;
     },
   },
   actions: {
