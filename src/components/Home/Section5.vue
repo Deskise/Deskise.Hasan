@@ -169,7 +169,7 @@ section {
       margin-bottom: 20px;
       @media (max-width: 1400px) {
         & {
-          font-size: 42px;
+          font-size: 40px;
         }
       }
       @media (max-width: 992px) {

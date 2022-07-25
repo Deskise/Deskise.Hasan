@@ -2,7 +2,7 @@
   <section>
     <div class="container">
       <div class="row">
-        <h2>Trusted Clients</h2>
+        <h2 class="mt-5">Trusted Clients</h2>
         <div class="container-fluid">
           <swiper
             :slidesPerView="1"
@@ -68,17 +68,16 @@ section {
   min-height: 33vh;
   justify-content: center;
   align-items: center;
-
+  margin-bottom: 150px;
   h2 {
     font-size: 60px;
      @media (max-width: 1400px) {
-        font-size: 47px;
-        margin-bottom: 30px;
+        font-size: 40px;
+        margin-bottom: 20px;
     }
     @media (max-width: 760px) {
       font-size: 40px;
     }
-    font-weight: 400;
     margin-bottom: 50px;
   }
 
@@ -102,6 +101,11 @@ section {
         @media (max-width: 1200px) {
           & {
             padding: 30px 50px;
+          }
+        }
+        @media (max-width: 500px) {
+          & {
+            padding: 20px 35px;
           }
         }
       }

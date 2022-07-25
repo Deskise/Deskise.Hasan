@@ -62,7 +62,7 @@ section {
   @media (max-width: 576px) {
       & {
         height: 57vh;
-        margin-bottom: 20vh;
+        margin-bottom: 10vh;
       }
     }
   .block {

@@ -1,10 +1,10 @@
 <template>
   <div class="products">
-    <div class="container-fluid">
-      <h1 class="mb-5">Best Products</h1>
+    <div class="container px-2 px-lg-0">
+      <h2 class="mb-5 mt-5">Best Products</h2>
       <div class="main">
-         <swiper :modules="modules" :slidesPerView="slides" :pagination="pagination" :spaceBetween="10" class="packages">
-          <swiper-slide v-for="(p, index) in products" :key="p.id" class="px-1 py-3">
+         <swiper :modules="modules" :slidesPerView="slides" :pagination="pagination"  class="packages">
+          <swiper-slide v-for="(p, index) in products" :key="p.id" class="py-4">
             <product :id="index" best></product>
           </swiper-slide>
         </swiper>
@@ -41,6 +41,7 @@ export default {
       this.getSlides();
       window.addEventListener("resize", () => this.getSlides());
     });
+
     if (this.packages.length === 0) await this.$store.dispatch("data/packages");
   },
   computed: {
@@ -53,12 +54,12 @@ export default {
       if (window.matchMedia("(max-width: 576px").matches) this.slides = 1;
       else if (window.matchMedia("(max-width: 568px").matches)
         this.slides = 1;
-      else if (window.matchMedia("(max-width: 768px").matches)
-        this.slides = 2;
+      else if (window.matchMedia("(max-width: 668px").matches)
+        this.slides = 1;
       else if (window.matchMedia("(max-width: 998px").matches)
-        this.slides = 3;
+        this.slides = 2;
       else if (window.matchMedia("(max-width: 1200px").matches)
-        this.slides = 4;
+        this.slides = 3;
       else if (window.matchMedia("(max-width: 1500px").matches) this.slides = 4;
       else this.slides = 5;
     },
@@ -82,26 +83,24 @@ export default {
 <style lang="scss" scoped>
 
 .swiper-slide{
-  height: 560px;
+  height: 540px;
+  overflow-y: hidden;
 }
 .products {
   background: inherit;
-  padding: 70px 0;
+  padding: 80px 0;
   justify-content: center;
   align-items: center;
   width: 100%;
    @media (max-width: 1410px) {
         padding-top: 0px;
     }
-  .container-fluid {
-    padding: 5%;
-  }
-  h1 {
+  h2 {
     color: #040506;
     font-size: 60px;
      @media (max-width: 1410px) {
-        font-size: 50px;
-        margin-bottom: 30px!important;
+        font-size: 40px;
+        margin-bottom: 10px!important;
     }
     @media (max-width: 760px) {
       font-size: 40px;

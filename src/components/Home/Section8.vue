@@ -2,7 +2,7 @@
   <section class="contact bg-gray-e">
     <div class="container">
       <div class="row">
-        <h1>Contact Us</h1>
+        <h2>Contact Us</h2>
         <p class="mb-4">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr
         </p>
@@ -91,10 +91,10 @@ section {
   align-items: center;
   padding: 70px 0;
 
-  h1 {
+  h2 {
     font-size: 40px;
     @media (max-width: 1400px) {
-      font-size: 35px;
+      font-size: 40px;
     }
     @media (max-width: 760px) {
       font-size: 30px;

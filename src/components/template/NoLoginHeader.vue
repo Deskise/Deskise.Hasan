@@ -146,11 +146,6 @@ nav.noLogin {
   }
 
   a {
-    @media (max-width: 1300px) {
-      & {
-        margin-right: 0;
-      }
-    }
     @media (max-width: 1125px) and (min-width: 992px) {
       &.navbar-brand {
         display: none;
@@ -212,20 +207,25 @@ nav.noLogin {
             border-left: 0px solid $primary;
             span {
               width: 100%;
-              height: 2px;
-              background-color: #3eadb758;
+              height: 3px;
+              background-color: $primary;
               position: absolute;
-              top: 98%;
+              top: 97%;
               left: -100%;
               transition: all 0.5s ease-in-out;
               transition-delay: 0.1s;
             }
+            @media (max-width: 1400px) {
+              font-size: 14px!important;
+              color: grey;
+            }
           }
-
+          
           &.dropdown-item:focus,
           &.dropdown-item:hover {
             background-color: inherit;
-            border-left: 3px solid $primary;
+            border-left: 2px solid $primary;
+            color: #000;
             span {
               left: 0;
             }
@@ -234,10 +234,11 @@ nav.noLogin {
       }
 
       &.dropdown-menu {
-        padding: 0;
+        padding: 10px 5px;
         width: 250%;
         border: 0;
         box-shadow: 0 0 20px 0 #00000015;
+       
       }
       @media (max-width: 992px) {
         &.dropdown-menu {

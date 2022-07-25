@@ -60,4 +60,7 @@ export const getters = {
         })
         .filter((e) => e !== undefined && e !== null);
     },
+  Allproducts: (state) => {
+        return state.products.data
+    },
 };

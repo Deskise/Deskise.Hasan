@@ -12,6 +12,17 @@ export default {};
 .bg1{
   z-index: 5!important;
 }
+.bg2{
+  animation: mover 1.5s linear infinite alternate;
+}
+@keyframes mover {
+  0%{
+    transform: translateX(0px);
+  }
+  100%{
+    transform: translateX(10px);
+  }
+}
 </style>
 <style lang="scss" scoped>
 div {

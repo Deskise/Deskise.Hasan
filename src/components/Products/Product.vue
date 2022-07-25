@@ -15,7 +15,7 @@
               name: 'singleProduct',
               params: { id: product.id },
             }"
-            class="btn btn-outline-primary "
+            class="btn btn-outline-primary mb-0 "
             v-if="!stopSelling"
           >
             {{ __("see") }}
@@ -131,7 +131,7 @@ export default {
 
   img {
     width: 100%;
-    height: 400px;
+    height: 350px;
     border-radius: 20px;
     @media (max-width: 1410px) {
          height: 300px;
@@ -156,7 +156,7 @@ export default {
           flex-shrink: 0;
           flex-basis: 38%;
           @media (max-width: 1410px) {
-        flex-basis: 28%;
+        flex-basis: 29%;
         }
         }
       }
@@ -212,7 +212,7 @@ export default {
         line-height: 20px;
         @media (max-width: 1410px) {
         font-size: 13px!important;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         }
       }
   }

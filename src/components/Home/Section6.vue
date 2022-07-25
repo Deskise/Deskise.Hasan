@@ -2,7 +2,7 @@
   <section class="action">
     <div class="container-fluid">
       <div class="row">
-        <h2 class="mb-4">{{ __("header.nologin.mech") }}</h2>
+        <h2 class="mb-4 mt-5">{{ __("header.nologin.mech") }}</h2>
       </div>
       <div class="container packages-container">
         <swiper :slidesPerView="slides" :spaceBetween="10" class="packages">
@@ -67,7 +67,7 @@ section {
     text-transform: capitalize;
     @media (max-width: 1400px) {
       & {
-        font-size: 42px;
+        font-size: 40px;
         margin-bottom: 40px!important;
       }
     }

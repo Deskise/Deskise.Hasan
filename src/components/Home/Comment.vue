@@ -8,7 +8,7 @@
       </div>
       <div class="col-md d-flex flex-column justify-content-around py-2">
         <div class="row">
-          <h3>{{ comment.name }}</h3>
+          <h4>{{ comment.name }}</h4>
         </div>
 
         <div class="row">
@@ -50,12 +50,13 @@ export default {
        height: 80px;
     }
   }
-  h3 {
+  h4 {
     font-weight: bold;
     margin-bottom: 2px;
     font-size: 24px;
     @media (max-width: 1400px) {
      margin-bottom: 10px;
+     font-size: 20px;
     }
     @media (max-width: 760px) {
       font-size: 18px;

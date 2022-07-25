@@ -1,13 +1,13 @@
 <template>
   <section class="d-flex">
     <div class="container">
-      <h1 class="mb-5">What Is Deskise?</h1>
+      <h2 class="mb-3 mt-4">What Is Deskise?</h2>
       <div class="row">
         <div class="col-md-6 col-lg mb-4">
           <div class="icon">
             <flat-icon-component icon="diamond"></flat-icon-component>
           </div>
-          <h3 class="mb-1">Offer <span>the best sales</span></h3>
+          <h4 class="mb-1">Offer <span>the best sales</span></h4>
           <p class="details mb-0">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
@@ -24,7 +24,7 @@
           <div class="icon">
             <flat-icon-component icon="shield-check"></flat-icon-component>
           </div>
-          <h3 class="mb-1">Protection <span>of buyers and sellers</span></h3>
+          <h4 class="mb-1">Protection <span>of buyers and sellers</span></h4>
           <p class="details mb-0">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
@@ -41,7 +41,7 @@
           <div class="icon">
             <flat-icon-component icon="sticker"></flat-icon-component>
           </div>
-          <h3 class="mb-1">Providing <span>secure payment methods</span></h3>
+          <h4 class="mb-1">Providing <span>secure payment methods</span></h4>
           <p class="details mb-0">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
@@ -74,14 +74,15 @@ section {
    @media (max-width: 1410px) {
         padding: 90px 0;
     }
-  h1 {
+  h2 {
     color: #040506;
     font-size: 60px;
      @media (max-width: 1410px) {
-        font-size: 45px;
+        font-size: 40px;
+        margin-bottom: 10px;
     }
     @media (max-width: 760px) {
-      font-size: 40px;
+      font-size: 35px;
     }
   }
 
@@ -95,7 +96,7 @@ section {
       font-size: 24px;
     }
 
-    h3 {
+    h4 {
       font-size: 28px;
       font-weight: bold;
       color: #040506;

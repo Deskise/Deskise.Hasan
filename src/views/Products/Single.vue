@@ -1,6 +1,6 @@
 <template>
   <div class="dash-product-page ">
-    <div class="container pt-3 dash-product-details">
+      <div class="container pt-3 dash-product-details">
       <div class="row">
         <div class="col-12 col-lg-6">
           <div class="dash-slider-images">
@@ -15,7 +15,8 @@
         <div class="col-12 col-lg-6">
           <div class="dash-details">
             <div class="person-info">
-            <div v-if="!this.$store.getters['user/isLoggedIn']" class="outerLogin">
+              <!-- ---------- --> 
+             <div v-if="!this.$store.getters['user/isLoggedIn']" class="outerLogin">
                 <div>
                   <div>
                     <p>
@@ -26,12 +27,13 @@
                     </p>
                     <p>Create Your Acount to View Details Information</p>
                     <p>this text can replace with any anter text</p>
-                    <router-link>
+                    <router-link to="#">
                       Message Request
                     </router-link>
                   </div>
                 </div>
-            </div>
+            </div> 
+            <!-- ------------- -->
               <div>
                 <div class="image">
                 <img :src="product.user.img" />
@@ -77,10 +79,10 @@
                   <span class="business-model">Lorem Ipsum</span>
                 </p>
                 URL:
-                <span class="url">
+                <span class="url">  -->
                   <!-- TODO: DO THE LINK HERE -->
                   <a href=""> Https://Www.Behance.Net/Sammeer12591d4 </a>
-                </span>
+               </span>
               </div>
               <div class="reviewers">
                 <div class="images">
@@ -133,7 +135,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> 
+
+
+
+    <!-- ----------- -->
     <div class="mt-5 container dash-product-statistics">
       <div class="profile-statistics">
         <div class="statistics">
@@ -244,7 +250,7 @@
           <product :id="p"></product>
         </div>
       </div>
-    </div>
+    </div> 
   </div>
 </template>
 
@@ -252,6 +258,9 @@
 import { mapGetters } from "vuex";
 import Product from "../../components/Products/Product.vue";
 export default {
+ mounted: function()  {
+      console.log(this.product)
+  },
   props: {
     id: {
       type: Number,
@@ -264,10 +273,10 @@ export default {
     };
   },
   methods: {
-    async like() {},
+    async like() { },
   },
   computed: {
-    ...mapGetters("product", ["products"]),
+     ...mapGetters("product", ["products"]),
     ps() {
       return this.products({ not: this.id });
     },
@@ -275,10 +284,8 @@ export default {
   components: {
     Product,
   },
-
   async beforeRouteUpdate(to, from, next) {
     await this.$store.dispatch("product/single", { id: to.params.id });
-
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0;
     next();

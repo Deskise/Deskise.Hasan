@@ -43,7 +43,7 @@ export const actions = {
       .catch(() => {});
   },
   async fetchCatecory({ commit }, { id }) {
-    await Blog.fetchCat(id)
+    await Blog.fetchCat(id) 
       .then((response) => {
         let data = response.data.response.extra[0];
         commit("FETCH_CATEGORY", data);

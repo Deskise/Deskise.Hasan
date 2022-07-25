@@ -1,6 +1,6 @@
 <template>
-  <div class="support container my-5">
-    <div class="row justify-content-center align-items-center py-5">
+  <div class="support container my-2">
+    <div class="row justify-content-center align-items-center pb-5 pt-2">
       <div class="bg col-12 bg-gray-e"></div>
       <div class="image col-12 col-md-4">
         <img src="@/assets/support.png" alt="support" />
@@ -61,7 +61,7 @@ export default {
   }
   img{
     @media (max-width: 1410px) {
-    width: 80%;
+    width: 70%;
     }
     @media (max-width: 576px) {
     width: 50%;

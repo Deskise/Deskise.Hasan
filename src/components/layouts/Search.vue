@@ -1,10 +1,10 @@
 <template>
   <div class="d-flex search mb-3">
     <div class="search-input d-flex  mt-5">
-      <input type="search" :placeholder="__('faqs.search')" v-model="search" />
-      <div class="icon bg-primary" @click="toggleSearch">
+      <input type="search" :placeholder="__('faqs.search')" v-model="search" @input="toggleSearch" />
+      <!-- <div class="icon bg-primary">
         <FlatIconComponent icon="search" />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -19,6 +19,12 @@ export default {
   methods: {
     toggleSearch() {
       this.$emit("searchHandler",this.search)
+      this.$emit("searchposts",this.search)
+      this.$emit("searchproducts",this.search)
+      document.querySelector("input[type=search]").focus();
+    },
+    BlogSearch() {
+      this.$emit("BlogSearch",this.search)
       document.querySelector("input[type=search]").focus();
     },
   },

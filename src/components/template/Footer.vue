@@ -118,6 +118,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+footer{
+  margin-top: 100px;
+}
 footer,.last{
   overflow: hidden;
 }
