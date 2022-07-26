@@ -37,7 +37,8 @@
           </p>
           <p class="id">#{{ product.id }}</p>
         </div>
-        <p class="description">{{ product.details.substring(0, 150) }}</p>
+        <p class="description">{{ product.details }}...</p>
+        <!-- <p class="description">{{ product.details.substring(0, 150) }}...</p> -->
       </div>
       <div :class="{'footer':true, 'border-top':product.verified || product.special}">
         <div class="icons">
@@ -101,6 +102,7 @@ export default {
   height: 100%!important;
   border: 1px solid #eee;
   margin: 5px;
+  overflow-y: hidden;
   div.tag {
     position: absolute;
     width: 100px;

@@ -14,21 +14,26 @@
         </div>
         <div class="col-12 col-lg-6">
           <div class="dash-details">
-            <div class="person-info">
+            <div :class="{'person-info':true,'p-2':!this.$store.getters['user/isLoggedIn'] }">
               <!-- ---------- --> 
              <div v-if="!this.$store.getters['user/isLoggedIn']" class="outerLogin">
                 <div>
-                  <div>
-                    <p>
+                  <div> 
+                    <p class="mb-0">
                       <font-awesome-component
                       icon="shield-check"
                       :bold="false"
                     ></font-awesome-component>
                     </p>
-                    <p>Create Your Acount to View Details Information</p>
-                    <p>this text can replace with any anter text</p>
-                    <router-link to="#">
-                      Message Request
+                    <p class="mb-0 font-wieght-bold">Create Your Acount to View Details Information</p>
+                    <p class="mb-0">this text can replace with any anter text</p>
+                    <router-link
+                      :to="{ name: 'login' }"
+                      v-slot="{ navigate }"
+                    >
+                      <button @click="navigate">
+                        Message Request
+                      </button>
                     </router-link>
                   </div>
                 </div>
@@ -258,9 +263,6 @@
 import { mapGetters } from "vuex";
 import Product from "../../components/Products/Product.vue";
 export default {
- mounted: function()  {
-      console.log(this.product)
-  },
   props: {
     id: {
       type: Number,

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="loader w-100 h-100 d-flex justify-content-center align-items-center bg-dark"
+    class="loader w-100 h-100 d-flex justify-content-center align-items-center"
   >
   <div>
     <loadMore  class="mb-2 mt-5" />
@@ -18,6 +18,8 @@ export default {};
   top: 0;
   left: 0;
   z-index: 999999;
+  background-color: white;
+  color: #3EADB7;
 }
 .loader span{
   font-size: 72px;

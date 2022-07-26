@@ -53,7 +53,7 @@
 .dash-product-details .dash-details .person-info >div:first-of-type {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .dash-product-details .person-info .image {
@@ -83,14 +83,70 @@
 }
 .outerLogin{
     position: absolute;
-    background:  white;
-    width: 100%;
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.185);
+    width: 80%;
+    border-radius: 10px;
     height: 100%;
     top: 0;
     left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 992px) {
+ .outerLogin{
+    width: 100%;
+  }
   }
   .outerLogin > div{
-
+    background-color: white;
+    width: 70%;
+    height: 80%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+   .outerLogin > div div{
+    text-align: center;
+   }
+   .outerLogin > div p{
+    font-size: 13px;
+    text-align: center;
+   }
+   .outerLogin > div p.font-wieght-bold{
+    font-weight: 700;
+   }
+   .outerLogin > div p:last-of-type{
+    color: grey;
+    font-size: 13px;
+   }
+   .outerLogin > div p i{
+    font-size: 20px;
+    color: #3eadb7;
+    margin-bottom: 5px;
+   }
+   .outerLogin > div a button{
+    margin-top: 10px;
+    padding: 5px 20px;
+    background-color: #3eadb7;
+    color: white;
+    border-radius: 5px;
+    font-size: 13px;
+    display: inline-block;
+    border: none;
+   }
+   @media (max-width: 500px) {
+ .outerLogin > div p{
+    font-size: 13px;
+   }
+   .outerLogin > div p:last-of-type{
+    font-size: 12px;
+   }
+   .outerLogin > div a button{
+    font-size: 12px;
+   }
   }
 .dash-product-details .person-info .data .dates .new {
   color: #040506;
@@ -104,7 +160,6 @@
 .dash-product-details .title {
   font-size: 27px;
   color: #040506;
-  margin-bottom: 10px;
   font-weight: bold;
 }
 
@@ -338,9 +393,6 @@
 }
 .dash-product-details .person-info .data .old {
   font-size: 12px;
-}
-.dash-product-details .dash-details .person-info{
-  margin-bottom: 10px;
 }
 .dash-product-details .product-info .title{
   font-size: 27px;
