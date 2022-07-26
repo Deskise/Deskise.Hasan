@@ -588,3 +588,13 @@ font-size: 16px;
     display: block;
   }
 }
+.btn-close{
+  width: 25px!important;
+  height: 25px!important;
+  border-radius: 50%!important;
+  background-color: #dc3545!important;
+  display: inline-block!important;
+  flex-grow: unset!important;
+  color: #fff!important;
+  padding: 10px!important;
+}

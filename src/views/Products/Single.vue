@@ -15,7 +15,6 @@
         <div class="col-12 col-lg-6">
           <div class="dash-details">
             <div :class="{'person-info':true,'p-2':!this.$store.getters['user/isLoggedIn'] }">
-              <!-- ---------- --> 
              <div v-if="!this.$store.getters['user/isLoggedIn']" class="outerLogin">
                 <div>
                   <div> 
@@ -38,7 +37,6 @@
                   </div>
                 </div>
             </div> 
-            <!-- ------------- -->
               <div>
                 <div class="image">
                 <img :src="product.user.img" />
@@ -102,7 +100,8 @@
                 <div class="number">{{ product.bought.count }}</div>
               </div>
               <div class="footer-buttons">
-                <button class="dash-button buy-icon">
+            
+                <button class="dash-button buy-icon" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                   <span>Buy</span>
                   <span>
                     <font-awesome-component
@@ -111,6 +110,16 @@
                     ></font-awesome-component>
                   </span>
                 </button>
+                 <!--  offcanvas of buy btn---------------------------------------------- -->
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                      <div class="offcanvas-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                      </div>
+                      <div class="offcanvas-body">
+                        <BuyOffcanvas :product="product"/>
+                      </div>
+                    </div>
+             <!-- ---------------------------------------------- -->
                 <button class="dash-button buy-icon">
                   <span>Message Request</span>
                   <span>
@@ -141,10 +150,6 @@
         </div>
       </div>
     </div> 
-
-
-
-    <!-- ----------- -->
     <div class="mt-5 container dash-product-statistics">
       <div class="profile-statistics">
         <div class="statistics">
@@ -262,6 +267,7 @@
 <script>
 import { mapGetters } from "vuex";
 import Product from "../../components/Products/Product.vue";
+import BuyOffcanvas from "./BuyOffcanvas.vue";
 export default {
   props: {
     id: {
@@ -285,7 +291,8 @@ export default {
   },
   components: {
     Product,
-  },
+    BuyOffcanvas
+},
   async beforeRouteUpdate(to, from, next) {
     await this.$store.dispatch("product/single", { id: to.params.id });
     document.body.scrollTop = 0; // For Safari
@@ -297,4 +304,12 @@ export default {
 
 <style lang="css" scoped src="./Single.css">
 
+</style>
+<style>
+.offcanvas{
+  z-index: 100000000!important;
+}
+.offcanvas-backdrop{
+  z-index: 10000000!important;
+}
 </style>
