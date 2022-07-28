@@ -17,7 +17,6 @@ use App\Models\SocialMediaLink;
 use App\Models\Subcategory;
 use App\Models\TermsOfUse;
 use App\Models\User;
-use App\Models\UserID;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -85,12 +84,5 @@ class DatabaseSeeder extends Seeder
             'key' => 'payout_request',
             'value' => 'some text'
         ]);
-
-        //User Id veri
-        collect([1,2,3,4,5])->map(function ($user){
-            UserID::query()->create([
-                'user_id' => $user,
-            ]);
-        });
     }
 }
