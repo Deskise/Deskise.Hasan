@@ -16,8 +16,7 @@ class CreateUserVerificationAssetsTable extends Migration
         Schema::create('user_verification_assets', function (Blueprint $table) {
             $table->id('user_id');
             $table->json('assets');
-            // ['user_61c8fd818741c3.69616718_1640562049.png', 'user_61c8fd818741c3.69616718_1640562049.png']
-            // route('images', ['for'=>'user_assets', 'image'=>$image]);
+            $table->string('rejectMessage', 2500)->nullable();
 
             $table->timestamps();
             $table->softDeletes();

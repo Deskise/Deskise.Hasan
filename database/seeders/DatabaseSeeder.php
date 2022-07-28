@@ -17,6 +17,7 @@ use App\Models\SocialMediaLink;
 use App\Models\Subcategory;
 use App\Models\TermsOfUse;
 use App\Models\User;
+use App\Models\UserVerificationAssets;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(5)->create();
+        UserVerificationAssets::factory(5)->create();
 
         Category::factory(8)->create();
         Subcategory::factory(10)->create();
@@ -42,6 +44,8 @@ class DatabaseSeeder extends Seeder
 
         Product::factory(50)->create();
         ProductData::factory(50)->create();
+
+        Admin::factory(1)->create();
 
         //aya
         HomeText::query()->create([

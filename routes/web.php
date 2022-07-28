@@ -87,8 +87,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::prefix('get_user_IDs')->group(function () {
         Route::get('/', [ApproveUserIdController::class, 'getUserIDs'])->name('getUserIDs');
-        Route::get('/verify_ID/{user_id}', [ApproveUserIdController::class, 'verifyID'])->name('verifyID');
-        Route::get('/reject_ID/{user_id}', [ApproveUserIdController::class, 'rejectID'])->name('rejectID');
+        Route::get('/verify_ID/{user}', [ApproveUserIdController::class, 'verifyID'])->name('verifyID');
+        Route::get('/reject_ID/{user}', [ApproveUserIdController::class, 'rejectID'])->name('rejectID');
     });
 
 

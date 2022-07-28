@@ -26,15 +26,13 @@
                 @foreach ($users as $key => $user)
                     <tr>
                         <td>
-                            <img src="{{$user->user->img}}" alt="">
-                            {{  $user->user->firstname .' ' .$user->user->lastname }}
+                            <img src="{{$user->img}}" alt="">
+                            {{  $user->firstname .' ' .$user->lastname }}
                         </td>
                         <td>
-                            @if( isset($user->user->assets) && count($user->user->assets->assets ) > 0)
-                               @foreach($user->user->assets->assets as $image)
-                                 <img src="{{ route('images', ['for'=>'user_assets', 'image'=>$image]) }}" height="200">
-                                @endforeach
-                            @endif
+                           @foreach($user->assets->assets as $image)
+                             <img src="{{ route('images', ['for'=>'user_assets', 'image'=>$image]) }}" height="200">
+                            @endforeach
                         </td>
 
                         <td class="text-center">

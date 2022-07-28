@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class UserVerificationAssets extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+
+    protected $fillable = ['user_id', 'assets', 'rejectMassage'];
 
     protected $casts = [
         'assets'    =>  'array'
