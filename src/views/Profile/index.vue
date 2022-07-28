@@ -9,7 +9,15 @@
         </div>
         <div class="col-12 col-md-8 col-lg-9">
           <div class="dash-profile-products">
-            <div class="dash-products">
+            <div class="text-left mb-4 btnsGroup">
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio1" @click="show = 'Draft'">Draft</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio2" @click="show = 'projects'">projects</label>
+            </div>
+            </div>
+            <div class="dash-products" v-if="products.length > 0 && show=='Draft'">
               <div
                 class="dash-product"
                 v-for="product in products"
@@ -17,6 +25,21 @@
               >
                 <product :product="product" :stopSelling="sameUser"></product>
               </div>
+            </div>
+            <div v-if="!products.length > 0 && show=='Draft'">
+              <h6 class="text-left text-grey">Not Found Draft Product Yet.!</h6>
+            </div>
+            <div class="dash-products" v-if="show=='projects'">
+              <div
+                class="dash-product"
+                v-for="product in products"
+                :key="product.id"
+              >
+                <product :product="product" :stopSelling="sameUser"></product>
+              </div>
+            </div>
+            <div v-if="show=='projects'">
+              <h6 class="text-left text-grey">Not Found projects  Yet.!</h6>
             </div>
           </div>
         </div>
@@ -32,6 +55,11 @@ import PersonalData from "../../components/Profile/PersonalData.vue";
 import Product from "../../components/Products/Product.vue";
 import { mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      show:"Draft"
+    }
+  },
   components: { Banner, PersonalData, Product },
   props: {
     id: {
@@ -78,6 +106,21 @@ export default {
 
 <style lang="scss">
 @import "@/sass/_globals/_variables";
+.btnsGroup label{
+  border-color: #ddd!important;
+  color: #000;
+  margin:  0 10px;
+  border-radius: 3px!important;
+}
+.btnsGroup label:hover{
+  background-color: #eee;
+  color: #000;
+}
+.btn-check:checked+.btn-outline-primary{
+  background-color: #4E1B56;
+  border-color: #4E1B56!important;
+  color: #fff;
+}
 
 .profile {
   margin: 0 0 70px 0 !important;
