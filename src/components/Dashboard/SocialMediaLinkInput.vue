@@ -79,13 +79,24 @@ export default {
 <style lang="scss" scoped>
 .add-input {
   position: relative;
-
   .add-more {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0;
+    @media (max-width: 1400px) {
+    max-width: 400px!important;
+    width: 400px!important;
+    }
+    @media (max-width: 992px) {
+    max-width: 80%!important;
+    width:  80%!important;
+    }
+    @media (max-width: 576px) {
+    max-width: 100%!important;
+    width:  100%!important;
+    }
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5 dash-steps">
+  <div class="dash-steps">
     <div class="steps">
       <Step
         v-for="(step, index) in steps"
@@ -42,13 +42,12 @@ export default {
 <style lang="scss">
 @import "@/sass/_globals/_variables.scss";
 .dash-steps {
-  margin-bottom: 60px;
-
+  margin-bottom: 40px;
+  margin-top: 100px;
   .steps {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
     padding: 20px 0px;
   }
 }

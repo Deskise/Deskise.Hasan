@@ -212,8 +212,14 @@
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 25px;
+  position: relative;
 }
-
+.url{
+  position: relative;
+}
+.url .outerLogin{
+  width: 100%;
+}
 .dash-product-details .product-info .footer-details span a {
   color: #3eadb7;
   display: inline-block;

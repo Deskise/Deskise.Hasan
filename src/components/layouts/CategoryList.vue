@@ -66,11 +66,9 @@ export default {
   .category {
     border-radius: 5px;
     background: transparent;
-    @media (max-width: 1410px) {
-      padding: 10px !important;
-      margin:  5px;
-      border:1px solid #eee
-    }
+    padding: 10px !important;
+    margin:  5px;
+    border:1px solid #eee;
     color: #040506;
     cursor: pointer;
     transition: all 0.3s ease-in-out;

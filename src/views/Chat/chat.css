@@ -58,7 +58,6 @@
   padding-bottom: 20px;
   border-radius: 10px;
   margin-top: 10px;
-  background-color: #3eadb709;
 }
 .dash-list-contacts::-webkit-scrollbar,.dash-chat .chat-attachment::-webkit-scrollbar {
     display: block!important;
@@ -78,14 +77,35 @@
   background: #3eadb7!important;
 }
 .dash-list-contacts .dash-contact-item {
-  padding: 10px 0px 10px 10px;
-  border-bottom: 1px solid rgba(16, 27, 79, 10%);
-  margin-bottom: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
+  margin: 10px 0px;
+  position: relative;
+  padding: 10px;
+}
+.dash-list-contacts .dash-contact-item::after{
+  content: "";
+position: absolute;
+bottom: 0;
+left: 5%;
+width: 90%;
+height: 1px;
+background-color: #F3F3F3;
+}
+.dash-list-contacts .dash-contact-item.active::before{
+  content: "";
+position: absolute;
+top: 20%;
+right: 2%;
+width: 4px;
+height: 60%;
+background-color: #3eadb7;
+border-radius: 310px;
+}
+.dash-list-contacts .dash-contact-item.active {
+background-color: #F3F3F3!important;
+
 }
 .dash-list-contacts .dash-contact-item:hover {
-  background-color:  #3eadb746!important;
+  background-color:  #f3f3f33f;
 }
 
 
@@ -98,7 +118,7 @@
 
 .dash-contact-item .dash-contact-image img {
   border-radius: 50%;
-  max-width: 90%;
+  max-width: 85%;
   display: block;
   margin: auto;
 }
@@ -137,13 +157,14 @@ margin-bottom: 0px;
 }
 
 .dash-contact-item .contact-last-messages-count {
-  width: 22px;
-  height: 22px;
-  line-height: 22px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
   background-color: #3eadb7;
   border-radius: 50%;
   color: #fff;
   text-align: center;
+  font-size: 13px;
 }
 
 .dash-chat .chat-attachment {
@@ -233,13 +254,23 @@ margin-bottom: 0px;
   font-size: 18px;
   color: #040506;
   text-align: center;
+  cursor: pointer;
 }
 
 .chat-attachment .tabs-links .link.active {
   color: #3eadb7;
   font-weight: 700;
+  position: relative;
 }
-
+.chat-attachment .tabs-links .link.active::after{
+  content: "";
+  position: absolute;
+  bottom: -9.5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #3eadb7;
+}
 .dash-agreement {
   border-bottom: 1px solid rgba(16, 27, 79, 10%);
   padding: 15px 0px;

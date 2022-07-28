@@ -76,7 +76,7 @@
             @click="toggleNotification"
           >
             <span class="dash-count">1</span>
-            <flat-icon-component icon="bell" type="s"></flat-icon-component>
+            <flat-icon-component icon="bell" type="r"></flat-icon-component>
           </a>
           <ul
             id="dash-notifications-menu"
@@ -96,7 +96,7 @@
         <li>
           <router-link :to="{ name: 'chat' }" class="icon-menu">
             <span class="dash-count">1</span>
-            <flat-icon-component icon="envelope" type="s"></flat-icon-component>
+            <flat-icon-component icon="envelope" type="r"></flat-icon-component>
           </router-link>
         </li>
         <li class="dash-has-menu">
@@ -440,7 +440,7 @@ nav {
   width: 100%;
   height:90px!important;
   max-height:90px!important;
-  z-index: 1111;
+  z-index: 1111; 
   .logo {
     max-width: 100%;
     img {
@@ -471,7 +471,7 @@ nav {
     font-size: 18px;
     text-transform: capitalize;
     @media (max-width: 1400px) {
-      font-size: 16px;
+      font-size: 15px;
       }
     &:hover,
     &:focus {
@@ -500,7 +500,7 @@ nav {
       width: 200px;
       border: 1px solid #9d9d9d;
       border-radius: 4px;
-      padding: 15px 25px;
+      padding: 10px 15px;
       color: #9d9d9d;
       font-size: 18px;
       @media (max-width: 1400px) {
@@ -531,10 +531,11 @@ nav {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 38px;
+    gap: 28px;
+     margin-bottom: 0px;
+     padding-left: 10px;
     @media (max-width: 1400px) {
     gap: 20px;
-    margin-bottom: 0px;
     padding: 0px;
   }
     @media (max-width: 992px) {
@@ -573,7 +574,6 @@ nav {
       img {
         display: block;
         margin: auto;
-        max-width: 100%;
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -612,7 +612,7 @@ nav {
 }
 
 nav .dash-btn.btn-sales {
-  padding: 15px 60px;
+  padding: 15px 40px;
   margin-left: 10px;
    @media (max-width: 1400px) {
       padding: 10px 15px;

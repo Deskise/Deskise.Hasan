@@ -51,13 +51,14 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   align-items: center;
-  margin: 0px 20px;
   font-weight: bold;
   color: #c9c9c9;
   cursor: pointer;
-
+   @media (max-width:576px) {
+      height: 90px;
+      text-align: center;
+    }
   &.before {
     .num {
       background-color: rgba($primary, 0.8);
@@ -77,27 +78,48 @@ export default {
       text-transform: uppercase;
     }
   }
-
+  .name{
+    @media (max-width:576px) {
+      width: 60px;
+    }
+  }
   .num {
     position: relative;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
-    width: 42px;
-    height: 42px;
-    line-height: 42px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
     background-color: #c9c9c9;
     color: #fff;
     border-radius: 50%;
+    margin-bottom: 10px;
   }
 }
 .line {
   flex-grow: 1;
   height: 3px;
   background-color: rgba(137, 137, 137, 0.23);
-  margin-top: -20px;
-
+  margin-top: -32px;
+  z-index: -1;
+  @media (max-width:576px) {
+      margin-top: -45px;
+    }
   &.active {
     background-color: rgba($primary, 0.23);
   }
+}
+.line:first-of-type{
+    transform: translateX(-15px) scaleX(1.2);
+     @media (max-width:576px) {
+     transform: translateX(-15px) scaleX(1.5);
+    }
+
+}
+.line:last-of-type{
+  transform: translateX(10px) scaleX(1.2);
+  @media (max-width:576px) {
+     transform: translateX(-15px) scaleX(1.5);
+    }
 }
 </style>

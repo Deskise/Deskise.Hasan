@@ -102,10 +102,11 @@ section{
   text-align: center;
   color: #2c3e50;
   .page {
-    margin: 14vh 0 70px 0;
-    min-height: 100vh;
+    margin: 11vh 0 70px 0;
+    min-height: 90vh;
     @media (max-width: 1400px) {
     min-height: 90vh;
+    margin: 14vh 0 70px 0;
   }
   }
   .scrollbar {

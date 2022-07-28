@@ -94,7 +94,7 @@ export default {
 @import "@/sass/_globals/_variables.scss";
 .product {
   background: white;
-  box-shadow:  0 8px 10px #d3d3d3;
+  box-shadow:  3px 3px 10px  #f1f1f1 ;
   border-radius: 20px;
   padding: 10px !important;
   text-align: left;

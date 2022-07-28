@@ -14,6 +14,7 @@
             }
           "
         ></single-select>
+        <button class="btn btn-primary" @click="nextStep" :disabled="category == 0">Next</button>
       </div>
       <div v-else>
         <div class="main-title">welcome in Deskise</div>
@@ -27,24 +28,33 @@
             }
           "
         ></yn-select>
+        <p v-if="isLifeTime == 'n'">
+         <Datepicker
+             placeholder="Expiration Date"
+            ></Datepicker> 
+        </p>
+        <button class="btn btn-primary" @click="Go" :disabled="isLifeTime == ''">Next</button>
+        <button class="btn back-btn" v-if="component === 'Second'" @click="back">
+          Back
+        </button>
       </div>
-
-      <button class="btn btn-primary" @click="next">Next</button>
-      <button class="btn back-btn" v-if="component === 'Second'" @click="back">
-        Back
-      </button>
     </div>
   </div>
 </template>
 
 <script>
+ import Datepicker from '@vuepic/vue-datepicker';
+ import '@vuepic/vue-datepicker/dist/main.css'
 import { mapGetters } from "vuex";
 export default {
+  components: {
+    Datepicker
+  },
   data() {
     return {
       component: "First",
       category: 0,
-      isLifeTime: "n",
+      isLifeTime: "",
     };
   },
   computed: {
@@ -54,9 +64,10 @@ export default {
     },
   },
   methods: {
-    next() {
-      if (this.component === "First") this.component = "Second";
-      else
+    nextStep() {
+      this.component = "Second";
+    },
+    Go() {
         this.$router.push({
           name: "sales.data",
           params: { cat: this.category },
@@ -71,6 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .sell-product-welcome {
   display: flex;
   align-items: center;
@@ -120,6 +132,9 @@ export default {
       font-weight: bold;
       font-size: 20px;
       border-radius: 5px;
+      &:disabled{
+        opacity: .3;
+      }
  @media (max-width: 1400px) {
         height: 50px;
          padding: 5px;
@@ -133,5 +148,11 @@ export default {
       }
     }
   }
+}
+</style>
+<style>
+.drop-down-items{
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 </style>

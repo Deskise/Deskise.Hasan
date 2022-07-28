@@ -31,7 +31,7 @@
           <input placeholder="Search Message" />
         </div>
         <ul class="dash-list-contacts">
-          <li class="dash-contact-item">
+          <li class="dash-contact-item active">
             <a href="javascript:void(0)" class="contanct">
               <div class="row contact-name-message">
                 <div class="col-2">
@@ -40,16 +40,16 @@
                   </div>
                 </div>
                 <div class="col-7">
-                   <div class="contact-name px-2 py-0 m-0">Ricardo Lopez</div>
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
                 </div>
                 <div class="col-3">
                   <div class="contact-last-messages-time">11:23 am</div>
                 </div>
               </div>
               <div class="row contact-time-count">
-                <div class="col-9">
+                <div class="col-7 offset-2">
                   <div class="contact-last-message">
-                    Three Ways To Get Travel Disco…
+                    Three Ways To Get Travel…
                   </div>
                 </div>
                 <div class="col-3">
@@ -67,16 +67,16 @@
                   </div>
                 </div>
                 <div class="col-7">
-                   <div class="contact-name px-2 py-0 m-0">Ricardo Lopez</div>
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
                 </div>
                 <div class="col-3">
                   <div class="contact-last-messages-time">11:23 am</div>
                 </div>
               </div>
               <div class="row contact-time-count">
-                <div class="col-9">
+                <div class="col-7 offset-2">
                   <div class="contact-last-message">
-                    Three Ways To Get Travel Disco…
+                    Three Ways To Get Travel…
                   </div>
                 </div>
                 <div class="col-3">
@@ -94,16 +94,16 @@
                   </div>
                 </div>
                 <div class="col-7">
-                   <div class="contact-name px-2 py-0 m-0">Ricardo Lopez</div>
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
                 </div>
                 <div class="col-3">
                   <div class="contact-last-messages-time">11:23 am</div>
                 </div>
               </div>
               <div class="row contact-time-count">
-                <div class="col-9">
+                <div class="col-7 offset-2">
                   <div class="contact-last-message">
-                    Three Ways To Get Travel Disco…
+                    Three Ways To Get Travel…
                   </div>
                 </div>
                 <div class="col-3">
@@ -121,16 +121,16 @@
                   </div>
                 </div>
                 <div class="col-7">
-                   <div class="contact-name px-2 py-0 m-0">Ricardo Lopez</div>
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
                 </div>
                 <div class="col-3">
                   <div class="contact-last-messages-time">11:23 am</div>
                 </div>
               </div>
               <div class="row contact-time-count">
-                <div class="col-9">
+                <div class="col-7 offset-2">
                   <div class="contact-last-message">
-                    Three Ways To Get Travel Disco…
+                    Three Ways To Get Travel…
                   </div>
                 </div>
                 <div class="col-3">
@@ -148,16 +148,16 @@
                   </div>
                 </div>
                 <div class="col-7">
-                   <div class="contact-name px-2 py-0 m-0">Ricardo Lopez</div>
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
                 </div>
                 <div class="col-3">
                   <div class="contact-last-messages-time">11:23 am</div>
                 </div>
               </div>
               <div class="row contact-time-count">
-                <div class="col-9">
+                <div class="col-7 offset-2">
                   <div class="contact-last-message">
-                    Three Ways To Get Travel Disco…
+                    Three Ways To Get Travel…
                   </div>
                 </div>
                 <div class="col-3">
@@ -175,16 +175,16 @@
                   </div>
                 </div>
                 <div class="col-7">
-                   <div class="contact-name px-2 py-0 m-0">Ricardo Lopez</div>
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
                 </div>
                 <div class="col-3">
                   <div class="contact-last-messages-time">11:23 am</div>
                 </div>
               </div>
               <div class="row contact-time-count">
-                <div class="col-9">
+                <div class="col-7 offset-2">
                   <div class="contact-last-message">
-                    Three Ways To Get Travel Disco…
+                    Three Ways To Get Travel…
                   </div>
                 </div>
                 <div class="col-3">
@@ -202,16 +202,16 @@
                   </div>
                 </div>
                 <div class="col-7">
-                   <div class="contact-name px-2 py-0 m-0">Ricardo Lopez</div>
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
                 </div>
                 <div class="col-3">
                   <div class="contact-last-messages-time">11:23 am</div>
                 </div>
               </div>
               <div class="row contact-time-count">
-                <div class="col-9">
+                <div class="col-7 offset-2">
                   <div class="contact-last-message">
-                    Three Ways To Get Travel Disco…
+                    Three Ways To Get Travel…
                   </div>
                 </div>
                 <div class="col-3">
@@ -229,16 +229,16 @@
                   </div>
                 </div>
                 <div class="col-7">
-                   <div class="contact-name px-2 py-0 m-0">Ricardo Lopez</div>
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
                 </div>
                 <div class="col-3">
                   <div class="contact-last-messages-time">11:23 am</div>
                 </div>
               </div>
               <div class="row contact-time-count">
-                <div class="col-9">
+                <div class="col-7 offset-2">
                   <div class="contact-last-message">
-                    Three Ways To Get Travel Disco…
+                    Three Ways To Get Travel…
                   </div>
                 </div>
                 <div class="col-3">
@@ -247,7 +247,60 @@
               </div>
             </a>
           </li>
-         
+          <li class="dash-contact-item">
+            <a href="javascript:void(0)" class="contanct">
+              <div class="row contact-name-message">
+                <div class="col-2">
+                  <div class="dash-contact-image">
+                    <img src="@/assets/contact-image.png" />
+                  </div>
+                </div>
+                <div class="col-7">
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
+                </div>
+                <div class="col-3">
+                  <div class="contact-last-messages-time">11:23 am</div>
+                </div>
+              </div>
+              <div class="row contact-time-count">
+                <div class="col-7 offset-2">
+                  <div class="contact-last-message">
+                    Three Ways To Get Travel…
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="contact-last-messages-count">4</div>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="dash-contact-item">
+            <a href="javascript:void(0)" class="contanct">
+              <div class="row contact-name-message">
+                <div class="col-2">
+                  <div class="dash-contact-image">
+                    <img src="@/assets/contact-image.png" />
+                  </div>
+                </div>
+                <div class="col-7">
+                   <div class="contact-name px-1 py-0 m-0">Ricardo Lopez</div>
+                </div>
+                <div class="col-3">
+                  <div class="contact-last-messages-time">11:23 am</div>
+                </div>
+              </div>
+              <div class="row contact-time-count">
+                <div class="col-7 offset-2">
+                  <div class="contact-last-message">
+                    Three Ways To Get Travel…
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="contact-last-messages-count">4</div>
+                </div>
+              </div>
+            </a>
+          </li>
         </ul>
       </div>
       <div class="overlay"  @click="open =false"></div>
@@ -692,13 +745,15 @@
         </div>
         <div class="chat-attachment-tabs">
           <ul class="tabs-links">
-            <li>
-              <a class="link active" href="javascript:void(0)">Agreemnts</a>
+            <li @click="step=1">
+              <a :class="{'link':true,'active':step==1}">Agreemnts</a>
             </li>
-            <li><a class="link" href="javascript:void(0)">Files</a></li>
-            <li><a class="link" href="javascript:void(0)">Rules</a></li>
+            <li @click="step=2"><a :class="{'link':true,'active':step==2}">Files</a></li>
+            <li @click="step=3"><a :class="{'link':true,'active':step==3}">Rules</a></li>
           </ul>
-          <div class="agreemet-tab">
+          <div>
+            <!-- step -1 -->
+            <div class="agreemet-tab" v-if="step==1">
             <div class="dash-agreement">
               <div class="agreement-title">Agreement Details</div>
               <p class="agreement-details">
@@ -726,6 +781,68 @@
                 </button>
               </p>
             </div>
+          </div>
+            <!-- step -2 -->
+            <div class="agreemet-tab" v-if="step==2">
+            <div class="dash-agreement">
+              <div class="agreement-title">Note</div>
+              <p class="agreement-details">
+                Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr,
+                <button class="dash-btn read-agreement-btn">
+                  open file
+                </button>
+              </p>
+            </div>
+            <div class="dash-agreement">
+              <div class="agreement-title">Note</div>
+              <p class="agreement-details">
+                Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr,
+                <button class="dash-btn read-agreement-btn">
+                  open file
+                </button>
+              </p>
+            </div>
+            <div class="dash-agreement">
+              <div class="agreement-title">Note</div>
+              <p class="agreement-details">
+                Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr,
+                <button class="dash-btn read-agreement-btn">
+                  open file
+                </button>
+              </p>
+            </div>
+          </div>
+            <!-- step -3 -->
+            <div class="agreemet-tab" v-if="step==3">
+            <div class="dash-agreement">
+              <div class="agreement-title">Name Rules .....</div>
+              <p class="agreement-details">
+                Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr,
+                <button class="dash-btn read-agreement-btn">
+                  Read Rules
+                </button>
+              </p>
+            </div>
+            <div class="dash-agreement">
+              <div class="agreement-title">Name Rules .....</div>
+              <p class="agreement-details">
+                Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr,
+                <button class="dash-btn read-agreement-btn">
+                  Read Rules
+                </button>
+              </p>
+            </div>
+            <div class="dash-agreement">
+              <div class="agreement-title">Name Rules .....</div>
+              <p class="agreement-details">
+                Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr,
+                <button class="dash-btn read-agreement-btn">
+                  Read Rules
+                </button>
+              </p>
+            </div>
+            
+          </div>
           </div>
         </div>
         <div class="dash-hsitory-calls">
@@ -789,7 +906,8 @@ export default {
   data() {
     return {
       open:false,
-      open2:false
+      open2: false,
+      step:1
     }
   },
   mounted() {

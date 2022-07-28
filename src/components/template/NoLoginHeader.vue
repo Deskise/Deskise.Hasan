@@ -125,6 +125,7 @@ nav.noLogin {
   width: 100%;
   height:90px!important;
   max-height:90px!important;
+   z-index: 1111;
   @media (max-width: 1600px) {
     & {
       padding: 20px 4%;

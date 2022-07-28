@@ -61,7 +61,7 @@ export default {
       else if (window.matchMedia("(max-width: 1200px").matches)
         this.slides = 3;
       else if (window.matchMedia("(max-width: 1500px").matches) this.slides = 4;
-      else this.slides = 5;
+      else this.slides = 4;
     },
   },
 };

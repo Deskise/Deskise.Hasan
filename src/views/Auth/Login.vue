@@ -140,7 +140,7 @@ export default {
     margin-top: 0px;
   }
   .input-group input{
-      height: 50px;
+      height: 60px;
      @media (max-width: 1410px) {
         height: 50px;
     }
@@ -150,7 +150,7 @@ export default {
     } 
   }
   button{
-    height: 50px;
+    height: 60px;
     @media (max-width: 1410px) {
         height: 50px;
     }

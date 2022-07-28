@@ -12,9 +12,6 @@ export default {};
 .bg1{
   z-index: 5!important;
 }
-.bg2{
-  animation: mover 1.5s linear infinite alternate;
-}
 @keyframes mover {
   0%{
     transform: translateX(0px);
@@ -34,12 +31,11 @@ div {
   img {
     position: absolute;
     top: 31%;
-    right: 20vw;
-    height: 75%;
-    @media (max-width: 1500px) {
+    right: 10vw;
+    height: 65%;
+    @media (max-width: 1400px) {
       & {
         right: 16vw;
-         
       }
     }
     @media (max-width: 1200px) {
