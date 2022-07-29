@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{url('assets/css/style.css')}}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{url('assets/images/favicon.png')}}" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     @yield('css')
 </head>
