@@ -6,20 +6,28 @@
       <search @searchproducts="searchproducts"></search>
       <div class="row mt-5">
         <div class="filters pe-md-3 pe-lg-4 col-12 col-md-4 col-lg-3">
-          <single-select
+          <!-- <single-select
             placeholder="Subcategory"
+            @choose="fun"
             :data="subcategories"
-          ></single-select>
-          <single-select placeholder="Seller Location"></single-select>
-          <single-select placeholder="Time Left" class="mb-4"></single-select>
+          ></single-select> -->
+          <v-select id="MySelect1" placeholder="Subcategory" v-model="subcategorieSelected" :options="Object.values(this.subcategories)"></v-select>
+          <v-select id="MySelect2" placeholder="Seller Location"></v-select>
+          <v-select id="MySelect3" placeholder="Time Left"></v-select>
+
+
+
+
+
 
           <range-select
             name="Price Range"
             suffex="$"
-            :min="100"
+            :min="0"
             :max="2000"
-            :vstart="300"
-            :vend="1500"
+            :vstart="minPrice"
+            :vend="maxPrice"
+            @choose="fun"
           ></range-select>
           <range-select
             name="A Lifetime Of The Product"
@@ -92,10 +100,12 @@
 import { mixin as loadOnBottom } from "@/Mixins/loadOnBottom.js";
 import { mapGetters } from "vuex";
 import Product from "../../components/Products/Product.vue";
-
+import vSelect from "vue-select"
+import "vue-select/dist/vue-select.css";
 export default {
-  components: { Product },
+  components: { Product,vSelect },
   mounted() {
+    console.log(this.productByCategoryId);
     this.scroll("product.products", async () => {
       await this.$store
         .dispatch("product/list", {
@@ -118,8 +128,9 @@ export default {
   data() {
     return {
       textSearch: "",
-      // minPrice: 100,
-      // maxPrice: 2000,
+      subcategorieSelected:null,
+      minPrice: 0,
+      maxPrice: 2000,
       // minLifeTime:5,
       // maxLifeTime:7,
     };
@@ -128,6 +139,9 @@ export default {
     searchproducts(text) {
       this.textSearch = text;
     },
+    fun() {
+      console.log(this.minPrice)
+    }
   },
 
   computed: {
@@ -137,7 +151,8 @@ export default {
       let Searchproducts = [];
       for (let i = 0; i < Alldata.length; i++) {
         if (
-          Alldata[i].name.toLowerCase().includes(this.textSearch.toLowerCase())
+          Alldata[i].name.toLowerCase().includes(this.textSearch.toLowerCase()) &&
+          Number(Alldata[i].price) >= this.minPrice
         ) {
           Searchproducts.push(Alldata[i]);
         }
@@ -188,5 +203,13 @@ h4 {
 }
 .SingleProduct {
   height: 500px;
+}
+
+</style>
+<style>
+.vs--searchable .vs__dropdown-toggle{
+  height: 45px;
+  margin-bottom: 20px;
+  border-color:#ddd
 }
 </style>

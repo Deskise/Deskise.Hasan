@@ -40,10 +40,14 @@ import "./sass/style.scss";
 // My Custom Directives:
 import "./config/directives";
 
+// My select
+import vSelect from 'vue-select'
+
 Vue.use(i18n)
   .use(store)
   .use(VueLoaders)
   .use(router)
+  .use('v-select', vSelect)
   .use('Datepicker', Datepicker)
   .use(PerfectScrollbar)
   .use(createHead())
