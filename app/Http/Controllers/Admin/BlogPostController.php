@@ -10,7 +10,7 @@ use App\Models\Tag;
 
 use Illuminate\Http\Request;
 
-class AdminBlogPostController extends Controller
+class BlogPostController extends Controller
 {
 
     public function index()

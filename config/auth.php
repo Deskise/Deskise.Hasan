@@ -75,8 +75,6 @@ return [
             'model' => App\Models\Admin::class,
         ],
 
-        // change App\Models\User::class To App\Models\Admin::class From mohammed mukhaimer
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
