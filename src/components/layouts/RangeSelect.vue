@@ -50,6 +50,7 @@ export default {
         values[1];
       document.getElementById(`min-${this.uid}`).value = format.from(values[0]);
       document.getElementById(`max-${this.uid}`).value = format.from(values[1]);
+      this.$emit("filterRange",{title:this.name,min:format.from(values[0]),max:format.from(values[1])})
     });
   },
   props: {

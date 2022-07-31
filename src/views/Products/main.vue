@@ -8,17 +8,11 @@
         <div class="filters pe-md-3 pe-lg-4 col-12 col-md-4 col-lg-3">
           <!-- <single-select
             placeholder="Subcategory"
-            @choose="fun"
             :data="subcategories"
           ></single-select> -->
           <v-select id="MySelect1" placeholder="Subcategory" v-model="subcategorieSelected" :options="Object.values(this.subcategories)"></v-select>
           <v-select id="MySelect2" placeholder="Seller Location"></v-select>
           <v-select id="MySelect3" placeholder="Time Left"></v-select>
-
-
-
-
-
 
           <range-select
             name="Price Range"
@@ -27,34 +21,37 @@
             :max="2000"
             :vstart="minPrice"
             :vend="maxPrice"
-            @choose="fun"
+            @filterRange="filterRange"
           ></range-select>
           <range-select
             name="A Lifetime Of The Product"
             suffex="M"
             :min="5"
             :max="7"
-            :step="0.001"
-            :vstart="5.465"
-            :vend="6.789"
+            :step="1"
+            :vstart="minLifeTime"
+            :vend="maxLifeTime"
+            @filterRange="filterRange"
           ></range-select>
           <range-select
             name="Monthly Pageviews"
             suffex="M"
             :min="5"
             :max="7"
-            :step="0.001"
-            :vstart="5.465"
-            :vend="6.789"
+            :step="1"
+            :vstart="MinMonthlyPageviews"
+            :vend="MaxMonthlyPageviews"
+            @filterRange="filterRange"
           ></range-select>
           <range-select
             name="Monthly Profit"
             suffex="M"
             :min="5"
             :max="7"
-            :step="0.001"
-            :vstart="5.465"
-            :vend="6.789"
+            :step="1"
+            :vstart="MinMonthlyProfit"
+            :vend="MaxMonthlyProfit"
+            @filterRange="filterRange"
           ></range-select>
         </div>
         <div class="main col-12 col-md-8 col-lg-9">
@@ -105,7 +102,7 @@ import "vue-select/dist/vue-select.css";
 export default {
   components: { Product,vSelect },
   mounted() {
-    console.log(this.productByCategoryId);
+     console.log(this.productByCategoryId);
     this.scroll("product.products", async () => {
       await this.$store
         .dispatch("product/list", {
@@ -131,16 +128,36 @@ export default {
       subcategorieSelected:null,
       minPrice: 0,
       maxPrice: 2000,
-      // minLifeTime:5,
-      // maxLifeTime:7,
+      minLifeTime:5,
+      maxLifeTime:7,
+      MinMonthlyPageviews:5,
+      MaxMonthlyPageviews:7,
+      MinMonthlyProfit:5,
+      MaxMonthlyProfit:7,
     };
   },
   methods: {
     searchproducts(text) {
       this.textSearch = text;
     },
-    fun() {
-      console.log(this.minPrice)
+    filterRange(data) {
+      // console.log(data)
+      if (data.title == "Price Range") {
+        this.minPrice = data.min;
+        this.maxPrice=data.max
+      }
+      if (data.title == "A Lifetime Of The Product") {
+        this.minLifeTime = data.min;
+        this.maxLifeTime=data.max
+      }
+      if (data.title == "Monthly Pageviews") {
+        this.MinMonthlyPageviews = data.min;
+        this.MaxMonthlyPageviews=data.max
+      }
+      if (data.title == "Monthly Profit") {
+        this.MinMonthlyProfit = data.min;
+        this.MaxMonthlyProfit=data.max
+      }
     }
   },
 
@@ -152,7 +169,7 @@ export default {
       for (let i = 0; i < Alldata.length; i++) {
         if (
           Alldata[i].name.toLowerCase().includes(this.textSearch.toLowerCase()) &&
-          Number(Alldata[i].price) >= this.minPrice
+          Number(Alldata[i].price) >= this.minPrice && Number(Alldata[i].price) <= this.maxPrice
         ) {
           Searchproducts.push(Alldata[i]);
         }
