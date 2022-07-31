@@ -17,7 +17,8 @@
       <li
         v-for="(item, key) in NotNullData"
         :key="key"
-        :class="{ active: active === item[0] }"
+        :class="{ active: active === item[0] }" 
+        @click="closeSelect"
       >
         <a href="javascript:void(0)" @click.prevent="choose(item[0])">
           {{ item[0] + " " + item[1] }}
@@ -55,6 +56,9 @@ export default {
     },
   },
   methods: {
+    closeSelect() {
+      document.querySelector(".drop-down-title").click()
+    },
     toggle(e) {
       e.preventDefault();
       let th = e.target;

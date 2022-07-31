@@ -440,7 +440,7 @@ nav {
   width: 100%;
   height:90px!important;
   max-height:90px!important;
-  z-index: 1111; 
+  z-index: 111; 
   .logo {
     max-width: 100%;
     img {
