@@ -31,9 +31,10 @@
         <p v-if="isLifeTime == 'n'">
          <Datepicker
              placeholder="Expiration Date"
+             v-model="ExpirationDate"
             ></Datepicker> 
         </p>
-        <button class="btn btn-primary" @click="Go" :disabled="isLifeTime == ''">Next</button>
+        <button class="btn btn-primary" @click="Go" :disabled="isLifeTime == '' ||(isLifeTime == 'n' && ExpirationDate==null )">Next</button>
         <button class="btn back-btn" v-if="component === 'Second'" @click="back">
           Back
         </button>
@@ -47,6 +48,9 @@
  import '@vuepic/vue-datepicker/dist/main.css'
 import { mapGetters } from "vuex";
 export default {
+  // mounted() {
+  //   console.log(this.Gs);
+  // },
   components: {
     Datepicker
   },
@@ -55,11 +59,13 @@ export default {
       component: "First",
       category: 0,
       isLifeTime: "",
+      ExpirationDate:null
     };
   },
   computed: {
     ...mapGetters("category", ["categories"]),
     Gs() {
+      // return this.categories.map((g) => [g.id,JSON.parse(JSON.stringify(g))]);
       return this.categories.map((g) => [g.id, g.name]);
     },
   },

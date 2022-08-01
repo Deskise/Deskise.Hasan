@@ -206,7 +206,11 @@
   line-height: 28px;
   height: 290px;
 }
-
+.disabledBtn{
+  opacity: .4;
+  transition: all .5s linear;
+  cursor: not-allowed;
+}
 .dash-product-details .product-info .footer-details {
   color: #040506;
   font-size: 18px;

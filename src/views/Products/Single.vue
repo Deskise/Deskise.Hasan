@@ -150,9 +150,12 @@
                     <BuyOffcanvas :product="product" />
                     <div class="mt-3 btnComplete">
                       <button
+                        :class="{'disabledBtn':comletePayMent}"
                         type="button"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
+                        @click="comletePayMent = true"
+                        :disabled="comletePayMent"
                       >
                         Complete Payment
                       </button>
@@ -414,6 +417,7 @@ export default {
   data() {
     return {
       product: this.$store.state.product.products.data[this.id],
+      comletePayMent:false
     };
   },
   methods: {
