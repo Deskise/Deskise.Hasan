@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Details  : </h4>
-                    <form class="forms-sample" method="post" action="{{url('admin/terms')}}">
+                    <form class="forms-sample" method="post" action="{{route('admin.terms')}}">
                     @csrf
 
                         <div class="form-group">

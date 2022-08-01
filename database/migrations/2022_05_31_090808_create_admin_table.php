@@ -21,7 +21,7 @@ class CreateAdminTable extends Migration
             $table->string('img')->default('default.jpeg');
             $table->string('email')->unique();
             $table->string('password')->nullable();
-            $table->enum('role',['super','chat','verify','blog','product']);
+            $table->enum('role',['super','chat','verify','blog','product','content']);
             $table->softDeletes();
             $table->timestamps();
         });

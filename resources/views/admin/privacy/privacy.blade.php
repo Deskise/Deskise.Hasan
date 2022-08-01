@@ -1,4 +1,4 @@
-@extends('layout.dashborad')
+w@extends('layout.dashborad')
 @section('name','terms')
 @section('content')
 
@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Privacy Text  : </h4>
-                    <form class="forms-sample" method="post" action="{{url('admin/privacy')}}">
+                    <form class="forms-sample" method="post" action="{{route('admin.privacy')}}">
                         @csrf
 
                         <div class="form-group">

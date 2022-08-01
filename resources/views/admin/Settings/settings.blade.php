@@ -9,7 +9,7 @@
                 <div class="card-body">
 
                     <h4 class="card-title">Details : </h4>
-                    <form class="forms-sample" method="post" action="{{route('settings.store')}}">
+                    <form class="forms-sample" method="post" action="{{route('admin.settings.store')}}">
                         @csrf
 
                         <div class="form-group">

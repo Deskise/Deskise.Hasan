@@ -23,13 +23,12 @@ Route::get('{for}/images/{image}', function ($for, $image) {
     return Storage::disk($for)->download($image);
 })->name('images');
 
-Route::resource('/settings' , SettingsController::class);
-
 Route::group(['prefix' => 'admin'], function () {
     Auth::routes(['register' => false]);
 
     Route::group(['as' => 'admin.', 'middleware' => ['auth']], function () {
         Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::resource('/settings' , SettingsController::class)->middleware('AdminRole:super');
         Route::get('/setting', [DashboardController::class, 'setting'])->name('setting');
         Route::put('/edit_home/{id}', [DashboardController::class, 'editHome'])->name('edit_home');
 

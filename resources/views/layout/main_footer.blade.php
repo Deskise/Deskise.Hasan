@@ -17,7 +17,7 @@
 <!-- endinject -->
 <!-- Custom js for this page -->
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
-</script>
+
 @yield('js')
 
 

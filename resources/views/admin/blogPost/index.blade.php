@@ -1,7 +1,7 @@
 @extends('layout.dashborad')
 @section('name','Blog Post')
 @section('btn')
-    <a  class="btn btn-success btn-fw" style="margin: 10px" href="{{url('admin/blog_posts/create')}}">Add Plog</a>
+    <a  class="btn btn-success btn-fw" style="margin: 10px" href="{{route('admin.blog_posts.create')}}">Add Blog</a>
 @endsection
 @section('css')
 
@@ -37,12 +37,12 @@
                                 <td>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <a type="button" href='{{ route("blog_posts.edit",$blog->id) }}'
+                                            <a type="button" href='{{ route("admin.blog_posts.edit",$blog->id) }}'
                                                 class="btn btn-outline-behance btn-icon-text" title="تعديل">
                                                 Edit <i class="mdi mdi-file-check btn-icon-append"></i>
                                             </a></div>
                                         <div class="col-sm-6">
-                                            <form method="POST" action="{{ route('blog_posts.delete', $blog->id) }}">
+                                            <form method="POST" action="{{ route('admin.blog_posts.delete', $blog->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <button type="submit" class="btn btn-danger btn-flat show_confirm"
