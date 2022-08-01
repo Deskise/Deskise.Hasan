@@ -13,7 +13,6 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     /**
      * The attributes that are mass assignable.
@@ -123,18 +122,11 @@ class User extends Authenticatable
         return $this->hasMany(Transition::class);
     }
 
-    public function getChatsAttribute()
-    {
-        return  $this->chats()->paginate(20)->map(function (Chat $chat) {
-            return $chat->lastMsg();
-        });
-    }
-
     public function chats()
     {
         return Chat::where('member1',$this->id)
             ->orWhere('member2', $this->id)
-            ->with('user:id,firstname,lastname,img', 'product:id,name_'.Controller::$language.' as name,summary_'.Controller::$language.' as description,old_price,price');
+            ->with('product:id,name_'.Controller::$language.' as name,summary_'.Controller::$language.' as description,old_price,price');
     }
     public function blocks()
     {

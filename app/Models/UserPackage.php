@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserPackage extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $hidden = [
         'created_at',

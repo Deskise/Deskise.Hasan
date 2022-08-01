@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class BlogPost extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     public function __construct(array $attributes = [])
     {

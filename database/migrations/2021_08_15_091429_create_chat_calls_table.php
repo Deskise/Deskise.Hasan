@@ -18,6 +18,7 @@ class CreateChatCallsTable extends Migration
             $table->unsignedBigInteger('chat_id');
             $table->unsignedBigInteger('from');
             $table->enum('status', ['accepted','missed']);
+            $table->boolean('read')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

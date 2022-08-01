@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class SocialMediaProductLink extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $fillable = [
         'social_id',

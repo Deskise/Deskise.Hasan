@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class SocialMediaAccount extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $guarded = [];
 

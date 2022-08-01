@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProductDraft extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $hidden = [
         'created_at',

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserSettings extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $fillable = ['allowed_alarms','affiliate_links'];
 

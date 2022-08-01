@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProductAssets extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $casts = [
         'assets'    =>  'array'

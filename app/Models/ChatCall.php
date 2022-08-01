@@ -8,10 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class ChatCall extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
+    protected $fillable = [
+        'chat_id',
+        'from',
+        'status',
+        'read',
+        'updated_at'
+    ];
+    protected $casts = [
+        'read'  =>  'boolean'
+    ];
     protected $hidden = [
-        'created_at',
+//        'created_at',
         'updated_at',
         'deleted_at',
     ];

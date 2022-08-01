@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class PasswordReset extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
     const UPDATED_AT = null;
 
     protected $fillable = [

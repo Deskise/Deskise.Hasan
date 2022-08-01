@@ -9,10 +9,21 @@ class ChatMessage extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'chat_id',
+        'from',
+        'message',
+        'attachments',
+        'read',
+        'updated_at'
+    ];
     protected $hidden = [
-        'created_at',
         'updated_at',
         'deleted_at',
+    ];
+    protected $casts = [
+        'attachments'=>'json',
+        'read'  =>  'bool'
     ];
 
     public function chat()

@@ -8,5 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class VerifyType extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 }

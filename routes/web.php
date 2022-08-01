@@ -20,8 +20,16 @@ use App\Http\Controllers\Admin\DashboardController;
 
 
 Route::get('{for}/images/{image}', function ($for, $image) {
+    if (str_contains($for,'.'))
+    {
+        $e = explode('.',$for);
+        $for = $e[0];
+        $image = implode(DIRECTORY_SEPARATOR,array_slice($e,1)). DIRECTORY_SEPARATOR . $image;
+    }
     return Storage::disk($for)->download($image);
 })->name('images');
+
+Route::resource('/settings' , SettingsController::class);
 
 Route::group(['prefix' => 'admin'], function () {
     Auth::routes(['register' => false]);
@@ -36,11 +44,4 @@ Route::group(['prefix' => 'admin'], function () {
         require 'admin/blog.php';
         require 'admin/approve.php';
     });
-});
-
-
-// Try Broadcasting Events:
-Route::get('/send', function () {
-    broadcast(new \App\Events\NewNotification('hiiiiiiiiiii'));
-    return 'yes';
 });

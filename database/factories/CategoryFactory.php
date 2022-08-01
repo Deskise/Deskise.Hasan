@@ -34,12 +34,13 @@ class CategoryFactory extends Factory
                     'fields'=>  [
                         [
                             'placeholder'   =>  'Select Business Model',
-                            'type'  =>  'select',
+                            'type'  =>  'drop_list',
                             'data'  =>  [2=>'else',5=>'Ahmed', 10=>'Something'],
                         ],
                         [
                             'placeholder'   =>  'Add Url',
-                            'type'  =>  'url'
+                            'type'  =>  'url',
+                            'hint'  =>  'lorem ipsum'
                         ]
                     ]
                 ],
@@ -48,11 +49,19 @@ class CategoryFactory extends Factory
                     'fields'    =>  [
                         [
                             'placeholder'   =>  'Average monthly traffic',
-                            'type'  =>  'number'
+                            'type'  =>  'number',
+                            'data'  =>  [
+                                'min'   =>  0,
+                                'max'   =>  400
+                            ]
                         ],
                         [
                             'placeholder'   =>  'When did the business start',
-                            'type'  =>  'date'
+                            'type'  =>  'date',
+                            'data'  =>  [
+                                'start' =>  '',
+                                'end'   =>  ''
+                            ]
                         ],
                         [
                             'placeholder'   =>  'When did the business start making money ',
@@ -69,14 +78,24 @@ class CategoryFactory extends Factory
                         ],
                         [
                             'placeholder'   =>  'VERIFY GOOGLE ANALYTICS',
-                            'type'  =>  'google_analytics'
+                            'type'  =>  'table',
+                            'date'  =>  [
+                                'rows'  =>  [
+                                    'months', 'profit', 'visits'
+                                ],
+                                'cols'  =>  [
+                                    '1','2','3','4','5','6','7','8','9','10','11','12'
+                                ]
+                            ],
                         ],
                     ]
                 ],
                 [
                     'title' =>  'Business Assets Included',
                     'fields' => [
-                        ['type'  =>  'links']
+                        [
+                            'type'  =>  'links'
+                        ]
                     ]
                 ],
                 [

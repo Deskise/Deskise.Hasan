@@ -14,6 +14,11 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+if (PHP_SAPI !== 'cli'){
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS');
+    header('Access-Control-Allow-Headers: Accept, Authorization, Content-Type, X-Requested-With');
+}
 
 // API Data things:
 Route::group(['prefix' => 'data'], fn () => require 'parts/data.php');
@@ -40,6 +45,12 @@ Route::group([
     Route::post('/user/password/change', [Profile::class, 'changePassword']);
     Route::post('/user/account/close', [Profile::class, 'closeAccount']);
 });
+
+// Try Broadcasting Events:
+Route::get('/send', function () {
+    broadcast(new \App\Events\NewNotification('hiiiiiiiiiii'));
+    return APIHelper::jsonRender('yes', []);
+})->middleware('auth:api');
 
 // Status Fallback:
 Route::fallback(function(){

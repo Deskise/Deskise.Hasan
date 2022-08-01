@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class AboutUs extends Model
 {
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
     use HasFactory;
 
     protected $guarded = [];

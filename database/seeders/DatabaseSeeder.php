@@ -6,6 +6,10 @@ use App\Models\AboutUs;
 use App\Models\Admin;
 use App\Models\BlogPost;
 use App\Models\Category;
+use App\Models\Chat;
+use App\Models\ChatAgreement;
+use App\Models\ChatCall;
+use App\Models\ChatMessage;
 use App\Models\ClientComment;
 use App\Models\FAQ;
 use App\Models\HomeText;
@@ -46,6 +50,11 @@ class DatabaseSeeder extends Seeder
         Product::factory(50)->create();
         ProductData::factory(50)->create();
         ProductView::factory(10000)->create();
+
+        Chat::factory(10)->create();
+        ChatMessage::factory(50)->create();
+        ChatCall::factory(20)->create();
+        ChatAgreement::factory(10)->create();
 
         Admin::factory(1)->create();
 

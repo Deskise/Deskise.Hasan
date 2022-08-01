@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Verification extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $fillable = [
         'user_id',

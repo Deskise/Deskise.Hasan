@@ -8,13 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class ChatAgreement extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+
+    protected $fillable = [
+        'chat_id',
+        'from',
+        'details',
+        'notes',
+        'file_types',
+        'status',
+        'read',
+        'updated_at'
+    ];
 
     protected $casts = [
-        'file_types'    =>  'array'
+        'file_types'    =>  'array',
+        'read'  =>  'boolean'
     ];
     protected $hidden = [
-        'created_at',
+//        'created_at',
         'updated_at',
         'deleted_at',
     ];

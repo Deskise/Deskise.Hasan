@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ContactMessage extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $guarded = [];
 

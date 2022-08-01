@@ -7,25 +7,23 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewNotification implements ShouldBroadcast
+class ReadEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $notification;
-//    private $user;
-    /**s
+    public $message_data;
+    public $chat_id;
+    /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($notification, $user=null)
+    public function __construct($chat_id, $message_data)
     {
-        $this->notification = $notification;
-//        $this->user = (!is_null($user))?$user:(request()->user()??request()->user('api'));
+        $this->chat_id = $chat_id;
+        $this->message_data = $message_data;
     }
 
     /**
@@ -35,6 +33,6 @@ class NewNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('user.public.1');
+        return new PresenceChannel('chats.'.$this->chat_id);
     }
 }

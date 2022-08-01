@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Transition extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $hidden = [
         'created_at',
