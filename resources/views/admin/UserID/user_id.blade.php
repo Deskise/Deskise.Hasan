@@ -29,6 +29,7 @@
                             <img src="{{$user->img}}" alt="">
                             {{  $user->firstname .' ' .$user->lastname }}
                         </td>
+
                         <td onclick="show_popup({{ json_encode(
                             collect($user->assets->assets)->map(
                                 function ($el) {
@@ -182,6 +183,7 @@
         prev.style.display = "initial";
         if (image === images.length-1)
             next.style.display = "none";
+
     }
     function prev_img() {
         modalImg.src = images[--image];

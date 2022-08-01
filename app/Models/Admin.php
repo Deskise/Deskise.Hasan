@@ -23,6 +23,10 @@ class Admin extends Authenticatable
         'email',
         'password',
         'img',
-
+        'role'
     ];
+
+    public function hasRole(...$role) {
+        return in_array($this->role, $role);
+    }
 }

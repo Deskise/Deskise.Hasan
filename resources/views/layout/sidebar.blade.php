@@ -68,6 +68,7 @@
         </li>
 
 
+        @if (request()->user()->role === 'super')
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('settings.create')}}">
               <span class="menu-icon">
@@ -76,6 +77,7 @@
                 <span class="menu-title">Settings</span>
             </a>
         </li>
+        @endif
 
     </ul>
 </nav>

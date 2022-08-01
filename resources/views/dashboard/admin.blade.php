@@ -121,8 +121,6 @@
                                     <th> Product Name </th>
                                     <th> Buys Count </th>
 
-
-
                                 </tr>
                                 </thead>
                                 <tbody>

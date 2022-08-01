@@ -13,7 +13,7 @@ class CreateAdminTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('firstname',20);
             $table->string('lastname',20);
@@ -21,6 +21,7 @@ class CreateAdminTable extends Migration
             $table->string('img')->default('default.jpeg');
             $table->string('email')->unique();
             $table->string('password')->nullable();
+            $table->enum('role',['super','chat','verify','blog','product']);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'api_version' => \App\Http\Middleware\APIVersion::class,
         'checkLanguage' => \App\Http\Middleware\checkLanguage::class,
         'HaveType' => \App\Http\Middleware\HaveType::class,
+        'AdminRole' => \App\Http\Middleware\AdminRoles::class
     ];
 }
