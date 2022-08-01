@@ -40,7 +40,10 @@ class ProductFactory extends Factory
         $data['verified'] = $this->faker->boolean;
         $data['status'] = $this->faker->randomElement(['sold','available','canceled','under_verify']);
         $data['is_lifetime'] = $this->faker->boolean;
-        $data['until'] = ($data['is_lifetime'])?$this->faker->date:null;
+        $data['until'] = (!$data['is_lifetime'])?$this->faker->dateTimeThisYear('+12 months'):null;
+        $data['old_price'] = $data['price'] + $this->faker->randomFloat('2','10','1000');
+        $data['created_at'] = $this->faker->dateTimeBetween('-12 months');
+        $data['updated_at'] = $this->faker->dateTimeBetween('-2 month');
 
         return $data;
     }

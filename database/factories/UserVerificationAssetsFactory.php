@@ -25,7 +25,7 @@ class UserVerificationAssetsFactory extends Factory
     {
         return [
             'user_id' => User::whereNotIn('id',UserVerificationAssets::all()->pluck('user_id'))->get()[self::$next++]->id,
-            'assets' => ['default.jpeg','default.jpeg','default.jpeg'],
+            'assets' => ['default.png','default.png','default.png'],
             'rejectMessage' => null
         ];
     }

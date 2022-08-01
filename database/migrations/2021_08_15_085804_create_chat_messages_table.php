@@ -18,7 +18,7 @@ class CreateChatMessagesTable extends Migration
             $table->unsignedBigInteger('chat_id');
             $table->unsignedBigInteger('from');
             $table->string('message',3500);
-            $table->json('attachments');
+            $table->json('attachments')->default('[]');
             $table->timestamps();
             $table->softDeletes();
 

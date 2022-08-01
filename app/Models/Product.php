@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $guarded = [];
 
@@ -17,6 +16,7 @@ class Product extends Model
         'special'   =>  'boolean',
         'verified'   =>  'boolean',
         'is_lifetime'=>  'boolean',
+        'until'=>  'date',
     ];
 
     protected $hidden = [

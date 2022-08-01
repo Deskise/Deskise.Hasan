@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\APIHelper;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -122,9 +123,18 @@ class User extends Authenticatable
         return $this->hasMany(Transition::class);
     }
 
+    public function getChatsAttribute()
+    {
+        return  $this->chats()->paginate(20)->map(function (Chat $chat) {
+            return $chat->lastMsg();
+        });
+    }
+
     public function chats()
     {
-        return $this->hasMany(Chat::class,['member1','member2']);
+        return Chat::where('member1',$this->id)
+            ->orWhere('member2', $this->id)
+            ->with('user:id,firstname,lastname,img', 'product:id,name_'.Controller::$language.' as name,summary_'.Controller::$language.' as description,old_price,price');
     }
     public function blocks()
     {

@@ -66,6 +66,11 @@ return [
             'root' => storage_path('app/public/users/assets')
         ],
 
+        'chats' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/chats')
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

@@ -18,8 +18,8 @@ class CreateChatsTable extends Migration
             $table->unsignedBigInteger('member1');
             $table->unsignedBigInteger('member2');
             $table->unsignedBigInteger('product_id');
-            $table->boolean('blocked');
-            $table->unsignedBigInteger('blocker_id');
+            $table->boolean('blocked')->default(0);
+            $table->unsignedBigInteger('blocker_id')->nullable();
             $table->timestamps();
 
             $table->foreign('member1')->references('id')->on((new \App\Models\User())->getTable())->cascadeOnDelete()->cascadeOnUpdate();

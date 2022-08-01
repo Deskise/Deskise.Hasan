@@ -22,12 +22,13 @@ class CreateProductsTable extends Migration
             $table->string('name_ar',30);
             $table->longText('description_ar');
             $table->string('summary_ar',350);
+            $table->float('old_price');
             $table->float('price');
             $table->string('img',30);
             $table->unsignedBigInteger('category_id');
             $table->boolean('special')->default(false);
             $table->boolean('verified')->default(false);
-            $table->enum('status',['sold','available','canceled','under_verify'])->default('under_verify');
+            $table->enum('status',['sold','available','canceled','under_verify','expired'])->default('under_verify');
             $table->boolean('is_lifetime')->default(false);
             $table->date('until')->nullable();
             $table->timestamps();

@@ -17,7 +17,7 @@ class CreateChatLogsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('chat_id');
             $table->string('action');
-            $table->longText('notes');
+            $table->json('data');
             $table->timestamps();
 
             $table->foreign('chat_id')->references('id')->on((new \App\Models\Chat())->getTable())->cascadeOnDelete()->cascadeOnUpdate();
