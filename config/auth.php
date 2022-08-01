@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
         ],
 
         'api' => [
@@ -68,10 +68,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
-
-        // change App\Models\User::class To App\Models\Admin::class From mohammed mukhaimer
 
         // 'users' => [
         //     'driver' => 'database',
