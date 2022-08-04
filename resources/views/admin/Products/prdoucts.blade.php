@@ -48,11 +48,11 @@
 
 
 {{--                                </div>--}}
-                                <div class="col-sm-6">
-                                    <a type="button" href='{{ url("admin/get_products/reject/".$txt->id) }}'
-                                       class="btn btn-outline-warning btn-md" title="cancel">
-                                        cancel <i class="mdi mdi-file-check btn-icon-append"></i>
-                                    </a></div>
+                            <div class="col-sm-6">
+                                <a type="button" href='{{ route("admin.get_products.reject",$txt->id) }}'
+                                   class="btn btn-outline-warning btn-md" title="cancel">
+                                    cancel <i class="mdi mdi-file-check btn-icon-append"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>

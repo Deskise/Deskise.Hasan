@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Edit : {{$blogPost->title_en}}</h4>
                     <p class="card-description"> The Blog Content </p>
-                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('blog_posts.update',$blogPost->id)}}">
+                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('blog_posts.update',['id'=>$blogPost->id])}}">
                         @csrf
                         @method("put")
                         <div class="form-group">

@@ -91,6 +91,8 @@
                 </div>
             </div>
         </div>
+
+        @if (request()->user()->role === 'super')
         <div class="row">
 
             <div class="col-lg-12 grid-margin stretch-card">
@@ -103,6 +105,8 @@
             </div>
 
         </div>
+        @endif
+
         <div class="row">
 
             @foreach($categories as $cat)
