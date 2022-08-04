@@ -16,6 +16,8 @@
     use App\Models\ProductRequest;
     use App\Models\Subcategory;
     use App\Models\User;
+    use Carbon\Carbon;
+    use Carbon\CarbonPeriod;
     use Faker\Generator;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
@@ -83,9 +85,10 @@
 
             $query = $this->filter(
                 Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as details','price',
-                    'special','verified', 'img','status')
+                    'special','verified', 'img','status','is_lifetime','until','created_at','user_id')
                     ->where('status','!=','under_verify')
                     ->where('status','!=','canceled')
+                    ->orderBy('id','desc')
             );
 
             if (is_a($query, JsonResponse::class))
@@ -94,7 +97,13 @@
             if ($category)
                 $query->where('category_id', $category);
 
-            return APIHelper::jsonRender('', $query->paginate(12));
+            return APIHelper::jsonRender('', $query->paginate(12)->map(function (Product $q) {
+                $q->subcategory = $q->data->subcategory->{'name_'.self::$language};
+                $q->views = round($q->views()->count() / CarbonPeriod::create($q->created_at, '1 month', Carbon::now())->count(),2);
+                $q->seller_location = $q->user->location;
+                unset($q->data, $q->user);
+                return $q;
+            }));
         }
 
         public function single($id, $prod=false)
@@ -108,6 +117,7 @@
                 ->with('assets')
                 ->find($id);
 
+            $product->views()->create(['visitor_id'=>request()?->user('api')->id]);
             if ($product===Null)
                 return APIHelper::jsonRender('Requested Product Not Found', [], 404);
 

@@ -12,6 +12,7 @@ use App\Models\HomeText;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\ProductData;
+use App\Models\ProductView;
 use App\Models\SocialMediaAccount;
 use App\Models\SocialMediaLink;
 use App\Models\Subcategory;
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
 
         Product::factory(50)->create();
         ProductData::factory(50)->create();
+        ProductView::factory(10000)->create();
 
         Admin::factory(1)->create();
 

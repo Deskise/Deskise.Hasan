@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ProductView extends Model
 {
     use HasFactory;
-    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+
+    protected $fillable = ['product_id', 'visitor_id'];
 
     protected $hidden = [
         'created_at',
