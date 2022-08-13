@@ -11,7 +11,7 @@ class AboutUsController extends Controller
 {
     public function about_us(){
         $about_us = AboutUs::query()->first();
-        return view('admin.AboutUs.about_us',compact('about_us'));
+        return response()->view('admin.AboutUs.about_us',compact('about_us'));
     }
 
     public function about_us_update(){
@@ -22,7 +22,7 @@ class AboutUsController extends Controller
 
     public function term_of_use(){
         $terms = TermsOfUse::query()->where('term','terms')->first();
-        return view('admin.terms.terms',compact('terms'));
+        return response()->view('admin.terms.terms',compact('terms'));
     }
 
     public function term_of_use_update(){
@@ -34,7 +34,7 @@ class AboutUsController extends Controller
 
     public function privacy_policy(){
         $privacy = TermsOfUse::query()->where('term','privacy')->first();
-        return view('admin.privacy.privacy',compact('privacy'));
+        return response()->view('admin.privacy.privacy',compact('privacy'));
     }
 
     public function privacy_policy_update(){

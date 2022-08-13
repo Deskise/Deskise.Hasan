@@ -1,5 +1,5 @@
 @extends('layout.dashborad')
-@section('name','Edit Blog Post')
+@section('name','Edit Admin')
 @section('content')
 
     <div class="row">
@@ -8,15 +8,13 @@
                 <div class="card-body">
                     <h4 class="card-title">Edit : {{$blogPost->title_en}}</h4>
                     <p class="card-description"> The Blog Content </p>
-                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('blog_posts.update',['id'=>$blogPost->id])}}">
+                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('admin.blog_posts.update',['id'=>$blogPost->id])}}">
                         @csrf
                         @method("put")
                         <div class="form-group">
                             <label for="exampleInputUsername1">Title</label>
                             <input type="text" name="title_en" value="{{old('title_en') ?? $blogPost->title_en }}" class="form-control" id="exampleInputUsername1" placeholder="title">
                         </div>
-
-
                         <div class="form-group">
                             <label for="Category">Category</label>
                             <select name="category_id" value="{{old('title_en') ?? $blogPost->title_en }}" class="form-control" id="Category" placeholder="Category">
@@ -24,33 +22,28 @@
                                 <option value="{{$category->id}}" {{  $category->id == $blogPost->category_id ? 'selected' : '' }}>{{$category->name_en}}</option>
                             @endforeach
                             </select>
-
                         </div>
                         <div class="form-group">
                             <label for="exampleInputUsername1">Body Of Details</label>
                             <textarea class="form-control" name="details_en" rows="10" style="height: 200px"> {!! $blogPost->details_en !!}</textarea>
                         </div>
                         <div class="form-group col-md-6">
-                        <img src="{{$blogPost->img}}" height="300">
+                            <img src="{{$blogPost->img}}" height="300">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleInputUsername1">To Edit Image</label>
-                            <input type="file" name="img" class="form-control file-upload-info"
-                                   placeholder="Upload Image">
+                            <input type="file" name="img" class="form-control file-upload-info" placeholder="Upload Image">
                         </div>
-
                         <div class="form-group col-md-6">
                             <label for="exampleInputUsername1">Tags Of Article </label>
-                             <input type="text" name="tags" id="tag-input1" class="form-control " >
+                            <input type="text" name="tags" id="tag-input1" class="form-control " >
                         </div>
-                        <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <button class="btn btn-dark">Cancel</button>
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                            <button class="btn btn-dark">Cancel</button>
                     </form>
                 </div>
             </div>
         </div>
-
-
 
     </div>
 

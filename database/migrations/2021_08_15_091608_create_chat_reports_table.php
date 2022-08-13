@@ -18,7 +18,7 @@ class CreateChatReportsTable extends Migration
             $table->unsignedBigInteger('chat_id');
             $table->unsignedBigInteger('from');
             $table->string('message');
-            $table->enum('status', ['accepted','checking','rejected']);
+            $table->enum('status', ['accepted','checking','rejected','waiting']);
             $table->timestamps();
             $table->softDeletes();
 

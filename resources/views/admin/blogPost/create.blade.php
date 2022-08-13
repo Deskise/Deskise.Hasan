@@ -1,5 +1,5 @@
 @extends('layout.dashborad')
-@section('name','Add Blog Post')
+@section('name','Add New Blog')
 @section('content')
 
     <div class="row">
@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Add Article</h4>
                     <p class="card-description"> The Blog Content </p>
-                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('blog_posts.store')}}">
+                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('admin.blog_posts.store')}}">
                         @csrf
 
                         <div class="form-group">
@@ -34,7 +34,7 @@
                         <div class="form-group col-md-6">
                             <label for="exampleInputUsername1">Add Image</label>
                             <input type="file" name="img" class="form-control file-upload-info"
-                                   placeholder="Upload Image">
+                            placeholder="Upload Image">
                         </div>
 
                         <div class="form-group col-md-6">
@@ -47,12 +47,7 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
-
-
 
     <style>
         .tags-input-wrapper{

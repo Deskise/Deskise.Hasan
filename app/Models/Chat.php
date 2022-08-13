@@ -68,6 +68,10 @@ class Chat extends Model
     {
         return $this->messages()->select('id','chat_id','attachments','created_at')->whereNotNull('attachments')->orderBy('created_at','desc');
     }
+    public function users()
+    {
+        return [$this->member1, $this->member2];
+    }
     public function messages()
     {
         return $this->hasMany(ChatMessage::class);

@@ -19,7 +19,6 @@
     </div>
 </div>
 
-
 <style>
     .form-control{
         color: #fff !important;

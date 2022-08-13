@@ -11,7 +11,7 @@ class ApproveController extends Controller
 {
     public function getProducts(){
         $products = Product::query()->where('status', '=','under_verify')->orderByDesc('created_at')->get();
-        return view('admin.Products.prdoucts',compact('products'));
+        return response()->view('admin.Products.prdoucts',compact('products'));
     }
 
     public function verify($id){

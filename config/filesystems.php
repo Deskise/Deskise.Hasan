@@ -47,6 +47,11 @@ return [
             'root' => storage_path('app/public/users')
         ],
 
+        'admin' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/admin')
+        ],
+
         'blog_post' => [
             'driver' => 'local',
             'root' => storage_path('app/public/blog_post')

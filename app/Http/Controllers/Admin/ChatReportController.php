@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Setting;
+use App\Models\ChatLog;
+use App\Models\ChatReport;
 use Illuminate\Http\Request;
 
-class SettingsController extends Controller
+class ChatReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,9 @@ class SettingsController extends Controller
      */
     public function index()
     {
-
+        //
+        $chatReports = ChatReport::paginate(15);
+        return response()->view('admin.reports.index',compact('chatReports'));
     }
 
     /**
@@ -25,9 +28,7 @@ class SettingsController extends Controller
      */
     public function create()
     {
-
-           $settings= Setting::all();
-            return response()->view('admin.Settings.settings' , ['settings' =>$settings]);
+        //
     }
 
     /**
@@ -39,22 +40,6 @@ class SettingsController extends Controller
     public function store(Request $request)
     {
         //
-        foreach ($request->all() as $key => $value){
-            switch ($key) {
-                case 'payment_request':
-                    Setting::updateOrCreate(['key' => 'payment_request'],
-                       [ 'value' => $value]
-                    );
-                    break;
-                case 'closed_account':
-                    Setting::updateOrCreate(['key' => 'closed_account'],
-                        [ 'value' => $value]
-                    );
-                    break;
-            }
-        }
-
-        return redirect()->back();
     }
 
     /**
@@ -66,6 +51,10 @@ class SettingsController extends Controller
     public function show($id)
     {
         //
+        $singleReport = ChatReport::findOrFail($id);
+        $chatLog = ChatLog::where('chat_id','=',$singleReport->chat_id)->get();
+        return response()->view( 'admin.reports.singleReport',compact('singleReport','chatLog'));
+
     }
 
     /**

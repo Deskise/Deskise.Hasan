@@ -57,13 +57,13 @@ class DashboardController extends Controller
             $cat->top_products =  $db ;
         }
 
-        return view('dashboard.admin',compact('new_users',
+        return response()->view('dashboard.admin',compact('new_users',
             'users','chats','chat_agrees','ProductBuy' , 'values' ,'months','categories' ,'topUsers'));
     }
 
     public function setting(){
         $texts = HomeText::query()->get();
-        return view('admin.AboutUs.setting',compact('texts'));
+        return response()->view('admin.AboutUs.setting',compact('texts'));
     }
 
     public function editHome($id){

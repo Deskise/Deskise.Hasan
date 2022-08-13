@@ -43,5 +43,7 @@ Route::group(['prefix' => 'admin'], function () {
         require 'admin/aboutUs.php';
         require 'admin/blog.php';
         require 'admin/approve.php';
+        require 'admin/adminstration.php';
+        require 'admin/reports.php';
     });
 });

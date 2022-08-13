@@ -11,7 +11,7 @@ class ApproveUserIdController extends Controller
 {
     public function getUserIDs(){
         $users = User::whereHas('assets')->whereNull('id_verified_at')->get();
-        return view('admin.UserID.user_id',compact('users'));
+        return response()->view('admin.UserID.user_id',compact('users'));
     }
 
     public function verifyID(User $user){

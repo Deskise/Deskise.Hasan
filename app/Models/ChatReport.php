@@ -21,6 +21,7 @@ class ChatReport extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class ,'userId','from');
+        return $this->belongsTo(User::class ,'from','id');
     }
+
 }

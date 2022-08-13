@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 
 class Admin extends Authenticatable
@@ -23,10 +24,15 @@ class Admin extends Authenticatable
         'email',
         'password',
         'img',
-        'role'
+        'role',
+        'bio'
     ];
 
-    public function hasRole(...$role) {
+    public function hasRole($role) {
         return in_array($this->role, $role);
+    }
+
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = Hash::make($value);
     }
 }

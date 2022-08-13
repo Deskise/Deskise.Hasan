@@ -18,7 +18,7 @@ class CreateAdminTable extends Migration
             $table->string('firstname',20);
             $table->string('lastname',20);
             $table->string('bio',600)->nullable();
-            $table->string('img')->default('default.jpeg');
+            $table->string('img')->default('default.png');
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->enum('role',['super','chat','verify','blog','product','content']);

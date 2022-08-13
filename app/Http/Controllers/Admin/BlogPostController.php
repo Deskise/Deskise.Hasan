@@ -16,20 +16,18 @@ class BlogPostController extends Controller
     public function index()
     {
         $blogs = BlogPost::query()->paginate(10);
-        return view("admin.blogPost.index",compact('blogs'));
+        return response()->view("admin.blogPost.index",compact('blogs'));
     }
 
     public function create()
     {
 
         $categories = Category::query()->select('id','name_en')->get();
-        return view("admin.blogPost.create",compact('categories'));
+        return response()->view("admin.blogPost.create",compact('categories'));
     }
 
     public function store(Request $request)
     {
-
-
 
         $validated = $request->validate([
             'title_en'=>'required',
@@ -63,7 +61,7 @@ class BlogPostController extends Controller
 
         }
 
-        $itemDB =  BlogPost::create($requestData);;
+        $itemDB =  BlogPost::create($requestData);
 
         $itemDB =  $itemDB->fresh();
         if(count( $arr_ids) > 0 )
