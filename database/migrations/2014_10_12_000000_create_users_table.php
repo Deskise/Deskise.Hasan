@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('location')->nullable();
             $table->boolean('is_closed')->default(false);
+            $table->boolean('banned')->default(false);
             $table->boolean('is_hidden')->default(false);
             $table->string('uuid',30)->unique()->nullable();
             $table->softDeletes();

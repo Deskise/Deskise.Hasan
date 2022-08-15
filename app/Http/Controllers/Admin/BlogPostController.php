@@ -15,7 +15,7 @@ class BlogPostController extends Controller
 
     public function index()
     {
-        $blogs = BlogPost::query()->paginate(10);
+        $blogs = BlogPost::paginate(10);
         return response()->view("admin.blogPost.index",compact('blogs'));
     }
 

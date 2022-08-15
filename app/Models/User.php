@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         'img',
         'banner',
+        'banned',
         'location',
         'facebook_id',
         'google_id',

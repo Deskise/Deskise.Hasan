@@ -7,7 +7,7 @@
 
 @endsection
 @section('content')
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin">
         <div class="card" >
             <div class="card-body">
                 <div class="table-responsive">
@@ -58,9 +58,9 @@
                         </tbody>
                     </table>
                     <br>
-                    {{ $blogs->links() }}
                 </div>
             </div>
+                    <div class="align-self-center">{{ $blogs->links() }}</div>
         </div>
     </div>
 @endsection

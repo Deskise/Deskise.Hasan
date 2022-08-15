@@ -97,6 +97,15 @@
                 <span class="menu-title">Administration</span>
             </a>
         </li>
+
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{route('admin.users.index')}}">
+            <span class="menu-icon">
+                <i class="mdi mdi-account-outline"></i>
+            </span>
+                <span class="menu-title">Users</span>
+            </a>
+        </li>
         @endif
 
         @if(in_array($role,['super','chat']))
