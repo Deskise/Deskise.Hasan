@@ -60,7 +60,8 @@ class Chat extends Model
             $this->agreements()
                 ->select('id','from','details','status','read',\DB::raw("'agreement' as type"))
                 ->orderBy('created_at','desc')->first()
-        ])->sortBy('created_at')->last()?->toArray();
+        ])->sortBy('created_at')->last();
+        if ($this->lastMsg !== Null) $this->lastMsg = $this->lastMsg->toArray();
         return $this;
     }
 
