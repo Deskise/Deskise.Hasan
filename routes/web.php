@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\SettingsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,8 +40,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::put('/edit_home/{id}', [DashboardController::class, 'editHome'])->name('edit_home');
 
         require 'admin/aboutUs.php';
-        require 'admin/blog.php';
         require 'admin/approve.php';
+        require 'admin/blog.php';
         require 'admin/adminstration.php';
         require 'admin/reports.php';
         require 'admin/users.php';

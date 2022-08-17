@@ -1,52 +1,51 @@
 @extends('layout.dashborad')
-@section('name','Add New Blog')
+@section('name','Edit Blog')
 @section('content')
 
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Add Article</h4>
+                    <h4 class="card-title">Edit : {{$blog->title_en}}</h4>
                     <p class="card-description"> The Blog Content </p>
-                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('admin.blog_posts.store')}}">
+{{--                    {{route('admin.blog_posts.update',['id'=>$blog->id])}}--}}
+                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('admin.blogs.update',$blog->id)}}">
                         @csrf
-
+                        @method("put")
                         <div class="form-group">
                             <label for="exampleInputUsername1">Title</label>
-                            <input type="text" name="title_en" value="{{old('title_en') }}" class="form-control" id="exampleInputUsername1" placeholder="title">
+                            <input type="text" name="title_en" value="{{old('title_en') ?? $blog->title_en }}" class="form-control" id="exampleInputUsername1" placeholder="title">
                         </div>
-
-
                         <div class="form-group">
                             <label for="Category">Category</label>
-                            <select name="category_id" value="{{old('title_en')  }}" class="form-control" id="Category" placeholder="Category">
-                                @foreach($categories as $category)
-                                    <option value="{{$category->id}}" >{{$category->name_en}}</option>
-                                @endforeach
+                            <select name="category_id" value="{{old('title_en') ?? $blog->title_en }}" class="form-control" id="Category" placeholder="Category">
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}" {{$category->id === $blog->category_id ? 'selected' : '' }}>{{$category->name_en}}</option>
+                            @endforeach
                             </select>
-
                         </div>
                         <div class="form-group">
                             <label for="exampleInputUsername1">Body Of Details</label>
-                            <textarea class="form-control" name="details_en" rows="10" style="height: 200px"> </textarea>
+                            <textarea class="form-control" name="details_en" rows="10" style="height: 200px"> {!! $blog->details_en !!}</textarea>
                         </div>
-
                         <div class="form-group col-md-6">
-                            <label for="exampleInputUsername1">Add Image</label>
-                            <input type="file" name="img" class="form-control file-upload-info"
-                            placeholder="Upload Image">
+                            <img src="{{$blog->img}}" height="300">
                         </div>
-
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputUsername1">To Edit Image</label>
+                            <input type="file" name="img" class="form-control file-upload-info" placeholder="Upload Image">
+                        </div>
                         <div class="form-group col-md-6">
                             <label for="exampleInputUsername1">Tags Of Article </label>
-                            <input type="text" name="tags" id="tag-input1" class="form-control " >
+                            <input type="text" name="tags" id="tag-input1" class="form-control " value="{{$blog->tags}}]" >
                         </div>
-                        <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <button class="btn btn-dark">Cancel</button>
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                            <button class="btn btn-dark">Cancel</button>
                     </form>
                 </div>
             </div>
         </div>
+
     </div>
 
     <style>
@@ -256,7 +255,8 @@
             max : 10
         });
 
-        tagInput1.addData([])
+        var array_tags = @json($arr_tags); //JSON.parse('{{ json_encode($arr_tags) }}');
+        tagInput1.addData(array_tags)
 
     </script>
 

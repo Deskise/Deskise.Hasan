@@ -3,32 +3,40 @@ $msg = \Session::get("msg");
 $msgClass = 'alert-info';
 ?>
 @if($msg)
-<?php
+@php
+$status = [
+    's:' => 'success',
+    'w:' => 'warning',
+    'i:' => 'info',
+    'e:' => 'danger'
+];
 
-//اول حرفين من الرسالة وتحويلهم الى حروف صغيرة
-$first2Letters = strtolower(substr($msg,0,2));
-if($first2Letters == 's:'){
-    $msgClass = 'alert-success';
-    $msg = substr($msg,2);//قص اول حرفين
+foreach ($status as $key=>$value) {
+    if (str_starts_with(strtolower($msg),$key)) {
+        $msgClass = 'alert-'.$value;
+        $msg = substr($msg,2);
+        break;
+    }
 }
-else if($first2Letters == 'w:'){
-    $msgClass = 'alert-warning';
-    $msg = substr($msg,2);//قص اول حرفين
-}
-else if($first2Letters == 'i:'){
-    $msgClass = 'alert-info';
-    $msg = substr($msg,2);//قص اول حرفين
-}
-else if($first2Letters == 'e:'){
-    $msgClass = 'alert-danger';
-    $msg = substr($msg,2);//قص اول حرفين
-}
-?>
+@endphp
+
+<style>
+    .alert {
+        margin: auto auto;
+        position: fixed;
+        top: 9%;
+        left: 35%;
+        right: 30%;
+        z-index: 100000000;
+        text-align: center;
+        transition: top 1s ease-in-out;
+    }
+</style>
 <div class='alert {{$msgClass}} alert-dismissible'>
     {{$msg}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+{{--    <button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
+{{--        <span aria-hidden="true">&times;</span>--}}
+{{--    </button>--}}
 </div>
 @endif
 
@@ -39,8 +47,25 @@ else if($first2Letters == 'e:'){
         <li>{{ $error }}</li>
         @endforeach
     </ul>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+{{--    <button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
+{{--        <span aria-hidden="true">&times;</span>--}}
+{{--    </button>--}}
 </div>
 @endif
+
+
+
+<script>
+    let els = document.getElementsByClassName('alert')
+    console.log(els)
+    setTimeout(() => {
+        for(let i=0;i<els.length;i++)
+        {
+            console.log(els[i])
+            els[i].style.top = "-200px"
+            setTimeout(() => {
+                els[i].remove()
+            }, 4000)
+        }
+    }, 2700)
+</script>

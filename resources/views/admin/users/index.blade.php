@@ -21,7 +21,7 @@
                             <th> Location</th>
                             <th> Closed</th>
                             <th> Banned</th>
-                            <th> Hidden</th>
+{{--                            <th> Hidden</th>--}}
                             <th> Settings</th>
                         </tr>
                         </thead>
@@ -40,10 +40,18 @@
                                 <td>
                                     <div class="badge @if($singleUser->banned) badge-danger @else badge-primary @endif">@if($singleUser->banned) Yes @else No @endif</div>
                                 </td>
+{{--                                <td>--}}
+{{--                                    <div class="badge @if($singleUser->is_hidden) badge-success @else badge-primary @endif">@if($singleUser->is_hidden) Yes @else No @endif</div>--}}
+{{--                                </td>--}}
+                                @php
+                                    $title = $singleUser->banned? 'Activate':'Ban';
+                                @endphp
                                 <td>
-                                    <div class="badge @if($singleUser->is_hidden) badge-success @else badge-primary @endif">@if($singleUser->is_hidden) Yes @else No @endif</div>
+                                <div class="col-sm-3">
+                                    <a type="button" href='{{route('admin.users.show',$singleUser->id)}}' class="btn btn-outline-info btn-icon-text m-1" title="View"><i class="mdi mdi-eye"></i></a>
+                                    <a class="btn btn-outline-{{$singleUser->banned ? 'warning':'danger'}}" href="{{route('admin.users.update',$singleUser->id)}}" title="{{$title}} User">{{$title}} User</a>
+                                </div>
                                 </td>
-                                <td> <a class="btn btn-outline-danger " href="#" title="Ban User">Ban User</a> </td>
                             </tr>
                         @endforeach
                         </tbody>

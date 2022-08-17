@@ -29,7 +29,7 @@
         @if(in_array($role,['super','blog']))
 
         <li class="nav-item menu-items">
-            <a class="nav-link"  href="{{route('admin.blog_posts.index')}}">
+            <a class="nav-link"  href="{{route('admin.blogs.index')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-note-multiple"></i>
               </span>

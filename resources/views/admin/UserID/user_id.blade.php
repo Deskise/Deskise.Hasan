@@ -18,7 +18,7 @@
                         <tr style="boder:1px solid black;">
                             <th>User Name</th>
                             <th>Identity</th>
-                            <th class="text-center action-btn">Action</th>
+                            <th class="action-btn   ">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -54,18 +54,15 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <a type="button" href='{{ url("admin/get_user_IDs/verify_ID/".$user->id) }}'
-                                               class="btn btn-outline-success btn-md" title="verify">
-                                                verify <i class="mdi mdi-file-check btn-icon-append"></i>
-                                            </a>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <a type="button" href='{{ url("admin/get_user_IDs/reject_ID/".$user->id) }}'
-                                               class="btn btn-outline-warning btn-md" title="cancel">
-                                                cancel <i class="mdi mdi-file-check btn-icon-append"></i>
-                                            </a></div>
+                                    <div class="col-sm-4">
+                                        <a type="button" href='{{ url("admin/get_user_IDs/verify_ID/".$user->id) }}'
+                                           class="btn btn-outline-success btn-md m-1" title="verify">
+                                            verify <i class="mdi mdi-file-check btn-icon-append"></i>
+                                        </a>
+                                        <a type="button" href='{{ url("admin/get_user_IDs/reject_ID/".$user->id) }}'
+                                           class="btn btn-outline-warning btn-md m-1" title="cancel">
+                                            cancel <i class="mdi mdi-file-check btn-icon-append"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

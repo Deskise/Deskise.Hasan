@@ -34,7 +34,7 @@
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <a type="button" href='{{ route('admin.administration.edit',$adminUser->id) }}'
-                                                class="btn btn-outline-behance btn-icon-text" title="تعديل">
+                                                class="btn btn-outline-behance btn-icon-text" title="Edit">
                                                 Edit <i class="mdi mdi-file-check btn-icon-append"></i>
                                             </a></div>
                                         <div class="col-sm-3">
