@@ -5,6 +5,7 @@
 
 
     use App\Http\Controllers\Controller;
+    use App\Models\User;
     use Illuminate\Support\Facades\App;
     use Mcamara\LaravelLocalization\LaravelLocalization;
     use phpDocumentor\Reflection\Types\Parent_;
@@ -51,6 +52,20 @@
             }
 
             return $versions;
+        }
+
+        public static function notification(User $to, $title, $body, $data=[])
+        {
+            // $data must be an array of key=>value pairs
+            return \Http::withHeaders(['Authorization' => 'key='.env('FIREBASE_SERVER_KEY')])
+                ->post('https://fcm.googleapis.com/fcm/send',[
+                    "registration_ids" => [$to->FToken],
+                    "notification" => [
+                        "title" => $title,
+                        "body" => $body,
+                    ],
+                    'data'  =>  $data
+                ]);
         }
 
         public static function mustHaveHeader($header,$val, $next, \Closure $callback=Null)
