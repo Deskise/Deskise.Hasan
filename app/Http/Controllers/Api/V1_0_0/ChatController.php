@@ -29,8 +29,9 @@ class ChatController extends Controller
                 $chat->user = $chat->user()->select('id','firstname','lastname','img')->first();
                 return $chat->lastMsg();
             })
-            ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg->created_at))
-            ->values());
+            ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg['created_at']))
+            ->values()
+        );
     }
 
     public function getMessages(Chat $chat)
@@ -42,7 +43,7 @@ class ChatController extends Controller
 
         $data = $messages->merge($agreements)->merge($calls)->sortByDesc('created_at')->values()->each(function ($e) use ($chat) {
             $e->update(['read' => true]);
-            broadcast(new ReadEvent($chat->id, $e))->toOthers();
+//            broadcast(new ReadEvent($chat->id, $e))->toOthers();
         });
         return APIHelper::jsonRender('',['items'=>$data,'last_page'=>$messages->lastPage(),'total'=>$messages->total()]);
     }
@@ -65,7 +66,7 @@ class ChatController extends Controller
 
     public function sendMessage(Request $request, Chat $chat) {
         $request->validate([
-            'message'   =>  'nullable|required_unless:attachments,not null',
+            'message'   =>  'nullable|required_if:attachments,null',
             'attachments'=> 'array|nullable',
             'attachments.*' =>  'string|nullable'
         ]);

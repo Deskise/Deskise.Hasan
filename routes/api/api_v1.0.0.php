@@ -21,19 +21,19 @@ if (PHP_SAPI !== 'cli'){
 }
 
 // API Data things:
-Route::group(['prefix' => 'data'], fn () => require 'parts/data.php');
+Route::group(['prefix' => 'data'], fn () => require 'v1.0.0/data.php');
 
 // Blog Things:
-Route::group(['prefix' => 'blog'], fn () => require 'parts/blog.php');
+Route::group(['prefix' => 'blog'], fn () => require 'v1.0.0/blog.php');
 
 // Auth things:
-Route::group(['prefix' => 'auth'], fn () => require 'parts/auth.php');
+Route::group(['prefix' => 'auth'], fn () => require 'v1.0.0/auth.php');
 
 // Product things:
-Route::group(['prefix' => 'products'], fn () => require 'parts/products.php');
+Route::group(['prefix' => 'products'], fn () => require 'v1.0.0/products.php');
 
 // Chat:
-Route::group(['prefix' => 'chat', 'middleware' => 'auth:api'], fn () => require 'parts/chat.php');
+Route::group(['prefix' => 'chat', 'middleware' => 'auth:api'], fn () => require 'v1.0.0/chat.php');
 
 // Dashboard Things
 Route::group([

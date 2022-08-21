@@ -29,7 +29,7 @@ class CategoryFactory extends Factory
         $data['data']   =   [
             [
                 'title' => 'BASIC DETAILS',
-                [
+                'divs' => [
                     'title'=>   'Basic Details',
                     'fields'=>  [
                         [
@@ -127,7 +127,7 @@ class CategoryFactory extends Factory
             ],
             [
                 'title' => 'Price',
-                [
+                'divs' => [
                     'title' =>  'Price',
                     'fields' => [
                         [
@@ -142,7 +142,7 @@ class CategoryFactory extends Factory
             ],
             [
                 'title' => 'Site Service',
-                [
+                'divs'=>[
                     'title' =>  'Price',
                     'fields' => [
                         [

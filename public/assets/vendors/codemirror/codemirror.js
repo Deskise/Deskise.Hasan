@@ -1647,7 +1647,7 @@
   }
 
   // Compute the character length of a line, taking into account
-  // collapsed ranges (see markText) that might hide parts, and join
+  // collapsed ranges (see markText) that might hide v1.0.0, and join
   // other lines onto it.
   function lineLength(line) {
     if (line.height == 0) { return 0 }
@@ -2818,7 +2818,7 @@
   }
 
   function coordsBidiPart(cm, lineObj, lineNo, preparedMeasure, order, x, y) {
-    // Bidi parts are sorted left-to-right, and in a non-line-wrapping
+    // Bidi v1.0.0 are sorted left-to-right, and in a non-line-wrapping
     // situation, we can take this ordering to correspond to the visual
     // ordering. This finds the first part whose end is after the given
     // coordinates.
@@ -6890,7 +6890,7 @@
         var moveInStorageOrder = (dir < 0) == (part.level == 1);
         var sticky = moveInStorageOrder ? "after" : "before";
         var ch;
-        // With a wrapped rtl chunk (possibly spanning multiple bidi parts),
+        // With a wrapped rtl chunk (possibly spanning multiple bidi v1.0.0),
         // it could be that the last bidi part is not on the last visual line,
         // since visual lines contain content order-consecutive chunks.
         // Thus, in rtl, we are looking for the first (content-order) character
@@ -6963,11 +6963,11 @@
       }
     };
 
-    // Case 3a: Look for other bidi parts on the same visual line
+    // Case 3a: Look for other bidi v1.0.0 on the same visual line
     var res = searchInVisualLine(partPos + dir, dir, wrappedLineExtent);
     if (res) { return res }
 
-    // Case 3b: Look for other bidi parts on the next visual line
+    // Case 3b: Look for other bidi v1.0.0 on the next visual line
     var nextCh = dir > 0 ? wrappedLineExtent.end : mv(wrappedLineExtent.begin, -1);
     if (nextCh != null && !(dir > 0 && nextCh == line.text.length)) {
       res = searchInVisualLine(dir > 0 ? 0 : bidi.length - 1, dir, getWrappedLineExtent(nextCh));
