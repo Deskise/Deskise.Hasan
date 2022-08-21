@@ -25,8 +25,8 @@ foreach ($status as $key=>$value) {
         margin: auto auto;
         position: fixed;
         top: 9%;
-        left: 35%;
-        right: 30%;
+        left: 40%;
+        right: 35%;
         z-index: 100000000;
         text-align: center;
         transition: top 1s ease-in-out;

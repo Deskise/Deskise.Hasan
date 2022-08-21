@@ -3,18 +3,9 @@
 @section('btn')
 @endsection
 @section('css')
+
 @endsection
 @section('content')
-
-{{--    <div class="row">--}}
-{{--        <div class="col-md-12 grid-margin stretch-card">--}}
-{{--            <div class="card">--}}
-{{--                <div class="card-body col-md-10 ">--}}
-{{--                    <h4 class="card-title">Show Single User Page</h4>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
 
 
 <div class="bg-white border rounded-5">
@@ -23,7 +14,7 @@
 
         <div class="row">
             <div class="col">
-                <nav aria-label="breadcrumb" class="bg-dark rounded-3 p-3 mb-4">
+                <nav aria-label="breadcrumb" class="bg-dark rounded-3 p-2 mb-3">
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item fs-5" aria-current="page">User Details</li>
                     </ol>
@@ -35,11 +26,9 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-{{--                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">--}}
                         <img src="{{$user->img}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                         <h5 class="my-3">{{$user->firstname}} {{$user->lastname}}</h5>
                         <div class="d-flex justify-content-center mb-2">
-{{--                            <button type="button" class="btn btn-primary">Follow</button>--}}
                             @php
                                 $title = $user->banned? 'Activate':'Ban';
                             @endphp
@@ -48,20 +37,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-4 mb-lg-0 bg-primary">
+
+                <div class="card mb-4 mb-lg-0">
                     <div class="card-body p-0">
-                        <ul class="list-group list-group-flush rounded-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="mdi mdi-facebook-box" style="color: #3b5998;"></i>
-                                <p class="mb-0">{{$user->facebook_id ?? 'Not Verified'}} </p>
+                        <ul class="list-group list-group-flush rounded-4" style="font-family: "Rubik", sans-serif;">
+                            <li class="list-group-item d-flex justify-content-between align-items-center  ps-3" style="background: rgba(27,30,38,0.93); color:#fff;">
+                                <i class="mdi mdi-facebook-box fs-3" style="color: #3460bd;"></i>
+                                <p class="mb-0" >{{$user->facebook_id ?? 'Not Verified'}} </p>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="mdi mdi-google" style="color: #e51c48;"></i>
-                                <p class="mb-0">{{$user->google_id ?? 'Not Verified'}}</p>
+                            <hr style="color:#ffffff;">
+                            <li class="list-group-item d-flex justify-content-between align-items-center ps-3" style="background: rgba(27,30,38,0.93); color:#fff;">
+                                <i class="mdi mdi-google fs-3" style="color: #ef1847;"></i>
+                                <p class="mb-0" >{{$user->google_id ?? 'Not Verified'}}</p>
                             </li>
                         </ul>
                     </div>
                 </div>
+
             </div>
 
             <div class="col-lg-8">
@@ -162,39 +154,6 @@
 </div>
 
 
-
-    <style>
-        .tags-input-wrapper{
-            background: transparent;
-            padding: 10px;
-            border-radius: 4px;
-            max-width: 400px;
-            border: 1px solid #ccc
-        }
-        .tags-input-wrapper input{
-            border: none;
-            background: transparent;
-            outline: none;
-            width: 140px;
-            margin-left: 8px;
-            color: #fff;
-        }
-        .tags-input-wrapper .tag{
-            display: inline-block;
-            background-color: #fa0e7e;
-            color: white;
-            border-radius: 40px;
-            padding: 0px 3px 0px 7px;
-            margin-right: 5px;
-            margin-bottom:5px;
-            box-shadow: 0 5px 15px -2px rgba(250 , 14 , 126 , .7)
-        }
-        .tags-input-wrapper .tag a {
-            margin: 0 7px 3px;
-            display: inline-block;
-            cursor: pointer;
-        }
-    </style>
 
 @endsection
 

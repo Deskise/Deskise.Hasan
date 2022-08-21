@@ -32,7 +32,7 @@ class BlogPostController extends Controller
         //
         $request->validate([
             'title_en'=>'required',
-            'img'=>'required|file|mimes:jpg,jpeg,png' ,
+            'img'=>'required|file|mimes:jpg,jpeg,png,webp' ,
             'details_en'=> 'required',
             'tags'  =>  'required|string',
             'category_id'  =>  'required|exists:categories,id'

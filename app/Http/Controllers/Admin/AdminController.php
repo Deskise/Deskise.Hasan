@@ -83,7 +83,6 @@ class AdminController extends Controller
         }
 
         if ($administration->save()){
-
             return redirect()->route('admin.administration.index');
         }
 

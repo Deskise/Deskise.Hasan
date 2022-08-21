@@ -6,91 +6,108 @@
 @endsection
 @section('content')
 
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body col-md-10 ">
-                    <h4 class="card-title">Chat Report</h4>
-                    <div class="row pt-5 ps-5">
-                        <div class="col-md-6">
-                            <div class="row form-group">
-                                <label class="col-sm-2 col-form-label">Chat ID:</label>
-                                <div class="col-sm-5 p-0 border-3"><input type="text" value="{{$singleReport->chat_id}}" class="form-control"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row form-group">
-                                <label class="col-sm-2 col-form-label">From:</label>
-                                <div class="col-sm-5 p-0 border-3"><input type="text" value="{{$singleReport->user->email}}" class="form-control"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row ps-5">
-                        <div class="col-md-6">
-                            <div class="row form-group">
-                                <label class="col-sm-2 col-form-label">Status:</label>
-                                <div class="col-sm-5 p-0 border-3"><input type="text" value="{{$singleReport->status}}" class="form-control"></div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="row form-group">
-                                <label class="col-sm-2 col-form-label">Action:</label>
-                                <div class="col-sm-5 p-0"><input type="text" value="" class="form-control"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row ps-5 col-md-10">
-                        <div class="form-group">
-                            <label for="exampleTextarea1">Full Message: </label>
-                            <textarea class="form-control" id="exampleTextarea1" rows="10" style="height: 200px"></textarea>
-                        </div>
-                    </div>
-                    <div class="row ps-5 col-md-10">
-                        <div class="form-group">
-                            <label for="exampleTextarea1">Data: </label>
-                            <textarea class="form-control" id="exampleTextarea1" rows="10" style="height: 200px"></textarea>
-                        </div>
-                    </div>
-                </div>
+    <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+        <!--begin::Card header-->
+        <div class="card-header cursor-pointer">
+            <!--begin::Card title-->
+            <div class="card-title m-2 p-1">
+                <h3 class="fw-bold">Profile Report</h3>
             </div>
+
         </div>
-
-
+        <!--begin::Card header-->
+        <!--begin::Card body-->
+        <div class="card-body p-9">
+            <!--begin::Row-->
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-semibold text-muted">Chat ID:</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bold fs-6 text-gray-800">{{$singleReport->chat_id}}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Row-->
+            <!--begin::Input group-->
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-semibold text-muted">From:</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8 fv-row">
+                    <span class="fw-semibold text-gray-800 fs-6">{{$singleReport->user->email}}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-semibold text-muted">Status:</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8 d-flex align-items-center">
+                    <span class="fw-bold fs-6 text-gray-800 me-2">{{$singleReport->status}}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-semibold text-muted">Action:</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span  class="fw-semibold fs-6 text-gray-800 ">Send Message</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-semibold text-muted">Full Message:
+                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" aria-label="Country of origination" data-kt-initialized="1"></i></label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bold fs-6 text-gray-800">Germany</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-semibold text-muted">Data: </label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bold fs-6 text-gray-800">Email, Phone</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="row mb-10">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-semibold text-muted">Allow Changes</label>
+                <!--begin::Label-->
+                <!--begin::Label-->
+                <div class="col-lg-8">
+                    <span class="fw-semibold fs-6 text-gray-800">Yes</span>
+                </div>
+                <!--begin::Label-->
+            </div>
+            <!--end::Input group-->
+        </div>
+        <!--end::Card body-->
     </div>
 
-    <style>
-        .tags-input-wrapper{
-            background: transparent;
-            padding: 10px;
-            border-radius: 4px;
-            max-width: 400px;
-            border: 1px solid #ccc
-        }
-        .tags-input-wrapper input{
-            border: none;
-            background: transparent;
-            outline: none;
-            width: 140px;
-            margin-left: 8px;
-            color: #fff;
-        }
-        .tags-input-wrapper .tag{
-            display: inline-block;
-            background-color: #fa0e7e;
-            color: white;
-            border-radius: 40px;
-            padding: 0px 3px 0px 7px;
-            margin-right: 5px;
-            margin-bottom:5px;
-            box-shadow: 0 5px 15px -2px rgba(250 , 14 , 126 , .7)
-        }
-        .tags-input-wrapper .tag a {
-            margin: 0 7px 3px;
-            display: inline-block;
-            cursor: pointer;
-        }
-    </style>
 
 @endsection
 
