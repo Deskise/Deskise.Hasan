@@ -14,10 +14,6 @@ use App\Http\Controllers\Admin\DashboardController;
 |
 */
 
-
-
-
-
 Route::get('{for}/images/{image}', function ($for, $image) {
     if (str_contains($for,'.'))
     {
@@ -45,5 +41,6 @@ Route::group(['prefix' => 'admin'], function () {
         require 'admin/adminstration.php';
         require 'admin/reports.php';
         require 'admin/users.php';
+        require 'admin/products.php';
     });
 });

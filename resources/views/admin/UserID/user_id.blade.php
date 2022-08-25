@@ -1,5 +1,5 @@
 @extends('layout.dashborad')
-@section('name','Products')
+@section('name','products')
 @section('css')
     .table-hover > tbody > tr:hover > *{
     --bs-table-hover-bg: white;

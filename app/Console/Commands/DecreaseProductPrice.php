@@ -40,7 +40,7 @@ class DecreaseProductPrice extends Command
      */
     public function handle()
     {
-        // Mark expired Products:
+        // Mark expired products:
         foreach (
             Product::where('is_lifetime','0')
                 ->whereNotIn('status',['expired', 'sold'])
