@@ -24,6 +24,7 @@
                     <th>Category</th>
                     <th>Product</th>
                     <th>description</th>
+                    <th></th>
                     <th>Price</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -39,7 +40,7 @@
                         </td>
                         <td>{{ $txt->category->name_en }}</td>
                         <td class="m-1"><img src="{{$txt->img}}" alt=""> {{ $txt->name_en }}</td>
-                        <td>{{ substr($txt->description_en,0,30) }}..</td>
+                        <td style="max-width: 350px;white-space: break-spaces;" colspan="2">{{substr($txt->description_en,0,30)}}</td>
                         <td>{{ $txt->price  }}</td>
                         <td>{{$txt->status}}</td>
                         <td>

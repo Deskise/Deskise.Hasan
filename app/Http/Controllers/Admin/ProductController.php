@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductRequest;
 use Illuminate\Http\Request;
 
 
@@ -79,7 +80,15 @@ class ProductController extends Controller
 
 
     public function getProductRequests(){
-        return response()->view('admin.products.showPageRequests');
+        $productRequests = ProductRequest::paginate(15);
+        return response()->view('admin.products.showPageRequests',compact('productRequests'));
+    }
+
+    public function updateProductRequestStatus(ProductRequest $productRequest){
+
+
+
+
     }
 
 }

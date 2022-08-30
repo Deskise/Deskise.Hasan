@@ -49,7 +49,7 @@
                                 <td>
                                 <div class="col-sm-3">
                                     <a type="button" href='{{route('admin.users.show',$singleUser->id)}}' class="btn btn-outline-info btn-icon-text m-1" title="View"><i class="mdi mdi-eye"></i></a>
-                                    <a class="btn btn-outline-{{$singleUser->banned ? 'warning':'danger'}}" href="{{route('admin.users.update',$singleUser->id)}}" title="{{$title}} User">{{$title}} User</a>
+                                    <a class="btn btn-outline-{{$singleUser->banned ? 'warning':'danger'}}" href="{{route('admin.users.update',$singleUser->id)}}" title="{{$title}} User">{{$title}} </a>
                                 </div>
                                 </td>
                             </tr>

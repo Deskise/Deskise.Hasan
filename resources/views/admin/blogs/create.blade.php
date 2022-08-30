@@ -42,7 +42,7 @@
                             <input type="text" name="tags" id="tag-input1" class="form-control" value='{{json_encode(explode(',',old('tags')))}}' >
                         </div>
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <button class="btn btn-dark">Cancel</button>
+                        <a class="btn btn-dark" href="{{route('admin.blogs.indexs')}}">Cancel</a>
                     </form>
                 </div>
             </div>

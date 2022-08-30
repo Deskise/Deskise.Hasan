@@ -51,7 +51,7 @@
 {{--                            <input type="text" name="tags" id="tag-input1" class="form-control" value='' >--}}
 {{--                        </div>--}}
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <button class="btn btn-dark">Cancel</button>
+                        <a class="btn btn-dark" href="{{route('admin.products.index')}}">Cancel</a>
                     </form>
                 </div>
             </div>

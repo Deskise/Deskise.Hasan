@@ -20,6 +20,8 @@ class CreateProductRequestsTable extends Migration
             $table->string('details',350);
             $table->float('ePrice');
             $table->string('email');
+            $table->enum('status',['approved','rejected','waiting'])->default('waiting');
+            $table->string('url',250)->nullable();
             $table->timestamps();
             $table->softDeletes();
 

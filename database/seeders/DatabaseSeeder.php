@@ -16,6 +16,7 @@ use App\Models\HomeText;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\ProductData;
+use App\Models\ProductRequest;
 use App\Models\ProductView;
 use App\Models\SocialMediaAccount;
 use App\Models\SocialMediaLink;
@@ -57,6 +58,7 @@ class DatabaseSeeder extends Seeder
         ChatAgreement::factory(10)->create();
 
         Admin::factory(1)->create();
+        ProductRequest::factory(50)->create();
 
         //aya
         HomeText::query()->create([

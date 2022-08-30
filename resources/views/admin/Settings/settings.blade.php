@@ -28,8 +28,7 @@
 
 
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <button class="btn btn-dark">Cancel</button>
-
+                        <a class="btn btn-dark" href="{{url('/admin')}}">Cancel</a>
 
                     </form>
 

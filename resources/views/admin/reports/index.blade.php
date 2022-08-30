@@ -29,7 +29,7 @@
                                 <td> {{$chatReport->user->email}} </td>
                                 <td> {!! Str::words($chatReport->message,8) !!}.. </td>
                                 <td>
-                                    <div class="badge @if($chatReport->status==='accepted') badge-outline-success @elseif($chatReport->status==='rejected') badge-outline-danger @elseif($chatReport->status==='checking') badge-outline-primary @else badge-outline-warning @endif">{{$chatReport->status}}</div>
+                                    <div class="badge @if($chatReport->status==='approved') badge-outline-success @elseif($chatReport->status==='rejected') badge-outline-danger @elseif($chatReport->status==='waiting') badge-outline-primary @else badge-outline-warning @endif">{{$chatReport->status}}</div>
                                 </td>
                                 <td> <a class="btn btn-outline-info " href="{{route('admin.reports.show',$chatReport->id)}}" title="Show">Show</a> </td>
                             </tr>

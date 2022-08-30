@@ -53,7 +53,7 @@
                             <input type="file" name="img" class="form-control file-upload-info" placeholder="Upload Image">
                         </div>
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <button class="btn btn-dark" >Cancel</button>
+                        <a class="btn btn-dark" href="{{route('admin.administration.index')}}">Cancel</a>
                     </form>
                 </div>
             </div>

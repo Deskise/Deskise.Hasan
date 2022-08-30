@@ -96,6 +96,7 @@
             </li>
         @endif
 
+        @if (in_array($role, ['super','content']))
         <li class="nav-item menu-items">
             <a class="nav-link" data-bs-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
                       <span class="menu-icon">
@@ -110,7 +111,6 @@
                     <li class="nav-item"><a class="nav-link" href="{{route('admin.settings.create')}}">Add Details</a></li>
                    @endif
 
-                    @if (in_array($role, ['super','content']))
                         <li class="nav-item menu-items">
                             <a class="nav-link" href="{{route('admin.terms')}}">Terms Of Use</a>
                         </li>
@@ -122,11 +122,10 @@
                         <li class="nav-item menu-items">
                             <a class="nav-link" href="{{route('admin.about')}}">About Us</a>
                         </li>
-                    @endif
                 </ul>
             </div>
         </li>
-
+        @endif
             @if($role === 'super')
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="{{ route('admin.administration.index') }}">
@@ -137,5 +136,16 @@
                     </a>
                 </li>
             @endif
+
+        @if($role === 'super')
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="{{route('admin.packages.index')}}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-package-variant-closed"></i>
+                </span>
+                    <span class="menu-title">Packages</span>
+                </a>
+            </li>
+        @endif
     </ul>
 </nav>
