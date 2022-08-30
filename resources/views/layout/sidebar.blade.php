@@ -26,6 +26,18 @@
             </a>
         </li>
 
+
+            @if($role === 'super')
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="{{route('admin.users.index')}}">
+            <span class="menu-icon">
+                <i class="mdi mdi-account-outline"></i>
+            </span>
+                    <span class="menu-title">Users</span>
+                </a>
+            </li>
+        @endif
+
         @if(in_array($role,['super','blog']))
 
         <li class="nav-item menu-items">
@@ -38,34 +50,6 @@
         </li>
         @endif
 
-        @if (in_array($role, ['super','content']))
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('admin.terms')}}">
-              <span class="menu-icon">
-                <i class="mdi mdi-notebook-multiple"></i>
-              </span>
-                <span class="menu-title">Terms Of Use</span>
-            </a>
-        </li>
-
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('admin.privacy')}}">
-              <span class="menu-icon">
-                <i class="mdi mdi-security"></i>
-              </span>
-                <span class="menu-title">Privacy</span>
-            </a>
-        </li>
-
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('admin.about')}}">
-              <span class="menu-icon">
-                <i class="mdi mdi-information-outline"></i>
-              </span>
-                <span class="menu-title">About Us</span>
-            </a>
-        </li>
-        @endif
 
         @if (in_array($role, ['super','verify']))
 
@@ -79,34 +63,7 @@
         </li>
         @endif
 
-        @if($role === 'super')
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('admin.settings.create')}}">
-              <span class="menu-icon">
-                <i class="mdi mdi-settings"></i>
-              </span>
-                <span class="menu-title">Settings</span>
-            </a>
-        </li>
 
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('admin.administration.index') }}">
-                <span class="menu-icon">
-                    <i class="mdi mdi-account-key"></i>
-                </span>
-                <span class="menu-title">Administration</span>
-            </a>
-        </li>
-
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('admin.users.index')}}">
-            <span class="menu-icon">
-                <i class="mdi mdi-account-outline"></i>
-            </span>
-                <span class="menu-title">Users</span>
-            </a>
-        </li>
-        @endif
 
         @if(in_array($role,['super','chat']))
         <li class="nav-item menu-items">
@@ -119,5 +76,66 @@
         </li>
         @endif
 
+
+        @if (in_array($role, ['super','product']))
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-bs-toggle="collapse" href="#products" aria-expanded="false" aria-controls="products">
+              <span class="menu-icon">
+                <i class="mdi mdi mdi-store"></i>
+              </span>
+                    <span class="menu-title">Products</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="products">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{{route('admin.products.index')}}"> Show Products </a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{route('admin.categories')}}"> Product Categories </a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{route('admin.pageRequests')}}"> Product Requests </a></li>
+                    </ul>
+                </div>
+            </li>
+        @endif
+
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-bs-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
+                      <span class="menu-icon">
+                        <i class="mdi mdi-settings"></i>
+                      </span>
+                <span class="menu-title">Settings</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="settings">
+                <ul class="nav flex-column sub-menu">
+                    @if($role === 'super')
+                    <li class="nav-item"><a class="nav-link" href="{{route('admin.settings.create')}}">Add Details</a></li>
+                   @endif
+
+                    @if (in_array($role, ['super','content']))
+                        <li class="nav-item menu-items">
+                            <a class="nav-link" href="{{route('admin.terms')}}">Terms Of Use</a>
+                        </li>
+
+                        <li class="nav-item menu-items">
+                            <a class="nav-link" href="{{route('admin.privacy')}}">Privacy</a>
+                        </li>
+
+                        <li class="nav-item menu-items">
+                            <a class="nav-link" href="{{route('admin.about')}}">About Us</a>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        </li>
+
+            @if($role === 'super')
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="{{ route('admin.administration.index') }}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-account-key"></i>
+                </span>
+                        <span class="menu-title">Administration</span>
+                    </a>
+                </li>
+            @endif
     </ul>
 </nav>

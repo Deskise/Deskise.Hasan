@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->boolean('special')->default(false);
             $table->boolean('verified')->default(false);
-            $table->enum('status',['sold','available','canceled','under_verify','expired'])->default('under_verify');
+            $table->enum('status',['sold','available','canceled', 'expired'])->default('available');
             $table->boolean('is_lifetime')->default(false);
             $table->date('until')->nullable();
             $table->timestamps();
