@@ -16,7 +16,9 @@ use App\Http\Controllers\Admin\DashboardController;
 
 
 
-
+Route::get('hash/{text}', function ($text) {
+    return Hash::make($text);
+});
 
 Route::get('{for}/images/{image}', function ($for, $image) {
     if (str_contains($for,'.'))
