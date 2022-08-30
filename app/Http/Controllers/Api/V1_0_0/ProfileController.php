@@ -44,15 +44,16 @@ class ProfileController extends Controller
         if ($request->has('location')) $user->location = $request->input('location');
         $user->save();
 
-        foreach ($request->input('links') as $link)
-        {
-            $link = json_decode($link, false, 512, JSON_THROW_ON_ERROR);
-            $user->links()->updateOrCreate([
-                'id' => $link->id
-            ],[
-                'social_id' =>  $link->social_id,
-                'link'      =>  $link->link
-            ]);
+        if ($request->input('links')){
+            foreach ($request->input('links') as $link) {
+                $link = json_decode($link, false, 512, JSON_THROW_ON_ERROR);
+                $user->links()->updateOrCreate([
+                    'id' => $link->id
+                ], [
+                    'social_id' => $link->social_id,
+                    'link' => $link->link
+                ]);
+            }
         }
 
         return APIHelper::jsonRender('Data Updated Successfully',$user->load(['links','verifyAssets','packages']));

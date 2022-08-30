@@ -38,7 +38,7 @@ Route::group(['prefix' => 'admin'], function () {
         require 'admin/aboutUs.php';
         require 'admin/approve.php';
         require 'admin/blog.php';
-        require 'admin/adminstration.php';
+        require 'admin/administration.php';
         require 'admin/reports.php';
         require 'admin/users.php';
         require 'admin/products.php';
