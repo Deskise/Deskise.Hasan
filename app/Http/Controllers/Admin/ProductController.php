@@ -74,21 +74,4 @@ class ProductController extends Controller
     }
 
 
-    public function getProductCategories(){
-        return response()->view('admin.products.showCategories');
-    }
-
-
-    public function getProductRequests(){
-        $productRequests = ProductRequest::paginate(15);
-        return response()->view('admin.products.showPageRequests',compact('productRequests'));
-    }
-
-    public function updateProductRequestStatus(ProductRequest $productRequest){
-
-
-
-
-    }
-
 }

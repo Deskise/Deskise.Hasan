@@ -3,7 +3,6 @@
 @section('btn')
 @endsection
 @section('css')
-
 @endsection
 @section('content')
     <div class="col-lg-12 grid-margin stretch-card">
@@ -39,15 +38,23 @@
                                 <td>
                                     <div class="row">
                                         <div class="col-6">
-                                            <a type="button" href='#'
-                                               class="btn btn-outline-success btn-icon-text accept_request" title="Accept Product Request">
+                                            <form action="{{url('admin/productRequests/approveProductRequest',$productRequest->id)}}" method="post">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit"
+                                               class="btn btn-outline-success btn-icon-text approveRequest" title="Accept Product Request" @if($productRequest->status==='approved')disabled @endif>
                                                  <i class="mdi mdi-file-check btn-icon-append"></i>
-                                            </a>
+                                            </button>
+                                            </form>
                                         </div>
                                         <div class="col-6">
-                                            <button type="submit" class="btn btn-outline-danger btn-flat reject_request"
-                                                    data-toggle="tooltip" title='Reject Product Request'><i class="mdi mdi-block-helper"></i>
-                                            </button>
+                                            <form action="{{url('admin/productRequests/rejectProductRequest',$productRequest->id)}}" method="post">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-outline-danger btn-flat"
+                                                        data-toggle="tooltip" title='Reject Product Request'><i class="mdi mdi-block-helper"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
@@ -64,27 +71,35 @@
 
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script type="text/javascript">
 
-        $('.accept_request').click(function (event) {
+        $('.approveRequest').click(async function (event) {
             var form = $(this).closest("form");
-            var name = $(this).data("name");
             event.preventDefault();
-            swal({
-                title: `Are you sure you want to delete this record?`,
-                text: "If you delete this, it will be gone forever.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
+            const {value: url} = await Swal.fire({
+                title: '<label class="form-label">Enter The URL Referred To The Product</label>',
+                html: '<input type="url" id="product_url" name="product_url" class="form-control my-2 fs-6 fw-normal" style="color:darkgray;width: 30rem; " placeholder="https://www.example.com">',
+                background: 'rgba(27,31,47,0.94)',
+                padding: '3px',
+                confirmButtonText: 'Add URL',
+                confirmButtonColor: 'rgba(9,159,11,0.94)',
+                focusConfirm: false,
+                returnFocus: false,
+
+                // showConfirmButton: false,
+                //'<button type="submit" class="btn btn-outline-success mt-3 w-25">Add URL</button>'
+                preConfirm: () => ({
+                product_url: $('#product_url').val(),
+                })
             })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
+            if (url) {
+                $('#product_url').val(url.product_url);
+                form.submit();
+            }
+
         });
-
-
 
     </script>
 @endsection

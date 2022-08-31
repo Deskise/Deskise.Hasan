@@ -89,8 +89,7 @@
                 <div class="collapse" id="products">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="{{route('admin.products.index')}}"> Show Products </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="{{route('admin.categories')}}"> Product Categories </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="{{route('admin.pageRequests')}}"> Product Requests </a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{url('admin/productRequests')}}"> Product Requests </a></li>
                     </ul>
                 </div>
             </li>
