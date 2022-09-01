@@ -20,14 +20,16 @@ class ProductRequestsController extends Controller
 
     public function approveProductRequest(Request $request,ProductRequest $productRequest)
     {
-        //
+        $request->validate([
+            'url'   => 'url|required'
+        ]);
 
+        $productRequest->url = $request->input('url');
         if ($productRequest->status ==='waiting' || $productRequest->status ==='rejected'){
-        $productRequest -> update(['status' => 'approved']);
-
+            $productRequest -> update(['status' => 'approved']);
             return redirect()->back()->with('msg','s:Product Request Approved');
-     }
-        return redirect()->back();
+        }
+        return redirect()->back()->with('msg', 'e:Product Already Approved');
 
     }
 

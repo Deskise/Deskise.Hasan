@@ -38,11 +38,12 @@
                                 <td>
                                     <div class="row">
                                         <div class="col-6">
-                                            <form action="{{url('admin/productRequests/approveProductRequest',$productRequest->id)}}" method="post">
+                                            <form action="{{url('admin/productRequests/approveProductRequest',$productRequest->id)}}" method="post" id="approve_form_{{$productRequest->id}}">
                                                 @csrf
                                                 @method('PUT')
+                                                <input type="hidden" name="url" id="approve_url_{{$productRequest->id}}" />
                                                 <button type="submit"
-                                               class="btn btn-outline-success btn-icon-text approveRequest" title="Accept Product Request" @if($productRequest->status==='approved')disabled @endif>
+                                               class="btn btn-outline-success btn-icon-text approveRequest" title="Accept Product Request" @if($productRequest->status==='approved')disabled @endif data-id="{{$productRequest->id}}">
                                                  <i class="mdi mdi-file-check btn-icon-append"></i>
                                             </button>
                                             </form>
@@ -76,7 +77,6 @@
     <script type="text/javascript">
 
         $('.approveRequest').click(async function (event) {
-            var form = $(this).closest("form");
             event.preventDefault();
             const {value: url} = await Swal.fire({
                 title: '<label class="form-label">Enter The URL Referred To The Product</label>',
@@ -95,10 +95,10 @@
                 })
             })
             if (url) {
-                $('#product_url').val(url.product_url);
-                form.submit();
+                var id = $(this).data('id')
+                $('#approve_url_'+id).val(url.product_url);
+                $('#approve_form_'+id).submit();
             }
-
         });
 
     </script>

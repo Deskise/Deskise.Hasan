@@ -53,12 +53,8 @@ class PackagesController extends Controller
 
     public function update(Request $request, Package $package)
     {
-        //
-        if ($package->update($request->all())){
-            \Session::flash("msg","The Package Updated successfully");
-            return redirect()->route("admin.packages.index");
-
-        }
+        if ($package->update($request->all()))
+            return redirect()->route("admin.packages.index")->with("msg","s:The Package Updated successfully");
         return redirect()->back();
     }
 
@@ -67,7 +63,6 @@ class PackagesController extends Controller
     {
         //
         $package->delete();
-        \Session::flash("msg","Package Deleted successfully");
-        return redirect()->route('admin.packages.index');
+        return redirect()->route('admin.packages.index')->with("msg","s:Package Deleted successfully");
     }
 }

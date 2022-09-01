@@ -20,14 +20,14 @@
                         </div>
                         <div class="form-group">
                             <label for="duration">Duration</label>
-                            <select name="duration" class="form-control" id="role" placeholder="Select Duration">
-                                <option value='per product' @if($package->duration === 'per product') @endif>per product</option>
-                                <option value='every product' @if($package->duration === 'every product') @endif>every product</option>
-                                <option value='days' @if($package->duration === 'days') @endif>days</option>
+                            <select name="duration" class="form-control" id="duration" placeholder="Select Duration">
+                                <option value='per product' @if($package->duration === 'per product') selected @endif>per product</option>
+                                <option value='every product' @if($package->duration === 'every product') selected @endif>every product</option>
+                                <option value='days' @if($package->duration === 'days') selected @endif>days</option>
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="display: @if($package->duration === 'days') initial @else none @endif;" id="dur-group">
                             <label for="dur">Dur</label>
                             <input type="text" name="dur" value="{{$package->dur}}" class="form-control" id="dur" placeholder="dur">
                         </div>
@@ -81,3 +81,17 @@
         }
     </style>
 @endsection
+
+@push('js')
+    <script>
+
+        document.getElementById('duration').addEventListener("change", function (e) {
+            if (e.target.value === 'days') {
+                document.getElementById('dur-group').style.display = 'block';
+            } else {
+                document.getElementById('dur-group').style.display = 'none'
+            }
+        });
+
+    </script>
+@endpush
