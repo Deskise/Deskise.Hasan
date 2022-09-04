@@ -50,11 +50,11 @@ class LoginController extends Controller
         $user = Admin::where('email',$request->input('email'))->first();
         if ($user)
         {
-            if (!\Hash::check($request->input('password'),$user->password)) return redirect()->back()->with('msg','Wrong Username Or Password');
+            if (!\Hash::check($request->input('password'),$user->password)) return redirect()->back()->withErrors(['email'=>'Wrong Username Or Password']);
             \Auth::login($user);
             return redirect()->route('admin.dashboard');
         }
-        return redirect()->back()->with('msg','Wrong Username Or Password');
+        return redirect()->back()->withErrors(['email'=>'Wrong Username Or Password']);
     }
 
     public function logout(Request $request)
