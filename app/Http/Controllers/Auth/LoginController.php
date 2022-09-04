@@ -48,9 +48,13 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $user = Admin::where('email',$request->input('email'))->first();
-        if (!\Hash::check($request->input('password'),$user->password)) return APIHelper::jsonRender('Username ... Or Password is wrong', [], 401);
-        \Auth::login($user);
-        return redirect()->route('admin.dashboard');
+        if ($user)
+        {
+            if (!\Hash::check($request->input('password'),$user->password)) return redirect()->back()->with('msg','Wrong Username Or Password');
+            \Auth::login($user);
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->back()->with('msg','Wrong Username Or Password');
     }
 
     public function logout(Request $request)
