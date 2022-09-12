@@ -25,8 +25,6 @@ export default {
   created() {
     this.$store.dispatch("category/fetch");
     this.$store.dispatch("user/getUUID");
-    this.$store.dispatch("sockets/init_echo");
-    this.$store.dispatch("sockets/connect_sockets");
     this.$store.dispatch("getCookieStatus");
   },
   components: { NotificationBar, Footer, Loader, CookieAgreement },
@@ -40,13 +38,12 @@ export default {
       return this.$store.getters["user/isLoggedIn"]
         ? LoggedInHeader
         : NoLoginHeader;
-    }, 
+    },
     ...mapState(["Loading", "ready", "cookieAccepted"]),
   },
   watch: {
     $route() {
       this.$refs.scroll.$el.scrollTop = 0;
-       console.log(this.$refs.scroll.$el.scrollTop );
       this.noFooter =
         this.$route.meta.noFooter !== undefined &&
         this.$route.meta.noFooter == true;
@@ -55,13 +52,12 @@ export default {
   methods: {
     handleScroll() {
       if (this.$refs.scroll.$el.scrollTop > 50) {
-        this.$store.commit("CHANGE_PAGEY",true)
+        this.$store.commit("CHANGE_PAGEY", true);
       }
       if (this.$refs.scroll.$el.scrollTop < 50) {
-        this.$store.commit("CHANGE_PAGEY",false)
+        this.$store.commit("CHANGE_PAGEY", false);
       }
     },
-   
   },
 };
 </script>
@@ -71,11 +67,11 @@ export default {
 body {
   overflow: hidden;
 }
-section{
-  width:100%;
+section {
+  width: 100%;
   overflow: hidden;
   @media (max-width: 576px) {
-    width:100%;
+    width: 100%;
     padding-left: 2%;
     padding-right: 2%;
   }
@@ -105,9 +101,9 @@ section{
     margin: 11vh 0 70px 0;
     min-height: 90vh;
     @media (max-width: 1400px) {
-    min-height: 90vh;
-    margin: 14vh 0 70px 0;
-  }
+      min-height: 90vh;
+      margin: 14vh 0 70px 0;
+    }
   }
   .scrollbar {
     height: 100vh;

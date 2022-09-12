@@ -40,8 +40,7 @@
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return {
-    }
+    return {};
   },
   computed: {
     getImage() {
@@ -60,11 +59,11 @@ section {
   justify-content: center;
   align-items: center;
   @media (max-width: 576px) {
-      & {
-        height: 57vh;
-        margin-bottom: 10vh;
-      }
+    & {
+      height: 57vh;
+      margin-bottom: 10vh;
     }
+  }
   .block {
     font-size: 28px;
     @media (max-width: 1410px) {
@@ -77,7 +76,7 @@ section {
       & {
         font-size: 16px;
         height: 100px;
-          margin: 7px;
+        margin: 7px;
       }
     }
     text-transform: capitalize;
@@ -107,12 +106,11 @@ section {
         }
       }
       @media (max-width: 576px) {
-      & {
-        font-size:18px;
+        & {
+          font-size: 18px;
+        }
       }
-    }
     }
   }
 }
-
 </style>

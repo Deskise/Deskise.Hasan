@@ -6,15 +6,13 @@ import * as data from "./Modules/Data";
 import * as blog from "./Modules/Blog";
 import * as product from "./Modules/Product";
 
-import * as sockets from "./Modules/Sockets";
-
 export default createStore({
   state: {
-    pageY:false,
+    pageY: false,
     Loading: false,
     ready: false,
     cookieAccepted: false,
-    heightHeader:0
+    heightHeader: 0,
   },
   mutations: {
     CHANGE_LOADING_STATE(state, to = null) {
@@ -30,10 +28,10 @@ export default createStore({
     CANCEL_COOKIES(state) {
       state.cookieAccepted = true;
     },
-    CHANGE_PAGEY(state,action) {
+    CHANGE_PAGEY(state, action) {
       state.pageY = action;
     },
-    CHANGE_heightHeader(state,action) {
+    CHANGE_heightHeader(state, action) {
       state.heightHeader = action;
     },
   },
@@ -62,7 +60,6 @@ export default createStore({
     category,
     data,
     blog,
-    sockets,
     product,
   },
 });

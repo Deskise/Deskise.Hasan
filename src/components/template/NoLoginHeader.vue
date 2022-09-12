@@ -1,5 +1,10 @@
 <template>
-  <nav  :class="{ 'bgWhite': this.$store.state.pageY , 'navbar navbar-expand-lg border-bottom noLogin':true }">
+  <nav
+    :class="{
+      bgWhite: this.$store.state.pageY,
+      'navbar navbar-expand-lg border-bottom noLogin': true,
+    }"
+  >
     <div class="container-fluid">
       <router-link class="navbar-brand col-lg" to="/">
         <img
@@ -17,7 +22,17 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z" fill="#fff"/></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+          width="20"
+        >
+          <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+          <path
+            d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"
+            fill="#fff"
+          />
+        </svg>
       </button>
       <div class="collapse navbar-collapse col-lg" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
@@ -105,27 +120,25 @@ export default {
       return this.$route.path.includes("auth");
     },
   },
-    computed: {
+  computed: {
     ...mapGetters("category", ["categories"]),
   },
-  
-   
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/sass/_globals/_variables.scss";
-nav.bgWhite{
-  background-color: #fff!important;
+nav.bgWhite {
+  background-color: #fff !important;
 }
 nav.noLogin {
   background-color: transparent;
   padding: 20px 7%;
   position: fixed;
   width: 100%;
-  height:90px!important;
-  max-height:90px!important;
-   z-index: 1111;
+  height: 90px !important;
+  max-height: 90px !important;
+  z-index: 1111;
   @media (max-width: 1600px) {
     & {
       padding: 20px 4%;
@@ -217,11 +230,11 @@ nav.noLogin {
               transition-delay: 0.1s;
             }
             @media (max-width: 1400px) {
-              font-size: 14px!important;
+              font-size: 14px !important;
               color: grey;
             }
           }
-          
+
           &.dropdown-item:focus,
           &.dropdown-item:hover {
             background-color: inherit;
@@ -239,7 +252,6 @@ nav.noLogin {
         width: 250%;
         border: 0;
         box-shadow: 0 0 20px 0 #00000015;
-       
       }
       @media (max-width: 992px) {
         &.dropdown-menu {
@@ -288,33 +300,32 @@ nav.noLogin {
     }
   }
 }
-
 </style>
 <style>
 @media (max-width: 1420px) {
-  .nav-link{
-    padding-right: 0px!important;
-    padding-left: 0px!important;
+  .nav-link {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
   }
-  nav.noLogin div button.login{
-    font-size: 15px!important;
-    height: 100%!important;
+  nav.noLogin div button.login {
+    font-size: 15px !important;
+    height: 100% !important;
     padding: 7px 15px;
   }
-  nav.noLogin{
-    padding: 40px 3%!important;
+  nav.noLogin {
+    padding: 40px 3% !important;
   }
 }
 @media (max-width: 1100px) {
-nav.noLogin{
-  padding: 0px 5%!important;
-  height: 120px!important;
-}
-.navbar-toggler{
-  width: 70px!important;
-  padding: 7px!important;
-  background: linear-gradient(to right,#3EAAB5,#4D215A)!important;
-  border:none!important
-}
+  nav.noLogin {
+    padding: 0px 5% !important;
+    height: 120px !important;
+  }
+  .navbar-toggler {
+    width: 70px !important;
+    padding: 7px !important;
+    background: linear-gradient(to right, #3eaab5, #4d215a) !important;
+    border: none !important;
+  }
 }
 </style>

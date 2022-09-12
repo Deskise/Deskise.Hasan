@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h5{
+h5 {
   font-size: 17px;
 }
 </style>

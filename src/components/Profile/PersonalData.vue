@@ -66,8 +66,8 @@ export default {
   position: relative;
   top: -120px;
   border-radius: 20px;
-  @media  (max-width: 1400px) {
-  top: -90px;
+  @media (max-width: 1400px) {
+    top: -90px;
   }
   & > * {
     margin-bottom: 15px;
@@ -77,7 +77,7 @@ export default {
     width: 60%;
     border: 2px solid rgba(201, 201, 201, 56/100);
     border-radius: 50%;
-    
+
     img {
       width: 100%;
       height: 100%;
@@ -90,26 +90,26 @@ export default {
     font-size: 20px;
     font-weight: bold;
     text-transform: capitalize;
-    @media  (max-width: 1400px) {
-        font-size: 17px;
-  }
+    @media (max-width: 1400px) {
+      font-size: 17px;
+    }
   }
   .dash-profile-bio,
   .dash-profile-address,
   .dash-profile-email {
     color: #9d9d9d;
-      @media  (max-width: 1400px) {
-        font-size: 14px;
-        margin-bottom: 10px;
-  }
+    @media (max-width: 1400px) {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
   }
   .dash-profile-bio {
     font-size: 18px;
     text-align: center;
-     @media  (max-width: 1400px) {
-        font-size: 14px;
-        margin-bottom: 10px;
-  }
+    @media (max-width: 1400px) {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
   }
   .dash-profile-address i,
   .dash-profile-email i {
@@ -118,7 +118,6 @@ export default {
   }
   .chat-btn {
     margin-bottom: 25px;
-     
   }
 
   .dash-profile-socails {

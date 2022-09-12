@@ -80,7 +80,6 @@
               </perfect-scrollbar>
 
               <div class="footer-details">
-                
                 <p class="mb-0" v-if="product.is_lifetime">
                   Is The License For Life!<br /><span class="date">{{
                     product.until
@@ -93,10 +92,9 @@
                 URL:
                 <span class="url">
                   <div
-                v-if="!this.$store.getters['user/isLoggedIn']"
-                class="outerLogin"
-              >
-              </div>
+                    v-if="!this.$store.getters['user/isLoggedIn']"
+                    class="outerLogin"
+                  ></div>
                   -->
                   <!-- TODO: DO THE LINK HERE -->
                   <a href=""> Https://Www.Behance.Net/Sammeer12591d4 </a>
@@ -150,7 +148,7 @@
                     <BuyOffcanvas :product="product" />
                     <div class="mt-3 btnComplete">
                       <button
-                        :class="{'disabledBtn':comletePayMent}"
+                        :class="{ disabledBtn: comletePayMent }"
                         type="button"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
@@ -417,7 +415,7 @@ export default {
   data() {
     return {
       product: this.$store.state.product.products.data[this.id],
-      comletePayMent:false
+      comletePayMent: false,
     };
   },
   methods: {

@@ -10,7 +10,7 @@ export const routes = [
     component: lazyLoad("index"),
     name: "profile",
     meta: {
-       requireAuth: true,
+      requireAuth: true,
     },
     beforeEnter: async function (routeTo, from, next) {
       let id = routeTo.query.id ?? store.state.user.data.id;
@@ -30,7 +30,7 @@ export const routes = [
     component: lazyLoad("affiliate"),
     name: "profile.affiliate",
     meta: {
-       requireAuth: true,
+      requireAuth: true,
     },
   },
 ];

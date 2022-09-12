@@ -102,7 +102,7 @@ section {
       span,
       img {
         z-index: -1;
-        opacity: .3;
+        opacity: 0.3;
       }
     }
 
@@ -123,9 +123,9 @@ section {
     img {
       width: 69%;
       position: absolute;
-       @media (max-width: 1400px) {
+      @media (max-width: 1400px) {
         & {
-           width: 55%;
+          width: 55%;
         }
       }
       @media (max-width: 992px) {
@@ -147,18 +147,18 @@ section {
         left: -23%;
         max-height: 120%;
         @media (max-width: 1400px) {
-        & {
-          left: -15%;
-           width: 50%;
+          & {
+            left: -15%;
+            width: 50%;
+          }
         }
-      }
         @media (max-width: 992px) {
-        & {
-          width: 60%;
-          left: -15%;
-        max-height: 120%;
+          & {
+            width: 60%;
+            left: -15%;
+            max-height: 120%;
+          }
         }
-      }
       }
     }
     h3 {
@@ -186,7 +186,7 @@ section {
       margin-bottom: 30px;
       @media (max-width: 1400px) {
         & {
-           width: 75%;
+          width: 75%;
           font-size: 18px;
           margin-bottom: 20px;
         }
@@ -204,9 +204,9 @@ section {
       color: #3eadb7;
       text-decoration: none;
       font-size: 24px;
-       @media (max-width: 1400px) {
+      @media (max-width: 1400px) {
         & {
-           font-size: 20px
+          font-size: 20px;
         }
       }
       @media (max-width: 992px) {
@@ -220,9 +220,9 @@ section {
         width: 40%;
         @media (max-width: 1400px) {
           width: 37%;
-            height: 40px;
-            font-size: 15px;
-      }
+          height: 40px;
+          font-size: 15px;
+        }
         @media (max-width: 992px) {
           & {
             width: 50%;

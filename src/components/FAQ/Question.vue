@@ -2,7 +2,7 @@
   <div class="question d-flex mb-3">
     <div class="head d-block d-md-flex">
       <h5>{{ item.question }}</h5>
-      <p class="text-gray " v-date="item.date"></p>
+      <p class="text-gray" v-date="item.date"></p>
     </div>
     <div class="body">
       {{ item.answer }}
@@ -25,18 +25,18 @@ export default {
 .question {
   flex-direction: column;
   text-align: left;
-  margin-bottom: 36px!important;
+  margin-bottom: 36px !important;
   background-color: #f7f7f7;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #ddd;
-  
+
   .head {
     padding-right: 10px;
     text-transform: capitalize;
     justify-content: space-between;
-      @media (max-width: 1410px) {
-        margin-bottom: 6px;
+    @media (max-width: 1410px) {
+      margin-bottom: 6px;
     }
     h5 {
       color: #363636;
@@ -45,12 +45,12 @@ export default {
       position: relative;
       max-width: 75%;
       height: stretch;
-       @media (max-width: 1410px) {
+      @media (max-width: 1410px) {
         font-size: 16px;
-    }
-     @media (max-width: 572px) {
-      max-width: 100%;
-    }
+      }
+      @media (max-width: 572px) {
+        max-width: 100%;
+      }
       &::after {
         position: absolute;
         left: 10px;
@@ -63,16 +63,16 @@ export default {
     }
     p {
       font-size: 20px;
-       @media (max-width: 1410px) {
+      @media (max-width: 1410px) {
         font-size: 16px;
-    }
+      }
     }
   }
   .body {
     padding: 0 10px;
-     @media (max-width: 1410px) {
-        font-size: 15px;
-        color: grey;
+    @media (max-width: 1410px) {
+      font-size: 15px;
+      color: grey;
     }
   }
 }

@@ -64,8 +64,8 @@
             </button>
           </div>
         </div>
-        </div>
-        <div class="row  m-0 mb-2">
+      </div>
+      <div class="row m-0 mb-2">
         <div class="col-md-9 m-auto p-2 border payment-cards">
           <div class="row">
             <div class="col-5 col-lg-4 d-flex align-items-center">
@@ -120,7 +120,7 @@
           </div>
         </div>
 
-        <div class="col-md-3 ml-2 text-center  mt-2 mt-md-0">
+        <div class="col-md-3 ml-2 text-center mt-2 mt-md-0">
           <div class="input-btn buttons-close">
             <button type="submit" class="btn w-100" value="Send" name="submit">
               Delete
@@ -134,7 +134,7 @@
     <div class="pr-2 pl-2">
       <div class="date">Thursday, November 27</div>
       <div class="row order-data p-2 pr-lg-5 pl-lg-5 mb-2">
-        <div class="col-6 col-sm-5 col-lg-4 order-number mb-1  px-5 pe-1">
+        <div class="col-6 col-sm-5 col-lg-4 order-number mb-1 px-5 pe-1">
           <h6 class="order mb-0">#89087678</h6>
           <div class="d-flex mb-1">
             <div>Deskise</div>
@@ -142,7 +142,9 @@
             <div class="time">03:31PM</div>
           </div>
         </div>
-        <div class="col-6  col-sm-5 col-lg-4 order-visa mb-1 d-flex justify-content-end">
+        <div
+          class="col-6 col-sm-5 col-lg-4 order-visa mb-1 d-flex justify-content-end"
+        >
           <div class="d-flex flex-column">
             <h6 class="order mb-0">-$ 10.00</h6>
 
@@ -161,7 +163,9 @@
             <div class="time">03:31PM</div>
           </div>
         </div>
-        <div class="col-6 col-sm-5 col-lg-4 order-visa mb-1 d-flex justify-content-end">
+        <div
+          class="col-6 col-sm-5 col-lg-4 order-visa mb-1 d-flex justify-content-end"
+        >
           <div class="d-flex flex-column">
             <h6 class="order mb-0">-$ 10.00</h6>
 
@@ -178,36 +182,36 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.payment-cards img{
+.payment-cards img {
   width: 40px;
 }
-.payment-cards{
+.payment-cards {
   font-size: 14px;
   border-radius: 6px;
 }
-.payment-cards >div >div{
+.payment-cards > div > div {
   display: flex;
   align-items: center;
 }
 .buttons-close {
   height: 100%;
 }
-.buttons-close button{
-  background-color: #FB5B5B;
+.buttons-close button {
+  background-color: #fb5b5b;
   color: white;
   height: 100%;
 }
-h5{
+h5 {
   font-size: 17px;
 }
-.date{
+.date {
   font-size: 13px;
   color: grey;
 }
 .order {
-  color: #62AAD0;
+  color: #62aad0;
 }
-.order-data{
+.order-data {
   font-size: 14px;
 }
 </style>

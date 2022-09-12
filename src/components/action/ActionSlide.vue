@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-gray-e bg-hover-gradiant text-center h-100 w-100 d-flex package">
+  <div
+    class="bg-gray-e bg-hover-gradiant text-center h-100 w-100 d-flex package"
+  >
     <div class="head">
       <p class="text-gray name mb-0">
         {{ pack.name }}
@@ -37,24 +39,24 @@ export default {
   justify-content: space-between;
   padding: 17px 5px;
   border-radius: 10px;
-  text-transform: capitalize; 
-  border:1px solid #eee;
+  text-transform: capitalize;
+  border: 1px solid #eee;
 
   .head {
     position: relative;
-    .name{
-        @media (max-width: 1400px) {
-          font-size: 16px;
-    }
+    .name {
+      @media (max-width: 1400px) {
+        font-size: 16px;
+      }
     }
     .price {
       font-size: 60px;
       position: relative;
       width: fit-content;
-      margin:  0 auto;
-       @media (max-width: 1400px) {
-          font-size: 33px;
-    }
+      margin: 0 auto;
+      @media (max-width: 1400px) {
+        font-size: 33px;
+      }
       &::before {
         content: "$";
         font-size: 27px;
@@ -62,9 +64,9 @@ export default {
         position: absolute;
         top: 0px;
         left: -15px;
-         @media (max-width: 1400px) {
+        @media (max-width: 1400px) {
           font-size: 22px;
-    }
+        }
       }
     }
 
@@ -81,17 +83,17 @@ export default {
 
   .body {
     height: 400px;
-     @media (max-width: 1400px) {
-       height: 300px;
-       padding:0px 20px;
-        font-size: 16px!important;
+    @media (max-width: 1400px) {
+      height: 300px;
+      padding: 0px 20px;
+      font-size: 16px !important;
     }
-     @media (max-width: 768px) {
-       height: 210px;
-       padding:0px 20px;
+    @media (max-width: 768px) {
+      height: 210px;
+      padding: 0px 20px;
     }
-     @media (max-width: 567px) {
-        height: 200px;
+    @media (max-width: 567px) {
+      height: 200px;
     }
   }
 
@@ -100,10 +102,10 @@ export default {
 
     p {
       margin: 0;
-       @media (max-width: 1400px) {
-        font-size: 18px!important;
+      @media (max-width: 1400px) {
+        font-size: 18px !important;
         margin-top: 10px;
-    }
+      }
     }
 
     &::before {

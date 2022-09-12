@@ -1,43 +1,43 @@
 <template>
   <div class="single-post">
     <div class="container">
-    <div class="w-100 row data mb-5">
-      <div class="col-12 offset-md-2 offset-lg-0 col-md-8 col-lg-6">
-        <img :src="post.img" alt="image" class="h-100 w-100" />
-      </div>
-      <div class="col-12 col-md-12 col-lg-6 h-100 text px-2 px-md-5 pe-md-2">
-        <div class="actions d-flex flex-column align-items-end w-100">
-          <div class="exit" @click="$router.push({ name: 'blog' })">
-            <flat-icon-component icon="cross" />
+      <div class="w-100 row data mb-5">
+        <div class="col-12 offset-md-2 offset-lg-0 col-md-8 col-lg-6">
+          <img :src="post.img" alt="image" class="h-100 w-100" />
+        </div>
+        <div class="col-12 col-md-12 col-lg-6 h-100 text px-2 px-md-5 pe-md-2">
+          <div class="actions d-flex flex-column align-items-end w-100">
+            <div class="exit" @click="$router.push({ name: 'blog' })">
+              <flat-icon-component icon="cross" />
+            </div>
+            <div class="like" @click="like">
+              <flat-icon-component
+                icon="heart"
+                :type="post.liked ? 'solid' : 'rounded'"
+              />
+              <p>{{ post.likes }}</p>
+            </div>
           </div>
-          <div class="like" @click="like">
-            <flat-icon-component
-              icon="heart"
-              :type="post.liked ? 'solid' : 'rounded'"
-            />
-            <p>{{ post.likes }}</p>
+          <div class="d-flex flex-column justify-content-end">
+            <h5>{{ post.title }}</h5>
+            <p class="date" v-date="post.date"></p>
+            <perfect-scrollbar class="content">
+              {{ post.details }}
+            </perfect-scrollbar>
           </div>
         </div>
-        <div class="d-flex flex-column justify-content-end">
-          <h5>{{ post.title }}</h5>
-          <p class="date" v-date="post.date"></p>
-          <perfect-scrollbar class="content">
-            {{ post.details }}
-          </perfect-scrollbar>
+      </div>
+      <div class="blog-posts row pt-5">
+        <h2 class="mb-5">Similer</h2>
+        <div
+          class="col-12 col-md-6 col-lg-4 col-xl-3"
+          v-for="(item, index) in posts"
+          :key="index"
+        >
+          <blog-post :post="item"></blog-post>
         </div>
       </div>
     </div>
-    <div class="blog-posts row pt-5">
-      <h2 class="mb-5">Similer</h2>
-      <div
-        class="col-12 col-md-6 col-lg-4 col-xl-3"
-        v-for="(item, index) in posts"
-        :key="index"
-      >
-        <blog-post :post="item"></blog-post>
-      </div>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -95,19 +95,19 @@ export default {
 <style lang="scss" scoped>
 .single-post {
   background: white;
-  margin: 0!important;
-  margin-top: 120px!important;
-  height: unset!important;
+  margin: 0 !important;
+  margin-top: 120px !important;
+  height: unset !important;
   .data {
-    margin: 0  0 20px 0;
-    & > div:first-of-type{
+    margin: 0 0 20px 0;
+    & > div:first-of-type {
       border-radius: 10px;
       background: #fff;
       padding: 10px;
       box-shadow: 2px 3px 7px #f0f0f0;
       height: 500px;
-      img{
-        border-radius: 10px!important;
+      img {
+        border-radius: 10px !important;
       }
     }
     .text {
@@ -127,15 +127,15 @@ export default {
           margin: 5px;
           margin-bottom: 10px;
           @media (max-width: 1410px) {
-          width: 35px;
-          height: 35px;
-         }
+            width: 35px;
+            height: 35px;
+          }
           * {
             transform: translateY(12%);
             @media (max-width: 1410px) {
-          font-size: 14px;
-                      transform: translateY(9%);
-         }
+              font-size: 14px;
+              transform: translateY(9%);
+            }
           }
         }
         .exit {
@@ -162,15 +162,15 @@ export default {
           font-size: 38px;
           color: #040506;
           @media (max-width: 1410px) {
-          font-size: 27px;
-         }
+            font-size: 27px;
+          }
         }
         p.date {
           font-size: 18px;
           color: #9d9d9d;
           @media (max-width: 1410px) {
-          font-size: 14px;
-         }
+            font-size: 14px;
+          }
         }
         .content {
           font-size: 18px;
@@ -179,9 +179,9 @@ export default {
           overflow: scroll;
           margin-bottom: 0;
           @media (max-width: 1410px) {
-          font-size: 16px;
-          padding-right: 10px;
-         }
+            font-size: 16px;
+            padding-right: 10px;
+          }
         }
       }
     }
@@ -191,9 +191,9 @@ export default {
     h2 {
       font-size: 60px;
       color: #040506;
-       @media (max-width: 1410px) {
-      font-size: 50px;
-}
+      @media (max-width: 1410px) {
+        font-size: 50px;
+      }
     }
   }
 }

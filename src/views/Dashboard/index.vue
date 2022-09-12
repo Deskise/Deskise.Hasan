@@ -63,10 +63,10 @@ export default {
   color: #040506;
   font-weight: 500;
   text-align: left;
-  
-  @media  (max-width: 1400px) {
-  margin-top: 90px;
-  padding-top: 40px;
+
+  @media (max-width: 1400px) {
+    margin-top: 90px;
+    padding-top: 40px;
   }
 
   article {
@@ -80,17 +80,17 @@ export default {
   form select {
     background-color: #ffffff !important;
   }
-  h6{
-     @media  (max-width: 1400px) {
-   font-size: 14px;
-  }
+  h6 {
+    @media (max-width: 1400px) {
+      font-size: 14px;
+    }
   }
   a {
     color: #040506;
     text-decoration: none;
-    @media  (max-width: 1400px) {
-    padding: 5px 0;
-  }
+    @media (max-width: 1400px) {
+      padding: 5px 0;
+    }
     &:hover {
       color: $primary;
     }

@@ -29,8 +29,8 @@ export default {
   margin-bottom: 20px;
   margin-top: 90px;
   box-shadow: 2px 2px 6px #ccc;
-  @media  (max-width: 1400px) {
-        height: 250px;
+  @media (max-width: 1400px) {
+    height: 250px;
   }
   .dash-update-profile {
     width: 100%;
@@ -53,17 +53,17 @@ export default {
         margin-bottom: 15px;
         font-weight: bold;
         font-size: 20px;
-        @media  (max-width: 1400px) {
-        font-size:16px;
+        @media (max-width: 1400px) {
+          font-size: 16px;
         }
       }
 
       .dash-btn.replace-image-btn {
         background-color: #3eadb7;
         color: #fff;
-        @media  (max-width: 1400px) {
-        padding: 10px 40px;
-        font-size: 14px;
+        @media (max-width: 1400px) {
+          padding: 10px 40px;
+          font-size: 14px;
         }
       }
     }

@@ -4,7 +4,7 @@
       step: true,
       active: active,
       before: before,
-    }" 
+    }"
     data-content=".step-content.price-content"
     :to="{ name: $router.currentRoute.name, hash: `#${index}` }"
   >
@@ -55,10 +55,10 @@ export default {
   font-weight: bold;
   color: #c9c9c9;
   cursor: pointer;
-   @media (max-width:576px) {
-      height: 90px;
-      text-align: center;
-    }
+  @media (max-width: 576px) {
+    height: 90px;
+    text-align: center;
+  }
   &.before {
     .num {
       background-color: rgba($primary, 0.8);
@@ -78,8 +78,8 @@ export default {
       text-transform: uppercase;
     }
   }
-  .name{
-    @media (max-width:576px) {
+  .name {
+    @media (max-width: 576px) {
       width: 60px;
     }
   }
@@ -102,24 +102,23 @@ export default {
   background-color: rgba(137, 137, 137, 0.23);
   margin-top: -32px;
   z-index: -1;
-  @media (max-width:576px) {
-      margin-top: -45px;
-    }
+  @media (max-width: 576px) {
+    margin-top: -45px;
+  }
   &.active {
     background-color: rgba($primary, 0.23);
   }
 }
-.line:first-of-type{
-    transform: translateX(-15px) scaleX(1.2);
-     @media (max-width:576px) {
-     transform: translateX(-15px) scaleX(1.5);
-    }
-
+.line:first-of-type {
+  transform: translateX(-15px) scaleX(1.2);
+  @media (max-width: 576px) {
+    transform: translateX(-15px) scaleX(1.5);
+  }
 }
-.line:last-of-type{
+.line:last-of-type {
   transform: translateX(10px) scaleX(1.2);
-  @media (max-width:576px) {
-     transform: translateX(-15px) scaleX(1.5);
-    }
+  @media (max-width: 576px) {
+    transform: translateX(-15px) scaleX(1.5);
+  }
 }
 </style>

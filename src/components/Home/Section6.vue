@@ -43,14 +43,10 @@ export default {
   methods: {
     getSlides() {
       if (window.matchMedia("(max-width: 576px").matches) this.slides = 1;
-      else if (window.matchMedia("(max-width: 568px").matches)
-        this.slides = 1;
-      else if (window.matchMedia("(max-width: 768px").matches)
-        this.slides = 2;
-      else if (window.matchMedia("(max-width: 998px").matches)
-        this.slides = 3;
-      else if (window.matchMedia("(max-width: 1200px").matches)
-        this.slides = 4;
+      else if (window.matchMedia("(max-width: 568px").matches) this.slides = 1;
+      else if (window.matchMedia("(max-width: 768px").matches) this.slides = 2;
+      else if (window.matchMedia("(max-width: 998px").matches) this.slides = 3;
+      else if (window.matchMedia("(max-width: 1200px").matches) this.slides = 4;
       else if (window.matchMedia("(max-width: 1500px").matches) this.slides = 4;
       else this.slides = 5;
     },
@@ -68,7 +64,7 @@ section {
     @media (max-width: 1400px) {
       & {
         font-size: 40px;
-        margin-bottom: 40px!important;
+        margin-bottom: 40px !important;
       }
     }
     @media (max-width: 776px) {
@@ -92,7 +88,6 @@ section {
       word-break: break-word;
       margin: auto;
       text-transform: capitalize;
-      
     }
     .packages {
       width: 100%;

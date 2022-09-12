@@ -3,7 +3,12 @@
     <div class="container px-2 px-lg-0">
       <h2 class="mb-5 mt-5">Best Products</h2>
       <div class="main">
-         <swiper :modules="modules" :slidesPerView="slides" :pagination="pagination"  class="packages">
+        <swiper
+          :modules="modules"
+          :slidesPerView="slides"
+          :pagination="pagination"
+          class="packages"
+        >
           <swiper-slide v-for="(p, index) in products" :key="p.id" class="py-4">
             <product :id="index" best></product>
           </swiper-slide>
@@ -25,10 +30,10 @@ export default {
   data() {
     return {
       slides: 5,
-           pagination: {
+      pagination: {
         clickable: true,
       },
-    }
+    };
   },
   components: {
     Product,
@@ -46,20 +51,16 @@ export default {
   },
   computed: {
     products() {
-       return this.$store.state.product.best.data;
+      return this.$store.state.product.best.data;
     },
   },
-   methods: {
+  methods: {
     getSlides() {
       if (window.matchMedia("(max-width: 576px").matches) this.slides = 1;
-      else if (window.matchMedia("(max-width: 568px").matches)
-        this.slides = 1;
-      else if (window.matchMedia("(max-width: 668px").matches)
-        this.slides = 1;
-      else if (window.matchMedia("(max-width: 998px").matches)
-        this.slides = 2;
-      else if (window.matchMedia("(max-width: 1200px").matches)
-        this.slides = 3;
+      else if (window.matchMedia("(max-width: 568px").matches) this.slides = 1;
+      else if (window.matchMedia("(max-width: 668px").matches) this.slides = 1;
+      else if (window.matchMedia("(max-width: 998px").matches) this.slides = 2;
+      else if (window.matchMedia("(max-width: 1200px").matches) this.slides = 3;
       else if (window.matchMedia("(max-width: 1500px").matches) this.slides = 4;
       else this.slides = 4;
     },
@@ -67,22 +68,21 @@ export default {
 };
 </script>
 <style>
-.swiper-container-horizontal>.swiper-pagination-bullets{
-  bottom: 0px!important;
+.swiper-container-horizontal > .swiper-pagination-bullets {
+  bottom: 0px !important;
 }
-.swiper-pagination-bullet-active{
-  width: 30px!important;
-  border-radius: 10px!important;
-  background-color: #3EADB7!important;
+.swiper-pagination-bullet-active {
+  width: 30px !important;
+  border-radius: 10px !important;
+  background-color: #3eadb7 !important;
 }
-.swiper-wrapper{
-  overflow: visible!important;
-  padding-bottom: 30px!important;
+.swiper-wrapper {
+  overflow: visible !important;
+  padding-bottom: 30px !important;
 }
 </style>
 <style lang="scss" scoped>
-
-.swiper-slide{
+.swiper-slide {
   height: 540px;
   overflow-y: hidden;
 }
@@ -92,15 +92,15 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-   @media (max-width: 1410px) {
-        padding-top: 0px;
-    }
+  @media (max-width: 1410px) {
+    padding-top: 0px;
+  }
   h2 {
     color: #040506;
     font-size: 60px;
-     @media (max-width: 1410px) {
-        font-size: 40px;
-        margin-bottom: 10px!important;
+    @media (max-width: 1410px) {
+      font-size: 40px;
+      margin-bottom: 10px !important;
     }
     @media (max-width: 760px) {
       font-size: 40px;

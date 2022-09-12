@@ -17,7 +17,7 @@
       <li
         v-for="(item, key) in NotNullData"
         :key="key"
-        :class="{ active: active === item[0] }" 
+        :class="{ active: active === item[0] }"
         @click="closeSelect"
       >
         <a href="javascript:void(0)" @click.prevent="choose(item[0])">
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     closeSelect() {
-      document.querySelector(".drop-down-title").click()
+      document.querySelector(".drop-down-title").click();
     },
     toggle(e) {
       e.preventDefault();
@@ -156,14 +156,13 @@ ul {
       font-size: 16px;
     }
   }
-  
 }
-.drop-down .drop-down-items li a{
- @media (max-width: 1410px) {
-      font-size: 15px!important;
-    }
+.drop-down .drop-down-items li a {
+  @media (max-width: 1410px) {
+    font-size: 15px !important;
   }
-  .icon{
-    font-size: 12px;
-  }
+}
+.icon {
+  font-size: 12px;
+}
 </style>

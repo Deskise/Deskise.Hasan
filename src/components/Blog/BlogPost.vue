@@ -44,42 +44,42 @@ export default {
     width: 100%;
     height: 400px;
     border-radius: 20px;
-      @media (max-width: 1410px) {
-       height: 300px;
+    @media (max-width: 1410px) {
+      height: 300px;
     }
   }
   .content {
     padding-left: 10px;
     font-size: 18px;
     color: #9d9d9d;
-    h5{
-       @media (max-width: 1410px) {
+    h5 {
+      @media (max-width: 1410px) {
         font-weight: bold;
-       font-size: 16px!important;
-    }
+        font-size: 16px !important;
+      }
     }
     .date {
       font-weight: bold;
       font-size: 20px;
-        @media (max-width: 1410px) {
-          font-weight: 700;
-       font-size: 16px!important;
+      @media (max-width: 1410px) {
+        font-weight: 700;
+        font-size: 16px !important;
+      }
     }
-    }
-    
-    .description{
-        @media (max-width: 1410px) {
-       font-size: 14px!important;
-    }
+
+    .description {
+      @media (max-width: 1410px) {
+        font-size: 14px !important;
+      }
     }
     h5 {
       color: #040506;
     }
   }
 }
-.btn{
-        @media (max-width: 1410px) {
-       font-size: 13px!important;
-    }
-    }
+.btn {
+  @media (max-width: 1410px) {
+    font-size: 13px !important;
+  }
+}
 </style>

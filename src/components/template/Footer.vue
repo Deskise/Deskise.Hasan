@@ -43,19 +43,21 @@
           <h3>{{ __("header.nologin.category") }}</h3>
           <div class="data">
             <div class="row">
-              <div class="col-4 mb-1 px-1" v-for="(category, index) in categories"
-                :key="index">
-                <router-link
-                class="category w-100 d-flex justify-content-center align-items-center bg-gray-e bg-hover-gradiant"
-                :to="{
-                  name: 'productsByCategory',
-                  params: { id: category.id },
-                }"
+              <div
+                class="col-4 mb-1 px-1"
+                v-for="(category, index) in categories"
+                :key="index"
               >
-                {{ category.name }}
-              </router-link>
+                <router-link
+                  class="category w-100 d-flex justify-content-center align-items-center bg-gray-e bg-hover-gradiant"
+                  :to="{
+                    name: 'productsByCategory',
+                    params: { id: category.id },
+                  }"
+                >
+                  {{ category.name }}
+                </router-link>
               </div>
-              
             </div>
           </div>
         </div>
@@ -69,12 +71,15 @@
                 v-model="email"
                 :placeholder="__('Forms.email')"
               />
-              <button type="submit" class="btn btn-primary col-12 col-lg mb-2 mb-lg-0">
+              <button
+                type="submit"
+                class="btn btn-primary col-12 col-lg mb-2 mb-lg-0"
+              >
                 {{ __("footer.subscripe") }}
               </button>
               <router-link
                 :to="{ name: 'requestProduct' }"
-                class="btn btn-outline-secondary  col-12 col-lg"
+                class="btn btn-outline-secondary col-12 col-lg"
               >
                 {{ __("footer.request") }}</router-link
               >
@@ -118,10 +123,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-footer{
+footer {
   margin-top: 100px;
 }
-footer,.last{
+footer,
+.last {
   overflow: hidden;
 }
 $primary: #3eadb7;
@@ -134,10 +140,10 @@ h3 {
   text-align: left;
   @media (max-width: 1400px) {
     font-size: 20px;
-     margin-bottom: 0px;
+    margin-bottom: 0px;
   }
   @media (max-width: 992px) {
-     font-size: 17px;
+    font-size: 17px;
   }
   @media (max-width: 760px) {
     text-align: center;
@@ -155,7 +161,7 @@ h3 {
     bottom: 0;
     left: 0;
     @media (max-width: 760px) {
-       width: 60%;
+      width: 60%;
       left: 20%;
     }
   }
@@ -163,7 +169,7 @@ h3 {
 .data {
   padding: 15px;
   text-align: left;
- 
+
   @media (max-width: 760px) {
     text-align: center;
     padding-top: 5px;
@@ -178,11 +184,11 @@ h3 {
       a {
         color: #595a5a;
         font-size: 16px;
-         @media (max-width: 1400px) {
-          font-size: 13px;;
+        @media (max-width: 1400px) {
+          font-size: 13px;
         }
         @media (max-width: 992px) {
-         font-size: 12px;
+          font-size: 12px;
         }
         &:hover,
         &.router-link-active {
@@ -193,16 +199,16 @@ h3 {
   }
 
   .category {
-    margin:3px;
+    margin: 3px;
     padding: 7px;
     border-radius: 3px;
     color: #040506;
     font-size: 16px;
     min-height: 80px;
-      @media (max-width: 1400px) {
-         font-size: 13px;
-         min-height: 50px;
-        }
+    @media (max-width: 1400px) {
+      font-size: 13px;
+      min-height: 50px;
+    }
     &.router-link-active {
       color: white !important;
       background: linear-gradient(0.4turn, $primary, $secondary) !important;
@@ -215,22 +221,22 @@ h3 {
       border-radius: 5px;
       font-size: 18px;
       @media (max-width: 1400px) {
-         font-size: 15px;
-        }
+        font-size: 15px;
+      }
     }
 
     .btn {
       padding: 10px 0;
-       @media (max-width: 1400px) {
-          padding: 5px 0;
-        }
+      @media (max-width: 1400px) {
+        padding: 5px 0;
+      }
       &:is(button) {
         margin-right: 15px;
       }
     }
   }
 }
-.lead{
+.lead {
   font-size: 17px;
 }
 </style>

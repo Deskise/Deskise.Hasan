@@ -67,8 +67,8 @@ export default {
     border-radius: 5px;
     background: transparent;
     padding: 10px !important;
-    margin:  5px;
-    border:1px solid #eee;
+    margin: 5px;
+    border: 1px solid #eee;
     color: #040506;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -85,7 +85,7 @@ h4 {
   width: 100%;
   margin-bottom: 0px;
   @media (max-width: 1410px) {
-      font-size: 13px!important;
-    }
+    font-size: 13px !important;
+  }
 }
 </style>

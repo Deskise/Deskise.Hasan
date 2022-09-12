@@ -104,15 +104,15 @@ export default {
     }
   }
 }
-h5{
+h5 {
   font-size: 17px;
 }
-p{
+p {
   font-size: 14px;
   letter-spacing: 1px;
   color: grey;
 }
-.manage{
+.manage {
   font-size: 14px;
   margin-bottom: 20px;
 }

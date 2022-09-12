@@ -1,22 +1,22 @@
 <template>
   <div class="col d-sm-block">
-    <img src="@/assets/bg1.png" alt="bg1" class="bg1"/>
-    <img src="@/assets/bg2.png" alt="bg2" class="bg2"/>
+    <img src="@/assets/bg1.png" alt="bg1" class="bg1" />
+    <img src="@/assets/bg2.png" alt="bg2" class="bg2" />
   </div>
 </template>
-  
+
 <script>
 export default {};
 </script>
 <style>
-.bg1{
-  z-index: 5!important;
+.bg1 {
+  z-index: 5 !important;
 }
 @keyframes mover {
-  0%{
+  0% {
     transform: translateX(0px);
   }
-  100%{
+  100% {
     transform: translateX(10px);
   }
 }
@@ -45,30 +45,29 @@ div {
       }
     }
     @media (max-width: 992px) {
-       height: 33%;
-       opacity: .5;
+      height: 33%;
+      opacity: 0.5;
     }
     @media (max-width: 576px) {
       & {
-       height: 26%;
+        height: 26%;
       }
     }
 
     &:first-of-type {
       height: 95%;
-      z-index: -1!important;
+      z-index: -1 !important;
       @media (max-width: 1200px) {
-          height: 85%;
+        height: 85%;
       }
       @media (max-width: 992px) {
-       height: 70%;
-    }
+        height: 70%;
+      }
       @media (max-width: 576px) {
-       height:60%;
-    }
+        height: 60%;
+      }
       top: 0;
     }
   }
-  
 }
 </style>

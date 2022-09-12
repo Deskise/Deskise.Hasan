@@ -58,7 +58,7 @@ export default {
 .section1 {
   min-height: 94vh;
   text-align: left;
-  z-index: 11!important;
+  z-index: 11 !important;
   @media (max-width: 760px) {
     & {
       text-align: inherit;
@@ -68,7 +68,7 @@ export default {
   .container {
     h1 {
       text-transform: uppercase;
-      font-size:60px;
+      font-size: 60px;
       @media (max-width: 760px) {
         font-size: 40px;
       }
@@ -93,9 +93,9 @@ export default {
     .input-group {
       input {
         height: 50px;
-         @media (max-width: 1410px) {
-        height: 45px;
-      }
+        @media (max-width: 1410px) {
+          height: 45px;
+        }
       }
     }
 
@@ -108,9 +108,9 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-          @media (max-width: 1410px) {
-        height: 45px;
-      }
+        @media (max-width: 1410px) {
+          height: 45px;
+        }
       }
     }
   }

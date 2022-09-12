@@ -4,39 +4,40 @@
     <div class="dash-step-contents p-2">
       <div class="row">
         <div class="col-12 col-lg-6 pe-3 pe-lg-5">
-            <div class="dash-step-content">
-              <Pages :fields="fields"></Pages>
-            </div>
+          <div class="dash-step-content">
+            <Pages :fields="fields"></Pages>
+          </div>
         </div>
         <div class="col-12 col-lg-6">
-           <div class="dash-sell-tips">
-              <div class="tips-title">Help and Tips</div>
-              <p class="tips-content">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                rebum. Stet clita kasd gubergren, no sea
-              </p>
-              <p class="tips-content">
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-                amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                amet.
-              </p>
-              <p class="tips-content">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-                sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-                et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet.
-              </p>
-            </div>
+          <div class="dash-sell-tips">
+            <div class="tips-title">Help and Tips</div>
+            <p class="tips-content">
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+              nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+              erat, sed diam voluptua. At vero eos et accusam et justo duo
+              dolores et ea rebum. Stet clita kasd gubergren, no sea
+            </p>
+            <p class="tips-content">
+              takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
+              sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+              tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+              voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+              Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+              dolor sit amet.
+            </p>
+            <p class="tips-content">
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+              nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+              erat, sed diam voluptua. At vero eos et accusam et justo duo
+              dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+              sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+              amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+              invidunt ut labore et dolore magna aliquyam erat, sed diam
+              voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+              Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+              dolor sit amet.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -102,22 +103,21 @@ export default {
   border-bottom: 2px solid #eee;
   margin-bottom: 20px;
   padding: 5px 0;
-
 }
-.dash-sell-form .form-feilds .drop-down{
-  max-width: 400px!important;
-  width: 400px!important;
+.dash-sell-form .form-feilds .drop-down {
+  max-width: 400px !important;
+  width: 400px !important;
   @media (max-width: 1400px) {
-  max-width: 400px!important;
-  width: 400px!important;
+    max-width: 400px !important;
+    width: 400px !important;
   }
   @media (max-width: 992px) {
-  max-width: 80%!important;
-  width:  80%!important;
+    max-width: 80% !important;
+    width: 80% !important;
   }
   @media (max-width: 576px) {
-  max-width: 100%!important;
-  width:  100%!important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 }
 .dash-sell-form .form-feilds .form-step-title {
@@ -125,9 +125,9 @@ export default {
   margin-bottom: 15px;
   color: #040506;
   @media (max-width: 1400px) {
-  font-size: 18px;
-  margin-bottom: 10px;
-  font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 600;
   }
 }
 
@@ -160,10 +160,10 @@ export default {
   line-height: 40px;
   color: #9d9d9d;
   display: none;
-   @media (max-width: 1400px) {
-  font-size: 15px;
-  padding: 15px;
-  line-height: 30px;
+  @media (max-width: 1400px) {
+    font-size: 15px;
+    padding: 15px;
+    line-height: 30px;
   }
 }
 
@@ -187,28 +187,28 @@ export default {
   display: block;
   margin-bottom: 15px;
   font-size: 20px;
-  max-width: 400px!important;
-  width: 400px!important;
+  max-width: 400px !important;
+  width: 400px !important;
   @media (max-width: 1400px) {
-  font-size: 15px;
-  margin-bottom: 10px;
-  padding: 10px 20px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
   }
   @media (max-width: 992px) {
-  max-width: 80%!important;
-  width:  80%!important;
+    max-width: 80% !important;
+    width: 80% !important;
   }
   @media (max-width: 576px) {
-  max-width: 100%!important;
-  width:  100%!important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 }
-.dp__input_wrap input{
- @media (max-width: 1400px) {
-  padding: 10px 30px!important;
+.dp__input_wrap input {
+  @media (max-width: 1400px) {
+    padding: 10px 30px !important;
   }
 }
-.dash-sell-form .form-feilds textarea::placeholder{
+.dash-sell-form .form-feilds textarea::placeholder {
   color: #ccc;
 }
 .dash-sell-form label input[type="radio"] {
@@ -220,7 +220,7 @@ export default {
   font-size: 18px;
   display: block;
   @media (max-width: 1400px) {
-  font-size: 16px;
+    font-size: 16px;
   }
 }
 
@@ -235,19 +235,19 @@ export default {
   font-size: 15px;
   font-weight: 400;
   padding: 15px 20px;
-   max-width: 400px!important;
-  width: 400px!important;
+  max-width: 400px !important;
+  width: 400px !important;
   @media (max-width: 1400px) {
- max-width: 400px!important;
-  width: 400px!important;
+    max-width: 400px !important;
+    width: 400px !important;
   }
   @media (max-width: 992px) {
-  max-width: 80%!important;
-  width:  80%!important;
+    max-width: 80% !important;
+    width: 80% !important;
   }
   @media (max-width: 576px) {
-  max-width: 100%!important;
-  width:  100%!important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 }
 
@@ -258,7 +258,7 @@ export default {
   color: #9d9d9d;
   border: 1px solid #9d9d9d;
 }
-.form-feilds .upload-images{
+.form-feilds .upload-images {
   display: flex;
 }
 .form-feilds .upload-images > div {
@@ -303,15 +303,13 @@ export default {
   cursor: pointer;
 }
 
-
-
 .dash-step-contents .dash-sell-tips .tips-title {
   font-size: 24px;
   margin-bottom: 20px;
-   @media (max-width: 1400px) {
-   font-size: 18px;
-  margin-bottom: 10px;
-  font-weight: 600;
+  @media (max-width: 1400px) {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 600;
   }
 }
 
@@ -322,10 +320,10 @@ export default {
   line-height: 40px;
   font-size: 24px;
   @media (max-width: 1400px) {
-   font-size: 16px;
-  margin-bottom: 30px;
-  line-height: 30px;
-  margin-left: 10px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 30px;
+    margin-left: 10px;
   }
 }
 
@@ -367,9 +365,9 @@ export default {
   .input-content
   input[type="radio"] {
   margin-right: 20px;
-     @media (max-width: 1400px) {
-   font-size: 15px;
-  margin-right: 10px;
+  @media (max-width: 1400px) {
+    font-size: 15px;
+    margin-right: 10px;
   }
 }
 
@@ -379,17 +377,16 @@ export default {
   color: #040506;
   width: 100%;
   text-align: center;
-   @media (max-width: 1400px) {
-   font-size: 40px;
+  @media (max-width: 1400px) {
+    font-size: 40px;
   }
 }
 .dash-sell-form .radio-boxes label.radio-box .price sup {
   font-size: 27px;
   @media (max-width: 1400px) {
-   font-size: 20px;
+    font-size: 20px;
   }
 }
-
 
 @media (max-width: 600px) {
   .dash-sell-form .radio-boxes label.radio-box .input-content {

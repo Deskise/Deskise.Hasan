@@ -22,9 +22,9 @@ export const state = {
   comments: [],
 
   faq: {},
-  search:""
+  search: "",
 };
-  // 
+//
 export const mutations = {
   ABOUT(state, { $for, aboutText }) {
     state.about[$for] = aboutText;
@@ -39,7 +39,7 @@ export const mutations = {
     state.comments = $comments;
   },
   searchFAQ(state, text) {
-    state.search=text
+    state.search = text;
   },
   FETCH_FAQ(state, $faqs) {
     if (state.faq.data === undefined) {
@@ -92,16 +92,16 @@ export const actions = {
       .fetch(page)
       .then((response) => {
         let QUAS = response.data.response.extra[0];
-// ................................
-        let quastions = JSON.parse(JSON.stringify(QUAS.data))
+        // ................................
+        let quastions = JSON.parse(JSON.stringify(QUAS.data));
         let faqs = [];
-        for (let i = 0; i < quastions.length; i++){
+        for (let i = 0; i < quastions.length; i++) {
           if (quastions[i].question.includes(state.search)) {
-              faqs.push(quastions[i])
+            faqs.push(quastions[i]);
           }
         }
-        QUAS.data=faqs
-//................................
+        QUAS.data = faqs;
+        //................................
         commit("FETCH_FAQ", QUAS);
       })
       .catch(() => {});

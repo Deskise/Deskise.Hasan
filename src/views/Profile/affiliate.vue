@@ -1,118 +1,117 @@
 <template>
- <div class="dash-affiliate">
-  <div class="container">
-    <div class="row">
+  <div class="dash-affiliate">
+    <div class="container">
+      <div class="row">
         <div class="col-12 col-md-4 col-lg-3 pe-lg-3">
           <div class="affiliate-link">
             <div class="affiliate-header">Affiliate Link</div>
           </div>
         </div>
         <div class="col-12 col-md-8 col-lg-9">
-            <div class="affiliate-sales">
-        <div class="affiliate-header text-left">
-          <span>Activate or stop selling through marketers.</span>
-          <Switch checked></Switch>
-        </div>
-        <div class="dash-sales">
-          <div class="my-sales mb-5 mb-lg-2">
-            <div class="sales-title">My Sales</div>
-            <div class="sales-table">
-              <div class="sales-header sales-row">
-                <span class="date">Date</span>
-                <span class="peference">Peference</span>
-                <span class="product">product</span>
-                <span class="state">State</span>
-              </div>
-              <div class="sales-row">
-                <span class="date">13 Juli</span>
-                <span class="peference">#328178</span>
-                <span class="product">Name product</span>
-                <span class="state sold">Sold 200$</span>
-              </div>
-              <div class="sales-row">
-                <span class="date">13 Juli</span>
-                <span class="peference">#328178</span>
-                <span class="product">Name product</span>
-                <span class="state closed">Closed</span>
-              </div>
-              <div class="sales-row">
-                <span class="date">13 Juli</span>
-                <span class="peference">#328178</span>
-                <span class="product">Name product</span>
-                <span class="state under-sale">Under Sale</span>
-              </div>
+          <div class="affiliate-sales">
+            <div class="affiliate-header text-left">
+              <span>Activate or stop selling through marketers.</span>
+              <Switch checked></Switch>
             </div>
-          </div>
-          <div class="your-earnings">
-            <div class="payments-hisotry">
-              <div class="sales-title">Your Eranings</div>
-              <div class="prices">
-                <div class="balance">
-                  <span class="key">Current Blance</span>
-                  <span class="value">200$</span>
-                </div>
-                <div class="total">
-                  <span class="key">Total</span>
-                  <span class="value">1050$</span>
-                </div>
-              </div>
-              <div class="sales-title">Payout History</div>
-              <div class="sales-table">
-                <div class="sales-header sales-row">
-                  <span class="date">Date</span>
-                  <span class="payment">Payment Method</span>
-                  <span class="amount">Amount</span>
-                  <span class="status">Status</span>
-                </div>
-                <div class="sales-row">
-                  <span class="date">13 Juli</span>
-                  <span class="payment">Visa</span>
-                  <span class="amount">200$</span>
-                  <span class="status success">Successfully</span>
-                </div>
-                <div class="sales-row">
-                  <span class="date">13 Juli</span>
-                  <span class="payment">Paypal</span>
-                  <span class="amount">1200$</span>
-                  <span class="status failed">Failure</span>
-                </div>
-                <div class="sales-row">
-                  <span class="date">13 Juli</span>
-                  <span class="payment">Visa</span>
-                  <span class="amount">200$</span>
-                  <span class="status success">Successfully</span>
-                </div>
-                <div class="sales-row">
-                  <span class="date">13 Juli</span>
-                  <span class="payment">Paypal</span>
-                  <span class="amount">1200$</span>
-                  <span class="status failed">Failure</span>
+            <div class="dash-sales">
+              <div class="my-sales mb-5 mb-lg-2">
+                <div class="sales-title">My Sales</div>
+                <div class="sales-table">
+                  <div class="sales-header sales-row">
+                    <span class="date">Date</span>
+                    <span class="peference">Peference</span>
+                    <span class="product">product</span>
+                    <span class="state">State</span>
+                  </div>
+                  <div class="sales-row">
+                    <span class="date">13 Juli</span>
+                    <span class="peference">#328178</span>
+                    <span class="product">Name product</span>
+                    <span class="state sold">Sold 200$</span>
+                  </div>
+                  <div class="sales-row">
+                    <span class="date">13 Juli</span>
+                    <span class="peference">#328178</span>
+                    <span class="product">Name product</span>
+                    <span class="state closed">Closed</span>
+                  </div>
+                  <div class="sales-row">
+                    <span class="date">13 Juli</span>
+                    <span class="peference">#328178</span>
+                    <span class="product">Name product</span>
+                    <span class="state under-sale">Under Sale</span>
+                  </div>
                 </div>
               </div>
-            </div>
+              <div class="your-earnings">
+                <div class="payments-hisotry">
+                  <div class="sales-title">Your Eranings</div>
+                  <div class="prices">
+                    <div class="balance">
+                      <span class="key">Current Blance</span>
+                      <span class="value">200$</span>
+                    </div>
+                    <div class="total">
+                      <span class="key">Total</span>
+                      <span class="value">1050$</span>
+                    </div>
+                  </div>
+                  <div class="sales-title">Payout History</div>
+                  <div class="sales-table">
+                    <div class="sales-header sales-row">
+                      <span class="date">Date</span>
+                      <span class="payment">Payment Method</span>
+                      <span class="amount">Amount</span>
+                      <span class="status">Status</span>
+                    </div>
+                    <div class="sales-row">
+                      <span class="date">13 Juli</span>
+                      <span class="payment">Visa</span>
+                      <span class="amount">200$</span>
+                      <span class="status success">Successfully</span>
+                    </div>
+                    <div class="sales-row">
+                      <span class="date">13 Juli</span>
+                      <span class="payment">Paypal</span>
+                      <span class="amount">1200$</span>
+                      <span class="status failed">Failure</span>
+                    </div>
+                    <div class="sales-row">
+                      <span class="date">13 Juli</span>
+                      <span class="payment">Visa</span>
+                      <span class="amount">200$</span>
+                      <span class="status success">Successfully</span>
+                    </div>
+                    <div class="sales-row">
+                      <span class="date">13 Juli</span>
+                      <span class="payment">Paypal</span>
+                      <span class="amount">1200$</span>
+                      <span class="status failed">Failure</span>
+                    </div>
+                  </div>
+                </div>
 
-            <div class="payout-request">
-              <div class="sales-title">Payout Request</div>
-              <p>
-                Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
-                Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam
-                Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et Justo Duo
-                Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No Sea Takimata
-                Sanctus Est Lorem Ipsum Dolor Sit Amet. Lorem Ipsum Dolor Sit
-                Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor
-                Invidunt Ut Labore Et Dolore Magna Aliquyam Erat, Sed Diam
-                Voluptua. At Vero Eos Et Accusam Et Justo Duo Dolores Et Ea Rebum.
-                Stet Clita Kasd Gubergren, No Sea Takimata Sanctus Est Lorem Ipsum
-                Dolor Sit Amet
-              </p>
+                <div class="payout-request">
+                  <div class="sales-title">Payout Request</div>
+                  <p>
+                    Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed
+                    Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
+                    Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
+                    Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
+                    Sea Takimata Sanctus Est Lorem Ipsum Dolor Sit Amet. Lorem
+                    Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
+                    Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
+                    Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
+                    Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
+                    Sea Takimata Sanctus Est Lorem Ipsum Dolor Sit Amet
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-        </div>
-    
     </div>
-  </div>
   </div>
 </template>
 
@@ -123,29 +122,28 @@ export default {
 };
 </script>
 <style>
- .switch{
-      width:55px!important;
-      height: 25px!important;
-  }
-  .slider:before {
-    height: 20px!important;
-    width: 20px!important;
-    bottom: 3px!important;
+.switch {
+  width: 55px !important;
+  height: 25px !important;
+}
+.slider:before {
+  height: 20px !important;
+  width: 20px !important;
+  bottom: 3px !important;
 }
 </style>
 <style lang="scss" scoped>
-.page{
-  margin:unset!important;
+.page {
+  margin: unset !important;
 }
 
 .dash-affiliate {
-  margin:100px auto 20px !important;
+  margin: 100px auto 20px !important;
   padding: 10px;
-  .flexing{
-  display: flex;
-  justify-content: space-between;
+  .flexing {
+    display: flex;
+    justify-content: space-between;
   }
-   
 }
 
 .dash-affiliate .affiliate-header {
@@ -160,11 +158,11 @@ export default {
     padding: 20px 36px;
     font-size: 18px;
   }
-  @media (max-width: 992PX) {
+  @media (max-width: 992px) {
     padding: 15px 26px;
     font-size: 16px;
   }
-  @media (max-width: 576PX) {
+  @media (max-width: 576px) {
     padding: 10px 16px;
     font-size: 15px;
   }
@@ -191,10 +189,10 @@ export default {
   align-items: flex-start;
   justify-content: space-between;
   border: 1px solid #eee;
-  padding:20px;
-  border-radius:5px;
-  @media (max-width: 576PX) {
-    padding:20px 10px ;
+  padding: 20px;
+  border-radius: 5px;
+  @media (max-width: 576px) {
+    padding: 20px 10px;
   }
 }
 
@@ -212,10 +210,9 @@ export default {
   text-align: left;
   @media (max-width: 1400px) {
     font-size: 18px;
-  margin-bottom: 10px;
-  font-weight: 600;
+    margin-bottom: 10px;
+    font-weight: 600;
   }
-  
 }
 
 .sales-table .sales-row {
@@ -223,13 +220,13 @@ export default {
   font-size: 20px;
   color: #040506;
   display: flex;
-  text-align:left!important;
+  text-align: left !important;
   justify-content: space-between;
-   @media (max-width: 1400px) {
-   padding: 20px 10px;
-  font-size: 14px;
+  @media (max-width: 1400px) {
+    padding: 20px 10px;
+    font-size: 14px;
   }
-  @media (max-width: 576PX) {
+  @media (max-width: 576px) {
     font-size: 12px;
   }
 }
@@ -239,11 +236,11 @@ export default {
 .sales-table .sales-row.sales-header {
   padding: 5px 17px;
   font-weight: 600;
-  font-size:14px;
-   background-color: #f1f1f1;
-   @media (max-width: 576PX) {
+  font-size: 14px;
+  background-color: #f1f1f1;
+  @media (max-width: 576px) {
     font-size: 13px;
-    padding:  5px;
+    padding: 5px;
   }
 }
 
@@ -282,7 +279,7 @@ export default {
   font-size: 20px;
   color: #040506;
   margin-bottom: 45px;
-   @media (max-width: 1400px) {
+  @media (max-width: 1400px) {
     margin-bottom: 30px;
     margin-top: -5px;
   }
@@ -292,9 +289,9 @@ export default {
   font-size: 16px;
 }
 .dash-sales .prices .value {
- color: #000;
- font-size: 16px;
- margin-left: 5px;
+  color: #000;
+  font-size: 16px;
+  margin-left: 5px;
 }
 
 .dash-sales .payments-hisotry {
@@ -302,8 +299,8 @@ export default {
   padding: 15px 20px;
   margin-bottom: 50px;
   border-radius: 10px;
-  @media (max-width: 576PX) {
-    padding: 10px ;
+  @media (max-width: 576px) {
+    padding: 10px;
     margin-bottom: 20px;
   }
 }
@@ -315,7 +312,7 @@ export default {
   width: 20%;
 }
 .sales-table .sales-row .status {
-   width: 25%;
+  width: 25%;
 }
 .sales-table .sales-row .status.success {
   color: #3eadb7;
@@ -338,10 +335,9 @@ export default {
 
 .dash-sales > div {
   flex-grow: 1;
-    border-radius:5px;
+  border-radius: 5px;
   width: 100%;
 }
-
 
 @media (max-width: 1200px) {
   .dash-affiliate {
@@ -352,7 +348,6 @@ export default {
   }
 }
 
-
 @media (max-width: 550px) {
   .sales-table .sales-row {
     flex-wrap: wrap;
@@ -362,7 +357,6 @@ export default {
     display: block;
     margin-bottom: 15px;
   }
-  
 }
 
 /* Switch */

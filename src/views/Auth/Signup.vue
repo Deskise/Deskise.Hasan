@@ -2,7 +2,7 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 col-lg-8 col-xl-5 ">
+        <div class="col-md-12 col-lg-8 col-xl-5">
           <h1 class="mb-2 mt-0 text-left">Signup</h1>
           <div class="row">
             <div class="input-group mx-0 mb-2">
@@ -196,60 +196,62 @@ export default {
 <style lang="scss" scoped>
 .login {
   min-height: calc(80vh - 70px);
-  margin-top: 50px!important;
+  margin-top: 50px !important;
   h1 {
     text-transform: uppercase;
     font-family: Barlow;
     font-weight: bold;
   }
-  input,button{
-     height: 45px;
-      @media (max-width: 1410px) {
-        height: 45px;
-    }
-     @media (max-width: 576px) {
-        height: 40px;
-        font-size: 14px;
-    } 
-  }
-  .btn-login-facebook,.btn-login-google{
-@media (max-width: 1410px) {
-        height: 40px;
-    }
-    @media (max-width: 576px) {
-        height: 35px;
-        font-size: 14px;
-    } 
-  }
-  .checkbox{
+  input,
+  button {
+    height: 45px;
     @media (max-width: 1410px) {
-       font-size: 13px;
-       cursor: pointer;
-       text-transform: uppercase!important;
+      height: 45px;
     }
     @media (max-width: 576px) {
-        font-size: 12px;
-    } 
+      height: 40px;
+      font-size: 14px;
+    }
   }
-  .or{
+  .btn-login-facebook,
+  .btn-login-google {
+    @media (max-width: 1410px) {
+      height: 40px;
+    }
+    @media (max-width: 576px) {
+      height: 35px;
+      font-size: 14px;
+    }
+  }
+  .checkbox {
+    @media (max-width: 1410px) {
+      font-size: 13px;
+      cursor: pointer;
+      text-transform: uppercase !important;
+    }
+    @media (max-width: 576px) {
+      font-size: 12px;
+    }
+  }
+  .or {
     border-color: #eee;
     position: relative;
-    &::before{
-      content:"OR";
+    &::before {
+      content: "OR";
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
       background-color: white;
       padding: 10px 30px;
-      color: #000!important;
+      color: #000 !important;
       font-weight: 700;
     }
   }
-  .lead{
+  .lead {
     @media (max-width: 1410px) {
-       font-size: 16px;
-       color: #ccc;
+      font-size: 16px;
+      color: #ccc;
     }
   }
   .invalid {

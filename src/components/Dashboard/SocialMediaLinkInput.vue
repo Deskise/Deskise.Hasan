@@ -86,16 +86,16 @@ export default {
     left: 0;
     top: 0;
     @media (max-width: 1400px) {
-    max-width: 400px!important;
-    width: 400px!important;
+      max-width: 400px !important;
+      width: 400px !important;
     }
     @media (max-width: 992px) {
-    max-width: 80%!important;
-    width:  80%!important;
+      max-width: 80% !important;
+      width: 80% !important;
     }
     @media (max-width: 576px) {
-    max-width: 100%!important;
-    width:  100%!important;
+      max-width: 100% !important;
+      width: 100% !important;
     }
   }
 }

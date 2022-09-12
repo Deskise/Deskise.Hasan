@@ -66,10 +66,10 @@ export default {
     word-break: break-word;
     margin: auto;
     text-transform: capitalize;
-  @media (max-width: 1410px) {
-        font-size: 19px;
-        margin-bottom: 30px!important;
-}
+    @media (max-width: 1410px) {
+      font-size: 19px;
+      margin-bottom: 30px !important;
+    }
   }
   .packages {
     width: 100%;

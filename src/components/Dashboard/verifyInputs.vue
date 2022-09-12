@@ -54,10 +54,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-verification label{
+.form-verification label {
   font-size: 14px;
 }
-.form-verification .checkCondion{
+.form-verification .checkCondion {
   font-size: 12px;
 }
 </style>

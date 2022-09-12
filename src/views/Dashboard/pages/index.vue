@@ -249,7 +249,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 @import "@/sass/_globals/_variables";
 #Profile {
   .replace-img {

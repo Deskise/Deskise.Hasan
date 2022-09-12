@@ -2,7 +2,7 @@
   <div class="login d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 col-lg-8 col-xl-5 ">
+        <div class="col-md-12 col-lg-8 col-xl-5">
           <h1 class="mb-4 text-left">Forgot password!</h1>
           <div class="input-group mx-0">
             <input
@@ -77,14 +77,15 @@ export default {
     font-family: Barlow;
     font-weight: bold;
   }
-  input,button{
+  input,
+  button {
     height: 50px;
-      @media (max-width: 1410px) {
-        height: 50px;
+    @media (max-width: 1410px) {
+      height: 50px;
     }
-     @media (max-width: 576px) {
-        font-size: 14px;
-    } 
+    @media (max-width: 576px) {
+      font-size: 14px;
+    }
   }
 
   .invalid {

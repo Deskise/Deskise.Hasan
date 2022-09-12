@@ -10,7 +10,12 @@
             placeholder="Subcategory"
             :data="subcategories"
           ></single-select> -->
-          <v-select id="MySelect1" placeholder="Subcategory" v-model="subcategorieSelected" :options="Object.values(this.subcategories)"></v-select>
+          <v-select
+            id="MySelect1"
+            placeholder="Subcategory"
+            v-model="subcategorieSelected"
+            :options="Object.values(this.subcategories)"
+          ></v-select>
           <v-select id="MySelect2" placeholder="Seller Location"></v-select>
           <v-select id="MySelect3" placeholder="Time Left"></v-select>
 
@@ -97,12 +102,12 @@
 import { mixin as loadOnBottom } from "@/Mixins/loadOnBottom.js";
 import { mapGetters } from "vuex";
 import Product from "../../components/Products/Product.vue";
-import vSelect from "vue-select"
+import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 export default {
-  components: { Product,vSelect },
+  components: { Product, vSelect },
   mounted() {
-     console.log(this.productByCategoryId);
+    console.log(this.productByCategoryId);
     this.scroll("product.products", async () => {
       await this.$store
         .dispatch("product/list", {
@@ -125,15 +130,15 @@ export default {
   data() {
     return {
       textSearch: "",
-      subcategorieSelected:null,
+      subcategorieSelected: null,
       minPrice: 0,
       maxPrice: 2000,
-      minLifeTime:5,
-      maxLifeTime:7,
-      MinMonthlyPageviews:5,
-      MaxMonthlyPageviews:7,
-      MinMonthlyProfit:5,
-      MaxMonthlyProfit:7,
+      minLifeTime: 5,
+      maxLifeTime: 7,
+      MinMonthlyPageviews: 5,
+      MaxMonthlyPageviews: 7,
+      MinMonthlyProfit: 5,
+      MaxMonthlyProfit: 7,
     };
   },
   methods: {
@@ -144,21 +149,21 @@ export default {
       // console.log(data)
       if (data.title == "Price Range") {
         this.minPrice = data.min;
-        this.maxPrice=data.max
+        this.maxPrice = data.max;
       }
       if (data.title == "A Lifetime Of The Product") {
         this.minLifeTime = data.min;
-        this.maxLifeTime=data.max
+        this.maxLifeTime = data.max;
       }
       if (data.title == "Monthly Pageviews") {
         this.MinMonthlyPageviews = data.min;
-        this.MaxMonthlyPageviews=data.max
+        this.MaxMonthlyPageviews = data.max;
       }
       if (data.title == "Monthly Profit") {
         this.MinMonthlyProfit = data.min;
-        this.MaxMonthlyProfit=data.max
+        this.MaxMonthlyProfit = data.max;
       }
-    }
+    },
   },
 
   computed: {
@@ -168,8 +173,11 @@ export default {
       let Searchproducts = [];
       for (let i = 0; i < Alldata.length; i++) {
         if (
-          Alldata[i].name.toLowerCase().includes(this.textSearch.toLowerCase()) &&
-          Number(Alldata[i].price) >= this.minPrice && Number(Alldata[i].price) <= this.maxPrice
+          Alldata[i].name
+            .toLowerCase()
+            .includes(this.textSearch.toLowerCase()) &&
+          Number(Alldata[i].price) >= this.minPrice &&
+          Number(Alldata[i].price) <= this.maxPrice
         ) {
           Searchproducts.push(Alldata[i]);
         }
@@ -221,12 +229,11 @@ h4 {
 .SingleProduct {
   height: 500px;
 }
-
 </style>
 <style>
-.vs--searchable .vs__dropdown-toggle{
+.vs--searchable .vs__dropdown-toggle {
   height: 45px;
   margin-bottom: 20px;
-  border-color:#ddd
+  border-color: #ddd;
 }
 </style>

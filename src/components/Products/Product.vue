@@ -15,7 +15,7 @@
               name: 'singleProduct',
               params: { id: product.id },
             }"
-            class="btn btn-outline-primary mb-0 "
+            class="btn btn-outline-primary mb-0"
             v-if="!stopSelling"
           >
             {{ __("see") }}
@@ -40,7 +40,12 @@
         <p class="description">{{ product.details }}...</p>
         <!-- <p class="description">{{ product.details.substring(0, 150) }}...</p> -->
       </div>
-      <div :class="{'footer':true, 'border-top':product.verified || product.special}">
+      <div
+        :class="{
+          footer: true,
+          'border-top': product.verified || product.special,
+        }"
+      >
         <div class="icons">
           <div
             :class="{ verified: true, 'border-end': product.special }"
@@ -94,12 +99,12 @@ export default {
 @import "@/sass/_globals/_variables.scss";
 .product {
   background: white;
-  box-shadow:  3px 3px 10px  #f1f1f1 ;
+  box-shadow: 3px 3px 10px #f1f1f1;
   border-radius: 20px;
   padding: 10px !important;
   text-align: left;
   position: relative;
-  height: 100%!important;
+  height: 100% !important;
   border: 1px solid #eee;
   margin: 5px;
   overflow-y: hidden;
@@ -136,16 +141,16 @@ export default {
     height: 350px;
     border-radius: 20px;
     @media (max-width: 1410px) {
-         height: 300px;
-        }
+      height: 300px;
+    }
   }
   .body {
     padding-left: 10px;
     font-size: 18px;
     color: #9d9d9d;
     @media (max-width: 1410px) {
-          font-size: 15px;
-        }
+      font-size: 15px;
+    }
     div {
       &.flexer {
         display: flex;
@@ -158,26 +163,26 @@ export default {
           flex-shrink: 0;
           flex-basis: 38%;
           @media (max-width: 1410px) {
-        flex-basis: 29%;
-        }
+            flex-basis: 29%;
+          }
         }
       }
       h5 {
         font-weight: bold;
         font-size: 20px;
         color: #040506;
-         @media (max-width: 1410px) {
-        font-size: 15px;
-        margin-bottom: 5px;
+        @media (max-width: 1410px) {
+          font-size: 15px;
+          margin-bottom: 5px;
         }
       }
       .btn {
         font-size: 20px;
         padding: 5px 11px;
         @media (max-width: 1410px) {
-        font-size: 13px;
-        padding: 3px;
-        margin-bottom: 5px;
+          font-size: 13px;
+          padding: 3px;
+          margin-bottom: 5px;
         }
       }
       .price {
@@ -186,7 +191,7 @@ export default {
         font-weight: bold;
         @media (max-width: 1410px) {
           font-size: 14px;
-          margin-bottom:0px;
+          margin-bottom: 0px;
         }
         .old-price {
           color: $gray;
@@ -194,29 +199,28 @@ export default {
           font-weight: normal;
           text-decoration: line-through;
           @media (max-width: 1410px) {
-          font-size: 12px;
-          margin-left: 5px;
-        }
+            font-size: 12px;
+            margin-left: 5px;
+          }
         }
       }
       .id {
         text-align: right;
         padding-right: 30px;
-         @media (max-width: 1410px) {
+        @media (max-width: 1410px) {
           padding-right: 10px;
           margin-bottom: 0px;
           font-size: 14px;
         }
       }
-     
     }
-     .description {
-        line-height: 20px;
-        @media (max-width: 1410px) {
-        font-size: 13px!important;
+    .description {
+      line-height: 20px;
+      @media (max-width: 1410px) {
+        font-size: 13px !important;
         margin-bottom: 20px;
-        }
       }
+    }
   }
   .footer {
     display: flex;
@@ -257,9 +261,9 @@ export default {
           float: left;
           margin-right: 5px;
           @media (max-width: 1410px) {
-          height: 20px;
-          width: 20px;
-        }
+            height: 20px;
+            width: 20px;
+          }
         }
         span {
           position: relative;

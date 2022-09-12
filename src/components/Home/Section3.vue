@@ -71,15 +71,15 @@ section {
   justify-content: center;
   align-items: center;
   width: 100%;
-   @media (max-width: 1410px) {
-        padding: 90px 0;
-    }
+  @media (max-width: 1410px) {
+    padding: 90px 0;
+  }
   h2 {
     color: #040506;
     font-size: 60px;
-     @media (max-width: 1410px) {
-        font-size: 40px;
-        margin-bottom: 10px;
+    @media (max-width: 1410px) {
+      font-size: 40px;
+      margin-bottom: 10px;
     }
     @media (max-width: 760px) {
       font-size: 35px;
@@ -103,7 +103,7 @@ section {
       text-transform: uppercase;
       @media (max-width: 1410px) {
         font-size: 23px;
-    }
+      }
       span {
         display: block;
         font-weight: 400;
@@ -117,7 +117,7 @@ section {
       padding-right: 15%;
       @media (max-width: 1410px) {
         font-size: 17px;
-    }
+      }
       @media (max-width: 776px) {
         & {
           padding-right: 0;
@@ -132,9 +132,8 @@ section {
       font-size: 24px;
       @media (max-width: 1410px) {
         font-size: 19px;
-    }
+      }
     }
   }
 }
-
 </style>

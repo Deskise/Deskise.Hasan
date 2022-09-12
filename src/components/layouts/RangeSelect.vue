@@ -50,7 +50,11 @@ export default {
         values[1];
       document.getElementById(`min-${this.uid}`).value = format.from(values[0]);
       document.getElementById(`max-${this.uid}`).value = format.from(values[1]);
-      this.$emit("filterRange",{title:this.name,min:format.from(values[0]),max:format.from(values[1])})
+      this.$emit("filterRange", {
+        title: this.name,
+        min: format.from(values[0]),
+        max: format.from(values[1]),
+      });
     });
   },
   props: {
@@ -139,8 +143,8 @@ export default {
 .noUi-horizontal {
   height: 10px;
   @media (max-width: 1410px) {
-        height: 5px;
-    }
+    height: 5px;
+  }
 }
 
 .noUi-horizontal .noUi-handle {
@@ -150,12 +154,12 @@ export default {
   left: -7px;
   top: -7px;
   background-color: #3eadb7;
-   @media (max-width: 1410px) {
-         width: 15px;
-  height: 15px;
-  left: -4px;
-  top: -5px;
-    }
+  @media (max-width: 1410px) {
+    width: 15px;
+    height: 15px;
+    left: -4px;
+    top: -5px;
+  }
 }
 
 .noUi-background {
@@ -173,7 +177,6 @@ export default {
 
 .noUi-target {
   border-radius: 2px;
-   
 }
 
 .noUi-draggable {
@@ -211,17 +214,17 @@ export default {
 
 .price-range {
   margin-bottom: 15px;
-   @media (max-width: 1410px) {
-       margin-bottom: 20px;
-    }
+  @media (max-width: 1410px) {
+    margin-bottom: 20px;
+  }
   .range-title {
     font-size: 20px;
     color: #040506;
     margin-bottom: 15px;
     text-align: left;
-     @media (max-width: 1410px) {
-       margin-bottom: 10px;
-      font-size: 15px!important;
+    @media (max-width: 1410px) {
+      margin-bottom: 10px;
+      font-size: 15px !important;
       font-weight: 700;
     }
   }
@@ -233,8 +236,8 @@ export default {
     font-size: 20px;
     @media (max-width: 1410px) {
       margin-top: 5px;
-    font-size: 14px;
-    color: grey;
+      font-size: 14px;
+      color: grey;
     }
   }
 }

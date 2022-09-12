@@ -18,10 +18,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lead{
+.lead {
   @media (max-width: 1410px) {
-        font-size: 18px;
-        margin-bottom: 150px!important;
-    }
+    font-size: 18px;
+    margin-bottom: 150px !important;
+  }
 }
 </style>

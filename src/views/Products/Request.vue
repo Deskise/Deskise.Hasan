@@ -179,31 +179,32 @@ export default {
 <style lang="scss" scoped>
 .login {
   min-height: calc(85vh - 70px);
-  margin-top: 80px!important;
+  margin-top: 80px !important;
   h1 {
     text-transform: uppercase;
     font-family: Barlow;
     font-weight: bold;
   }
-   button{
+  button {
     height: 50px;
     @media (max-width: 1410px) {
-        height: 50px;
-    }
-    @media (max-width: 576px) {
-        font-size: 14px;
-    } 
-  }
-   .input-group input,select{
       height: 50px;
-      margin-bottom: 10px;
-     @media (max-width: 1410px) {
-        height: 45px;
     }
     @media (max-width: 576px) {
-        height: 40px;
-        font-size: 14px;
-    } 
+      font-size: 14px;
+    }
+  }
+  .input-group input,
+  select {
+    height: 50px;
+    margin-bottom: 10px;
+    @media (max-width: 1410px) {
+      height: 45px;
+    }
+    @media (max-width: 576px) {
+      height: 40px;
+      font-size: 14px;
+    }
   }
 
   .invalid {

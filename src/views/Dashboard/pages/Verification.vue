@@ -88,8 +88,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.btn{
-  font-size: 14px
+.btn {
+  font-size: 14px;
 }
 @import "@/sass/_globals/_variables";
 .add-img {

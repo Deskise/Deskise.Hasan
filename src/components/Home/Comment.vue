@@ -47,7 +47,7 @@ export default {
     border-radius: 50%;
     @media (max-width: 1400px) {
       width: 80px;
-       height: 80px;
+      height: 80px;
     }
   }
   h4 {
@@ -55,8 +55,8 @@ export default {
     margin-bottom: 2px;
     font-size: 24px;
     @media (max-width: 1400px) {
-     margin-bottom: 10px;
-     font-size: 20px;
+      margin-bottom: 10px;
+      font-size: 20px;
     }
     @media (max-width: 760px) {
       font-size: 18px;
