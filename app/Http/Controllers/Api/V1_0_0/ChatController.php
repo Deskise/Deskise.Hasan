@@ -41,16 +41,16 @@ class ChatController extends Controller
         $calls = $chat->calls()->select('*',\DB::raw('"call" as type'))->orderBy('created_at','desc')->where('created_at','>=',$messages->last()->created_at)->get();
         $agreements = $chat->agreements()->select('*',\DB::raw('"agreement" as type'))->orderBy('created_at','desc')->where('created_at','>=',$messages->last()->created_at)->get();
 
-        $data = $messages->merge($agreements)->merge($calls)->sortByDesc('created_at')->values()->each(function ($e) use ($chat) {
-            $e->update(['read' => true]);
-//            broadcast(new ReadEvent($chat->id, $e))->toOthers();
-        });
+        $data = $messages->merge($agreements)->merge($calls)->sortByDesc('created_at')->values()
+            ->each(function ($e) use ($chat) {
+                $e->update(['read' => true]);
+//              broadcast(new ReadEvent($chat->id, $e))->toOthers();
+            });
         return APIHelper::jsonRender('',['items'=>$data,'last_page'=>$messages->lastPage(),'total'=>$messages->total()]);
     }
 
     public function getFiles(Chat $chat)
     {
-        $attachments = [];
         $chat->files()->paginate(30)->each(function($e) use (&$attachments, $chat){
             foreach ($e->attachments as $attachment) {
                 $attachments[] = (object)['image' => route('images', ['for' => 'chats.'.$chat->id,'image'=>$attachment]),'created_at' => $e->created_at];
@@ -66,8 +66,8 @@ class ChatController extends Controller
 
     public function sendMessage(Request $request, Chat $chat) {
         $request->validate([
-            'message'   =>  'nullable|required_if:attachments,null',
-            'attachments'=> 'array|nullable',
+            'message'       =>  'nullable|required_if:attachments,null',
+            'attachments'   => 'array|nullable',
             'attachments.*' =>  'string|nullable'
         ]);
         $chat->messages()->create([
@@ -76,6 +76,24 @@ class ChatController extends Controller
             'attachments'=>$request->input('attachments')
         ]);
 
+        return APIHelper::jsonRender('success',[]);
+    }
+
+    public function sendAgreement(Request $request, Chat $chat)
+    {
+        $request->validate([
+            'details'       =>  'string|required',
+            'notes'         =>  'string|nullable',
+            'file_types'    =>  'array|required',
+            'price'         =>  'numeric|required'
+        ]);
+        $chat->agreements()->create([
+            'from'  =>  $request->user('api')->id,
+            'details' => $request->input('details'),
+            'note' => $request->input('note'),
+            'file_types' => $request->input('file_types'),
+            'price' => $request->input('price'),
+        ]);
         return APIHelper::jsonRender('success',[]);
     }
 }

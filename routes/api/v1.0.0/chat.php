@@ -13,5 +13,6 @@ Route::group(['prefix' => '{chat}'], function (){
 
     Route::group(['prefix' => 'send'], function () {
         Route::post('message', [Chat::class, 'sendMessage']);
+        Route::post('agreement', [Chat::class, 'sendAgreement']);
     });
 });

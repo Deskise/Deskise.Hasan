@@ -74,7 +74,7 @@
         public function best()
         {
             ///TODO: Get Packages Data and Things And find a way to get the pinned ones here to show on the homepage
-            return APIHelper::jsonRender('', Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as details','price',
+            return APIHelper::jsonRender('', Product::select('id','name', 'summary as details','price',
                 'special','verified', 'img','status')
                 ->where('status','!=','under_verify')
                 ->where('status','!=','canceled')->paginate(4));
@@ -82,9 +82,8 @@
 
         public function list($category=false)
         {
-
             $query = $this->filter(
-                Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as details','price',
+                Product::select('id','name', 'summary as details','price',
                     'special','verified', 'img','status','is_lifetime','until','created_at','user_id')
                     ->where('status','!=','under_verify')
                     ->where('status','!=','canceled')
@@ -113,8 +112,8 @@
 
         public function single($id, $prod=false)
         {
-            $product = Product::select('id','name_'.self::$language.' as name', 'summary_'.self::$language.' as summary',
-                'description_'.self::$language.' as description','price','user_id','img', 'special','verified','status','is_lifetime','until', 'category_id', 'updated_at', 'created_at')
+            $user=request()->user('api');
+            $product = Product::select('id','name', 'summary as summary','description','price','user_id','img', 'special','verified','status','is_lifetime','until', 'category_id', 'updated_at', 'created_at')
                 ->with('user:id,firstname,lastname,img,is_hidden')
                 ->with('data')
                 ->with('data.subcategory:id,name_'.self::$language . ' as name')
@@ -122,16 +121,13 @@
                 ->with('assets')
                 ->find($id);
 
-            $product->views()->create(['visitor_id'=>request()?->user('api')->id]);
-            if ($product===Null)
-                return APIHelper::jsonRender('Requested Product Not Found', [], 404);
-
-            if ($product->status === 'canceled'  && $product->user_id !== request()->user()->id)
+            if ($product===Null) return APIHelper::jsonRender('Requested Product Not Found', [], 404);
+            if ($product->status === 'canceled'  && $product->user_id!==$user->id)
                 return APIHelper::jsonRender('Requested Product Has Been Cancelled', [], 403);
-
-            if ($product->status === 'under_verify' && (request()->user() === null || $product->user_id !== request()->user()->id))
+            if ($product->status === 'under_verify' && ($user===null || $product->user_id!==$user->id))
                 return APIHelper::jsonRender('Requested Product Still Under verification', [], 403);
 
+            $product->views()->create(['visitor_id'=>request()?->user('api')->id]);
             $bought = $product->bought();
             $product->bought = ['count' => $bought->count(), 'user_imgs' => $bought->limit(5)->get()->each(function($buy){
                 $user = User::find($buy->user_id);
@@ -141,20 +137,16 @@
             })];
 
             $product->likes = $product->likes()->count();
-            if (\request()->user()) {
-                $product->liked = $product->likes()->where('user_id', '=', request()->user()->id)->first() !== null;
-                $product->mine = ($product->user_id===request()->user()->id);
-            }else{
-                if ($product->user->is_hidden)
-                {
-                    $person = new \Faker\Provider\en_US\Person(new Generator());
-
-                    $product->user->firstname = $person->firstName($person::GENDER_MALE);
-                    $product->user->lastname = $person->lastname();
-                    $product->user->img = 'default.png';
-                }
+            if ($user) {
+                $product->liked = $product->likes()->where('user_id', '=', $user->id)->first() !== null;
+                $product->mine = ($product->user_id===$user->id);
             }
             $product->dates = ['new'=>$product->updated_at, 'old'=>$product->created_at];
+            if ($product->user->is_hidden && !$product->mine) {
+                unset($product->user);
+                $product->user=null;
+            }
+
             unset($product->user_id,$product->subcategory_id);
             if ($prod) return $product;
 
@@ -163,18 +155,15 @@
 
         public function like(Product $product)
         {
-            if ($product->status === 'canceled'  && $product->user_id !== request()->user()->id)
+            if ($product->status === 'canceled'  && $product->user_id !== request()->user('api')->id)
                 return APIHelper::jsonRender('Requested Product Has Been Cancelled', [], 403);
-
-            if ($product->status === 'under_verify' && $product->user_id !== request()->user()->id)
+            if ($product->status === 'under_verify' && $product->user_id !== request()->user('api')->id)
                 return APIHelper::jsonRender('Requested Product Still Under verification', [], 403);
 
-            $like = ProductLikes::where('product_id','=',$product->id)->where('user_id','=',request()->user()->id)->first();
-
-            if ($like===null)
+            if (is_null($like=ProductLikes::where('product_id','=',$product->id)->where('user_id','=',request()->user('api')->id)->first()))
             {
                 if ($product->likes()->create([
-                    'user_id'   =>  request()->user()->id
+                    'user_id'   =>  request()->user('api')->id
                 ]))
                     return APIHelper::jsonRender('Product Liked Successfully', []);
 
@@ -185,11 +174,9 @@
 
             return APIHelper::error('Error Disliking Product, Try Again Later');
         }
-
         public function search($category=false)
         {
-            $validator = \Validator::make(request()->all(), ['q'=>'required|string']);
-            if ($validator->fails())
+            if (($validator=\Validator::make(request()->all(), ['q'=>'required|string']))->fails())
                 return APIHelper::error('there were some errors with the request',$validator->errors());
 
             $query = $this->filter(
@@ -209,11 +196,8 @@
                     })
             );
 
-            if (is_a($query, JsonResponse::class))
-                return $query;
-
-            if ($category)
-                $query->where('category_id', $category);
+            if (is_a($query, JsonResponse::class)) return $query;
+            if ($category) $query->where('category_id', $category);
 
             return APIHelper::jsonRender('', $query->paginate(12));
         }
@@ -222,36 +206,27 @@
         {
             $product = $this->single($id, true);
 
-            if ($product->status === 'canceled'  && $product->user_id !== request()->user()->id)
+            if ($product->status === 'canceled'  && $product->user_id !== request()->user('api')->id)
                 return APIHelper::jsonRender('Requested Product Has Been Cancelled', [], 403);
 
-            if ($product->status === 'under_verify' && $product->user_id !== request()->user()->id)
+            if ($product->status === 'under_verify' && $product->user_id !== request()->user('api')->id)
                 return APIHelper::jsonRender('Requested Product Still Under verification', [], 403);
 
-            if (is_a($product, 'Illuminate\Http\JsonResponse'))
+            if (is_a($product, JsonResponse::class))
                 return $product;
 
-            $product->draft = $product->draft()->first();
+            $product->draft = $product->drafts()->first();
             return APIHelper::jsonRender('', $product);
         }
         public function publish(ProductEditRequest $request, $id=false)
         {
-            if ($request->hasError)
-                return $request->response;
+            if ($request->hasError) return $request->response;
 
             if ($id) {
-                $product = Product::find($id);
-                if (!$product)
-                {
-                    return APIHelper::jsonRender('The Requested Product Not Found',[],404);
-                }
-            } else {
-                $product = new Product();
-                $product->user_id = $request->user()->id;
-            }
+                if (!$product=Product::find($id)) return APIHelper::jsonRender('The Requested Product Not Found', [], 404);
+            } else $product = new Product(['user_id' => $request->user('api')->id]);
 
-            $draft = $product->draft()->first();
-            if ($draft!==null) $draft->delete();
+            if (($draft=$product->drafts()->first())!==null) $draft->delete();
 
             $product->name = $request->input('name') ?? $product->name;
             $product->description = $request->input('description') ?? $product->description;
@@ -259,128 +234,87 @@
             $product->price = $request->input('price') ?? $product->price;
             $product->img = $request->input('img') ?? $product->img;
             $product->is_lifetime = $request->input('lifetime') ?? $product->is_lifetime;
-
             $product->verified= true;
 
             if (\Route::currentRouteName()==='add' && $request->input('category'))
-            {
                 $product->category_id = $request->input('category');
-            }
-            $category = Category::find($request->input('category')??$product->category());
 
             if (!$product->is_lifetime)
-                $product->until = date('Y-m-d',strtotime($request->input('until'))) ?? $product->until;
-            else
-                $product->until = NULL;
+                $product->until=date('Y-m-d',strtotime($request->input('until')))??$product->until;
 
             if (!$product->save())
-            {
                 return APIHelper::error('Error Updating Data');
-            }
 
             if ($request->input('assets'))
-            {
                 $product->assets()->update(['assets' => $request->input('assets')]);
-            }
 
-            if ($request->input('subcategory') && $category->subcategories()->find($request->input('subcategory')))
-            {
-                $product->data()->update(['subcategory_id' => ($request->input('subcategory')?? $product->data()->get()->first()->subcategory_id)]);
-            }else
-            {
-                return APIHelper::error('Subcategory_id Provided Is Not Subcategory for this category');
-            }
+            if ($request->input('subcategory') && $product->category->subcategories()->find($request->input('subcategory')))
+                $product->data()->update(['subcategory_id' => ($request->input('subcategory')?? $product->data->subcategory_id)]);
+            else return APIHelper::error('Subcategory_id Provided Is Not Subcategory for this category');
+
             if ($request->input('data'))
-            {
-                $product->data()->update(['data' => $request->input('data')]);
-            }
+                if (($v=\Validator::make($data=json_decode($request->input('data'),true),$product->category->validateData()))->fails())
+                    return APIHelper::error($v->errors()->first(),$v->errors());
+                else $product->data()->update(['data' => $product->category->bindValues($data)]);
+
             if ($request->input('packages'))
             {
-                $packages = json_decode($request->input('packages'), true, 512, JSON_THROW_ON_ERROR);
+                foreach ($packages=json_decode($request->input('packages'), true, 512, JSON_THROW_ON_ERROR) as $package_id)
+                    ($product->packages()->where('package_id', '=', $package_id)->first() ?? $product->packages()->create(['status' => 'attached','package_id' => $package_id]));
                 $product->packages()->whereNotIn('package_id',$packages)->delete();
-
-                foreach ($packages as $id)
-                {
-                    ($product->packages()->where('package_id', '=', $id)->first() ?? $product->packages()->create(['status' => 'attached','package_id' => $id]));
-                }
             }
+
             if ($request->input('social_media'))
             {
-                $social = json_decode($request->input('social_media'), true, 512, JSON_THROW_ON_ERROR);
-                $ids = [];
-
-                foreach ($social as $item)
-                {
-                    $ids[] = $item['id'];
-
-                    $social = $product->social()->where('social_id','=',$item['id'])->first();
-                    if ($social !== null) $social->update(['link' => $item['link']]);
-                    else $product->social()->create(['social_id' => $item['id'], 'link' => $item['link']]);
-                }
-                $product->social()->whereNotIn('social_id',$ids)->delete();
+                foreach ($items=json_decode($request->input('social_media'), true, 512, JSON_THROW_ON_ERROR) as $item)
+                    $product->social()->updateOrCreate(['social_id' => $item['id']],['link' => $item['link']]);
+                $product->social()->whereNotIn('social_id',collect($items)->pluck('id'))->delete();
             }
-
             return APIHelper::jsonRender('Data Updated Successfully', $this->single($product->id,true));
         }
-        public function saveDraft(ProductEditRequest $request, $id=false)
+        public function saveDraft(ProductEditRequest $request, $id=0)
         {
-            if ($request->hasError)
-                return $request->response;
+            if ($request->hasError)return $request->response;
 
-            if ($id)
-            {
-                $product = ProductDraft::where('product_id','=',$id)->first();
-                if (!$product)
-                {
-                    $product = new ProductDraft();
-                    $product->user_id = $request->user()->id;
-                    $product->product_id = $id;
-                }
-            }else
-            {
-                $product = new ProductDraft();
-                $product->user_id = $request->user()->id;
-            }
+            $product=ProductDraft::find($id)->first()??new ProductDraft();
 
-            $product->name = $request->input('name') ?? $product->name;
-            $product->description = $request->input('description') ?? $product->description;
-            $product->summary = $request->input('summary') ?? $product->summary;
-            $product->price = $request->input('price') ?? $product->price;
-            $product->category_id = $request->input('category') ?? $product->category_id;
-            $product->img = $request->input('img') ?? $product->img;
-            $product->is_lifetime = $request->input('lifetime') ?? $product->is_lifetime;
-
-            if (!$product->is_lifetime)
-                $product->until = date('Y-m-d',strtotime($request->input('until'))) ?? $product->until;
-            else
-                $product->until = NULL;
-
+            $product->product_id = $request->input('product_id');
+            $product->user_id = $request->user('api')->id;
+            $product->name = $request->input('name');
+            $product->description = $request->input('description');
+            $product->summary = $request->input('summary');
+            $product->price = $request->input('price');
+            $product->category_id = $request->input('category');
+            $product->img = $request->input('img');
+            $product->is_lifetime = $request->input('lifetime');
             $product->assets = json_decode($request->input('assets'));
             $product->subcategory_id = $request->input('subcategory');
-            $product->data = json_decode($request->input('data'));
             $product->packages = json_decode($request->input('packages'));
             $product->socialLinks = json_decode($request->input('social_media'));
 
+            if (!$product->is_lifetime)
+                $product->until=date('Y-m-d',strtotime($request->input('until')));
+
+            if (($v=\Validator::make($data=json_decode($request->input('data'),true),$product->category->validateData(false)))->fails())
+                return APIHelper::error($v->errors()->first(),$v->errors());
+            else $product->data = $product->category->bindValues($data);
+
             if (!$product->save())
-            {
                 return APIHelper::error('Error Updating Data');
-            }
 
             return APIHelper::jsonRender('Data Updated Successfully', $product);
         }
-        public function upload(Request $request, $id=false)
+        public function upload(Request $request)
         {
-            $validator = \Validator::make($request->all(), [
+            if (($validator=\Validator::make($request->all(), [
                 'file'  =>  'required|file|mimes:png,jpg,jpeg,webp,svg'
-            ]);
-            if ($validator->fails())
-            {
+            ]))->fails())
                 return APIHelper::jsonRender('There Was An Error Validating Your Request', $validator->errors(), 400);
-            }
-            $file = new \stdClass();
 
-            $file->name = time().'_#'.$request->user()->id.'_'.\Str::random(10).'.'.$request->file('file')->getClientOriginalExtension();
-            $request->file('file')->storeAs('products/'.$request->user()->id, $file->name,'public');
+            $file=new \stdClass();
+            $request->file('file')?->storeAs('products/'.$request->user('api')->id,
+                $file->name=time().'_#'.$request->user('api')->id.'_'.\Str::random(10).'.'.$request->file('file')?->getClientOriginalExtension(),
+                'public');
 
             return APIHelper::jsonRender('Uploaded Successfully', $file);
         }

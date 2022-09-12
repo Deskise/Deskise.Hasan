@@ -65,9 +65,9 @@ class Product extends Model
     {
         return $this->hasOne(ProductVerification::class);
     }
-    public function draft()
+    public function drafts()
     {
-        return $this->hasOne(ProductDraft::class);
+        return $this->hasMany(ProductDraft::class);
     }
     public function likes()
     {

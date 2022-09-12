@@ -14,6 +14,7 @@ class ChatAgreement extends Model
         'from',
         'details',
         'notes',
+        'price',
         'file_types',
         'status',
         'read',

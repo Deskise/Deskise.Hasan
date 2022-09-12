@@ -29,35 +29,25 @@ class ProductEditRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'name'  =>  'string|max:30',
-            'description'   =>  'string|min:250',
-            'summary'   =>  'string|max:350',
-            'price'     =>  'numeric',
-            'img'       =>  'string|max:30',
-            'category'  =>  'integer|exists:'.(new Category())->getTable().',id',
-            'lifetime'  =>  'boolean',
-            'until'     =>  'date_format:d/m/Y',
-            'assets'    =>  'json',
-            'subcategory'=> 'integer|exists:'.(new Subcategory())->getTable().',id',
-            'data'      =>  'json',
-            'packages'  =>  'json',
-            'packages.*'  =>  'integer|exists:'.(new Package())->getTable().',id',
-            'social_media'  =>  'json',
-            'social_media.*'  =>  'json',
-            'social_media.*.id'    =>  'integer|exists:'.(new SocialMediaLink())->getTable().',id',
-            'social_media.*.link'         =>  'url'
+        return [
+            'name'  =>  'required|string|max:30',
+            'description'   =>  'required|string|min:250',
+            'summary'   =>  'required|string|max:350',
+            'price'     =>  'required|numeric',
+            'img'       =>  'required|string|max:30',
+            'category'  =>  (($this->route()->getName()==='add')?'required|':'').'integer|exists:'.(new Category())->getTable().',id',
+            'lifetime'  =>  'required|boolean',
+            'until'     =>  'required|date_format:d/m/Y',
+            'assets'    =>  'required|json',
+            'subcategory'=> 'required|integer|exists:'.(new Subcategory())->getTable().',id',
+            'data'      =>  'required|json',
+            'packages'  =>  'required|json',
+            'packages.*'  =>  'required|integer|exists:'.(new Package())->getTable().',id',
+            'social_media'  =>  'required|json',
+            'social_media.*'  =>  'required|json',
+            'social_media.*.id'    =>  'required|integer|exists:'.(new SocialMediaLink())->getTable().',id',
+            'social_media.*.link'         =>  'required|url'
         ];
-
-        if ($this->route()->getName()==='add')
-        {
-            foreach ($rules as $key => $rule)
-            {
-                $rules[$key] = 'required|'.$rule;
-            }
-        }
-
-        return $rules;
     }
 
     public function messages()

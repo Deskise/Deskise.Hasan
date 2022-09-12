@@ -100,23 +100,12 @@
         }
         public static function jsonRender($message,$data,$code=200, array $more=[])
         {
-            if ($message==="") $message=null;
-            if ($data===[]) {
-                $data = NULL;
-            }elseif(!$data instanceof \Illuminate\Database\Eloquent\Collection && !is_array($data))
-            {
-                $data = [$data];
-            }
-
-            $response = [
-                'message'   =>  $message,
-                'extra'      =>  $data
-            ];
-
-            $response = array_merge($response,$more);
-
+            if(!$data instanceof \Illuminate\Database\Eloquent\Collection && !is_array($data)) $data = [$data];
             return response()->json([
-                'response'  =>  $response,
+                'response'  =>  array_merge([
+                    'message'   =>  $message?:NULL,
+                    'extra'      =>  $data?:NULL
+                ],$more),
                 'content-language'  =>  App::getLocale(),
                 'code'              =>  $code
             ], $code);
