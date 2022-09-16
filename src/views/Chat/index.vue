@@ -2,7 +2,7 @@
   <div class="dash-chat row" id="chat">
     <div class="ringing-call">
       <div class="avatar-image lg">
-        <img src="@/assets/chat-avatar.png" />
+        <img src="@/assets/chat-avatar.png" alt="image" />
       </div>
       <div class="ringing-info">
         <div class="contact-name">Hilda Hansen</div>
@@ -65,7 +65,7 @@
               <div class="row contact-name-message">
                 <div class="col-2">
                   <div class="dash-contact-image">
-                    <img src="@/assets/contact-image.png" />
+                    <img src="@/assets/contact-image.png" alt="image" />
                   </div>
                 </div>
                 <div class="col-7">
@@ -92,7 +92,7 @@
               <div class="row contact-name-message">
                 <div class="col-2">
                   <div class="dash-contact-image">
-                    <img src="@/assets/contact-image.png" />
+                    <img src="@/assets/contact-image.png" alt="image" />
                   </div>
                 </div>
                 <div class="col-7">
@@ -119,7 +119,7 @@
               <div class="row contact-name-message">
                 <div class="col-2">
                   <div class="dash-contact-image">
-                    <img src="@/assets/contact-image.png" />
+                    <img src="@/assets/contact-image.png" alt="image" />
                   </div>
                 </div>
                 <div class="col-7">
@@ -146,7 +146,7 @@
               <div class="row contact-name-message">
                 <div class="col-2">
                   <div class="dash-contact-image">
-                    <img src="@/assets/contact-image.png" />
+                    <img src="@/assets/contact-image.png" alt="image" />
                   </div>
                 </div>
                 <div class="col-7">

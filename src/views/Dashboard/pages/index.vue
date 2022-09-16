@@ -9,7 +9,7 @@
           </label>
 
           <input id="file" type="file" @change="loadFile($event)" />
-          <img :src="img" id="output" />
+          <img :src="img" id="output" alt="output" />
         </div>
 
         <span class="replace">Replace Image</span>

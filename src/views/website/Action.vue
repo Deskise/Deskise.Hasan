@@ -2,10 +2,10 @@
   <div class="action">
     <div class="container-fluid">
       <div class="row">
-        <h2 class="mb-3 mt-5">{{ __("header.nologin.mech") }}</h2>
+        <h2 class="mb-3 mt-5">{{ $t("header.nologin.mech") }}</h2>
       </div>
       <div class="container packages-container">
-        <p class="text-gray lead mb-4">{{ __("mech.text") }}</p>
+        <p class="text-gray lead mb-4">{{ $t("mech.text") }}</p>
         <swiper :slidesPerView="slides" :spaceBetween="15" class="packages">
           <swiper-slide v-for="pack in packages" :key="pack.id">
             <action-slide :pack="pack"></action-slide>

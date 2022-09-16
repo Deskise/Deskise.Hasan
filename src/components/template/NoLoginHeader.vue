@@ -38,7 +38,7 @@
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
             <router-link class="nav-link" to="/">
-              {{ __("header.nologin.home") }}
+              {{ $t("header.nologin.home") }}
             </router-link>
           </li>
           <li class="nav-item dropdown">
@@ -50,7 +50,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              {{ __("header.nologin.category") }}
+              {{ $t("header.nologin.category") }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li v-for="(category, index) in categories" :key="index">
@@ -69,32 +69,32 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'about' }">
-              {{ __("header.nologin.about") }}
+              {{ $t("header.nologin.about") }}
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'action' }">
-              {{ __("header.nologin.mech") }}
+              {{ $t("header.nologin.mech") }}
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'terms' }">
-              {{ __("header.nologin.terms") }}
+              {{ $t("header.nologin.terms") }}
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'privacy' }">
-              {{ __("header.nologin.privacy") }}
+              {{ $t("header.nologin.privacy") }}
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'faq' }">
-              {{ __("header.nologin.FAQ") }}
+              {{ $t("header.nologin.FAQ") }}
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'blog' }">
-              {{ __("header.nologin.blog") }}
+              {{ $t("header.nologin.blog") }}
             </router-link>
           </li>
         </ul>
@@ -104,7 +104,7 @@
           v-slot="{ navigate }"
         >
           <button class="btn btn-primary login" @click="navigate">
-            {{ __("header.nologin.login") }}
+            {{ $t("header.nologin.login") }}
           </button>
         </router-link>
       </div>

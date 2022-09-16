@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-lg-8 col-xl-5">
-          <h1 class="mb-4 text-left">Login</h1>
+          <h1 class="mb-4 text-left">{{ $t("login") }}</h1>
           <div class="row">
             <div class="input-group mx-0 mb-2">
               <input
@@ -19,7 +19,7 @@
               <input
                 type="password"
                 class="form-control col-12 py-1"
-                placeholder="PASSWORD"
+                :placeholder="$t('password')"
                 v-model="form.password"
                 @keydown="$event.target.classList.remove('invalid')"
               />
@@ -29,7 +29,7 @@
                 class="btn btn-primary form-control col-12 py-1"
                 @click="check"
               >
-                Login
+                {{ $t("login") }}
               </button>
             </div>
 
@@ -41,9 +41,9 @@
                 ></circle-checkbox>
               </div>
               <div class="col-6 text-right px-0 forget">
-                <router-link :to="{ name: 'forget' }"
-                  >Forget Password</router-link
-                >
+                <router-link :to="{ name: 'forget' }">{{
+                  $t("forgetPassword")
+                }}</router-link>
               </div>
             </div>
             <div class="input-group other-login mx-0 mb-2 overflow-hidden">
@@ -53,7 +53,7 @@
                   class="btn form-control btn-login-facebook w-100 mb-2 py-1"
                   @click.prevent="login('facebook')"
                 >
-                  Facebook
+                  {{ $t("facebook") }}
                 </button>
               </div>
               <div class="col pe-0 ms-2">
@@ -61,14 +61,16 @@
                   class="btn form-control btn-login-google w-100 mb-2 py-1"
                   @click.prevent="login('google')"
                 >
-                  Google
+                  {{ $t("google") }}
                 </button>
               </div>
 
               <div class="col-12 justify-content-center">
                 <p class="lead">
-                  Don't Have An Account?
-                  <router-link :to="{ name: 'signup' }">Register</router-link>
+                  {{ $t("dontHaveAnAccount") }}
+                  <router-link :to="{ name: 'signup' }">{{
+                    $t("register")
+                  }}</router-link>
                 </p>
               </div>
             </div>
@@ -76,26 +78,26 @@
         </div>
       </div>
     </div>
-    <manimg></manimg>
+    <man-img></man-img>
   </div>
 </template>
 
 <script>
-import manimg from "@/components/template/manImg.vue";
+import manImg from "@/components/template/manImg.vue";
 import { Via } from "@/Mixins/Via";
-import { required, email } from "../../Mixins/Validations";
+import { required, email } from "@/Mixins/Validations";
 export default {
   data() {
     return {
       form: {
-        email: "",
+        email: this.$route.query.email || "",
         password: "",
         remember_me: false,
       },
       isError: false,
     };
   },
-  components: { manimg },
+  components: { manImg },
   mixins: [Via],
   methods: {
     r(e) {

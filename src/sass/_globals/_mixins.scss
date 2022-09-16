@@ -1,0 +1,41 @@
+@mixin make($name,$basic_bg_color,$basic_border_color,$basic_text_color,$active_bg_color,$active_border_color,$active_text_color) {
+  .#{$name},
+  .#{$name}:focus {
+    background-color: $basic_bg_color;
+    border-color: $basic_border_color;
+    color: $basic_text_color;
+    box-shadow: none !important;
+
+    &:hover,
+    &:active {
+      background-color: $active_bg_color;
+      color: $active_text_color;
+      border-color: $active_border_color;
+      box-shadow: none !important;
+    }
+
+    &:focus,
+    &:focus-visible {
+      box-shadow: none !important;
+      border: 0;
+    }
+    &.disabled,
+    &:disabled {
+      background-color: $basic_bg_color;
+      border-color: $basic_border_color;
+    }
+  }
+}
+
+@mixin makeBtn($name,$basic_bg_color,$basic_text_color,$basic_border_color,$active_bg_color,$active_border_color,$active_text_color) {
+  @include make('btn-'+$name,$basic_bg_color,$basic_text_color,$basic_border_color,$active_bg_color,$active_border_color,$active_text_color)
+}
+@mixin makeInput($name,$basic_bg_color,$basic_text_color,$basic_border_color,$active_bg_color,$active_border_color,$active_text_color) {
+  @include make('input-'+$name,$basic_bg_color,$basic_text_color,$basic_border_color,$active_bg_color,$active_border_color,$active_text_color)
+}
+@mixin makeAlert($name,$bg_color)
+{
+  .alert-#{$name} {
+    background-color: $bg_color;
+  }
+}

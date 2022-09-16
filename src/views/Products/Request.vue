@@ -100,7 +100,7 @@ export default {
     return {
       category_id: "",
       subcategory_id: "",
-      email: "",
+      email: this.$route.query.email || "",
       price: "",
       explain: "",
 

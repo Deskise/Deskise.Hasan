@@ -10,31 +10,27 @@
         <div class="col-12 col-md-8 col-lg-9">
           <div class="dash-profile-products">
             <div class="text-left mb-4 btnsGroup">
-              <div
-                class="btn-group"
-                role="group"
-                aria-label="Basic radio toggle button group"
-              >
+              <div class="btn-group" role="group">
                 <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnradio"
-                  id="btnradio1"
+                  id="btnRadio1"
                   autocomplete="off"
                   checked
+                  class="btn-check"
+                  name="btnRadio"
+                  type="radio"
                 />
                 <label
                   class="btn btn-outline-primary"
-                  for="btnradio1"
+                  for="btnRadio1"
                   @click="show = 'Draft'"
-                  >Draft</label
+                  >{{ $t("draft") }}</label
                 >
                 <input
-                  type="radio"
+                  id="btnRadio2"
+                  autocomplete="off"
                   class="btn-check"
                   name="btnradio"
-                  id="btnradio2"
-                  autocomplete="off"
+                  type="radio"
                 />
                 <label
                   class="btn btn-outline-primary"
@@ -45,30 +41,30 @@
               </div>
             </div>
             <div
+              v-if="products.length > 0 && show === 'Draft'"
               class="dash-products"
-              v-if="products.length > 0 && show == 'Draft'"
             >
               <div
-                class="dash-product"
                 v-for="product in products"
                 :key="product.id"
+                class="dash-product"
               >
                 <product :product="product" :stopSelling="sameUser"></product>
               </div>
             </div>
-            <div v-if="!products.length > 0 && show == 'Draft'">
+            <div v-if="!products.length > 0 && show === 'Draft'">
               <h6 class="text-left text-grey">Not Found Draft Product Yet.!</h6>
             </div>
-            <div class="dash-products" v-if="show == 'projects'">
+            <div v-if="show === 'projects'" class="dash-products">
               <div
-                class="dash-product"
                 v-for="product in products"
                 :key="product.id"
+                class="dash-product"
               >
                 <product :product="product" :stopSelling="sameUser"></product>
               </div>
             </div>
-            <div v-if="show == 'projects'">
+            <div v-if="show === 'projects'">
               <h6 class="text-left text-grey">Not Found projects Yet.!</h6>
             </div>
           </div>
@@ -84,6 +80,7 @@ import { mixin as loadOnBottom } from "@/Mixins/loadOnBottom.js";
 import PersonalData from "../../components/Profile/PersonalData.vue";
 import Product from "../../components/Products/Product.vue";
 import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -136,16 +133,19 @@ export default {
 
 <style lang="scss">
 @import "@/sass/_globals/_variables";
+
 .btnsGroup label {
   border-color: #ddd !important;
   color: #000;
   margin: 0 10px;
   border-radius: 3px !important;
 }
+
 .btnsGroup label:hover {
   background-color: #eee;
   color: #000;
 }
+
 .btn-check:checked + .btn-outline-primary {
   background-color: #4e1b56;
   border-color: #4e1b56 !important;
@@ -154,6 +154,7 @@ export default {
 
 .profile {
   margin: 0 0 70px 0 !important;
+
   .dash-btn {
     padding: 15px 72px;
     border-radius: 5px;
@@ -186,6 +187,7 @@ export default {
   flex-wrap: wrap;
   margin-bottom: 15px;
 }
+
 .dash-products .dash-product {
   flex-basis: 400px;
   max-width: 400px;
@@ -197,6 +199,7 @@ export default {
   max-width: 100%;
   margin-bottom: 15px;
 }
+
 .dash-product .dash-product-image img {
   max-width: 100%;
   display: block;
@@ -214,24 +217,29 @@ export default {
   color: #fff;
   font-size: 16px;
 }
+
 .dash-product .das-product-info {
   display: flex;
   justify-content: space-between;
 }
+
 .dash-product .dash-action-and-order {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
+
 .dash-product .dash-title {
   color: #040506;
   font-size: 20px;
   margin-bottom: 5x;
   font-weight: bold;
 }
+
 .dash-product .dash-price-discount {
   display: flex;
 }
+
 .dash-product .dash-price {
   color: #3eadb7;
   font-weight: bold;
@@ -239,6 +247,7 @@ export default {
   display: inline-block;
   margin-right: 8px;
 }
+
 .dash-product .dash-old-price {
   font-size: 16px;
   text-decoration: line-through;
@@ -278,6 +287,7 @@ export default {
   color: #040506;
   font-size: 16px;
 }
+
 .dash-product-feature i {
   border-radius: 50%;
   padding: 7px;
@@ -293,6 +303,7 @@ export default {
     font-size: 15px;
   }
 }
+
 @media (min-width: 1340px) and (max-width: 1520px) {
   .dash-product .dash-btn.product-btn {
     font-size: 14px;

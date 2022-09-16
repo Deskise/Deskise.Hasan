@@ -4,7 +4,7 @@
       <span class="title">{{ getName }}</span>
       <span class="icon">
         <flat-icon-component
-          icon="angle-down"
+          :icon="arrow"
           type="b"
           straight
         ></flat-icon-component>
@@ -21,7 +21,7 @@
         @click="closeSelect"
       >
         <a href="javascript:void(0)" @click.prevent="choose(item[0])">
-          {{ item[0] + " " + item[1] }}
+          {{ item[1] }}
         </a>
       </li>
     </ul>
@@ -43,6 +43,9 @@ export default {
   data() {
     return {
       active: "",
+      arrow: "angle-down",
+      displayed: false,
+      itemsMaxHeight: 0
     };
   },
   computed: {
@@ -56,53 +59,40 @@ export default {
     },
   },
   methods: {
-    closeSelect() {
-      document.querySelector(".drop-down-title").click();
+    maxHeight() {
+      if (this.itemsMaxHeight === 0)
+        this.itemsMaxHeight =
+          this.$el.querySelector(".drop-down-items").clientHeight;
     },
-    toggle(e) {
-      e.preventDefault();
-      let th = e.target;
-      var container = th.nextSibling;
-      while (container && container.nodeType != 1) {
-        container = container.nextSibling;
-      }
-      //span then i
-      var icon = th.children[1].children[0];
-
-      if (!container.classList.contains("active")) {
-        container.classList.add("active");
-        container.style.height = "auto";
-
-        icon.classList.add("fi-bs-angle-up");
-        icon.classList.remove("fi-bs-angle-down");
-
-        var height = container.clientHeight + "px";
-
-        container.style.height = "0px";
-
-        setTimeout(function () {
-          container.style.height = height;
-        }, 0);
-      } else {
-        container.style.height = "0px";
-        container.addEventListener(
-          "transitionend",
-          function () {
-            container.classList.remove("active");
-            // toggle arrow icon
-
-            icon.classList.add("fi-bs-angle-down");
-            icon.classList.remove("fi-bs-angle-up");
-          },
-          {
-            once: true,
-          }
-        );
-      }
+    closeSelect() {
+      this.$el.querySelector(".drop-down-title").click();
+    },
+    toggle() {
+      this.$el.classList.toggle("active");
+      this.arrow = this.arrow === "angle-down" ? "angle-up" : "angle-down";
+      this.displayed = !this.displayed;
     },
     choose(e) {
       this.active = e;
       this.$emit("choose", e);
+    },
+  },
+  watch: {
+    displayed(v) {
+      let items = this.$el.querySelector(".drop-down-items");
+      items.style.display = "block";
+      this.maxHeight();
+      items.style.height = 0;
+
+      if (v) {
+        setTimeout(() => {
+          items.style.height = this.itemsMaxHeight + "px";
+        }, 10);
+      } else {
+        setTimeout(() => {
+          items.style.display = "none";
+        }, 500);
+      }
     },
   },
 };
@@ -115,14 +105,17 @@ ul {
 }
 .drop-down {
   margin-bottom: 15px;
-  .drop-down-items {
-    transition: height 0.35s ease-in-out;
-    overflow: hidden;
-    display: none;
-    text-align: left;
-    &.active {
-      display: block;
+  &.active {
+    .drop-down-items {
+      border: 1px solid #ddd;
+      border-radius: 4px;
     }
+  }
+  .drop-down-items {
+    transition: all 0.35s ease-in-out;
+    overflow: scroll;
+    text-align: left;
+    display: none;
     li {
       &.disabled {
         background-color: rgba(201, 201, 201, 0.23);

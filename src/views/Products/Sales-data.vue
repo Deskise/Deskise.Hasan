@@ -65,13 +65,15 @@ import Pages from "../../components/Products/Sales/Pages.vue";
 export default {
   props: {
     cat: {
-      type: Number,
-      default: 1,
+      type: String,
+      default: "1",
     },
   },
   components: { StepsBanner, Pages },
   data() {
-    return {};
+    return {
+      is_lifetime: this.$route.query.isLifeTime,
+    };
   },
   computed: {
     active() {

@@ -2,7 +2,6 @@ import { Vue } from "./init";
 import router from "./router";
 import store from "./store";
 import { createHead } from "@vueuse/head";
-import "./global/components/globalComponents";
 import "./config/hello";
 import PerfectScrollbar from "vue3-perfect-scrollbar";
 
@@ -39,6 +38,7 @@ import "./sass/style.scss";
 
 // My Custom Directives:
 import "./config/directives";
+import "./config/globals";
 
 // My select
 import vSelect from "vue-select";

@@ -2,11 +2,11 @@
   <div class="sell-product-welcome">
     <div class="content-page">
       <div v-if="component === 'First'">
-        <div class="main-title">what do you sell!</div>
-        <p class="hint">250,000+ buyers are waiting</p>
-        <p class="hint mb-4">Choose Categories</p>
+        <div class="main-title">{{ $t("whatDoYouSell") }}</div>
+        <p class="hint">{{ $t("250000BuyersAreWaiting") }}</p>
+        <p class="hint mb-4">{{ $t("chooseCategories") }}</p>
         <single-select
-          placeholder="Category"
+          :placeholder="$t('category')"
           :data="Gs"
           @choose="
             (e) => {
@@ -17,44 +17,46 @@
         <button
           class="btn btn-primary"
           @click="nextStep"
-          :disabled="category == 0"
+          :disabled="category === 0"
         >
-          Next
+          {{ $t("next") }}
         </button>
       </div>
       <div v-else>
-        <div class="main-title">welcome in Deskise</div>
-        <p class="hint">Is The License For Life!</p>
+        <div class="main-title">{{ $t("welcomeInDeskise") }}</div>
+        <p class="hint">{{ $t("isTheLicenseForLife") }}</p>
 
         <yn-select
-          placeholder="Is The License For Life!"
+          :placeholder="$t('isTheLicenseForLife')"
           @choose="
             (e) => {
               isLifeTime = e;
             }
           "
         ></yn-select>
-        <p v-if="isLifeTime == 'n'">
+        <p v-if="isLifeTime === 'n'">
           <Datepicker
-            placeholder="Expiration Date"
+            :placeholder="$t('expirationDate')"
             v-model="ExpirationDate"
+            :flow="['year', 'month', 'day']"
+            utc
           ></Datepicker>
         </p>
         <button
           class="btn btn-primary"
           @click="Go"
           :disabled="
-            isLifeTime == '' || (isLifeTime == 'n' && ExpirationDate == null)
+            isLifeTime === '' || (isLifeTime === 'n' && ExpirationDate == null)
           "
         >
-          Next
+          {{ $t("next") }}
         </button>
         <button
           class="btn back-btn"
           v-if="component === 'Second'"
           @click="back"
         >
-          Back
+          {{ $t("back") }}
         </button>
       </div>
     </div>
@@ -66,9 +68,6 @@ import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { mapGetters } from "vuex";
 export default {
-  // mounted() {
-  //   console.log(this.Gs);
-  // },
   components: {
     Datepicker,
   },
@@ -83,7 +82,6 @@ export default {
   computed: {
     ...mapGetters("category", ["categories"]),
     Gs() {
-      // return this.categories.map((g) => [g.id,JSON.parse(JSON.stringify(g))]);
       return this.categories.map((g) => [g.id, g.name]);
     },
   },
@@ -95,7 +93,7 @@ export default {
       this.$router.push({
         name: "sales.data",
         params: { cat: this.category },
-        query: { isLifeTime: this.isLifeTime },
+        query: { isLifeTime: this.isLifeTime, until: (new Date(this.ExpirationDate)).toISOString() },
       });
     },
     back() {
@@ -112,7 +110,7 @@ export default {
   justify-content: center;
   flex-direction: column;
   .content-page {
-    padding: 0px;
+    padding: 0;
     text-align: center;
     @media (max-width: 1400px) {
       width: 40%;
@@ -170,11 +168,5 @@ export default {
       }
     }
   }
-}
-</style>
-<style>
-.drop-down-items {
-  border: 1px solid #ddd;
-  border-radius: 4px;
 }
 </style>

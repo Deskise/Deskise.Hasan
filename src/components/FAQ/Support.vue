@@ -7,8 +7,8 @@
       </div>
       <div class="content col-12 col-md-4">
         <p>
-          {{ __("websiteName") }}<br />
-          {{ __("faqs.support") }}
+          {{ $t("websiteName") }}<br />
+          {{ $t("faqs.support") }}
         </p>
       </div>
       <div class="col-12 col-md-4 button">

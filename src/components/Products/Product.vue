@@ -18,7 +18,7 @@
             class="btn btn-outline-primary mb-0"
             v-if="!stopSelling"
           >
-            {{ __("see") }}
+            {{ $t("see") }}
           </router-link>
           <router-link
             :to="{

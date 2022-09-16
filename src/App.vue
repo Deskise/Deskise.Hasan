@@ -46,7 +46,7 @@ export default {
       this.$refs.scroll.$el.scrollTop = 0;
       this.noFooter =
         this.$route.meta.noFooter !== undefined &&
-        this.$route.meta.noFooter == true;
+        this.$route.meta.noFooter === true;
     },
   },
   methods: {

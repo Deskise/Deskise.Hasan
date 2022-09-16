@@ -15,7 +15,7 @@
           params: { id: post.id },
         }"
         class="btn btn-outline-primary w-100"
-        >{{ __("more") }}</router-link
+        >{{ $t("more") }}</router-link
       >
     </div>
   </div>

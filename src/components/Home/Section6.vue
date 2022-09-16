@@ -2,7 +2,7 @@
   <section class="action">
     <div class="container-fluid">
       <div class="row">
-        <h2 class="mb-4 mt-5">{{ __("header.nologin.mech") }}</h2>
+        <h2 class="mb-4 mt-5">{{ $t("header.nologin.mech") }}</h2>
       </div>
       <div class="container packages-container">
         <swiper :slidesPerView="slides" :spaceBetween="10" class="packages">

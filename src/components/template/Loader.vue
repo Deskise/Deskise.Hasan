@@ -3,7 +3,7 @@
     class="loader w-100 h-100 d-flex justify-content-center align-items-center"
   >
     <div>
-      <loadMore class="mb-2 mt-5" />
+      <load-more class="mb-2 mt-5" />
       <h3>Loading <span>.</span><span>.</span><span>.</span></h3>
     </div>
   </div>

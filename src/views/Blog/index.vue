@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <loadMore v-if="isLoading" class="my-5" />
+      <load-more v-if="isLoading" class="my-5" />
     </div>
   </div>
 </template>

@@ -37,5 +37,24 @@
     "newsletter": "Subscribe to the newsletter",
     "subscripe": "Subscripe",
     "request": "Request Product"
-  }
+  },
+
+  "login": "Login",
+  "dontHaveAnAccount": "Don''t Have An Account?",
+  "register": "Register",
+  "google": "Google",
+  "facebook": "Facebook",
+  "forgetPassword": "Forget Password",
+  "password": "PASSWORD",
+  "draft": "Draft",
+  "whatDoYouSell": "what do you sell!",
+  "250000BuyersAreWaiting": "250,000+ buyers are waiting",
+  "chooseCategories": "Choose Categories",
+  "sorryNoProductsHere": "Sorry No Products Here..",
+  "category": "Category",
+  "next": "Next",
+  "welcomeInDeskise": "welcome in Deskise",
+  "isTheLicenseForLife": "Is The License For Life!",
+  "expirationDate": "Expiration Date",
+  "back": "Back"
 }

@@ -6,10 +6,6 @@
       <search @searchproducts="searchproducts"></search>
       <div class="row mt-5">
         <div class="filters pe-md-3 pe-lg-4 col-12 col-md-4 col-lg-3">
-          <!-- <single-select
-            placeholder="Subcategory"
-            :data="subcategories"
-          ></single-select> -->
           <v-select
             id="MySelect1"
             placeholder="Subcategory"
@@ -78,7 +74,8 @@
           </div>
           <div class="row" v-else>
             <h4 class="mt-5">
-              Sorry No Products Here..<svg
+              {{ $t("sorryNoProductsHere") }}
+              <svg
                 class="mx-2"
                 width="25"
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +104,6 @@ import "vue-select/dist/vue-select.css";
 export default {
   components: { Product, vSelect },
   mounted() {
-    console.log(this.productByCategoryId);
     this.scroll("product.products", async () => {
       await this.$store
         .dispatch("product/list", {

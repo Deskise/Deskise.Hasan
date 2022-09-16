@@ -2,7 +2,7 @@
   <div class="about">
     <div class="container">
       <div class="row">
-        <h2 class="mb-3 mt-5">{{ __("header.nologin.about") }}</h2>
+        <h2 class="mb-3 mt-5">{{ $t("header.nologin.about") }}</h2>
       </div>
       <div class="container">
         <p class="text-gray lead">{{ about }}</p>

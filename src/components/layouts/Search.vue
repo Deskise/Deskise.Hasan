@@ -3,7 +3,7 @@
     <div class="search-input d-flex mt-5">
       <input
         type="search"
-        :placeholder="__('faqs.search')"
+        :placeholder="$t('faqs.search')"
         v-model="search"
         @input="toggleSearch"
       />

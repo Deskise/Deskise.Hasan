@@ -41,15 +41,15 @@
         </div>
       </div>
     </div>
-    <manimg></manimg>
+    <man-img></man-img>
   </div>
 </template>
 
 <script>
-import manimg from "@/components/template/manImg.vue";
-import { required, email } from "../../Mixins/Validations";
+import manImg from "@/components/template/manImg.vue";
+import { required, email } from "@/Mixins/Validations";
 import VerifyService from "@/config/Services/Auth/VerifyService";
-import Notification from "../../config/Notification";
+import Notification from "@/config/Notification";
 export default {
   data() {
     return {
@@ -59,7 +59,7 @@ export default {
       isError: false,
     };
   },
-  components: { manimg },
+  components: { manImg },
   mixins: [],
   methods: {
     async check() {

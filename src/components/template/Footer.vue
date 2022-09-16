@@ -3,44 +3,44 @@
     <div class="container mb-3">
       <div class="row">
         <div class="col-md deskise">
-          <h3>{{ __("websiteName") }}</h3>
+          <h3>{{ $t("websiteName") }}</h3>
           <div class="data">
             <ul>
               <li>
                 <router-link :to="{ name: 'home' }">{{
-                  __("header.nologin.home")
+                  $t("header.nologin.home")
                 }}</router-link>
               </li>
               <li>
                 <router-link :to="{ name: 'about' }">{{
-                  __("header.nologin.about")
+                  $t("header.nologin.about")
                 }}</router-link>
               </li>
               <li>
                 <router-link :to="{ name: 'action' }">{{
-                  __("header.nologin.mech")
+                  $t("header.nologin.mech")
                 }}</router-link>
               </li>
               <li>
                 <router-link :to="{ name: 'terms' }">{{
-                  __("header.nologin.terms")
+                  $t("header.nologin.terms")
                 }}</router-link>
               </li>
               <li>
                 <router-link :to="{ name: 'faq' }">{{
-                  __("header.nologin.FAQ")
+                  $t("header.nologin.FAQ")
                 }}</router-link>
               </li>
               <li>
                 <router-link :to="{ name: 'blog' }">{{
-                  __("header.nologin.blog")
+                  $t("header.nologin.blog")
                 }}</router-link>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-md categpries">
-          <h3>{{ __("header.nologin.category") }}</h3>
+          <h3>{{ $t("header.nologin.category") }}</h3>
           <div class="data">
             <div class="row">
               <div
@@ -62,26 +62,26 @@
           </div>
         </div>
         <div class="col-md subscripe">
-          <h3>{{ __("footer.newsletter") }}</h3>
+          <h3>{{ $t("footer.newsletter") }}</h3>
           <div class="data">
             <form @submit.prevent="subscripeToNewsLetter" class="row">
               <input
                 type="text"
                 class="form-control col-12 newsletter mb-2 mb-lg-4 px-3 py-2"
                 v-model="email"
-                :placeholder="__('Forms.email')"
+                :placeholder="$t('Forms.email')"
               />
               <button
                 type="submit"
                 class="btn btn-primary col-12 col-lg mb-2 mb-lg-0"
               >
-                {{ __("footer.subscripe") }}
+                {{ $t("footer.subscripe") }}
               </button>
               <router-link
                 :to="{ name: 'requestProduct' }"
                 class="btn btn-outline-secondary col-12 col-lg"
               >
-                {{ __("footer.request") }}</router-link
+                {{ $t("footer.request") }}</router-link
               >
             </form>
           </div>

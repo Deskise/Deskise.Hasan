@@ -43,7 +43,11 @@
         <div
           class="profile-pic img-replace-square me-3 mb-3 p-2 col-6 col-md-4 col-lg-3"
         >
-          <img src="@/assets/Path56647.png" style="width: 100%; height: 100%" />
+          <img
+            src="@/assets/Path56647.png"
+            style="width: 100%; height: 100%"
+            alt=""
+          />
         </div>
 
         <circle-checkbox
@@ -70,7 +74,7 @@
 </template>
 
 <script>
-import VerifyInputs from "../../../components/Dashboard/verifyInputs.vue";
+import VerifyInputs from "@/components/Dashboard/verifyInputs.vue";
 export default {
   components: { VerifyInputs },
   data() {

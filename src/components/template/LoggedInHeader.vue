@@ -31,12 +31,12 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 dash-menu-links">
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'products' }">
-              {{ __("header.nologin.home") }}
+              {{ $t("header.nologin.home") }}
             </router-link>
           </li>
           <li class="nav-item dash-has-menu">
             <a href="javascript:void(0)" class="dash-menu-link nav-link">
-              {{ __("header.nologin.category") }}
+              {{ $t("header.nologin.category") }}
             </a>
             <ul class="dash-sub-menu">
               <li
@@ -61,12 +61,12 @@
               class="dash-menu-link nav-link"
               :to="{ name: 'requestProduct' }"
             >
-              {{ __("footer.request") }}
+              {{ $t("footer.request") }}
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="dash-menu-link nav-link" :to="{ name: 'blog' }">
-              {{ __("header.nologin.blog") }}
+              {{ $t("header.nologin.blog") }}
             </router-link>
           </li>
         </ul>
@@ -180,7 +180,7 @@
             <li>
               <router-link :to="{ name: 'sales' }">
                 <button class="btn btn-primary login dash-btn btn-sales">
-                  {{ __("header.login.sales") }}
+                  {{ $t("header.login.sales") }}
                 </button>
               </router-link>
             </li>
@@ -209,12 +209,12 @@
         <ul class="dash-menu-links">
           <li class="dash-menu-item">
             <router-link class="dash-menu-link" :to="{ name: 'products' }">
-              {{ __("header.nologin.home") }}
+              {{ $t("header.nologin.home") }}
             </router-link>
           </li>
           <li class="dash-menu-item dash-has-menu">
             <a href="javascript:void(0)" class="dash-menu-link">
-              {{ __("header.nologin.category") }}
+              {{ $t("header.nologin.category") }}
             </a>
             <ul class="dash-sub-menu">
               <li
@@ -239,12 +239,12 @@
               class="dash-menu-link"
               :to="{ name: 'requestProduct' }"
             >
-              {{ __("footer.request") }}
+              {{ $t("footer.request") }}
             </router-link>
           </li>
           <li class="dash-menu-item">
             <router-link class="dash-menu-link" :to="{ name: 'blog' }">
-              {{ __("header.nologin.blog") }}
+              {{ $t("header.nologin.blog") }}
             </router-link>
           </li>
         </ul>
@@ -353,7 +353,7 @@
         <li>
           <router-link :to="{ name: 'sales' }">
             <button class="btn btn-primary login dash-btn btn-sales">
-              {{ __("header.login.sales") }}
+              {{ $t("header.login.sales") }}
             </button>
           </router-link>
         </li>

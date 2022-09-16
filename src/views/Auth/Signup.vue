@@ -112,12 +112,12 @@
         </div>
       </div>
     </div>
-    <manimg></manimg>
+    <man-img></man-img>
   </div>
 </template>
 
 <script>
-import manimg from "@/components/template/manImg.vue";
+import manImg from "@/components/template/manImg.vue";
 import { Via } from "@/Mixins/Via";
 import { required, email, same } from "../../Mixins/Validations";
 export default {
@@ -135,7 +135,7 @@ export default {
       isError: false,
     };
   },
-  components: { manimg },
+  components: { manImg },
   mixins: [Via],
   methods: {
     r1(e) {
