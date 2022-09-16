@@ -54,13 +54,9 @@
 
         public function signup(SignupRequest $request)
         {
-            if ($request->hasError)
-            {
-                return $request->response;
-            }
+            if ($request->hasError) return $request->response;
 
-            $user = User::where('email', '=', $request->input('email'))->first();
-            if (is_null($user))
+            if (!$user=User::where('email', '=', $request->input('email'))->first())
             {
                 $user = new User([
                     'firstname' => $request->input('firstname'),

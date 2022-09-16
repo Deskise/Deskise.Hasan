@@ -28,6 +28,7 @@ class Category extends Model
     }
 
     protected $guarded = [];
+    protected $appends = ['name'];
 
     protected $hidden = [
         'created_at',
@@ -48,15 +49,18 @@ class Category extends Model
     {
         return $this->hasMany(Subcategory::class);
     }
-
     public function products()
     {
         return $this->hasMany(Product::class);
     }
-
     public function productRequests()
     {
         return $this->hasMany(ProductRequest::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->{'name_'.\App::getLocale()};
     }
 
     protected function getRule($name, bool $is_required=false, $data=[])

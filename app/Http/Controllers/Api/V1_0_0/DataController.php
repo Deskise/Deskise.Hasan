@@ -24,44 +24,33 @@
     {
         public function termsandconditions()
         {
-            $data = TermsOfUse::select('term as name', 'data_' . self::$language . ' as data', 'updated_at as last_modified')->where('term', 'terms')->first();
-            return APIHelper::jsonRender('', $data);
+            return APIHelper::jsonRender('', TermsOfUse::select('term as name', 'data_' . self::$language . ' as data', 'updated_at as last_modified')->where('term', 'terms')->first());
         }
 
         public function privacy()
         {
-            $data = TermsOfUse::select('term as name', 'data_' . self::$language . ' as data', 'updated_at as last_modified')->where('term', 'privacy')->first();
-            return APIHelper::jsonRender('', $data);
+            return APIHelper::jsonRender('', TermsOfUse::select('term as name', 'data_' . self::$language . ' as data', 'updated_at as last_modified')->where('term', 'privacy')->first());
         }
 
         public function packages()
         {
-            $data = Package::select('id','name_'.self::$language.' as name', 'details_'.self::$language.' as details','price','duration','dur as quantity')->latest()->get();
-            return APIHelper::jsonRender('', $data);
+            return APIHelper::jsonRender('', Package::select('id','name_'.self::$language.' as name', 'details_'.self::$language.' as details','price','duration','dur as quantity')->latest()->get());
         }
 
         public function categories(Category $category)
         {
-            if ($category->exists)
-            {
-                $category->name = $category->{'name_'.self::$language};
-                $data = $category->load('subcategories:id,name_'.self::$language.' as name');
-            }else {
-                $data = Category::select('id','name_'.self::$language.' as name','data')->latest()->with('subcategories:id,category_id,name_'.self::$language.' as name')->get();
-            }
-
-            return APIHelper::jsonRender('', $data);
+            return APIHelper::jsonRender('', ($category->exists)?
+                $category->load('subcategories:id,name_'.self::$language.' as name'):
+                Category::latest()->with('subcategories:id,category_id,name_'.self::$language.' as name')->get()
+            );
         }
 
         public function subcategories($category)
         {
-            if((int)($category)!==0)
-            {
-                $data = Subcategory::select('id','name_'.self::$language.' as name')->where('category_id',$category)->get();
-            }else{
-                $data = Subcategory::select('id','name_'.self::$language.' as name')->get();
-            }
-            return APIHelper::jsonRender('', ['subcategories' => $data]);
+            return APIHelper::jsonRender('', ['subcategories' => ((int)($category)!==0)?
+                Subcategory::select('id','name_'.self::$language.' as name')->where('category_id',$category)->get():
+                Subcategory::select('id','name_'.self::$language.' as name')->get()]
+            );
         }
 
         public function comments()

@@ -100,11 +100,11 @@
             return APIHelper::jsonRender('', [[
                 'current_page' => $page->currentPage(),
                 'next_page_url' =>  $page->nextPageUrl(),
-                'data'=>$page->map(function (Product $q) {
+                'data'=>collect($page->items())->map(function (Product $q) {
                     $q->subcategory = $q->data->subcategory->{'name_'.self::$language};
                     $q->views = round($q->views()->count() / CarbonPeriod::create($q->created_at, '1 month', Carbon::now())->count(),2);
                     $q->seller_location = $q->user->location;
-                    unset($q->data, $q->user);
+                    unset($q->data, $q->user, $q->user_id);
                     return $q;
                 })
             ]]);
