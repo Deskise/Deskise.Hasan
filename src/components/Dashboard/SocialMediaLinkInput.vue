@@ -35,16 +35,16 @@
       </div>
     </div>
   </div>
-  <Confirm
+  <confirm
     id="add"
-    title="Add Social Media Account"
+    :title="$t('addSocialMediaAccount')"
     submit="Add"
     close="close"
     desc="lorem"
     :options="socialMedia"
     :selectedOpt="links.map(({ social_id }) => social_id)"
     @submit="(e) => $emit('submit', e)"
-  ></Confirm>
+  ></confirm>
 </template>
 
 <script>

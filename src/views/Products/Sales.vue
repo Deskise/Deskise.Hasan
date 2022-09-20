@@ -93,7 +93,10 @@ export default {
       this.$router.push({
         name: "sales.data",
         params: { cat: this.category },
-        query: { isLifeTime: this.isLifeTime, until: (new Date(this.ExpirationDate)).toISOString() },
+        query: {
+          isLifeTime: this.isLifeTime,
+          until: new Date(this.ExpirationDate).toISOString(),
+        },
       });
     },
     back() {

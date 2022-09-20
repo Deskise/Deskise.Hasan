@@ -262,6 +262,7 @@ export default {
 }
 .form-feilds .upload-images {
   display: flex;
+  overflow-x: scroll;
 }
 .form-feilds .upload-images > div {
   position: relative;
@@ -273,10 +274,12 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 10px;
+  min-width: 100px;
 }
 
 .form-feilds .upload-images .add-new-image {
   cursor: pointer;
+  min-width: 100px;
 }
 
 .form-feilds .upload-images div.image {
@@ -289,12 +292,12 @@ export default {
   margin: auto;
   max-width: 100%;
   border-radius: 5px;
+  height: 100%;
 }
 
 .form-feilds .close-content {
   width: 26px;
   height: 26px;
-  text-align: center;
   background-color: #fb5b5b;
   color: #fff;
   border-radius: 50%;
@@ -303,6 +306,10 @@ export default {
   top: -8px;
   right: -8px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
 }
 
 .dash-step-contents .dash-sell-tips .tips-title {
