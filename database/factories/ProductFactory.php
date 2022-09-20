@@ -25,14 +25,11 @@ class ProductFactory extends Factory
     public function definition()
     {
         $data = [];
-        foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
-        {
-            $data['name_'.$lang] = $this->faker->text(30);
-            $data['description_'.$lang] = $this->faker->text(10000);
-            $data['summary_'.$lang] = $this->faker->text(350);
-        }
-        $data['user_id'] = User::all()->random()->id;
+        $data['name'] = $this->faker->text(30);
+        $data['description'] = $this->faker->text(10000);
+        $data['summary'] = $this->faker->text(350);
 
+        $data['user_id'] = User::all()->random()->id;
         $data['price'] = $this->faker->randomFloat('2','10','1000');
         $data['img'] = 'default.png';
         $data['category_id'] = Category::all()->random()->id;
