@@ -22,6 +22,7 @@ class CreatePackagesTable extends Migration
             }
             $table->float('price');
             $table->enum('duration',['days','per product','every product']);
+            $table->enum('packageType',['email marketing','pin on the top  each category has pinned on the top','verified by deskise','take charge of the sales process']);
             $table->integer('dur')->default(1);
             $table->timestamps();
             $table->softDeletes();

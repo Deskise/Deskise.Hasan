@@ -4,8 +4,8 @@
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href="{{route('admin.dashboard')}}"><img src="{{url('assets/images/logo.svg')}}" alt="logo" /></a>
-        <a class="sidebar-brand brand-logo-mini" href="{{route('admin.dashboard')}}"><img src="{{url('assets/images/logo-mini.svg')}}" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo" href="{{route('admin.dashboard')}}"><img src="https://prography.co/assets/images/logo1.png" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo-mini" href="{{route('admin.dashboard')}}"><img src="{{url('assets/images/prography-mini.png')}}" alt="logo" /></a>
     </div>
     <ul class="nav">
         <li class="nav-item profile">
@@ -95,7 +95,26 @@
             </li>
         @endif
 
-        @if (in_array($role, ['super','content']))
+        @if($role === 'super')
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-bs-toggle="collapse" href="#categories" aria-expanded="false" aria-controls="categories">
+              <span class="menu-icon">
+                <i class="mdi mdi-tag-multiple"></i>
+              </span>
+                    <span class="menu-title">Categories</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="categories">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{{route('admin.category.create')}}"> Add Category </a></li>
+                    </ul>
+                </div>
+            </li>
+        @endif
+
+
+
+        @if (in_array($role, ['super','content','chat']))
         <li class="nav-item menu-items">
             <a class="nav-link" data-bs-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
                       <span class="menu-icon">
@@ -104,11 +123,13 @@
                 <span class="menu-title">Settings</span>
                 <i class="menu-arrow"></i>
             </a>
+
             <div class="collapse" id="settings">
                 <ul class="nav flex-column sub-menu">
                     @if($role === 'super')
                     <li class="nav-item"><a class="nav-link" href="{{route('admin.settings.create')}}">Add Details</a></li>
                    @endif
+                        @if($role !== 'chat')
 
                         <li class="nav-item menu-items">
                             <a class="nav-link" href="{{route('admin.terms')}}">Terms Of Use</a>
@@ -121,9 +142,22 @@
                         <li class="nav-item menu-items">
                             <a class="nav-link" href="{{route('admin.about')}}">About Us</a>
                         </li>
+                        @endif
+                    @if(in_array($role,['super','chat']))
+                        <li class="nav-item menu-items">
+                            <a class="nav-link" href="{{route('admin.chatControl.index')}}">Chat Control</a>
+                        </li>
+                    @endif
+
+                    @if($role==='super')
+                        <li class="nav-item menu-items">
+                            <a class="nav-link" href="{{route('admin.financialControl.index')}}">Financial Control</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </li>
+
         @endif
             @if($role === 'super')
                 <li class="nav-item menu-items">
@@ -146,5 +180,18 @@
                 </a>
             </li>
         @endif
+
+        @if($role === 'super')
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="{{route('admin.financial.index')}}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-finance"></i>
+                </span>
+                    <span class="menu-title">Financial System</span>
+                </a>
+            </li>
+        @endif
+
+
     </ul>
 </nav>

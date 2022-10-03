@@ -12,7 +12,7 @@ class ProductRequestsController extends Controller
     public function index()
     {
         //
-        $productRequests = ProductRequest::paginate(15);
+        $productRequests = ProductRequest::where('status','!=','approved')->paginate(15);
         return response()->view('admin.productRequests.index',compact('productRequests'));
     }
 

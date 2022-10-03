@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body col-12 col-lg-6 pe-3 pe-lg-5">
                     <h4 class="card-title">Edit : Admin</h4>
                     <form enctype="multipart/form-data" class="forms-sample" method="POST" action="{{route('admin.administration.update', ['administration'=>$adminUser->id])}}">
                         @csrf

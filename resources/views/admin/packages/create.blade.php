@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body col-12 col-lg-6 pe-3 pe-lg-5">
                     <h4 class="card-title">Create: New Package</h4>
                     <form class="forms-sample" method="POST" action="{{route('admin.packages.store')}}">
                         @csrf
@@ -18,8 +18,19 @@
                             <input type="number" min="0.00" step="0.05" value="1.0" id="exampleInputAmount" name="price" class="form-control" placeholder="Price">
                         </div>
                         <div class="form-group">
+                            <label for="packageType">Package Type</label>
+                            <select name="packageType" id="packageType" class="form-control" placeholder="Select Package Type">
+                                <option disabled selected value>Select Package Type</option>
+                                <option value='email marketing'>email marketing</option>
+                                <option value='pin on the top  each category has pinned on the top'>pin on the top  each category has pinned on the top</option>
+                                <option value='verified by deskise'>verified by deskise</option>
+                                <option value='take charge of the sales process'>take charge of the sales process</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="duration">Duration</label>
-                            <select name="duration" id="duration" class="form-control" id="role" placeholder="Select Duration">
+                            <select name="duration" id="duration" class="form-control" placeholder="Select Duration">
                                 <option disabled selected value>Select Duration</option>
                                 <option value='per product'>per product</option>
                                 <option value='every product'>every product</option>
