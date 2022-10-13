@@ -19,6 +19,7 @@
                             <th> Details </th>
                             <th></th>
                             <th> Price ($) </th>
+                            <th> Type </th>
                             <th> Duration </th>
                             <th> Action</th>
                         </tr>
@@ -30,16 +31,17 @@
                                 <td> {{$package->name_en}} </td>
                                 <td style="max-width: 350px;white-space: break-spaces;" colspan="2">{{$package->details_en}}</td>
                                 <td> {{$package->price}} </td>
+                                <td> {{$package->packageType}} </td>
                                 <td>{{$package->dur ? $package->duration === 'days' : ''}} {{$package->duration}}</td>
                                 <td>
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <a type="button" href='{{route('admin.packages.edit',$package->id)}}'
                                                class="btn btn-outline-behance btn-icon-text" title="Edit">
                                                 Edit <i class="mdi mdi-file-check btn-icon-append"></i>
                                             </a>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-6">
                                             <form method="POST" action="{{route('admin.packages.destroy',$package->id)}}">
                                                 @csrf
                                                 @method('DELETE')

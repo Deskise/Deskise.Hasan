@@ -1,78 +1,81 @@
 @extends('layout.dashborad')
-@section('name','Edit Blog')
+@section('name','Chat Control')
+
+@section('btn')
+@endsection
+
+@section('css')
+
+
+@endsection
+
 @section('content')
 
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body col-12 col-lg-6 pe-3 pe-lg-5">
-                    <h4 class="card-title">Edit : {{$blog->title_en}}</h4>
-                    <p class="card-description"> The Blog Content </p>
-{{--                    {{route('admin.blog_posts.update',['id'=>$blog->id])}}--}}
-                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('admin.blogs.update',$blog->id)}}">
-                        @csrf
-                        @method("put")
-                        <div class="form-group">
-                            <label for="exampleInputUsername1">Title</label>
-                            <input type="text" name="title_en" value="{{old('title_en') ?? $blog->title_en }}" class="form-control" id="exampleInputUsername1" placeholder="title">
-                        </div>
-                        <div class="form-group">
-                            <label for="Category">Category</label>
-                            <select name="category_id" value="{{old('title_en') ?? $blog->title_en }}" class="form-control" id="Category" placeholder="Category">
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}" {{$category->id === $blog->category_id ? 'selected' : '' }}>{{$category->name_en}}</option>
-                            @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputUsername1">Body Of Details</label>
-                            <textarea class="form-control" name="details_en" rows="10" style="height: 200px"> {!! $blog->details_en !!}</textarea>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <img src="{{$blog->img}}" height="300">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleInputUsername1">To Edit Image</label>
-                            <input type="file" name="img" class="form-control file-upload-info" placeholder="Upload Image">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleInputUsername1">Tags Of Article </label>
-                            <input type="text" name="tags" id="tag-input1" class="form-control " value="{{$blog->tags}}" >
-                        </div>
-                            <button type="submit" class="btn btn-primary me-2">Submit</button>
-                            <a class="btn btn-dark" href="{{route('admin.blogs.index')}}">Cancel</a>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card" >
+            <div class="card-body">
 
+                <div class="row p-2 m-2">
+
+                    <div class="form col-6">
+
+                        <div class="form-group">
+                            <p class="form-label fs-5 pb-2 ">Forbidden Words:  </p>
+                            <input type="text" name="tags" id="tag-input1" class="form-control">
+
+                        </div>
+                    </div>
+
+                    <div class="form col-6">
+                        <p class="form-label fs-5">General Chat Settings:  </p>
+                        <div class="form-group m-1 ps-2">
+                            <div class="form-check color">
+                                <input class="form-check-input" type="checkbox" value="" id="blockPhone" onclick="document.getElementsByTagName('label')[0].style.color==='red' ? document.getElementsByTagName('label')[0].style.color='green':document.getElementsByTagName('label')[0].style.color='red'"/>
+                                <label class="form-check-label fs-6 "  for="blockPhone" style="color:green;">Block Phone Numbers</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="blockEmail"  onclick="document.getElementsByTagName('label')[1].style.color==='red' ? document.getElementsByTagName('label')[1].style.color='green':document.getElementsByTagName('label')[1].style.color='red'"/>
+                                <label class="form-check-label fs-6"  for="blockEmail" style="color:green;">Block Emails</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
     <style>
         .tags-input-wrapper{
             background: transparent;
             padding: 10px;
-            border-radius: 4px;
-            max-width: 400px;
-            border: 1px solid #ccc
+            border-radius: 5px;
+            max-width: 500px;
+            max-height: 1000px;
+            height: 500px;
+            border: 1px solid #ee6b0d
         }
         .tags-input-wrapper input{
             border: none;
             background: transparent;
             outline: none;
-            width: 140px;
+            width: 200px;
             margin-left: 8px;
             color: #fff;
         }
         .tags-input-wrapper .tag{
             display: inline-block;
-            background-color: #fa0e7e;
-            color: white;
-            border-radius: 40px;
+            background-color: #f50404;
+            color: black;
+            border-radius: 30px;
             padding: 0px 3px 0px 7px;
             margin-right: 5px;
             margin-bottom:5px;
-            box-shadow: 0 5px 15px -2px rgba(250 , 14 , 126 , .7)
+            box-shadow: 0 5px 15px -2px rgba(231, 16, 16, 0.76)
         }
         .tags-input-wrapper .tag a {
             margin: 0 7px 3px;
@@ -80,11 +83,15 @@
             cursor: pointer;
         }
     </style>
+@endsection
+
+@section('js')
+
+
     <script>
         (function(){
 
             "use strict"
-
 
             // Plugin Constructor
             var TagsInput = function(opts){
@@ -159,10 +166,10 @@
 
             // Make sure input string have no error with the plugin
             TagsInput.prototype.anyErrors = function(string){
-                if( this.options.max != null && this.arr.length >= this.options.max ){
-                    console.log('max tags limit reached');
-                    return true;
-                }
+                // if( this.options.max != null && this.arr.length >= this.options.max ){
+                //     console.log('max tags limit reached');
+                //     return true;
+                // }
 
                 if(!this.options.duplicate && this.arr.indexOf(string) != -1 ){
                     console.log('duplicate found " '+string+' " ')
@@ -255,9 +262,10 @@
             max : 10
         });
 
-        var array_tags = @json($arr_tags); //JSON.parse('{{ json_encode($arr_tags) }}');
-        tagInput1.addData(array_tags)
+        {{--var array_tags = @json($arr_tags); //JSON.parse('{{ json_encode($arr_tags) }}');--}}
+        {{--tagInput1.addData(array_tags)--}}
 
     </script>
-
 @endsection
+
+

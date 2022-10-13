@@ -44,5 +44,10 @@ Route::group(['prefix' => 'admin'], function () {
         require 'admin/users.php';
         require 'admin/products.php';
         require 'admin/packages.php';
+        require 'admin/chatControl.php';
+        require 'admin/financialControl.php';
+        require 'admin/financial.php';
+
+        Route::group(['as'=>'category.'], fn () => require 'admin/category.php');
     });
 });

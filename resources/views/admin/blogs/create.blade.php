@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body col-12 col-lg-6 pe-3 pe-lg-5">
                     <h4 class="card-title">Add Article</h4>
                     <p class="card-description"> The Blog Content </p>
                     <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{route('admin.blogs.store')}}">
@@ -42,7 +42,7 @@
                             <input type="text" name="tags" id="tag-input1" class="form-control" value='{{json_encode(explode(',',old('tags')))}}' >
                         </div>
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <a class="btn btn-dark" href="{{route('admin.blogs.indexs')}}">Cancel</a>
+                        <a class="btn btn-dark" href="{{route('admin.blogs.index')}}">Cancel</a>
                     </form>
                 </div>
             </div>

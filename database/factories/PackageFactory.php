@@ -24,6 +24,7 @@ class PackageFactory extends Factory
     {
         $data = [];
         $dur = ['days','per product','every product'];
+        $pack_type = ['email marketing','pin on the top  each category has pin on the top','verified by deskise','take charge of the sales process'];
 
         foreach (\LaravelLocalization::getSupportedLocales() as $lang => $props)
         {
@@ -32,6 +33,7 @@ class PackageFactory extends Factory
         }
         $data['price'] = $this->faker->randomFloat('2',0,100);
         $data['duration'] = $dur[random_int(0, 2)];
+        $data['packageType'] = $pack_type[random_int(0,3)];
 
         return $data;
     }
