@@ -15,7 +15,7 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('uesrs');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->enum('type',['admin','normal']);
             $table->string('title');
             $table->string('body');

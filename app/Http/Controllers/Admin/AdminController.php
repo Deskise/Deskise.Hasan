@@ -71,7 +71,7 @@ class AdminController extends Controller
         $administration->bio = $request->input('bio');
         $administration->email = $request->input('email');
         $administration->role = $request->input('role');
-
+        
         if ($pass = $request->input('password')) $administration->password = $pass;
         if ($request->file('img')){
             if ($administration->img !== 'default.png') {

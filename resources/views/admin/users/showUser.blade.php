@@ -27,7 +27,7 @@
                         <div class="col-lg-4 col-sm-3">
                         <div class="d-flex justify-content-center  p-2">
                             <a class="btn btn-outline-warning m-2" href="{{route('admin.users.reports',$user->id)}}" title="User Reports">User Reports</a>
-                            <a class="btn btn-outline-info m-2" href="{{route('admin.users.chat',$user->id)}}" title="User Chats">User Chat</a>
+                            <a class="btn btn-outline-info m-2" href="{{route('admin.users.chat',$user->id)}}" title="User Chats">User Chats</a>
                         </div>
                         </div>
                     </div>

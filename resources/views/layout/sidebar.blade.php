@@ -4,8 +4,8 @@
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href="{{route('admin.dashboard')}}"><img src="https://prography.co/assets/images/logo1.png" alt="logo" /></a>
-        <a class="sidebar-brand brand-logo-mini" href="{{route('admin.dashboard')}}"><img src="{{url('assets/images/prography-mini.png')}}" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo" href="{{route('admin.dashboard')}}"><img src="{{url('assets/images/D-logo.png')}}" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo-mini" href="{{route('admin.dashboard')}}"><img src="{{url('assets/images/D-logo.png')}}" alt="logo" /></a>
     </div>
     <ul class="nav">
         <li class="nav-item profile">

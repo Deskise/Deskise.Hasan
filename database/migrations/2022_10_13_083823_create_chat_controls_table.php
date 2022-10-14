@@ -16,8 +16,8 @@ class CreateChatControlsTable extends Migration
         Schema::create('chat_controls', function (Blueprint $table) {
             $table->id();
             $table->json('blocked_keywords')->default('[]');
-            $table->boolean('block_phones');
-            $table->boolean('block_email');
+            $table->boolean('block_phones')->default(false);
+            $table->boolean('block_email')->default(false);
             $table->timestamps();
         });
     }
