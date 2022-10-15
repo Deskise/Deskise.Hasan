@@ -17,9 +17,9 @@
                             <tr>
                                 <th> Chat ID </th>
                                 <th> From </th>
-                                <th> Message (In short) </th>
+                                <th> Message</th>
                                 <th> Status </th>
-                                <th> More Details </th>
+                                <th> </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -27,11 +27,12 @@
                             <tr>
                                 <td>{{$chatReport->chat_id}}</td>
                                 <td> {{$chatReport->user->email}} </td>
-                                <td> {!! Str::words($chatReport->message,8) !!}.. </td>
+                                {{-- <td> {!! Str::words($chatReport->message,8) !!}.. </td> --}}
+                                <td style="max-width: 350px;white-space: break-spaces;" colspan="2">{{ $chatReport->message }}</td>
                                 <td>
                                     <div class="badge @if($chatReport->status==='approved') badge-outline-success @elseif($chatReport->status==='rejected') badge-outline-danger @elseif($chatReport->status==='waiting') badge-outline-primary @else badge-outline-warning @endif">{{$chatReport->status}}</div>
                                 </td>
-                                <td> <a class="btn btn-outline-info " href="{{route('admin.reports.show',$chatReport->id)}}" title="Show">Show</a> </td>
+                                {{-- <td> <a class="btn btn-outline-info " href="{{route('admin.reports.show',$chatReport->id)}}" title="Show">Show</a> </td> --}}
                             </tr>
                             @endforeach
 

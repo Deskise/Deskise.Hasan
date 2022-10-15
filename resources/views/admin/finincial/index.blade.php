@@ -70,49 +70,30 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th> #</th>
-                                <th> Product Name</th>
-                                <th> Seller name</th>
-                                <th> Product Price ($)</th>
-                                <th> Profit Earning ($)</th>
+                                <th> Product Name </th>
+                                <th> Seller name </th>
+                                <th> Product Price ($) </th>
+                                <th> Image </th>
+                                <th> Description </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td> 1 </td>
-                                <td> Linda Cassin </td>
-                                <td>Alex Matt</td>
-                                <td> 100 </td>
-                                <td> 20 </td>
-                            </tr>
-                            <tr>
-                                <td> 2 </td>
-                                <td> Bennett Sauer </td>
-                                <td>Alex Matt</td>
-                                <td> 100 </td>
-                                <td> 20 </td>
-                            </tr>
-                            <tr>
-                                <td> 3 </td>
-                                <td> Ken Klocko </td>
-                                <td>Alex Matt</td>
-                                <td> 100 </td>
-                                <td> 20 </td>
-                            </tr>
-                            <tr>
-                                <td> 4 </td>
-                                <td> Shirley Howell </td>
-                                <td>Alex Matt</td>
-                                <td> 100 </td>
-                                <td> 20 </td>
-                            </tr>
+                            @foreach ($sales as $item)
+                                <tr>
+                                    <td> {{ $item->name }} </td>
+                                    <td> {{ $item->user->firstname }} {{ $item->user->lastname }} </td>
+                                    <td> {{ $item->price }} </td>
+                                    <td> <img src="{{ $item->img }} " alt=""></td>
+                                    <td  style="max-width: 400px;white-space: break-spaces;" colspan="2"> {{ $item->description }} </td>
+                                </tr>
+                            @endforeach
 
                             </tbody>
                         </table>
                         <br>
+                        <div class="align-self-center d-flex align-items-center justify-content-center">{{ $sales->links() }}</div>
                     </div>
                 </div>
-                <div class="align-self-center"></div>
             </div>
         </div>
     </div>
@@ -123,40 +104,21 @@
                     <div class="card-body">
                         <h4 class="card-title">Sales for each category</h4>
                         <div class="table-responsive">
+
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th> #</th>
                                     <th> Category Name</th>
                                     <th> All Sales ($)</th>
-                                    <th> Earn Average (%)</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td> 1 </td>
-                                    <td> Linda Cassin </td>
-                                    <td>823 </td>
-                                    <td> 56 </td>
-                                </tr>
-                                <tr>
-                                    <td> 2 </td>
-                                    <td> Bennett Sauer </td>
-                                    <td> 878 </td>
-                                    <td> 91 </td>
-                                </tr>
-                                <tr>
-                                    <td> 3 </td>
-                                    <td> Ken Klocko </td>
-                                    <td> 9183 </td>
-                                    <td> 81 </td>
-                                </tr>
-                                <tr>
-                                    <td> 4 </td>
-                                    <td> Shirley Howell </td>
-                                    <td> 910 </td>
-                                    <td> 61 </td>
-                                </tr>
+                                    @foreach ($catPrice as $key => $value)
+                                        <tr>
+                                            <td> {{ $key }} </td>
+                                            <td>{{ $value }} </td>
+                                        </tr>
+                                    @endforeach
 
                                 </tbody>
                             </table>

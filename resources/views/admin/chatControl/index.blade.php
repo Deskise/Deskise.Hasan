@@ -6,7 +6,6 @@
 
 @section('css')
 
-
 @endsection
 
 @section('content')
@@ -14,15 +13,22 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card" >
             <div class="card-body">
+                {{-- @dump($chatConf->get('0')->blocked_keywords) --}}
+
+                {{--
+                @foreach ($chatConf as $item)
+                    @dump($item->get('blocked_keywords'))
+                    @dump($item->get('block_phones'))
+                    @dump($item->get('block_email'))
+                @endforeach --}}
 
                 <div class="row p-2 m-2">
 
                     <div class="form col-6">
-
+                        {{-- #// TODO: Do The Translation Shit [Blocked Keywords]; --}}
                         <div class="form-group">
                             <p class="form-label fs-5 pb-2 ">Forbidden Words:  </p>
-                            <input type="text" name="tags" id="tag-input1" class="form-control">
-
+                            <input type="text" name="tags" id="tag-input1" class="form-control" value="{{ $chatConf->get('0')->blocked_keywords }}">
                         </div>
                     </div>
 
@@ -30,13 +36,13 @@
                         <p class="form-label fs-5">General Chat Settings:  </p>
                         <div class="form-group m-1 ps-2">
                             <div class="form-check color">
-                                <input class="form-check-input" type="checkbox" value="" id="blockPhone" onclick="document.getElementsByTagName('label')[0].style.color==='red' ? document.getElementsByTagName('label')[0].style.color='green':document.getElementsByTagName('label')[0].style.color='red'"/>
-                                <label class="form-check-label fs-6 "  for="blockPhone" style="color:green;">Block Phone Numbers</label>
+                                <input class="form-check-input" type="checkbox" name="blockPhones" id="blockPhones"  @if ($chatConf->get('0')->block_phones) checked  @endif>
+                                <label class="form-check-label fs-6 " for="blockPhones" style="color: #ee6b0d">Block Phone Numbers</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="blockEmail"  onclick="document.getElementsByTagName('label')[1].style.color==='red' ? document.getElementsByTagName('label')[1].style.color='green':document.getElementsByTagName('label')[1].style.color='red'"/>
-                                <label class="form-check-label fs-6"  for="blockEmail" style="color:green;">Block Emails</label>
+                                <input class="form-check-input" type="checkbox" name="blockEmails" id="blockEmails" @if ($chatConf->get('0')->block_email) checked @endif/>
+                                <label class="form-check-label fs-6" for="blockEmails" style="color: #ee6b0d">Block Emails</label>
                             </div>
 
                         </div>
@@ -103,8 +109,8 @@
             TagsInput.prototype.init = function(opts){
                 this.options = opts ? Object.assign(this.options, opts) : this.options;
 
-                if(this.initialized)
-                    this.destroy();
+                // if(this.initialized)
+                //     this.destroy();
 
                 if(!(this.orignal_input = document.getElementById(this.options.selector)) ){
                     console.error("tags-input couldn't find an element with the specified ID");
@@ -259,11 +265,11 @@
         var tagInput1 = new TagsInput({
             selector: 'tag-input1',
             duplicate : false,
-            max : 10
+            max : 50
         });
 
-        {{--var array_tags = @json($arr_tags); //JSON.parse('{{ json_encode($arr_tags) }}');--}}
-        {{--tagInput1.addData(array_tags)--}}
+        var array_tags = @json($chatConf->get('0')->blocked_keywords); //JSON.parse('{{ json_encode($chatConf->get('0')->blocked_keywords) }}');--}}
+        tagInput1.addData(array_tags)
 
     </script>
 @endsection

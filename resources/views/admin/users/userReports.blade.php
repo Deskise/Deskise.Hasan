@@ -1,11 +1,5 @@
 @extends('layout.dashborad')
-@section('name','User Chat')
-
-@section('btn')
-@endsection
-
-@section('css')
-@endsection
+@section('name','User Reports')
 
 @section('content')
 
@@ -16,35 +10,42 @@
                 <div class="card">
                     <div class="card-body pb-1">
                         <h3 class="card-title ">User Reports Page</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body pb-1">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th> Chat ID </th>
-                                    <th> Message (In short) </th>
+                                    <th> Message</th>
+                                    <th>  </th>
                                     <th> Status </th>
-                                    <th> More Details </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-{{--                                @foreach($chatReports as $chatReport)--}}
+                            @foreach($reports as $chatReport)
                                     <tr>
-                                        <td></td>
-                                        <td> </td>
+                                        <td>{{ $chatReport->chat_id }}</td>
+                                        <td style="max-width: 350px;white-space: break-spaces;" colspan="2">{{ $chatReport->message }}</td>
                                         <td>
-{{--                                            <div class="badge @if($chatReport->status==='approved') badge-outline-success @elseif($chatReport->status==='rejected') badge-outline-danger @elseif($chatReport->status==='waiting') badge-outline-primary @else badge-outline-warning @endif">{{$chatReport->status}}</div>--}}
+                                            <div class="badge @if($chatReport->status==='approved') badge-outline-success @elseif($chatReport->status==='rejected') badge-outline-danger @elseif($chatReport->status==='waiting') badge-outline-primary @else badge-outline-warning @endif">{{$chatReport->status}}</div>
                                         </td>
-{{--                                        <td> <a class="btn btn-outline-info " href="{{route('admin.reports.show',$chatReport->id)}}" title="Show">Show</a> </td>--}}
-                                        <td>  </td>
                                     </tr>
-{{--                                @endforeach--}}
+                            @endforeach
 
                                 </tbody>
                             </table>
                         </div>
-
+                        <br>
+                        <div class="align-self-center d-flex align-items-center justify-content-center">{{ $reports->links() }}</div>
                     </div>
-                    <div class="align-self-center"></div>
                 </div>
             </div>
         </div>

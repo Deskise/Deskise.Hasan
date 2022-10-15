@@ -76,6 +76,6 @@ class Product extends Model
 
     public function hasHiddenSeller()
     {
-        return $this->user->ishiddem;
+        return $this->user->is_hidden;
     }
 }

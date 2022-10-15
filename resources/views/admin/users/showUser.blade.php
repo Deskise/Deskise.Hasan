@@ -46,11 +46,7 @@
                               $title = $user->banned? 'Activate':'Ban';
                             @endphp
                             <a class="btn btn-outline-{{$user->banned ? 'warning':'danger'}} m-2" href="{{route('admin.users.update',$user->id)}}" title="{{$title}} User">{{$title}} User</a>
-                            <form action="#" method="post">
-{{--                                @csrf--}}
-{{--                                @method('PUT')--}}
-                                 <button type="submit" class="btn btn-outline-primary sendMessage m-2" href="#" title="Message User">Message User</button>
-                            </form>
+                            <a type="submit" class="btn btn-outline-primary m-2" href="{{ route('admin.users.msgPage',$user->id) }}" title="Send Message To User">Message</a>
                         </div>
                     </div>
                 </div>
@@ -172,46 +168,29 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th> #</th>
-                                    <th> Product Name</th>
-                                    <th>Category Name</th>
-                                    <th> Product Price ($)</th>
-                                    <th> Profit Earning ($)</th>
+                                    <th> Product Name </th>
+                                    <th> Category Name </th>
+                                    <th> Product Price ($) </th>
+                                    <th> Status  </th>
+                                    <th> Image  </th>
+                                    <th> description  </th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach ($products as $item)
                                 <tr>
-                                    <td> 1 </td>
-                                    <td> Linda Cassin </td>
-                                    <td> Category Test1 </td>
-                                    <td> 100 </td>
-                                    <td> 20 </td>
+                                    <td> {{ $item->name }} </td>
+                                    <td> {{ $item->category->name }} </td>
+                                    <td> {{ $item->price }} </td>
+                                    <td> {{ $item->status }} </td>
+                                    <td> <img src="{{ $item->img }} " alt=""></td>
+                                    <td  style="max-width: 400px;white-space: break-spaces;" colspan="3"> {{ $item->description }} </td>
                                 </tr>
-                                <tr>
-                                    <td> 2 </td>
-                                    <td> Bennett Sauer </td>
-                                    <td> Category Test2 </td>
-                                    <td> 100 </td>
-                                    <td> 20 </td>
-                                </tr>
-                                <tr>
-                                    <td> 3 </td>
-                                    <td> Ken Klocko </td>
-                                    <td> Category Test3 </td>
-                                    <td> 100 </td>
-                                    <td> 20 </td>
-                                </tr>
-                                <tr>
-                                    <td> 4 </td>
-                                    <td> Shirley Howell </td>
-                                    <td> Category Test1 </td>
-                                    <td> 100 </td>
-                                    <td> 20 </td>
-                                </tr>
-
+                                @endforeach
                                 </tbody>
                             </table>
                             <br>
+                            <div class="align-self-center d-flex align-items-center justify-content-center">{{ $products->links() }}</div>
                         </div>
 
                     </div>

@@ -2,5 +2,4 @@
 
 use App\Http\Controllers\Admin\ChatControlController;
 
-Route::resource('/chatControl', ChatControlController::class)->middleware('AdminRole:super,chat');
-
+Route::get('/chatControl', [ChatControlController::class,'index'])->name('chatControl.index')->middleware('AdminRole:super,chat');

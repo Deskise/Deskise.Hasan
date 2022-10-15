@@ -10,12 +10,12 @@
                     <form class="forms-sample" method="POST" action="{{route('admin.packages.store')}}">
                         @csrf
                         <div class="form-group">
-                            <label for="firstname">Package Name</label>
+                            <label for="package-name">Package Name</label>
                             <input type="text" name="name_en"  class="form-control" id="package-name" placeholder="Package Name">
                         </div>
                         <div class="form-group">
-                            <label for="lastname">Package Price</label>
-                            <input type="number" min="0.00" step="0.05" value="1.0" id="exampleInputAmount" name="price" class="form-control" placeholder="Price">
+                            <label for="price">Package Price</label>
+                            <input type="number" min="0.00" step="0.05" value="1.0" id="price" name="price" class="form-control" placeholder="Price">
                         </div>
                         <div class="form-group">
                             <label for="packageType">Package Type</label>

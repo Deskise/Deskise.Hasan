@@ -2,4 +2,4 @@
 
 use App\Http\Controllers\Admin\FinancialController;
 
-Route::resource('/financial', FinancialController::class)->middleware('AdminRole:super');
+Route::get('/financial',[ FinancialController::class,'index'])->name('financial.index')->middleware('AdminRole:super');

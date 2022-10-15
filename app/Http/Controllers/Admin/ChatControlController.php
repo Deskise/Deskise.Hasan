@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\ChatControl;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class ChatControlController extends Controller
 {
@@ -11,42 +13,24 @@ class ChatControlController extends Controller
     public function index()
     {
         //
-        return response()->view('admin.chatControl.index');
+        $chatConf = ChatControl::all();
+        return response()->view('admin.chatControl.index',compact('chatConf'));
     }
 
-
-    public function create()
+    // TODO: Don't Forget To Finish These Fuckin Shit!!
+    function blockphones(Request $request,ChatControl $chatControl)
     {
-        //
+        # code...
+        $data = $request->has('blockPhones');
+        dump($data);
+
     }
 
 
-    public function store(Request $request)
+    function blockemails(Request $request,ChatControl $chatControl)
     {
-        //
+        # code...
+
     }
 
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
-    }
 }

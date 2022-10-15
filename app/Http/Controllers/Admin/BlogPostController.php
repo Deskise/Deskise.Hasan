@@ -66,7 +66,7 @@ class BlogPostController extends Controller
             $blog->tag()->sync($arr_ids);
 
         if(BlogPost::create($requestData)){
-            \Session::flash("msg", "added successfully");
+            \Session::flash("msg", "s:added successfully");
             return redirect()->route("admin.blogs.index");
         }
         return redirect()->back();

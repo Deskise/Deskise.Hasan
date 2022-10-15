@@ -25,7 +25,7 @@ class FinancialControlController extends Controller
         $isSaved = DB::table('settings')->where("settings.key", '=',  'profit_rate')->update(['settings.value'=> $request->input('profitRate')]);
 
         if ($isSaved){
-            \Session::flash("msg","Profit Rate Updated successfully");
+            \Session::flash("msg","s:Profit Rate Updated successfully");
             return redirect()->route('admin.financialControl.index');
         }
         return redirect()->back();
@@ -39,7 +39,7 @@ class FinancialControlController extends Controller
         $isSaved = DB::table('settings')->where("settings.key", '=',  'tax_rate')->update(['settings.value'=> $request->input('taxRate')]);
 
         if ($isSaved){
-            \Session::flash("msg","Tax Rate Updated successfully");
+            \Session::flash("msg","s:Tax Rate Updated successfully");
             return redirect()->route('admin.financialControl.index');
         }
         return redirect()->back();
@@ -52,7 +52,7 @@ class FinancialControlController extends Controller
         $isSaved = DB::table('settings')->where("settings.key", '=',  'bank_commission')->update(['settings.value'=> $request->input('bankCommission')]);
 
         if ($isSaved){
-            \Session::flash("msg","Bank Commission Updated successfully");
+            \Session::flash("msg","s:Bank Commission Updated successfully");
             return redirect()->route('admin.financialControl.index');
         }
         return redirect()->back();
@@ -65,7 +65,7 @@ class FinancialControlController extends Controller
         $isSaved = DB::table('settings')->where("settings.key", '=',  'withdraw_limits')->update(['settings.value'=> $request->input('withdrawLimit')]);
 
         if ($isSaved){
-            \Session::flash("msg","Withdraw Limits Updated successfully");
+            \Session::flash("msg","s:Withdraw Limits Updated successfully");
             return redirect()->route('admin.financialControl.index');
         }
         return redirect()->back();
