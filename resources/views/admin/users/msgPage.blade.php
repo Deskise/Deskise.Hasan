@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="col-md-12">
-                                <div class="form-group   text-center align-self-center h-100">
+                                <div class="form-group text-center align-self-center h-100">
                                     <button type="submit" class="btn btn-success btn-flat" >Send Message</button>
                                 </div>
                             </div>

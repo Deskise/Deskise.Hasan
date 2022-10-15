@@ -14,22 +14,25 @@ class ChatControlController extends Controller
     {
         //
         $chatConf = ChatControl::all();
-        return response()->view('admin.chatControl.index',compact('chatConf'));
+        $block_words = ChatControl::all('blocked_keywords')->first();
+        $shitWords = $block_words->blocked_keywords;
+
+        return response()->view('admin.chatControl.index',compact('chatConf','shitWords'));
     }
+
 
     // TODO: Don't Forget To Finish These Fuckin Shit!!
-    function blockphones(Request $request,ChatControl $chatControl)
-    {
-        # code...
-        $data = $request->has('blockPhones');
-        dump($data);
+    public function update(Request $request){
 
-    }
+        $data = ChatControl::get()->first();
+        $data->update([
+            'block_phones' => $request->has('block_phones'),
+            'block_email' => $request->has('block_email'),
+            'blocked_keywords' => explode(',', $request->get('blocked_keywords'))
+        ]);
 
+        return redirect()->route('admin.chatControl.index')->with('msg', 's:Updated Successfully');
 
-    function blockemails(Request $request,ChatControl $chatControl)
-    {
-        # code...
 
     }
 

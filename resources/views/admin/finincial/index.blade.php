@@ -65,16 +65,16 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">All Sales</h4>
+                    <h4 class="card-title p-2 m-2">All Sales</h4>
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th> Product Name </th>
                                 <th> Seller name </th>
-                                <th> Product Price ($) </th>
+                                <th> Price ($) </th>
                                 <th> Image </th>
-                                <th> Description </th>
+                                <th> Profit Earning ($) </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -83,8 +83,8 @@
                                     <td> {{ $item->name }} </td>
                                     <td> {{ $item->user->firstname }} {{ $item->user->lastname }} </td>
                                     <td> {{ $item->price }} </td>
-                                    <td> <img src="{{ $item->img }} " alt=""></td>
-                                    <td  style="max-width: 400px;white-space: break-spaces;" colspan="2"> {{ $item->description }} </td>
+                                    <td><img src="{{ $item->img }} " alt="{{ $item->name }} Image"></td>
+                                    <td> {{ $item->price * $profitRate/100 }} </td>
                                 </tr>
                             @endforeach
 
@@ -102,7 +102,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Sales for each category</h4>
+                        <h4 class="card-title p-2 m-2">Sales for each category</h4>
                         <div class="table-responsive">
 
                             <table class="table table-hover">
@@ -110,13 +110,15 @@
                                 <tr>
                                     <th> Category Name</th>
                                     <th> All Sales ($)</th>
+                                    <th> Earn Average (%) </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($catPrice as $key => $value)
                                         <tr>
                                             <td> {{ $key }} </td>
-                                            <td>{{ $value }} </td>
+                                            <td> {{ $value }} </td>
+                                            <td> Earn Average (%) </td>
                                         </tr>
                                     @endforeach
 
