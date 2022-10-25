@@ -62,8 +62,9 @@
             border-radius: 5px;
             max-width: 400px;
             max-height: 1000px;
-            height: 450px;
-            border: 1px solid #ee6b0d
+            min-height: 450px;
+            border: 1px solid #ee6b0d;
+            word-break: break-word;
         }
         .tags-input-wrapper input{
             border: none;

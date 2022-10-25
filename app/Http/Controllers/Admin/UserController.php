@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\ChatMessage;
 use App\Models\ChatReport;
 use App\Models\Notification;
 use App\Models\Product;
@@ -38,8 +39,10 @@ class UserController extends Controller
         return redirect()->back()->with('msg','s:Updated Successfully!');
     }
 
-    public function userChat(User $user){
-        return response()->view('admin.users.userChats');
+    public function userChat(Request $request,User $user){
+        $recentMsgs = ChatMessage::where('chat_id',"=",$user->id)->orderBy('created_at', 'desc')->get();
+        $userID = $user->id;
+        return response()->view('admin.users.userChats',compact('recentMsgs','userID'));
     }
 
     public function userReports(User $user){
@@ -75,6 +78,5 @@ class UserController extends Controller
         }
         return redirect()->back();
     }
-
 
 }

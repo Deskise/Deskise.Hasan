@@ -87,7 +87,6 @@
                                     <td> {{ $item->price * $profitRate/100 }} </td>
                                 </tr>
                             @endforeach
-
                             </tbody>
                         </table>
                         <br>
@@ -118,10 +117,9 @@
                                         <tr>
                                             <td> {{ $key }} </td>
                                             <td> {{ $value }} </td>
-                                            <td> Earn Average (%) </td>
+                                            <td> {{ $value * $profitRate/100 }} </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                             <br>
