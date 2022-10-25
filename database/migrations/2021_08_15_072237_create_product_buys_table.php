@@ -17,6 +17,9 @@ class CreateProductBuysTable extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('user_id');
+            $table->float('price');
+            $table->float('website_share');
+            $table->string('transaction_id');
             $table->timestamps();
             $table->softDeletes();
 

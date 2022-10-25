@@ -9,6 +9,12 @@ class ProductBuy extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'price',
+        'website_share',
+        'transaction_id'
+    ];
+
     protected $hidden = [
         'created_at',
         'updated_at',

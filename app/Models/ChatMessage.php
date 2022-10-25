@@ -15,6 +15,11 @@ class ChatMessage extends Model
         'message',
         'attachments',
         'read',
+        'agreement_price',
+        'agreement_notes',
+        'agreement_details',
+        'agreement_file_types',
+        'status',
         'updated_at'
     ];
     protected $hidden = [
@@ -32,6 +37,6 @@ class ChatMessage extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class,'from' ,'id');
+        return $this->belongsTo(User::class,'from');
     }
 }

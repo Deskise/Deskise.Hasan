@@ -17,8 +17,23 @@ class CreateChatMessagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('chat_id');
             $table->unsignedBigInteger('from');
+            $table->enum('type', ['message','attachment','agreement','call']);
+
+            //type: message
             $table->string('message',3500)->nullable();
-            $table->json('attachments')->default('[]')->nullable();
+
+            //type:attachment
+            $table->json('attachments')->default('[]');
+
+            //type: agreement
+            $table->float('agreement_price')->nullable();
+            $table->string('agreement_notes',400)->nullable();
+            $table->string('agreement_details',400)->nullable();
+            $table->json('agreement_file_types')->default('[]');
+
+            //type: call, agreement
+            $table->enum('status', ['agreement_waiting','agreement_accepted','agreement_canceled','call_accepted','call_missed'])->nullable();
+
             $table->boolean('read')->default(false);
             $table->timestamps();
             $table->softDeletes();
