@@ -17,7 +17,6 @@ class Chat extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-
         'member1',
         'member2',
         'product_id',
@@ -27,10 +26,10 @@ class Chat extends Model
 
     public function user()
     {
-        if ($this->member1 !== request()->user('api')->id)
-            return $this->belongsTo(User::class,'member1');
+        if ($this->member1 !== auth('api')->id() || $this->member1 !== auth()->id())
+            return $this->belongsTo(User::class, 'member1');
         else
-            return $this->belongsTo(User::class,'member2');
+            return $this->belongsTo(User::class, 'member2');
     }
 
     public function product()
@@ -44,30 +43,18 @@ class Chat extends Model
 
     public function isBlocked()
     {
-        $this->block = (object)['isBlocked'=>$this->blocked,'canUnBlock'=>$this->blocker_id===request()->user('api')->id];
+        $this->block = (object)['isBlocked' => $this->blocked, 'canUnBlock' => $this->blocker_id === request()->user('api')->id];
         return $this;
     }
 
     public function lastMsg()
     {
-        $this->lastMsg = (object)collect([
-            $this->messages()
-                ->select('id','from','message','attachments','created_at','read',\DB::raw("'message' as type"))
-                ->orderBy('created_at','desc')->first(),
-            $this->calls()
-                ->select('id','from', 'status','created_at','read',\DB::raw("'call' as type"))
-                ->orderBy('created_at','desc')->first(),
-            $this->agreements()
-                ->select('id','from','details','status','read',\DB::raw("'agreement' as type"))
-                ->orderBy('created_at','desc')->first()
-        ])->sortBy('created_at')->last();
-        if ($this->lastMsg !== Null) $this->lastMsg = $this->lastMsg->toArray();
-        return $this;
+        return $this->messages()->latest()->limit(1);
     }
 
     public function files()
     {
-        return $this->messages()->select('id','chat_id','attachments','created_at')->whereNotNull('attachments')->orderBy('created_at','desc');
+        return $this->messages()->select('id', 'chat_id', 'attachments', 'created_at')->whereNotNull('attachments')->orderBy('created_at', 'desc');
     }
     public function users()
     {

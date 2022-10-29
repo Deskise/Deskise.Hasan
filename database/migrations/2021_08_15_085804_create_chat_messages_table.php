@@ -23,7 +23,7 @@ class CreateChatMessagesTable extends Migration
             $table->string('message',3500)->nullable();
 
             //type:attachment
-            $table->json('attachments')->default('[]');
+            $table->json('attachments')->default('[]')->nullable();
 
             //type: agreement
             $table->float('agreement_price')->nullable();

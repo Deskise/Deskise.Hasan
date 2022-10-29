@@ -1,5 +1,5 @@
 @extends('layout.dashborad')
-@section('name','User Chat')
+@section('name', 'User Chat')
 
 @section('btn')
 @endsection
@@ -8,7 +8,6 @@
 @endsection
 
 @section('content')
-
 
     <div class="content-wrapper">
         <div class="row">
@@ -61,431 +60,145 @@
                             font-size: 0.9rem;
                             color: #000;
                         }
-
                     </style>
 
                     <div class="container py-5 px-4">
-                            <!-- For demo purpose-->
+                        <!-- For demo purpose-->
 
-                            <div class="row rounded-lg overflow-hidden shadow">
-                                <!-- Users box-->
-                                <div class="col-4 px-0">
-                                    <div class="bg-white">
-
-                                        <div class="bg-gray px-4 py-2 bg-light">
-                                            <p class="h5 mb-0 py-1" style="color:black;">Recent</p>
-                                        </div>
-                                        {{-- @dump(request()->user->id) --}}
-                                        <div class="messages-box">
-                                            <div class="list-group rounded-0">
-                                                @foreach ($recentMsgs as $recMsg)
-                                                    {{-- @dump($recMsg->user->firstname) --}}
-                                                    {{-- @dump($recMsg->user->id) --}}
-                                                        <a class="list-group-item list-group-item-action active text-white rounded-0">
-                                                            <div class="form-group media">
-                                                                <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                                <div class="media-body ml-4">
-                                                                    <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                        {{-- <h6 class="mb-0">{{ $recMsg->from }}</h6><small class="small font-weight-bold">25 Dec</small> --}}
-                                                                        {{-- <h6 class="mb-0">@if ({{ $recMsg->from }} === request()->user->id) You @endif</h6><small class="small font-weight-bold">25 Dec</small> --}}
-                                                                        <h6 class="mb-0">
-                                                                            @if ($recMsg->user->id === $userID) You @else {{ $recMsg->user->firstname }} {{ $recMsg->user->lastname }} @endif
-                                                                        </h6>
-                                                                        <small class="small font-weight-normal">{{ $recMsg->created_at->format('d M') }}</small>
-                                                                    </div>
-                                                                    {{-- <p class="font-italic mb-0 text-small"> {{Str::words($recMsg->message,0,8) ?? 'Attachments'}}</p> --}}
-                                                                    <p class="font-italic mb-0 text-small"> @if (isset($recMsg->message)) {{substr($recMsg->message,0,40) }}.. @else<i class="mdi mdi-attachment"></i> Attachments @endif</p>
-                                                                    {{-- <p class="font-italic mb-0 text-small">{{$recMsg->message }}</p> --}}
-                                                                </div>
-                                                            </div><hr style="margin-bottom:3px ">
-                                                        </a>
-                                                @endforeach
-
-                                                {{-- <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                        <div class="row rounded-lg overflow-hidden shadow">
+                            <!-- Users box-->
+                            <div class="col-4 px-0">
+                                <div class="bg-white">
+                                    <div class="bg-gray px-4 py-2 bg-light">
+                                        <p class="h5 mb-0 py-1" style="color:black;">Recent</p>
+                                    </div>
+                                    <div class="messages-box">
+                                        <div class="list-group rounded-0">
+                                            @foreach ($chats as $chat)
+                                                <a class="list-group-item list-group-item-action rounded-0 userMsgs"
+                                                    id="msguser" style="cursor: pointer">
+                                                    <div class="form-group media">
+                                                        <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg"
+                                                            alt="user" width="50" class="rounded-circle">
                                                         <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">14 Dec</small>
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between mb-1">
+                                                                <h6 class="mb-0">
+                                                                    {{ $chat->user->firstname }}
+                                                                    {{ $chat->user->lastname }}
+                                                                </h6>
+                                                                <small
+                                                                    class="small font-weight-normal">{{ $chat->lastMsg->first()->created_at->format('d M') }}</small>
                                                             </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur. incididunt ut labore.</p>
+                                                            <p class="font-italic mb-0 text-small">
+                                                                @switch($chat->lastMsg->first()->type)
+                                                                    @case('message')
+                                                                        {{ substr($chat->lastMsg->first()->message, 0, 45) }}..
+                                                                        @break
+                                                                    @case('attachment')
+                                                                        <i class="mdi mdi-attachment"></i> Attachments
+                                                                        @break
+                                                                    @case('agreement')
+                                                                        @break
+                                                                    @case('call')
+                                                                        @break
+                                                                @endswitch
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </a>
+                                            @endforeach
 
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">9 Nov</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">18 Oct</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">17 Oct</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">2 Sep</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">30 Aug</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">21 Aug</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">14 Dec</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur. incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">9 Nov</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">18 Oct</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">17 Oct</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">2 Sep</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">30 Aug</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                                        <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">21 Aug</small>
-                                                            </div>
-                                                            <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                                        </div>
-                                                    </div>
-                                                </a> --}}
-
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Chat Box-->
-                                <div class="col-8 px-0">
-                                    <div class="chat-box bg-white p-1">
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test which is a new approach all solutions</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
+                            </div>
+                            <!-- Chat Box-->
+                            <div class="col-8 px-0">
+                                <div class="chat-box bg-white p-1">
+{{--                                    @foreach ($recentMsgs as $recMsg)--}}
+{{--                                        @dump($recMsg->chat->member1)--}}
+{{--                                        @dump($recMsg->chat->member2)--}}
+{{--                                        @dump('==============================================')--}}
+{{--                                        @if ($recMsg->user->id === $userID)--}}
+{{--                                            <!-- Sender Message-->--}}
+{{--                                            <div class="media w-50 mb-3">--}}
+{{--                                                <div class="media-body ml-3">--}}
+{{--                                                    <div class="bg-light rounded py-2 px-3 mb-2">--}}
+{{--                                                        <p class="text-small mb-0 text-muted">--}}
+{{--                                                            @if ($recMsg->message !== null)--}}
+{{--                                                                {{ $recMsg->message }}--}}
+{{--                                                            @else--}}
+{{--                                                                @foreach ($recMsg->attachments as $attach)--}}
+{{--                                                                    <i class="mdi mdi-attachment">{{ $attach }}</i>--}}
+{{--                                                                @endforeach--}}
+{{--                                                            @endif--}}
+{{--                                                        </p>--}}
+{{--                                                    </div>--}}
+{{--                                                    <p class="small text-muted">{{ $recMsg->created_at->format('d M') }}</p>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        @else--}}
+{{--                                            <!-- Reciever Message-->--}}
+{{--                                            <div class="media w-50 ml-auto mb-3">--}}
+{{--                                                <div class="media-body">--}}
+{{--                                                    <div class="bg-primary rounded py-2 px-3 mb-2">--}}
+{{--                                                        <p class="text-small mb-0 text-white">{{ $recMsg->message }}</p>--}}
+{{--                                                    </div>--}}
+{{--                                                    <p class="small text-muted">{{ $recMsg->created_at->format('d M') }}</p>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        @endif--}}
+{{--                                    @endforeach--}}
+                                </div>
 
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Test which is a new approach to have all solutions</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
+                                <div class="bg-white d-flex justify-content-center align-items-center">
+                                    <!-- Typing area -->
+                                    <div class="ms-1 p-2 d-flex justify-content-center align-items-center">
+                                        <form action="#" class="me-1">
+                                            <a class="btn btn-danger fw-bold" href="#" title="Block User"
+                                                style="color:black;cursor: pointer"> Block</a>
+                                        </form>
 
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test, which is a new approach to have</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-                                        <!-- Sender Message-->
-                                        <div class="media w-50 mb-3">
-                                            <div class="media-body ml-3">
-                                                <div class="bg-light rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Reciever Message-->
-                                        <div class="media w-50 ml-auto mb-3">
-                                            <div class="media-body">
-                                                <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                                </div>
-                                                <p class="small text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
+                                        <form action="#" class="ms-1" enctype="multipart/form-data"
+                                            style="position: relative;">
+                                            <button class="btn btn-primary fw-bold" title="Upload File"
+                                                style="color:black;cursor: pointer;"> Upload File</button>
+                                            <input type="file"
+                                                style="opacity: 0;position: absolute;top: 0;left: 0;cursor: pointer">
+                                        </form>
                                     </div>
-
-                                    <div class="bg-white d-flex justify-content-center align-items-center" style="border-radius: 2px;">
-                                        <!-- Typing area -->
-                                        <div class="ms-1 p-2 d-flex justify-content-center align-items-center">
-                                            <form action="#" class="me-1">
-                                                <a class="btn btn-danger fw-bold" href="#" title="Block User" style="color:black;cursor: pointer"> Block</a>
-                                            </form>
-
-                                            <form action="#" class="ms-1" enctype="multipart/form-data" style="position: relative;">
-                                                <button class="btn btn-primary fw-bold" title="Upload File" style="color:black;cursor: pointer;"> Upload File</button>
-                                                <input type="file" style="opacity: 0;position: absolute;top: 0;left: 0;cursor: pointer">
-                                            </form>
-                                        </div>
-                                    </div>
-
                                 </div>
 
                             </div>
                         </div>
 
 
+                    </div>
                 </div>
-            </div>
 
+
+            </div>
 
         </div>
 
-    </div>
+    @endsection
 
-@endsection
+    @push('js')
+        <script type="text/javascript">
+            var btns = document.getElementsByClassName("userMsgs");
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].click(function(event) {
+                        var current = document.getElementsByClassName("active");
 
-@push('js')
+                        // If there's no active class
+                        if (current.length > 0) {
+                            current[0].className = current[0].className.replace(" active", "");
+                        }
 
-
-@endpush
+                        // Add the active class to the current/clicked button
+                        this.className += " active";
+                    }
+                });
+        </script>
+    @endpush
