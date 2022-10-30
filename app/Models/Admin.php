@@ -32,7 +32,7 @@ class Admin extends Authenticatable
         return in_array($this->role, $role);
     }
 
-    public function setPasswordAttribute($value){
-        $this->attributes['password'] = Hash::make($value);
-    }
+//    public function setPasswordAttribute($value){
+//        $this->attributes['password'] = Hash::make($value);
+//    }
 }

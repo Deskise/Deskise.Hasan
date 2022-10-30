@@ -115,41 +115,26 @@
                             </div>
                             <!-- Chat Box-->
                             <div class="col-8 px-0">
-                                <div class="chat-box bg-white p-1">
-{{--                                    @foreach ($recentMsgs as $recMsg)--}}
-{{--                                        @dump($recMsg->chat->member1)--}}
-{{--                                        @dump($recMsg->chat->member2)--}}
-{{--                                        @dump('==============================================')--}}
-{{--                                        @if ($recMsg->user->id === $userID)--}}
-{{--                                            <!-- Sender Message-->--}}
-{{--                                            <div class="media w-50 mb-3">--}}
-{{--                                                <div class="media-body ml-3">--}}
-{{--                                                    <div class="bg-light rounded py-2 px-3 mb-2">--}}
-{{--                                                        <p class="text-small mb-0 text-muted">--}}
-{{--                                                            @if ($recMsg->message !== null)--}}
-{{--                                                                {{ $recMsg->message }}--}}
-{{--                                                            @else--}}
-{{--                                                                @foreach ($recMsg->attachments as $attach)--}}
-{{--                                                                    <i class="mdi mdi-attachment">{{ $attach }}</i>--}}
-{{--                                                                @endforeach--}}
-{{--                                                            @endif--}}
-{{--                                                        </p>--}}
-{{--                                                    </div>--}}
-{{--                                                    <p class="small text-muted">{{ $recMsg->created_at->format('d M') }}</p>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        @else--}}
-{{--                                            <!-- Reciever Message-->--}}
-{{--                                            <div class="media w-50 ml-auto mb-3">--}}
-{{--                                                <div class="media-body">--}}
-{{--                                                    <div class="bg-primary rounded py-2 px-3 mb-2">--}}
-{{--                                                        <p class="text-small mb-0 text-white">{{ $recMsg->message }}</p>--}}
-{{--                                                    </div>--}}
-{{--                                                    <p class="small text-muted">{{ $recMsg->created_at->format('d M') }}</p>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        @endif--}}
-{{--                                    @endforeach--}}
+                                <div class="chat-box bg-white pt-5">
+                                    @foreach ($recMsgs as $recMsg)
+                                            <!-- Sender Message-->
+                                            <div class="media w-50 mb-3">
+                                                <div class="media-body ml-3">
+                                                    <div class="bg-{{($recMsg->user->id === $user_id)?"light":"primary"}} rounded py-2 px-3 mb-2">
+                                                        <p class="text-small mb-0 text-muted">
+                                                            @if ($recMsg->message !== null)
+                                                                {{ $recMsg->message }}
+                                                            @else
+                                                                @foreach ($recMsg->attachments as $attach)
+                                                                    <i class="mdi mdi-attachment">{{ $attach }}</i>
+                                                                @endforeach
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                    <p class="small text-muted">{{ $recMsg->created_at->format('d M') }}</p>
+                                                </div>
+                                            </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="bg-white d-flex justify-content-center align-items-center">

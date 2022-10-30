@@ -41,9 +41,15 @@ class UserController extends Controller
 
     public function userChat(Request $request, User $user)
     {
+        $chats = Chat::where('member1', $user->id)->orWhere('member2', $user->id)->with('messages')->orderBy('created_at', 'desc')->get();
+        if ($request->input('chat_id'))
+            dd($chats->filter(fn ($e) => $e->id === $request->input('chat_id')));
+        else $messages = $chats[0]->messages;
+
         return response()->view('admin.users.userChats', [
-            'chats'=> Chat::where('member1', $user->id)->orWhere('member2', $user->id)->with('messages')->orderBy('created_at', 'desc')->get(),
-            'user_id'=>$user->id
+            'chats'   => $chats,
+            'user_id' => $user->id,
+            'recMsgs' => $messages
         ]);
     }
 
