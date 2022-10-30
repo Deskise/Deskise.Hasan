@@ -76,7 +76,7 @@
                                         <div class="list-group rounded-0">
                                             @foreach ($chats as $chat)
                                                 <a class="list-group-item list-group-item-action rounded-0 userMsgs"
-                                                    id="msguser" style="cursor: pointer">
+                                                    id="msguser" style="cursor: pointer" href="{{ route('admin.users.chat', [$user_id,$chat->id]) }}">
                                                     <div class="form-group media">
                                                         <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg"
                                                             alt="user" width="50" class="rounded-circle">

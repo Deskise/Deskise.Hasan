@@ -39,11 +39,11 @@ class UserController extends Controller
         return redirect()->back()->with('msg', 's:Updated Successfully!');
     }
 
-    public function userChat(Request $request, User $user)
+    public function userChat(Request $request, User $user, $chat=null)
     {
         $chats = Chat::where('member1', $user->id)->orWhere('member2', $user->id)->with('messages')->orderBy('created_at', 'desc')->get();
-        if ($request->input('chat_id'))
-            dd($chats->filter(fn ($e) => $e->id === $request->input('chat_id')));
+        if ($chat)
+            $messages = $chats->filter(fn($e) => $e->id == $chat)->first()->messages;
         else $messages = $chats[0]->messages;
 
         return response()->view('admin.users.userChats', [
