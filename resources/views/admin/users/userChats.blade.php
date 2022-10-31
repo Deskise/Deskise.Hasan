@@ -88,7 +88,7 @@
                                                                     {{ $chat->user->lastname }}
                                                                 </h6>
                                                                 <small
-                                                                    class="small font-weight-normal">{{ $chat->lastMsg->first()->created_at->format('d M') }}</small>
+                                                                    class="small font-weight-normal">{{ $chat->lastMsg->first()?->created_at->format('d M') }}</small>
                                                             </div>
                                                             <p class="font-italic mb-0 text-small">
                                                                 @switch($chat->lastMsg->first()->type)
@@ -131,7 +131,7 @@
                                                             @endif
                                                         </p>
                                                     </div>
-                                                    <p class="small text-muted">{{ $recMsg->created_at->format('d M') }}</p>
+                                                    <p class="small text-muted">{{ $recMsg?->created_at->format('d M') }}</p>
                                                 </div>
                                             </div>
                                     @endforeach

@@ -44,7 +44,7 @@ class UserController extends Controller
         $chats = Chat::where('member1', $user->id)->orWhere('member2', $user->id)->with('messages')->orderBy('created_at', 'desc')->get();
         if ($chat)
             $messages = $chats->filter(fn($e) => $e->id == $chat)->first()->messages;
-        else $messages = $chats[0]->messages;
+        else $messages = $chats->first()->messages;
 
         return response()->view('admin.users.userChats', [
             'chats'   => $chats,
