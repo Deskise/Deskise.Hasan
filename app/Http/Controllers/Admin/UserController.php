@@ -48,6 +48,7 @@ class UserController extends Controller
 
         return response()->view('admin.users.userChats', [
             'chats'   => $chats,
+            'chat_id' => $chat,
             'user_id' => $user->id,
             'recMsgs' => $messages
         ]);

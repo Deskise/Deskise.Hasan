@@ -75,7 +75,7 @@
                                     <div class="messages-box">
                                         <div class="list-group rounded-0">
                                             @foreach ($chats as $chat)
-                                                <a class="list-group-item list-group-item-action rounded-0 userMsgs"
+                                                <a class="list-group-item list-group-item-action rounded-0 userMsgs @if ($chat->id == $chat_id) active @endif"
                                                     id="msguser" style="cursor: pointer" href="{{ route('admin.users.chat', [$user_id,$chat->id]) }}">
                                                     <div class="form-group media">
                                                         <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg"
@@ -168,22 +168,3 @@
         </div>
 
     @endsection
-
-    @push('js')
-        <script type="text/javascript">
-            var btns = document.getElementsByClassName("userMsgs");
-            for (var i = 0; i < btns.length; i++) {
-                btns[i].click(function(event) {
-                        var current = document.getElementsByClassName("active");
-
-                        // If there's no active class
-                        if (current.length > 0) {
-                            current[0].className = current[0].className.replace(" active", "");
-                        }
-
-                        // Add the active class to the current/clicked button
-                        this.className += " active";
-                    }
-                });
-        </script>
-    @endpush
