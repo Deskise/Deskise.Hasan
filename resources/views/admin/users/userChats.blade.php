@@ -75,7 +75,7 @@
                                     <div class="messages-box">
                                         <div class="list-group rounded-0">
                                             @foreach ($chats as $chat)
-                                                <a class="list-group-item list-group-item-action rounded-0 userMsgs @if ($chat->id == $chat_id) active @endif"
+                                                <a class="list-group-item list-group-item-action rounded-0 @if ($chat->id == $chat_id) active @endif"
                                                     id="msguser" style="cursor: pointer" href="{{ route('admin.users.chat', [$user_id,$chat->id]) }}">
                                                     <div class="form-group media">
                                                         <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg"
@@ -121,7 +121,7 @@
                                             <div class="media w-50 mb-3">
                                                 <div class="media-body ml-3">
                                                     <div class="bg-{{($recMsg->user->id === $user_id)?"light":"primary"}} rounded py-2 px-3 mb-2">
-                                                        <p class="text-small mb-0 text-muted">
+                                                        <p class="text-small mb-0 text-{{($recMsg->user->id === $user_id)?"muted":"white"}}">
                                                             @if ($recMsg->message !== null)
                                                                 {{ $recMsg->message }}
                                                             @else
@@ -140,9 +140,9 @@
                                 <div class="bg-white d-flex justify-content-center align-items-center">
                                     <!-- Typing area -->
                                     <div class="ms-1 p-2 d-flex justify-content-center align-items-center">
-                                        <form action="#" class="me-1">
-                                            <a class="btn btn-danger fw-bold" href="#" title="Block User"
-                                                style="color:black;cursor: pointer"> Block</a>
+                                        <form method="POST" action="#" class="me-1">
+                                            <button type="submit" class="btn btn-danger fw-bold" title="Block User"
+                                                style="color:black;cursor: pointer">Block Chat</button>
                                         </form>
 
                                         <form action="#" class="ms-1" enctype="multipart/form-data"

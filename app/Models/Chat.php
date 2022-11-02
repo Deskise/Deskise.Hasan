@@ -43,7 +43,8 @@ class Chat extends Model
 
     public function isBlocked()
     {
-        $this->block = (object)['isBlocked' => $this->blocked, 'canUnBlock' => $this->blocker_id === request()->user('api')->id];
+        // $this->block = (object)['isBlocked' => $this->blocked, 'canUnBlock' => $this->blocker_id === request()->user('api')->id];
+        $this->block = (object)['isBlocked' => $this->blocked, 'canUnBlock' => $this->blocker_id === auth("api")->id()];
         return $this;
     }
 
