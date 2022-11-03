@@ -32,7 +32,7 @@ class CreateChatMessagesTable extends Migration
             $table->json('agreement_file_types')->default('[]');
 
             //type: call, agreement
-            $table->enum('status', ['agreement_waiting','agreement_accepted','agreement_canceled','call_accepted','call_missed'])->nullable();
+            $table->enum('status', ['agreement_waiting','agreement_accepted','agreement_canceled','call_accepted','call_missed','call_running'])->nullable();
 
             $table->boolean('read')->default(false);
             $table->timestamps();

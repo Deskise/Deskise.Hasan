@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ChatController extends Controller
 {
@@ -64,36 +65,63 @@ class ChatController extends Controller
         return APIHelper::jsonRender('',$chat->agreements()->orderBy('created_at','desc')->paginate(20)->items());
     }
 
-    public function sendMessage(Request $request, Chat $chat) {
+    public function message(Request $request, Chat $chat, $type) {
         $request->validate([
-            'message'       =>  'nullable|required_if:attachments,null',
-            'attachments'   => 'array|nullable',
-            'attachments.*' =>  'string|nullable'
+            'message'       =>  ['string',Rule::requiredIf($type==='message')],
+
+            'attachments'   =>  ['array','json',Rule::requiredIf($type==='attachment')],
+            'attachments.*' =>  ['string',Rule::requiredIf($type==='attachment')],
+
+            'price'         =>  ['numeric',Rule::requiredIf($type==='agreement')],
+            'notes'         =>  ['string',Rule::requiredIf($type==='agreement')],
+            'details'       =>  ['string',Rule::requiredIf($type==='agreement')],
+            'file_types'    =>  ['array','json',Rule::requiredIf($type==='agreement')],
         ]);
+//        dd([
+//            'type'  => $type,
+//            'from'  =>  $request->user('api')->id,
+//            ...match ($type) {
+//                'message' => [
+//                    'message' => $request->input('message'),
+//                ],
+//                'attachment'  => [
+//                    'attachments'=> $request->input('attachments')
+//                ],
+//                'agreement' => [
+//                    'agreement_price'       =>  $request->input('price'),
+//                    'agreement_notes'       =>  $request->input('notes'),
+//                    'agreement_details'     =>  $request->input('details'),
+//                    'agreement_file_types'  =>  $request->input('file_types'),
+//                    'status'                =>  'agreement_waiting'
+//                ],
+//                'call'  => [
+//                    'status'                =>  'call_running'
+//                ]
+//            }
+//        ]);
         $chat->messages()->create([
+            'type'  => $type,
             'from'  =>  $request->user('api')->id,
-            'message' => $request->input('message'),
-            'attachments'=>$request->input('attachments')
+            ...match ($type) {
+                'message' => [
+                    'message' => $request->input('message'),
+                ],
+                'attachment'  => [
+                    'attachments'=> $request->input('attachments')
+                ],
+                'agreement' => [
+                    'agreement_price'       =>  $request->input('price'),
+                    'agreement_notes'       =>  $request->input('notes'),
+                    'agreement_details'     =>  $request->input('details'),
+                    'agreement_file_types'  =>  $request->input('file_types'),
+                    'status'                =>  'agreement_waiting'
+                ],
+                'call'  => [
+                    'status'                =>  'call_running'
+                ]
+            }
         ]);
 
-        return APIHelper::jsonRender('success',[]);
-    }
-
-    public function sendAgreement(Request $request, Chat $chat)
-    {
-        $request->validate([
-            'details'       =>  'string|required',
-            'notes'         =>  'string|nullable',
-            'file_types'    =>  'array|required',
-            'price'         =>  'numeric|required'
-        ]);
-        $chat->agreements()->create([
-            'from'  =>  $request->user('api')->id,
-            'details' => $request->input('details'),
-            'note' => $request->input('note'),
-            'file_types' => $request->input('file_types'),
-            'price' => $request->input('price'),
-        ]);
         return APIHelper::jsonRender('success',[]);
     }
 }
