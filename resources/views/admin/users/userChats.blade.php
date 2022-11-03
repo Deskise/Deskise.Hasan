@@ -136,11 +136,10 @@
                                             </div>
                                     @endforeach
                                 </div>
-
                                 <div class="bg-white d-flex justify-content-center align-items-center">
                                     <!-- Typing area -->
                                     <div class="ms-1 p-2 d-flex justify-content-center align-items-center">
-                                        <form method="POST" action="#" class="me-1">
+                                        <form action="{{ route('admin.users.chat.block', ['chat' => $chat_id, 'user' => $user_id]) }}" class="me-1">
                                             <button type="submit" class="btn btn-danger fw-bold" title="Block User"
                                                 style="color:black;cursor: pointer">Block Chat</button>
                                         </form>

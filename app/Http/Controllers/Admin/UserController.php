@@ -54,6 +54,16 @@ class UserController extends Controller
         ]);
     }
 
+    public function changeBlock(Request $request, User $user,Chat $chat)
+    {
+        $chat->update([
+            'blocked' => !$chat->blocked,
+            'blocker_id' => 0
+        ]);
+        dd($chat);
+        return redirect()->back()->with('msg', "Successfully ". ($chat->refresh()->blocked ? 'Blocked' : 'Unblocked'));
+    }
+
     public function userReports(User $user)
     {
         // $reports = DB::table('chat_reports')->where("chat_reports.from", '=',  $user->id);

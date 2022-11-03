@@ -9,6 +9,14 @@ class Chat extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'member1',
+        'member2',
+        'blocked',
+        'blocker_id',
+        'product_id'
+    ];
+
     protected $casts = [
         'blocked'   =>  'boolean'
     ];
@@ -43,8 +51,7 @@ class Chat extends Model
 
     public function isBlocked()
     {
-        $this->block = (object)['isBlocked' => $this->blocked, 'canUnBlock' => $this->blocker_id === request()->user('api')->id];
-        // $this->block = (object)['isBlocked' => $this->blocked, 'canUnBlock' => $this->blocker_id === auth("api")->id()];
+        $this->block = (object)['isBlocked' => $this->blocked, 'canUnBlock' => $this->blocker_id === request()->user('api')?->id??''];
         return $this;
     }
 
