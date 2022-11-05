@@ -12,7 +12,6 @@ Route::get('best',[Product::class,'best']);
 Route::get('edit/{id}',[Product::class,'edit']);
 Route::post('edit/{id}/publish',[Product::class,'publish']);
 Route::post('edit/{id}/save',[Product::class,'saveDraft']);
-Route::post('edit/upload',[Product::class,'upload']);
 
 Route::post('add',[Product::class,'publish'])->name('add');
 Route::post('add/save',[Product::class,'saveDraft']);

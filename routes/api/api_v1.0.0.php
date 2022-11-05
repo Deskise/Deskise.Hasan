@@ -3,6 +3,7 @@
     use App\Helpers\APIHelper;
     use Illuminate\Support\Facades\Route;
     use \App\Http\Controllers\Api\V1_0_0\ProfileController as Profile;
+    use \App\Http\Controllers\Api\V1_0_0\MainController as main;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,13 @@ Route::group([
     Route::post('/user/account/close', [Profile::class, 'closeAccount']);
 });
 
+Route::group([
+    'prefix' => 'main',
+    'middleware' => 'auth:api'
+], function () {
+    Route::post('upload',[main::class,'upload']);
+});
+
 // Try Broadcasting Events:
 Route::get('/send', function () {
     broadcast(new \App\Events\NewNotification('hiiiiiiiiiii'));
@@ -56,3 +64,4 @@ Route::get('/send', function () {
 Route::fallback(function(){
     return APIHelper::jsonRender('404 not Found', [],404);
 })->name('api.fallback.404');
+

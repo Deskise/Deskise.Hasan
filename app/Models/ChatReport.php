@@ -9,6 +9,13 @@ class ChatReport extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'chat_id',
+        'from',
+        'message',
+        'status'
+    ];
+
     protected $hidden = [
         'created_at',
         'updated_at',

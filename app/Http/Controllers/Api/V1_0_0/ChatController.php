@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1_0_0;
 
-use App\Events\ReadEvent;
 use App\Helpers\APIHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
-use App\Models\ChatAgreement;
-use App\Models\ChatCall;
-use App\Models\ChatMessage;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -66,7 +60,7 @@ class ChatController extends Controller
     }
 
     public function message(Request $request, Chat $chat, $type) {
-        $request->validate([
+        if (($validator=\Validator::make($request->all(), [
             'message'       =>  ['string',Rule::requiredIf($type==='message')],
 
             'attachments'   =>  ['array','json',Rule::requiredIf($type==='attachment')],
@@ -75,31 +69,11 @@ class ChatController extends Controller
             'price'         =>  ['numeric',Rule::requiredIf($type==='agreement')],
             'notes'         =>  ['string',Rule::requiredIf($type==='agreement')],
             'details'       =>  ['string',Rule::requiredIf($type==='agreement')],
-            'file_types'    =>  ['array','json',Rule::requiredIf($type==='agreement')],
-        ]);
-//        dd([
-//            'type'  => $type,
-//            'from'  =>  $request->user('api')->id,
-//            ...match ($type) {
-//                'message' => [
-//                    'message' => $request->input('message'),
-//                ],
-//                'attachment'  => [
-//                    'attachments'=> $request->input('attachments')
-//                ],
-//                'agreement' => [
-//                    'agreement_price'       =>  $request->input('price'),
-//                    'agreement_notes'       =>  $request->input('notes'),
-//                    'agreement_details'     =>  $request->input('details'),
-//                    'agreement_file_types'  =>  $request->input('file_types'),
-//                    'status'                =>  'agreement_waiting'
-//                ],
-//                'call'  => [
-//                    'status'                =>  'call_running'
-//                ]
-//            }
-//        ]);
-        $chat->messages()->create([
+            'file_types'    =>  ['array','json',Rule::requiredIf($type==='agreement')]
+
+        ]))->fails()) return APIHelper::jsonRender('There Was An Error Validating Your Request', $validator->errors(), 400);
+
+        $message = $chat->messages()->create([
             'type'  => $type,
             'from'  =>  $request->user('api')->id,
             ...match ($type) {
@@ -122,6 +96,35 @@ class ChatController extends Controller
             }
         ]);
 
+        return APIHelper::jsonRender('success',$message);
+    }
+
+    public function report(Request $request, Chat $chat)
+    {
+        $request->validate([
+            'notes' =>  'string|required'
+        ]);
+        $chat->reports()->create([
+            'message'   => $request->input('notes'),
+            'from'      => auth('api')->id()
+        ]);
         return APIHelper::jsonRender('success',[]);
+    }
+
+    public function block(Request $request, Chat $chat)
+    {
+        $chat->update([
+            'blocked'       =>  true,
+            'blocker_id'    =>  auth('api')->id()
+        ]);
+        return APIHelper::jsonRender('success',$chat->refresh()->isBlocked());
+    }
+    public function unblock(Request $request, Chat $chat)
+    {
+        $chat->update([
+            'blocked'       =>  false,
+            'blocker_id'    =>  null
+        ]);
+        return APIHelper::jsonRender('success',$chat->refresh()->isBlocked());
     }
 }
