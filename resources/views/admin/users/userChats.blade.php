@@ -137,27 +137,29 @@
                                     @endforeach
                                 </div>
                                 <div class="bg-white d-flex justify-content-center align-items-center">
+                                    @php
+                                        $chat = $recMsgs->first()->chat;
+                                        $title = $chat->blocked? 'Activate':'Block';
+                                    @endphp
                                     <!-- Typing area -->
                                     <div class="ms-1 p-2 d-flex justify-content-center align-items-center">
-                                        <form action="{{ route('admin.users.chat.block', ['chat' => $chat_id, 'user' => $user_id]) }}" class="me-1">
-                                            <button type="submit" class="btn btn-danger fw-bold" title="Block User"
-                                                style="color:black;cursor: pointer">Block Chat</button>
+                                        <form method="POST" action="{{ route('admin.users.chat.block', ['chat' => $chat_id, 'user' => $user_id]) }}" class="me-1">
+                                            @csrf
+                                            <button type="submit" class="btn btn-{{ $chat->blocked ? 'warning':'danger' }} fw-bold" title="{{ $title }} User"
+                                                style="color:black;cursor: pointer">{{ $title }} Chat</button>
                                         </form>
-
-                                        <form action="#" class="ms-1" enctype="multipart/form-data"
+                                        <form action="{{ route('admin.users.chat.upload', ['chat' => $chat_id, 'user' => $user_id]) }}" method="POST" class="ms-1" enctype="multipart/form-data"
                                             style="position: relative;">
+                                            @csrf
                                             <button class="btn btn-primary fw-bold" title="Upload File"
-                                                style="color:black;cursor: pointer;"> Upload File</button>
-                                            <input type="file"
+                                                style="color:black;cursor: pointer;">Upload File</button>
+                                            <input type="file" name="file"
                                                 style="opacity: 0;position: absolute;top: 0;left: 0;cursor: pointer">
                                         </form>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
-
                     </div>
                 </div>
 
@@ -167,3 +169,9 @@
         </div>
 
     @endsection
+
+@push('js')
+<script>
+    $('.chat-box').prop({ scrollTop: $('.chat-box').prop('scrollHeight') })
+</script>
+@endpush

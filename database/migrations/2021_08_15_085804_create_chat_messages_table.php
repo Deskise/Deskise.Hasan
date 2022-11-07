@@ -17,7 +17,7 @@ class CreateChatMessagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('chat_id');
             $table->unsignedBigInteger('from');
-            $table->enum('type', ['message','attachment','agreement','call']);
+            $table->enum('type', ['message','attachment','agreement','call','admin']);
 
             //type: message
             $table->string('message',3500)->nullable();

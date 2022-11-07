@@ -48,7 +48,7 @@ class UserController extends Controller
 
         return response()->view('admin.users.userChats', [
             'chats'   => $chats,
-            'chat_id' => $chat,
+            'chat_id' => $chat??$messages->first()->chat_id,
             'user_id' => $user->id,
             'recMsgs' => $messages
         ]);
@@ -60,7 +60,7 @@ class UserController extends Controller
             'blocked' => !$chat->blocked,
             'blocker_id' => 0
         ]);
-        dd($chat);
+        // dd($chat);
         return redirect()->back()->with('msg', "Successfully ". ($chat->refresh()->blocked ? 'Blocked' : 'Unblocked'));
     }
 
@@ -98,5 +98,12 @@ class UserController extends Controller
             return redirect()->route('admin.users.show', $user->id);
         }
         return redirect()->back();
+    }
+
+    function upload_file(Request $request, Chat $chat) {
+        $request->validate([ 'file' => 'required|file' ]);
+
+        \Storage::disk('chats')->put($chat->id.'/', $request->file('file'));
+        return redirect()->back()->with('msg','Successfully Uploaded');
     }
 }
