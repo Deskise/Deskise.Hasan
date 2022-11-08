@@ -64,7 +64,6 @@
         @endif
 
 
-
         @if(in_array($role,['super','chat']))
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('admin.reports.index')}}">
@@ -111,7 +110,6 @@
                 </div>
             </li>
         @endif
-
 
 
         @if (in_array($role, ['super','content','chat']))

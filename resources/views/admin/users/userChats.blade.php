@@ -148,14 +148,14 @@
                                             <button type="submit" class="btn btn-{{ $chat->blocked ? 'warning':'danger' }} fw-bold" title="{{ $title }} User"
                                                 style="color:black;cursor: pointer">{{ $title }} Chat</button>
                                         </form>
-                                        <form action="{{ route('admin.users.chat.upload', ['chat' => $chat_id, 'user' => $user_id]) }}" method="POST" class="ms-1" enctype="multipart/form-data"
-                                            style="position: relative;">
+
+                                        <form action="{{ route('admin.users.chat.upload', ['chat' => $chat_id, 'user' => $user_id]) }}" method="POST" class="ms-1" enctype="multipart/form-data" style="position: relative;">
                                             @csrf
                                             <button class="btn btn-primary fw-bold" title="Upload File"
                                                 style="color:black;cursor: pointer;">Upload File</button>
-                                            <input type="file" name="file"
-                                                style="opacity: 0;position: absolute;top: 0;left: 0;cursor: pointer">
+                                            <input type="file" name="file" style="opacity: 0;position: absolute;top: 0;left: 0;cursor: pointer" onchange="this.parentElement.submit()">
                                         </form>
+
                                     </div>
                                 </div>
                             </div>

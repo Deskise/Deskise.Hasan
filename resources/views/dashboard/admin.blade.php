@@ -135,7 +135,7 @@
                                     <td>
                                         <img src="{{route('images', ['for'=>'images', 'image'=>$prod->img])}}" alt="image">
                                     </td>
-                                    <td>{{$prod->name_en}}</td>
+                                    <td>{{$prod->name}}</td>
                                     <td> {{$prod->c}} </td>
 
                                 </tr>

@@ -100,10 +100,16 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    function upload_file(Request $request, Chat $chat) {
-        $request->validate([ 'file' => 'required|file' ]);
-
-        \Storage::disk('chats')->put($chat->id.'/', $request->file('file'));
+    function upload_file(Request $request, User $user, Chat $chat){
+        $request->validate([ 'file' => 'required|file']);
+        $chat->messages()->create([
+            'from'  => 0,
+            'type'  => 'attachment',
+            'attachments' => [
+                array_reverse(explode('/',\Storage::disk('chats')->put($chat->id.'/', $request->file('file'))))[0]
+            ]
+        ]);
         return redirect()->back()->with('msg','Successfully Uploaded');
     }
+
 }
