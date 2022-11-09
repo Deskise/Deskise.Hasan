@@ -28,6 +28,8 @@
                         <tbody>
                         @foreach($allUsers as $singleUser)
                             <tr>
+                                @if ($singleUser->id != 0)
+
                                 <td> {{$singleUser->id}} </td>
                                 <td> {{$singleUser->firstname}} {{$singleUser->lastname}} </td>
                                 <td><img src="{{$singleUser->img}}" alt=""></td>
@@ -52,6 +54,7 @@
                                     <a class="btn btn-outline-{{$singleUser->banned ? 'warning':'danger'}}" href="{{route('admin.users.update',$singleUser->id)}}" title="{{$title}} User">{{$title}} </a>
                                 </div>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

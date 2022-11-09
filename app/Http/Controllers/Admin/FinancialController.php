@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
+use Carbon\Carbon;
 use App\Models\Product;
-use App\Models\ProductBuy;
 use App\Models\Setting;
+use App\Models\Category;
+use App\Models\ProductBuy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class FinancialController extends Controller
 {
@@ -22,7 +24,32 @@ class FinancialController extends Controller
             ];
         });
 
-        return response()->view('admin.finincial.index',compact('sales','cats','cat_sales'));
+        // $data = ProductBuy::select('website_share','created_at')->get()->groupBy(function($data){
+        //     return Carbon::parse($data->created_at)->format('M');
+        // });
+        // $months=[];
+        // $monthCount=[];
+        // foreach($data as $month=>$values){
+        //     $months[] =$month;
+        //     $monthCount[] = count($values);
+        //     // dd($month,$values);
+        // }
+        // dd($months,$monthCount);
+
+        $data = ProductBuy::select(DB::raw('DATE_FORMAT(product_buys.created_at, "%Y-%m-%d") AS created_at, Sum(product_buys.`website_share`) AS website_share'))
+        ->orderByRaw('created_at ASC')
+        ->groupBy(DB::raw('DATE_FORMAT(product_buys.created_at, "%m")'))
+        ->get();
+
+        $months = [];
+        $profits = [];
+        foreach($data as $values){
+            $months[] = Carbon::parse($values->created_at)->format('M/Y');
+            $profits[] = $values->website_share;
+        }
+        // dd($months,$profits);
+
+        return response()->view('admin.finincial.index',compact('sales','cats','cat_sales','months','profits'));
     }
 
 }
