@@ -35,15 +35,10 @@
             if ($request->hasError)
                 return $request->response;
 
-            $categoryId = (int)$request->input('category');
-            $subcategoryId = (int)$request->input('subcategory');
-
-            $subcategory = Subcategory::find($subcategoryId);
-            if ($subcategory->category_id !== $categoryId)
-            {
+            $subcategory=Subcategory::find($subcategoryId=(int)$request->input('subcategory'));
+            if ($subcategory->category_id !== ($categoryId = (int)$request->input('category')))
                 ///TODO: Translate and rephrase this shit
                 return APIHelper::error('Subcategory Requested Is Not For the Requested Category');
-            }
 
             $productRequest = new ProductRequest();
             $productRequest->category_id = $categoryId;
@@ -53,10 +48,8 @@
             $productRequest->details = $request->input('message');
 
             if (!$productRequest->save())
-            {
                 ///TODO: Translate and rephrase this shit
                 return APIHelper::error('Error Saving Product');
-            }
 
             if ($request->input('sendEmails'))
             {

@@ -36,11 +36,13 @@ class CategoryFactory extends Factory
                             [
                                 "placeholder"   =>  "Select Business Model",
                                 "type"  =>  "drop_list",
+                                'name'  =>  $this->faker->text(10),
                                 "data"  =>  [2=>"else",5=>"Ahmed", 10=>"Something"],
                             ],
                             [
                                 "placeholder"   =>  "Add Url",
                                 "type"  =>  "url",
+                                'name'  =>  $this->faker->text(10),
                                 "hint"  =>  "lorem ipsum"
                             ]
                         ]
@@ -51,6 +53,7 @@ class CategoryFactory extends Factory
                             [
                                 "placeholder"   =>  "Average monthly traffic",
                                 "type"  =>  "number",
+                                'name'  =>  $this->faker->text(10),
                                 "data"  =>  [
                                     "min"   =>  0,
                                     "max"   =>  400
@@ -59,12 +62,14 @@ class CategoryFactory extends Factory
                             [
                                 "placeholder"   =>  "When did the business start",
                                 "type"  =>  "date",
+                                'name'  =>  $this->faker->text(10),
                                 "data"  =>  [
                                     "start" =>  "",
                                     "end"   =>  ""
                                 ]
                             ],
                             [
+                                'name'  =>  $this->faker->text(10),
                                 "placeholder"   =>  "When did the business start making money ",
                                 "type"  =>  "date"
                             ],
@@ -76,10 +81,12 @@ class CategoryFactory extends Factory
                             [
                                 "placeholder"   =>  "Average monthly traffic",
                                 "type"  =>  "y_n",
+                                'name'  =>  $this->faker->text(10),
                             ],
                             [
                                 "placeholder"   =>  "VERIFY GOOGLE ANALYTICS",
                                 "type"  =>  "table",
+                                'name'  =>  $this->faker->text(10),
                                 "date"  =>  [
                                     "rows"  =>  [
                                         "months", "profit", "visits"
@@ -95,6 +102,7 @@ class CategoryFactory extends Factory
                         "title" =>  "Business Assets Included",
                         "fields" => [
                             [
+                                'name'  =>  $this->faker->text(10),
                                 "type"  =>  "links"
                             ]
                         ]
@@ -104,6 +112,7 @@ class CategoryFactory extends Factory
                         "fields" => [
                             [
                                 "placeholder"=> "Please Make Sure Your Answer Is At Least 250 Characters Long. (Success And Obstacles) ",
+                                'name'  =>  $this->faker->text(10),
                                 "type"  =>  "textarea"
                             ]
                         ]
@@ -113,6 +122,7 @@ class CategoryFactory extends Factory
                         "fields" => [
                             [
                                 "placeholder"=> "Please make sure your answer is no longer than 150 characters",
+                                'name'  =>  $this->faker->text(10),
                                 "type"  =>  "textarea"
                             ]
                         ]
@@ -121,6 +131,7 @@ class CategoryFactory extends Factory
                         "title" =>  "Add Photos And Media",
                         "fields" => [
                             [
+                                'name'  =>  $this->faker->text(10),
                                 "type"  =>  "assets"
                             ]
                         ]
@@ -135,9 +146,11 @@ class CategoryFactory extends Factory
                         "fields" => [
                             [
                                 "placeholder"=> "Price",
+                                'name'  =>  $this->faker->text(10),
                                 "type"  =>  "number"
                             ],[
                                 "type"  =>  "checkbox",
+                                'name'  =>  $this->faker->text(10),
                                 "placeholder"=> "Automatic Expiration Setting And Automatic Price Determination From The Expiration Date.",
                             ]
                         ]
@@ -152,9 +165,11 @@ class CategoryFactory extends Factory
                         "fields" => [
                             [
                                 "placeholder"=> "Price",
+                                'name'  =>  $this->faker->text(10),
                                 "type"  =>  "number"
                             ],[
                                 "type"  =>  "checkbox",
+                                'name'  =>  $this->faker->text(10),
                                 "placeholder"=> "Automatic Expiration Setting And Automatic Price Determination From The Expiration Date.",
                             ]
                         ]
