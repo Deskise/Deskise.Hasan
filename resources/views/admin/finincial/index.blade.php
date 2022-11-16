@@ -80,11 +80,11 @@
                             <tbody>
                             @foreach ($sales as $item)
                                 <tr>
-                                    <td> {{ $item->name }} </td>
+                                    <td> {{ $item->product->name }} </td>
                                     <td> {{ $item->user->firstname }} {{ $item->user->lastname }} </td>
                                     <td> {{ $item->price }} </td>
-                                    <td><img src="{{ $item->img }} " alt="{{ $item->name }} Image"></td>
-                                    <td> {{ $item->price * $profitRate/100 }} </td>
+                                    <td><img src="{{ $item->product->img }} " alt="{{ $item->product->name }} Image"></td>
+                                    <td> {{ $item->website_share }} </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -112,12 +112,12 @@
                                     <th> Earn Average (%) </th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($catPrice as $key => $value)
+                            <tbody>
+                                    @foreach ($cats as $item)
                                         <tr>
-                                            <td> {{ $key }} </td>
-                                            <td> {{ $value }} </td>
-                                            <td> {{ $value * $profitRate/100 }} </td>
+                                            <td> {{ $item->name }} </td>
+                                            <td>  {{ round($cat_sales[$item->id]['earning'],2) }}</td>
+                                            <td>  {{ round($cat_sales[$item->id]['profile'],2) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -133,13 +133,19 @@
 @endsection
 
 @push('js')
+    <script type="text/javascript">
+        var _ydata=JSON.parse('{!! json_encode($months) !!}');
+        var _xdata=JSON.parse('{!! json_encode($profits) !!}');
+    </script>
 
     <script>
         var data = {
-            labels: ['Test1','Test2','Test3','Test3','Test4'],
+            // labels: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+            labels: _ydata,
             datasets: [{
-                label: '# of Votes',
-                data: ['Test1','Test2','Test3','Test3','Test4'],
+                label: '#',
+                // data: [1,2,3,4,2,6,10,8,9,10,1,2],
+                data: _xdata,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

@@ -130,17 +130,15 @@
                                 <tbody>
                                 @if( count($cat->top_products) > 0 )
                                     @foreach($cat->top_products as $prod)
-                                <tr>
-
-                                    <td>
-                                        <img src="{{route('images', ['for'=>'images', 'image'=>$prod->img])}}" alt="image">
-                                    </td>
-                                    <td>{{$prod->name_en}}</td>
-                                    <td> {{$prod->c}} </td>
-
-                                </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="{{route('images', ['for'=>'admin', 'image'=>$prod->img ?? 'default.png'])}}" alt="image">
+                                            </td>
+                                            <td>{{$prod->name}}</td>
+                                            <td> {{$prod->c}} </td>
+                                        </tr>
                                     @endforeach
-                                 @endif
+                                @endif
                                 </tbody>
                             </table>
                         </div>
