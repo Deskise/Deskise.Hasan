@@ -9,18 +9,17 @@
         <div class="card" >
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table">
                         <thead>
                         <tr>
                             <th> #</th>
                             <th> Category</th>
                             <th> Sub Category</th>
                             <th> Details </th>
-                            <th></th>
                             <th> Price ($) </th>
                             <th> Email </th>
                             <th> Status </th>
-                            <th> Action</th>
+                            <th colspan="2" style="text-align: center">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -29,36 +28,39 @@
                                 <td> {{$productRequest->id}} </td>
                                 <td> {{$productRequest->category->name_en}} </td>
                                 <td> {{$productRequest->subcategory->name_en}} </td>
-                                <td style="max-width: 350px;white-space: break-spaces;" colspan="2">{{$productRequest->details}}</td>
+                                <td style="max-width: 300px;white-space: break-spaces;">{{$productRequest->details}}</td>
                                 <td> {{$productRequest->ePrice}} </td>
                                 <td>{{$productRequest->email}}</td>
                                 <td>
                                     <div class="badge @if($productRequest->status==='approved') badge-outline-success @elseif($productRequest->status==='rejected') badge-outline-danger @elseif($productRequest->status==='checking') badge-outline-primary @else badge-outline-warning @endif">{{$productRequest->status}}</div>
                                 </td>
-                                <td>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <form action="{{url('admin/productRequests/approveProductRequest',$productRequest->id)}}" method="post" id="approve_form_{{$productRequest->id}}">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="url" id="approve_url_{{$productRequest->id}}" />
-                                                <button type="submit"
-                                               class="btn btn-outline-success btn-icon-text approveRequest" title="Accept Product Request" @if($productRequest->status==='approved')disabled @endif data-id="{{$productRequest->id}}">
-                                                 <i class="mdi mdi-file-check btn-icon-append"></i>
-                                            </button>
+                                <div class="row">
+                                    <td>
+                                            <div class="col-6">
+                                                <form action="{{url('admin/productRequests/approveProductRequest',$productRequest->id)}}" method="post" id="approve_form_{{$productRequest->id}}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="url" id="approve_url_{{$productRequest->id}}" />
+                                                    <button type="submit"
+                                                    class="btn btn-outline-success btn-icon-text approveRequest" title="Accept Product Request" @if($productRequest->status==='approved')disabled @endif data-id="{{$productRequest->id}}">
+                                                    <i class="mdi mdi-file-check btn-icon-append"></i>
+                                                </button>
                                             </form>
                                         </div>
+                                    </td>
+                                    <td>
                                         <div class="col-6">
                                             <form action="{{url('admin/productRequests/rejectProductRequest',$productRequest->id)}}" method="post">
                                                 @csrf
                                                 @method('PUT')
-                                                <button type="submit" class="btn btn-outline-danger btn-flat"
-                                                        data-toggle="tooltip" title='Reject Product Request'><i class="mdi mdi-block-helper"></i>
+                                                    <button type="submit" class="btn btn-outline-danger btn-flat"
+                                                    data-toggle="tooltip" title='Reject Product Request'><i class="mdi mdi-block-helper"></i>
                                                 </button>
                                             </form>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                </div>
+                            </td>
                             </tr>
                         @endforeach
                         </tbody>

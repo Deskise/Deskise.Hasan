@@ -16,8 +16,7 @@
         <div class="card" >
             <div class="card-body">
         <div class="table-responsive">
-            <table id="category-table"
-                   class="table table-hover ">
+            <table id="category-table" class="table table-hover ">
                 <thead>
                 <tr style="boder:1px solid black;">
                     <th>User Name</th>
@@ -39,8 +38,8 @@
                             {{  $txt->user->firstname .' ' .$txt->user->lastname }}
                         </td>
                         <td>{{ $txt->category->name_en }}</td>
-                        <td class="m-1"><img src="{{$txt->img}}" alt=""> {{ $txt->name_en }}</td>
-                        <td style="max-width: 350px;white-space: break-spaces;" colspan="2">{{substr($txt->description_en,0,30)}}</td>
+                        <td class="m-1"><img src="{{$txt->img}}" alt=""> {{ $txt->name }}</td>
+                        <td style="max-width: 350px;white-space: break-spaces;" colspan="2">{{substr($txt->description,0,30)}}</td>
                         <td>{{ $txt->price  }}</td>
                         <td>{{$txt->status}}</td>
                         <td>
