@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\ProductRequestsController;
 
-Route::resource('/products', ProductController::class)->except('show')->middleware('AdminRole:super,product');
+Route::resource('/products', ProductController::class)->except('show,create,store')->middleware('AdminRole:super,product');
+Route::get('/products/{category}/create', [ProductController::class,'create'])->name('products.create');
+Route::post('/products/{category}/store', [ProductController::class,'store'])->name('products.store');
 Route::get('/categories',[ProductController::class, 'getProductCategories'])->name('categories')->middleware('AdminRole:super,product');
 
 Route::group([

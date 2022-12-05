@@ -1,7 +1,7 @@
 @extends('layout.dashborad')
 @section('name','products')
 @section('btn')
-    <a  class="btn btn-success btn-fw" style="margin: 10px" href="{{route('admin.products.create')}}">Add New Product</a>
+    <a class="btn btn-success btn-fw" style="margin: 10px" href="javascript:;" onclick="choose_cat()">Add New Product</a>
 @endsection
 @section('css')
     .table-hover > tbody > tr:hover > *{
@@ -62,7 +62,6 @@
         </div>
     </div>
 
-
 @endsection
 
 @section('js')
@@ -86,6 +85,30 @@
                     }
                 });
         });
+
+        async function choose_cat() {
+            let html = "<select name='category' id='cat_select' class='form-control' style='min-width=150%'>" +
+                "{!! $categories->map(fn ($cat) => "<option value='$cat->id'>$cat->name_en</option>")->implode('') !!}"
+                + "</select>"
+
+            const {value: url} = await Swal.fire({
+                title: '<label class="form-label">Choose Category:</label>',
+                html: html,
+                background: 'rgba(27,31,47,0.94)',
+                padding: '3px',
+                confirmButtonText: 'Add URL',
+                confirmButtonColor: 'rgba(9,159,11,0.94)',
+                focusConfirm: false,
+                returnFocus: false,
+
+                preConfirm: () => ({
+                    cat: $('#cat_select').val(),
+                })
+            })
+            if (url)
+                window.location.href = "{{ route('admin.products.create',':cat') }}".replace(':cat',url.cat);
+        }
+    </script>
 @endsection
 
 

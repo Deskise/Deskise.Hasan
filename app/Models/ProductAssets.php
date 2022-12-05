@@ -9,6 +9,10 @@ class ProductAssets extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'assets'
+    ];
+
     protected $casts = [
         'assets'    =>  'array'
     ];

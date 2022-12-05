@@ -9,6 +9,10 @@ class ProductData extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'subcategory_id',
+        'data'
+    ];
     protected $hidden = [
         'created_at',
         'updated_at',

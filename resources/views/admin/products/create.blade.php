@@ -7,121 +7,130 @@
             <div class="card">
                 <div class="card-body col-12 col-lg-7 pe-3 pe-lg-5">
                     <h4 class="card-title pb-2">Add New Product</h4>
-                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{ route('admin.products.store') }}">
+                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{ route('admin.products.store', $cat) }}">
                         @csrf
-                        <div class="form-group" title="Basic Details">
-                            <label class="fs-6">Basic Details</label>
-                            <div class="form-group">
-                                <select name="businessModel" id="businessModel" class="form-control" placeholder="Select Business Model">
-                                    <option disabled selected value>Select Business Model</option>
-                                    <option value='2'>else</option>
-                                    <option value='5'>Ahmed</option>
-                                    <option value='10'>Something</option>
-                                </select>
+
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="is_lifetime" id="is_lifetime" onchange="let el = $('#lifetime_date');if(!this.checked) {el.show()} else {el.hide()}"/>
+                                <label class="form-check-label" for="is_lifetime">is lifetime?</label>
                             </div>
-                            <div class="form-group">
-                                <input type="url" name="Eveniet" class="form-control" id="Eveniet" placeholder="Add Url" title="lorem ipsum">
+                            <div id="lifetime_date">
+                                <label for="until">until</label>
+                                <input type="date" id="until" name="until" class="form-control" />
                             </div>
                         </div>
 
-                        <div class="form-group" title="Lorem ipsum">
-                            <label class="fs-6">Lorem ipsum</label>
-                                <div class="form-group">
-                                    <input type="number" name="Ipsum ea." min="0" max="400" step="0.5" class="form-control" id="Ipsum ea." placeholder="Average monthly traffic">
+                        @foreach($cat->data as $datum)
+                            @foreach($datum['divs'] as $div)
+                                <div class="form-group" title="{{ $div['title'] }}">
+                                    <label class="fs-6">{{ $div['title'] }}</label>
+                                        <div class="form-group">
+                                            @foreach($div['fields'] as $field)
+                                                @switch($field['type'])
+                                                    @case('drop_list')
+                                                        <select name="{{$field['name']}}" class="form-control mb-1">
+                                                            <option disabled selected value>{{ $field['placeholder'] }}</option>
+                                                            @foreach($field['data'] as $key => $val)
+                                                                <option value='{{ $key }}'> {{ $val }} </option>
+                                                            @endforeach
+                                                        </select>
+                                                    @break
+
+                                                    @case('subcategory')
+                                                        <select name="{{$field['name']}}" id="businessModel" class="form-control mb-1">
+                                                            <option disabled selected value>Select Subcategory</option>
+                                                            @foreach($cat->subcategories as $sub)
+                                                                <option value='{{ $sub->id }}'> {{ $sub->name_en }} </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @break
+
+                                                    @case('text')
+                                                        <input type="text" name="{{ $field['name'] }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" title="{{ $field['hint']??'' }}">
+                                                    @break
+
+                                                    @case('url')
+                                                        <input type="url" name="{{ $field['name'] }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" title="{{ $field['hint']??'' }}">
+                                                    @break
+
+                                                    @case('number')
+                                                        <input type="number" name="{{ $field['name'] }}" min="{{ $field['data']['min']??'' }}" max="{{ $field['data']['max']??'' }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}">
+                                                        @break
+
+                                                    @case('date')
+                                                        <input type="date" name="{{ $field['name'] }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" title="{{ $field['placeholder'] }}">
+                                                        @break
+
+                                                    @case('checkbox')
+                                                        <div class="form-check mb-1">
+                                                            <input type="checkbox" class="form-check-input" name="{{ $field['name'] }}" id="{{ $field['name'] }}" placeholder="{{ $field['placeholder'] }}" style="cursor: pointer;">
+                                                            <label class="form-check-label" for="{{ $field['name'] }}" style="cursor: pointer;">{{ $field['placeholder'] }}</label>
+                                                        </div>
+                                                        @break
+
+                                                    @case('y_n')
+                                                        <div class="form-group mb-1">
+                                                            <label>{{ $field['placeholder'] }}</label>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="{{ $field['name'] }}" id="{{ $field['name'] }}_y" value="yes">
+                                                                <label class="form-check-label" for="{{ $field['name'] }}_y">Yes</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="{{ $field['name'] }}" id="{{ $field['name'] }}_n" value="no">
+                                                                <label class="form-check-label" for="{{ $field['name'] }}_n">No</label>
+                                                            </div>
+                                                        </div>
+                                                        @break
+                                                    @case('table')
+                                                        <table class="table table-bordered align-center mb-1">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col">{{ array_shift($field['data']['rows']) }}</th>
+                                                                @foreach ($cols=$field['data']['cols'] as $col)
+                                                                    <th>{{ $col }}</th>
+                                                                @endforeach
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                @foreach ($field['data']['rows'] as $row)
+                                                                <th scope="row">{{ $row }}</th>
+                                                                    @foreach($cols as $col)
+                                                                        <td style="position:relative;">
+                                                                            <input type="text" name="{{ $field['name'] }}[{{$row}}][{{ $col }}]" style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;background: transparent;border: 0;" class="form-control" />
+                                                                        </td>
+                                                                    @endforeach
+                                                                </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                        @break
+
+                                                    @case('links')
+                                                        @foreach($links as $link)
+                                                            <input class="form-control mb-1" type="url" name="{{ $field['name'] }}[{{ $link->id }}]" id="links" placeholder="{{ $link->name_en }} Link" />
+                                                        @endforeach
+                                                        @break
+
+                                                    @case('textarea')
+                                                        <textarea class="form-control mb-1" name="{{ $field['name'] }}" cols="30" rows="20" placeholder="{{ $field['placeholder'] }}" style="min-height: 250px;" ></textarea>
+                                                        @break
+
+                                                    @case('assets')
+                                                        <input type="file" name="assets[]" class="form-control file-upload-info mb-1" placeholder="Add Photos And Media" multiple />
+                                                        @break
+                                                    @case('file')
+                                                        <input type="file" name="{{ $field['name'] }}" class="form-control file-upload-info mb-1" title="{{ $field['placeholder']??'' }}" multiple />
+                                                        @break
+                                                @endswitch
+                                            @endforeach
+
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="date" name="Vel." class="form-control" id="Eveniet" placeholder="When did the business start" title="When did the business start">
-                                </div>
-                                <div class="form-group">
-                                    <input type="date" name="Iste" class="form-control" id="Iste" placeholder="When did the business start making money" title="When did the business start making money">
-                                </div>
-                        </div>
-
-                        <div class="form-group" title="Do You Currently Have Either Google Analytics Or Clicky Installed?">
-                            <label class="fs-6">Do You Currently Have Either Google Analytics Or Clicky Installed?</label>
-                            <div class="form-group form-check-inline d-flex">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">Yes</label>
-                                </div>
-                                <div div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">No</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                            <table class="table table-bordered align-center">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        @for ($i=1;$i<=12;$i++)
-                                            <th>{{ $i }}</th>
-                                        @endfor
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">months</th>
-                                        @for ($i=1;$i<=12;$i++)
-                                            <td contenteditable="true"></td>
-                                        @endfor
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">profit</th>
-                                        @for ($i=1;$i<=12;$i++)
-                                            <td contenteditable="true"></td>
-                                        @endfor
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">visits</th>
-                                        @for ($i=1;$i<=12;$i++)
-                                            <td contenteditable="true"></td>
-                                        @endfor
-                                    </tr>
-                                </tbody>
-                            </table>
-                            </div>
-                        </div>
-
-                        <div class="form-group" title="Business Assets Included">
-                            <label class="fs-6">Business Assets Included</label>
-                            <input class="form-control" type="url" name="links" id="links" placeholder="links">
-                        </div>
-
-                        <div class="form-group" title="Write a full description of the project">
-                            <textarea class="form-control" name="Delectus." id="Delectus." cols="30" rows="20" placeholder="Write a full description of the project" style="min-height: 250px;" ></textarea>
-                        </div>
-
-                        <div class="form-group" title="Briefly Tell Us About Your Business">
-                            <textarea class="form-control" name="Ex." id="Ex." cols="30" rows="20" placeholder="Briefly Tell Us About Your Business" style="min-height: 250px;" ></textarea>
-                        </div>
-
-                        <div class="form-group" title="Add Photos And Media">
-                            <label class="fs-6">Add Photos And Media</label>
-                            <input type="file" name="Error." class="form-control file-upload-info" placeholder="Add Photos And Media">
-                        </div>
-
-                        <div class="form-group" title="Price">
-                            <div class="form-grou">
-                                <label class="fs-6">Price</label>
-                                <input type="number" name="Velit et." min="0" max="400" step="0.5" class="form-control" placeholder="Price">
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="Iure." id="Iure." placeholder="Automatic Expiration Setting And Automatic Price Determination From The Expiration Date" style="cursor: pointer;">
-                                <label class="form-check-label" for="Iure." style="cursor: pointer;">Automatic Expiration Setting And Automatic Price Determination From The Expiration Date</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group" title="Site Service">
-                            <label class="fs-6">Site Service</label>
-                            <input type="number" name="Labore in." min="0" max="400" step="0.5" class="form-control" placeholder="Price">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="Tenetur." id="Tenetur." placeholder="Automatic Expiration Setting And Automatic Price Determination From The Expiration Date" style="cursor: pointer;">
-                                <label class="form-check-label" for="Tenetur." style="cursor: pointer;">Automatic Expiration Setting And Automatic Price Determination From The Expiration Date</label>
-                            </div>
-                        </div>
+                            @endforeach
+                        @endforeach
 
 
                         <button type="submit" class="btn btn-primary me-2">Submit</button>

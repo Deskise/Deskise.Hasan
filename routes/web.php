@@ -51,3 +51,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::group(['as'=>'category.'], fn () => require 'admin/category.php');
     });
 });
+
+Route::any('cat', function (){
+    return response()->json(\App\Models\Category::first()->data);
+});

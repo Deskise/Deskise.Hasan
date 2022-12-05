@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductRequest;
+use App\Models\SocialMediaAccount;
 use Illuminate\Http\Request;
 
 
@@ -14,49 +15,61 @@ class ProductController extends Controller
     //
 
     public function index(){
-        $products = Product::paginate(20);
-        return response()->view('admin.products.index',compact('products'));
+        return response()->view('admin.products.index',[
+            'products'  =>  Product::paginate(20),
+            'categories'=>  Category::select('id','name_en')->get()
+        ]);
 
     }
 
 
-    public function create(){
-        $categories = Category::select('id','name_en')->get();
-        return response()->view('admin.products.create',['categories'=>$categories]);
+    public function create(Category $category){
+        return response()->view('admin.products.create',['categories'=>Category::select('id','name_en')->get(), 'cat'=>$category, 'links'=>SocialMediaAccount::all()]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request,Category $category){
         $request->validate([
-            'name_en'=> 'required|string',
-            'summary_en'=> 'required|string',
-            'category_id'  =>  'required|exists:categories,id',
-            'description_en'=> 'required|string',
+            'is_lifetime'   =>  'accepted',
+            'until' => 'date|nullable|required_without:is_lifetime',
+
+            'name'=> 'required|string',
+            'summary'=> 'required|string',
+            'description'=> 'required|string',
+
             'price' => 'required|numeric',
             'img'=>'required|file|mimes:jpg,jpeg,png,webp',
-            'status'=> 'nullable|in:'.implode(',',['sold','available','canceled', 'expired']),
+
+            'subcategory' => 'required|exists:subcategories,id',
+            'assets' => 'required|array',
+            'assets.*'=> 'file|mimes:jpg,jpeg,png,webp|nullable',
+
+            'links' => 'required|array',
+            'links.*'   =>  'url|nullable'
         ]);
 
         $product = new Product([
-            ...$request->all(),
-            'name_ar'=> '',
-            'description_ar' => '',
-            'summary_ar' => '',
-            'old_price' => '',
-            'user_id' => $request->user()->id,
+            ...$request->all('name','summary','description','price'),
+            'user_id' => 0,
+            'category_id' => $category->id,
+            'img' => \Storage::disk('products')->put('',$request->file('img')),
+            'old_price' => $request->input('price')
         ]);
-        $product->img = \Storage::disk('products')->put('',$request->file('img'));
         $product->save();
 
+        $product->data()->create([
+            'subcategory_id'=> $request->input('subcategory'),
+            'data'=> $request->except('is_lifetime','until','name','summary','description','price','img','subcategory','assets','links')
+        ]);
 
-//        dd($request->all());
-        dd($product);
+        $assets = [];
+        foreach ($request->file('assets') as $file)
+            $assets[] = \Storage::disk('products')->put('',$file);
 
-//        if (Product::create($request->all())){
-//            \Session::flash("msg", "New Product added successfully");
-//            return redirect()->route('admin.products.index');
-//        }
-//
-//        return redirect()->back();
+        $product->assets()->create([
+            'assets' => $assets,
+        ]);
+
+        return redirect()->route('admin.products.index')->with('msg', 'New Product added successfully');
     }
 
     public function edit(Product $product){
