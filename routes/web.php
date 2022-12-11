@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin'], function () {
         require 'admin/financialControl.php';
         require 'admin/financial.php';
 
-        Route::group(['as'=>'category.'], fn () => require 'admin/category.php');
+        Route::resource('category',App\Http\Controllers\Admin\CategoriesController::class)->except('update','show','edit')->middleware('AdminRole:super');
     });
 });
 

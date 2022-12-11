@@ -69,7 +69,12 @@ class CategoryFactory extends Factory
                                 "type"  =>  "assets"
                             ]
                         ]
-                    ],
+                    ]
+                ]
+            ],
+            [
+                "title" => "lorem ipsum",
+                "divs"  => [
                     [
                         "title"     =>  "Lorem ipsum",
                         "fields"    =>  [

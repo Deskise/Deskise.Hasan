@@ -96,18 +96,12 @@
 
         @if($role === 'super')
             <li class="nav-item menu-items">
-                <a class="nav-link" data-bs-toggle="collapse" href="#categories" aria-expanded="false" aria-controls="categories">
+                <a class="nav-link" href="{{route('admin.category.index')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-tag-multiple"></i>
               </span>
                     <span class="menu-title">Categories</span>
-                    <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="categories">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="{{route('admin.category.create')}}"> Add Category </a></li>
-                    </ul>
-                </div>
             </li>
         @endif
 
