@@ -29,7 +29,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-outline-danger btn-flat"
-                                                    data-toggle="tooltip" title='Reject Product Request'><i class="mdi mdi-block-helper"></i>
+                                                    data-toggle="tooltip" title='Reject Product Request'><i class="mdi mdi-trash-can-outline"></i>
                                             </button>
                                         </form>
                                     </div>
