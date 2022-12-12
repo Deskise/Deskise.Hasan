@@ -23,6 +23,9 @@
     .form-control{
         color: #fff !important;
     }
+    .form-control[disabled] {
+        background-color: #2A3038!important;
+    }
 </style>
 
 

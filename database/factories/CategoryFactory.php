@@ -88,7 +88,7 @@ class CategoryFactory extends Factory
                                 "placeholder"   =>  "Select Business Model",
                                 "type"  =>  "drop_list",
                                 'name'  =>  $this->faker->text(10),
-                                "data"  =>  [2=>"else",5=>"Ahmed", 10=>"Something"],
+                                "data"  =>  ["values" => ["else","Ahmed","Something"]],
                             ],
                             [
                                 "placeholder"   =>  "Average monthly traffic",

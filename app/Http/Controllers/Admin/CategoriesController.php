@@ -18,7 +18,7 @@ class CategoriesController extends Controller
 
     public function destroy(Category $category)
     {
-        foreach($category->posts as $post) {
+        foreach ($category->posts as $post) {
             $post->likes()->delete();
             $post->blogPostTags()->delete();
             $post->delete();
@@ -41,7 +41,7 @@ class CategoriesController extends Controller
         }
         foreach ($category->productRequests as $productRequest) $productRequest->delete();
         $category->delete();
-        return redirect()->back()->with('msg','Category Deleted Successfully');
+        return redirect()->back()->with('msg', 'Category Deleted Successfully');
     }
 
     public function create()
@@ -50,42 +50,42 @@ class CategoriesController extends Controller
             "title" => "BASIC DETAILS",
             "divs" => [
                 [
-                    "title"=>   "Basic Details",
-                    "fields"=>  [
+                    "title" => "Basic Details",
+                    "fields" => [
                         [
-                            "placeholder"=> "name",
-                            'name'  =>  "name",
-                            "type"  =>  "text"
-                        ],[
-                            "placeholder"=> "Please Make Sure Your Answer Is At Least 250 Characters Long. (Success And Obstacles) ",
-                            'name'  =>  "description",
-                            "type"  =>  "textarea"
-                        ],[
-                            "placeholder"=> "Please make sure your answer is no longer than 150 characters",
-                            'name'  =>  "summary",
-                            "type"  =>  "textarea"
-                        ],[
-                            "placeholder"=> "Price",
-                            'name'  =>  "price",
-                            "type"  =>  "number"
-                        ],[
+                            "placeholder" => "name",
+                            'name' => "name",
+                            "type" => "text"
+                        ], [
+                            "placeholder" => "Please Make Sure Your Answer Is At Least 250 Characters Long. (Success And Obstacles) ",
+                            'name' => "description",
+                            "type" => "textarea"
+                        ], [
+                            "placeholder" => "Please make sure your answer is no longer than 150 characters",
+                            'name' => "summary",
+                            "type" => "textarea"
+                        ], [
+                            "placeholder" => "Price",
+                            'name' => "price",
+                            "type" => "number"
+                        ], [
                             'placeholder' => "Image",
-                            'name'  =>  "img",
-                            "type"  =>  "file"
+                            'name' => "img",
+                            "type" => "file"
                         ],
 
                         [
-                            "placeholder"  =>  "Select Business Model",
-                            "type"  =>  "subcategory",
-                            'name'  =>  'subcategory'
-                        ],[
-                            "placeholder" =>  "Business Assets Included",
-                            'name'  =>  "links",
-                            "type"  =>  "links"
-                        ],[
+                            "placeholder" => "Select Business Model",
+                            "type" => "subcategory",
+                            'name' => 'subcategory'
+                        ], [
+                            "placeholder" => "Business Assets Included",
+                            'name' => "links",
+                            "type" => "links"
+                        ], [
                             'placeholder' => "Add Photos And Media",
-                            'name'  =>  "assets",
-                            "type"  =>  "assets"
+                            'name' => "assets",
+                            "type" => "assets"
                         ]
                     ]
                 ]
@@ -96,11 +96,19 @@ class CategoriesController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-
+        Category::create([
+            'name_en' => $request->input('name_en'),
+            'data' => collect($request->input('data'))->map(function ($el) {
+                $el['divs'] = collect($el['divs'])->map(function ($div) {
+                    $div['fields'] = collect($div['fields'])->map(function ($field) {
+                        $field['data'] = json_decode($field['data'], true);
+                        return $field;
+                    })->toArray();
+                    return $div;
+                })->toArray();
+                return $el;
+            })
         ]);
+        return redirect()->route('admin.category.index')->with('msg', "Category Created Successfully");
     }
-
-
-
 }
