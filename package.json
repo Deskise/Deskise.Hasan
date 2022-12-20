@@ -8,7 +8,8 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\"",
-    "serve:ssl": "vue-cli-service serve --https --open"
+    "serve:ssl": "vue-cli-service serve --https --open",
+    "serve:backend": "php D:/projects/deskise/api/artisan serve"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.4",

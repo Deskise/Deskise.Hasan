@@ -5,6 +5,7 @@ import * as category from "./Modules/Category";
 import * as data from "./Modules/Data";
 import * as blog from "./Modules/Blog";
 import * as product from "./Modules/Product";
+import * as chat from "./Modules/Chat";
 
 export default createStore({
   state: {
@@ -13,6 +14,7 @@ export default createStore({
     ready: false,
     cookieAccepted: false,
     heightHeader: 0,
+    noFooter: false,
   },
   mutations: {
     CHANGE_LOADING_STATE(state, to = null) {
@@ -61,5 +63,6 @@ export default createStore({
     data,
     blog,
     product,
+    chat,
   },
 });

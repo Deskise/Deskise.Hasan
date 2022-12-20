@@ -47,7 +47,8 @@ export default {
       window.addEventListener("resize", () => this.getSlides());
     });
 
-    if (this.packages.length === 0) await this.$store.dispatch("data/packages");
+    if (this.$store.state.data.packages.length === 0)
+      await this.$store.dispatch("data/packages");
   },
   computed: {
     products() {

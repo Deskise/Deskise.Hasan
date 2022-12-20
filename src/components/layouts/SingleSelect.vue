@@ -45,7 +45,7 @@ export default {
       active: "",
       arrow: "angle-down",
       displayed: false,
-      itemsMaxHeight: 0
+      itemsMaxHeight: 0,
     };
   },
   computed: {

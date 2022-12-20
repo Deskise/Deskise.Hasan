@@ -22,24 +22,19 @@ import { mapState } from "vuex";
 import CookieAgreement from "./components/template/CookieAgreement.vue";
 
 export default {
-  created() {
+  async created() {
     this.$store.dispatch("category/fetch");
     this.$store.dispatch("user/getUUID");
     this.$store.dispatch("getCookieStatus");
   },
   components: { NotificationBar, Footer, Loader, CookieAgreement },
-  data() {
-    return {
-      noFooter: false,
-    };
-  },
   computed: {
     headerComponent() {
       return this.$store.getters["user/isLoggedIn"]
         ? LoggedInHeader
         : NoLoginHeader;
     },
-    ...mapState(["Loading", "ready", "cookieAccepted"]),
+    ...mapState(["Loading", "ready", "cookieAccepted", "noFooter"]),
   },
   watch: {
     $route() {
