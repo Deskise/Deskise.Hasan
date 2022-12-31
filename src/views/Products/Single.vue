@@ -355,41 +355,6 @@
           <canvas id="earnings-chart" height="250" role="img"></canvas>
         </div>
       </div>
-      <!--      <div class="assets-statistics">-->
-      <!--        <div class="title">Business Assets Included</div>-->
-      <!--        <div class="statistic">-->
-      <!--          <span class="key">Domain</span>-->
-      <!--          <span class="value"-->
-      <!--            ><a href="javascript:void(0)"-->
-      <!--              >Https://Www.Behance.Net/Sammeer12591d4</a-->
-      <!--            ></span-->
-      <!--          >-->
-      <!--        </div>-->
-      <!--        <div class="statistic">-->
-      <!--          <span class="key">Instagram</span>-->
-      <!--          <span class="value"-->
-      <!--            ><a href="javascript:void(0)"-->
-      <!--              >Https://Www.Behance.Net/Sammeer12591d4</a-->
-      <!--            ></span-->
-      <!--          >-->
-      <!--        </div>-->
-      <!--        <div class="statistic">-->
-      <!--          <span class="key">Twitter</span>-->
-      <!--          <span class="value"-->
-      <!--            ><a href="javascript:void(0)"-->
-      <!--              >Https://Www.Behance.Net/Sammeer12591d4</a-->
-      <!--            ></span-->
-      <!--          >-->
-      <!--        </div>-->
-      <!--        <div class="statistic">-->
-      <!--          <span class="key">Web</span>-->
-      <!--          <span class="value"-->
-      <!--            ><a href="javascript:void(0)"-->
-      <!--              >Https://Www.Behance.Net/Sammeer12591d4</a-->
-      <!--            ></span-->
-      <!--          >-->
-      <!--        </div>-->
-      <!--      </div>-->
     </div>
     <div class="container similar-products">
       <div class="title">Similar</div>
