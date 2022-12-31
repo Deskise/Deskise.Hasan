@@ -45,19 +45,21 @@ apiClient.interceptors.response.use(
 
 export default {
   async post($url, $data, $auth = false, $headers = {}) {
-    if ($auth === true)
-      if (store.getters["user/isLoggedIn"])
-        $headers.Authorization = "Bearer " + store.state.user.data.token;
-      else router.push({ name: "login" });
+    if ($auth === true && !store.getters["user/isLoggedIn"])
+      return router.push({ name: "login" });
+
+    if (store.getters["user/isLoggedIn"])
+      $headers.Authorization = "Bearer " + store.state.user.data.token;
 
     return await apiClient.post($url, $data, { headers: $headers });
   },
 
   async get($url, $data = [], $auth = false, $headers = {}) {
-    if ($auth === true)
-      if (store.getters["user/isLoggedIn"])
-        $headers.Authorization = "Bearer " + store.state.user.data.token;
-      else router.push({ name: "login" });
+    if ($auth === true && !store.getters["user/isLoggedIn"])
+      return router.push({ name: "login" });
+
+    if (store.getters["user/isLoggedIn"])
+      $headers.Authorization = "Bearer " + store.state.user.data.token;
 
     return await apiClient.get(
       $url + "?" + $data.join("&").split(".").join("="),

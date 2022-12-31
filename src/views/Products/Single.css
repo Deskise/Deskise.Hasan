@@ -204,7 +204,8 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 28px;
-  height: 290px;
+  max-height: 290px;
+  height: fit-content;
 }
 .disabledBtn{
   opacity: .4;

@@ -33,12 +33,12 @@
         </div>
         <div class="flexer">
           <p class="price">
-            {{ product.price }}$ <span class="old-price">300$</span>
+            {{ product.price }}$
+            <span class="old-price">{{ product.old_price }}$</span>
           </p>
           <p class="id">#{{ product.id }}</p>
         </div>
         <p class="description">{{ product.details }}...</p>
-        <!-- <p class="description">{{ product.details.substring(0, 150) }}...</p> -->
       </div>
       <div
         :class="{

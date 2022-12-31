@@ -40,6 +40,7 @@ export const actions = {
 
   async single({ commit }, { id }) {
     await Product.single(id).then((e) => {
+      console.log(e);
       commit("SINGLE", e.data.response.extra[0]);
     });
   },

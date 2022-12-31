@@ -64,14 +64,15 @@
               <div class="price-category-order">
                 <div class="price">
                   <span class="new">{{ product.price }}$</span>
-                  <span class="old">350$</span>
+                  <span class="old">{{ product.old_price }}$</span>
                 </div>
                 <div class="categroy-order">
-                  <span class="categroy">{{
-                    this.$store.state.category.categories[product.category_id]
-                      .name
-                  }}</span
-                  >&nbsp;
+                  <span class="categroy">
+                    {{
+                      this.$store.state.category.categories[product.category_id]
+                        .name
+                    }}
+                  </span>
                   <span class="order">#{{ product.id }}</span>
                 </div>
               </div>
@@ -86,31 +87,35 @@
                   }}</span>
                 </p>
                 <p class="mt-0 mb-1">
-                  Select Business Model
-                  <span class="business-model">Lorem Ipsum</span>
+                  Business Model:
+                  <span class="business-model">{{
+                    product.subcategory ?? "None"
+                  }}</span>
                 </p>
-                URL:
-                <span class="url">
+                <div>
                   <div
                     v-if="!this.$store.getters['user/isLoggedIn']"
                     class="outerLogin"
                   ></div>
-                  -->
-                  <!-- TODO: DO THE LINK HERE -->
-                  <a href=""> Https://Www.Behance.Net/Sammeer12591d4 </a>
-                </span>
+                  <div v-for="social in product.social" :key="social.id">
+                    {{ social.account.name }}:
+                    <span class="url">
+                      <a href=""> {{ social.link }} </a>
+                    </span>
+                  </div>
+                </div>
               </div>
               <div class="reviewers">
-                <div class="images">
+                <div class="images" v-if="product.bought.count > 0">
                   <div
                     class="image"
                     v-for="img in product.bought.user_imgs"
                     :key="img"
                   >
-                    <img :src="img" />
+                    <img :src="img" alt="user" />
                   </div>
                 </div>
-                <div class="number">{{ product.bought.count }}</div>
+                <div class="number">{{ product.bought.count }} Bought</div>
               </div>
               <div class="footer-buttons" v-if="product.status !== 'sold'">
                 <button
@@ -350,41 +355,41 @@
           <canvas id="earnings-chart" height="250" role="img"></canvas>
         </div>
       </div>
-      <div class="assets-statistics">
-        <div class="title">Business Assets Included</div>
-        <div class="statistic">
-          <span class="key">Domain</span>
-          <span class="value"
-            ><a href="javascript:void(0)"
-              >Https://Www.Behance.Net/Sammeer12591d4</a
-            ></span
-          >
-        </div>
-        <div class="statistic">
-          <span class="key">Instagram</span>
-          <span class="value"
-            ><a href="javascript:void(0)"
-              >Https://Www.Behance.Net/Sammeer12591d4</a
-            ></span
-          >
-        </div>
-        <div class="statistic">
-          <span class="key">Twitter</span>
-          <span class="value"
-            ><a href="javascript:void(0)"
-              >Https://Www.Behance.Net/Sammeer12591d4</a
-            ></span
-          >
-        </div>
-        <div class="statistic">
-          <span class="key">Web</span>
-          <span class="value"
-            ><a href="javascript:void(0)"
-              >Https://Www.Behance.Net/Sammeer12591d4</a
-            ></span
-          >
-        </div>
-      </div>
+      <!--      <div class="assets-statistics">-->
+      <!--        <div class="title">Business Assets Included</div>-->
+      <!--        <div class="statistic">-->
+      <!--          <span class="key">Domain</span>-->
+      <!--          <span class="value"-->
+      <!--            ><a href="javascript:void(0)"-->
+      <!--              >Https://Www.Behance.Net/Sammeer12591d4</a-->
+      <!--            ></span-->
+      <!--          >-->
+      <!--        </div>-->
+      <!--        <div class="statistic">-->
+      <!--          <span class="key">Instagram</span>-->
+      <!--          <span class="value"-->
+      <!--            ><a href="javascript:void(0)"-->
+      <!--              >Https://Www.Behance.Net/Sammeer12591d4</a-->
+      <!--            ></span-->
+      <!--          >-->
+      <!--        </div>-->
+      <!--        <div class="statistic">-->
+      <!--          <span class="key">Twitter</span>-->
+      <!--          <span class="value"-->
+      <!--            ><a href="javascript:void(0)"-->
+      <!--              >Https://Www.Behance.Net/Sammeer12591d4</a-->
+      <!--            ></span-->
+      <!--          >-->
+      <!--        </div>-->
+      <!--        <div class="statistic">-->
+      <!--          <span class="key">Web</span>-->
+      <!--          <span class="value"-->
+      <!--            ><a href="javascript:void(0)"-->
+      <!--              >Https://Www.Behance.Net/Sammeer12591d4</a-->
+      <!--            ></span-->
+      <!--          >-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
     <div class="container similar-products">
       <div class="title">Similar</div>
