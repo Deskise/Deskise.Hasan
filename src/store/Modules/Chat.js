@@ -1,4 +1,4 @@
-// import Chat from "@/config/Services/Data/ChatService";
+import Chat from "@/config/Services/Data/ChatService";
 
 export const namespaced = true;
 
@@ -135,11 +135,19 @@ export const mutations = {
       messageTime: "07:44 am",
     });
   },
+  LIST(state, payload) {
+    state.chat.push(payload);
+  },
 };
 
 export const actions = {
   sendMsg({ commit }, msg) {
     commit("sendMsg1", msg);
+  },
+  async list({ commit }, page) {
+    await Chat.list(page).then(({ data }) => {
+      commit("LIST", data.response.extra);
+    });
   },
 };
 
