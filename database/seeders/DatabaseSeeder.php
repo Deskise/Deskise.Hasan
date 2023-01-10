@@ -55,9 +55,9 @@ class DatabaseSeeder extends Seeder
 //        ProductView::factory(10000)->create();
 //        ProductBuy::factory(Product::count())->create();
 //
-//        Chat::factory(10)->create();
-//        ChatReport::factory(50)->create();
-//        ChatMessage::factory(50)->create();
+        Chat::factory(10)->create();
+        ChatReport::factory(50)->create();
+        ChatMessage::factory(50)->create();
 //
 //        Admin::factory(1)->create();
 //        ProductRequest::factory(50)->create();

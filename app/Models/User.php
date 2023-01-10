@@ -128,7 +128,7 @@ class User extends Authenticatable
     {
         return Chat::where('member1',$this->id)
             ->orWhere('member2', $this->id)
-            ->with('product:id,name_'.Controller::$language.' as name,summary_'.Controller::$language.' as description,old_price,price');
+            ->with('product:id,name,summary as description,old_price,price');
     }
     public function blocks()
     {

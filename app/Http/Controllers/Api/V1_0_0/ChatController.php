@@ -24,7 +24,7 @@ class ChatController extends Controller
                 $chat->user = $chat->user()->select('id','firstname','lastname','img')->first();
                 return $chat->lastMsg();
             })
-            ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg['created_at']))
+            ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg?->created_at))
             ->values()
         );
     }

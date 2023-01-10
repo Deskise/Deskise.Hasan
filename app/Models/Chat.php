@@ -57,7 +57,8 @@ class Chat extends Model
 
     public function lastMsg()
     {
-        return $this->messages()->latest()->limit(1);
+        $this->lastMsg = $this->messages()->latest()->limit(1)->first();
+        return $this;
     }
 
     public function files()

@@ -1,6 +1,4 @@
 <?php
-
-
     namespace App\Http\Controllers\Api\V1_0_0;
 
     use App\Helpers\APIHelper;
@@ -18,9 +16,7 @@
     use App\Models\User;
     use Carbon\Carbon;
     use Carbon\CarbonPeriod;
-    use Faker\Generator;
     use Illuminate\Http\JsonResponse;
-    use Illuminate\Http\Request;
 
     class ProductController extends Controller
     {
@@ -32,8 +28,7 @@
 
         public function request(ProdRequest $request)
         {
-            if ($request->hasError)
-                return $request->response;
+            if ($request->hasError) return $request->response;
 
             $subcategory=Subcategory::find($subcategoryId=(int)$request->input('subcategory'));
             if ($subcategory->category_id !== ($categoryId = (int)$request->input('category')))
@@ -77,7 +72,7 @@
         {
             $query = $this->filter(
                 Product::select('id','name', 'summary as details','price',
-                    'special','verified', 'img','status','is_lifetime','until','created_at','user_id')
+                    'special','verified', 'img','status','is_lifetime','until','created_at','user_id','old_price')
                     ->where('status','!=','under_verify')
                     ->where('status','!=','canceled')
                     ->orderBy('id','desc')
@@ -94,7 +89,7 @@
                 'current_page' => $page->currentPage(),
                 'next_page_url' =>  $page->nextPageUrl(),
                 'data'=>collect($page->items())->map(function (Product $q) {
-                    $q->subcategory = $q->data->subcategory->{'name_'.self::$language};
+                    $q->subcategory = $q->data?->subcategory->{'name_'.self::$language};
                     $q->views = round($q->views()->count() / CarbonPeriod::create($q->created_at, '1 month', Carbon::now())->count(),2);
                     $q->seller_location = $q->user->location;
                     unset($q->data, $q->user, $q->user_id);
@@ -106,7 +101,7 @@
         public function single($id, $prod=false)
         {
             $user=request()->user('api');
-            $product = Product::select('id','name', 'summary as summary','description','price','user_id','img', 'special','verified','status','is_lifetime','until', 'category_id', 'updated_at', 'created_at')
+            $product = Product::select('id','name', 'summary as summary','description','price','old_price','user_id','img', 'special','verified','status','is_lifetime','until', 'category_id', 'updated_at', 'created_at')
                 ->with('user:id,firstname,lastname,img,is_hidden')
                 ->with('data')
                 ->with('data.subcategory:id,name_'.self::$language . ' as name')
@@ -120,7 +115,7 @@
             if ($product->status === 'under_verify' && ($user===null || $product->user_id!==$user->id))
                 return APIHelper::jsonRender('Requested Product Still Under verification', [], 403);
 
-            $product->views()->create(['visitor_id'=>request()?->user('api')->id]);
+            $product->views()->create(['visitor_id'=>request()?->user('api')->id??0]);
             $bought = $product->bought();
             $product->bought = ['count' => $bought->count(), 'user_imgs' => $bought->limit(5)->get()->each(function($buy){
                 $user = User::find($buy->user_id);
@@ -139,6 +134,8 @@
                 unset($product->user);
                 $product->user=null;
             }
+
+            $product->subcategory = $product->data?->subcategory->{'name_'.self::$language};
 
             unset($product->user_id,$product->subcategory_id);
             if ($prod) return $product;
