@@ -11,7 +11,7 @@ export const routes = [
     name: "chat",
     beforeEnter: function (routeTo, from, next) {
       store.state.noFooter = true;
-      next();
+      store.dispatch("chat/list").then(() => next());
     },
     children: [
       {

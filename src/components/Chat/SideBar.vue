@@ -10,16 +10,12 @@
       <input placeholder="Search Message" />
     </div>
     <ul class="dash-list-contacts">
-      <MsgDetails :messeges="messeges" />
+      <MsgDetails />
     </ul>
   </div>
 </template>
 <script setup>
 import MsgDetails from "./Messge/MsgDetails.vue";
-import ChatList from "./Api/ChatList";
-import { ref } from "vue";
-const messeges = ref([]);
-messeges.value = ChatList.extra;
 </script>
 <style scoped>
 .dash-btn {
@@ -64,8 +60,7 @@ messeges.value = ChatList.extra;
   border: none;
   color: #9d9d9d;
   font-size: 12px;
-  padding: 12px;
-  padding-left: 24px;
+  padding: 12px 12px 12px 24px;
   background-color: rgba(62, 173, 183, 5%);
   border-radius: 4px;
 }
