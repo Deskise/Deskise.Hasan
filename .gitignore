@@ -22,6 +22,7 @@ npm-debug.log
 yarn-error.log
 
 *.txt
+!roadmap.txt
 
 .gitCommitMessage
 .rnd

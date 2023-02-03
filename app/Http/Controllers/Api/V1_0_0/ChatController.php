@@ -28,7 +28,6 @@ class ChatController extends Controller
             ->values()
         );
     }
-
     public function getMessages(Chat $chat)
     {
         $messages = $chat->messages()->select('*',\DB::raw('"message" as type'))->orderBy('created_at','desc')->paginate(25);
