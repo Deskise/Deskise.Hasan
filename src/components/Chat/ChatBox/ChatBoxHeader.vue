@@ -4,10 +4,10 @@
       <span>Contacts</span>
     </button>
     <div class="avatar-image">
-      <img src="@/assets/images/chat-avatar.png" />
+      <img :src="img" />
     </div>
-    <div class="chat-box-contact">Hilda Hansen</div>
-    <div class="chat-box-order">#123456</div>
+    <div class="chat-box-contact">{{ name }}</div>
+    <div class="chat-box-order">#{{ id }}</div>
     <div class="break"></div>
     <div class="chat-box-menu dash-has-menu" @click="handleClick">
       <div class="chat-box-icon">
@@ -32,12 +32,24 @@
     </button>
   </div>
 </template>
-<script setup>
-import { ref } from "vue";
-const active = ref("");
-function handleClick() {
-  active.value = !active.value;
-}
+<script>
+export default {
+  props: {
+    img: String,
+    name: String,
+    id: String,
+  },
+  data() {
+    return {
+      active: false,
+    };
+  },
+  actions: {
+    handleClick() {
+      this.active = !this.active;
+    },
+  },
+};
 </script>
 <style scoped>
 .chat-box-header {

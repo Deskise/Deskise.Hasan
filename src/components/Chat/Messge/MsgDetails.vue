@@ -1,6 +1,9 @@
 <template>
   <li v-for="c of chats" :key="c.id" class="dash-contact-item">
-    <a href="javascript:void(0)" class="contanct">
+    <router-link
+      :to="{ name: 'chats', params: { chatId: c.id } }"
+      class="contanct"
+    >
       <div class="dash-contact-image">
         <img :src="c.user.img" alt="image" />
       </div>
@@ -23,7 +26,7 @@
         </div>
         <div class="contact-last-messages-count">4</div>
       </div>
-    </a>
+    </router-link>
   </li>
 </template>
 <script>

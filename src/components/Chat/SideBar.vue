@@ -14,8 +14,13 @@
     </ul>
   </div>
 </template>
-<script setup>
+<script>
 import MsgDetails from "./Messge/MsgDetails.vue";
+export default {
+  components: {
+    MsgDetails,
+  },
+};
 </script>
 <style scoped>
 .dash-btn {

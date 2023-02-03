@@ -7,21 +7,43 @@ import store from "@/store";
 export const routes = [
   {
     path: "/chat",
-    component: DefaultLayout,
     name: "chat",
     beforeEnter: function (routeTo, from, next) {
       store.state.noFooter = true;
-      store.dispatch("chat/list").then(() => next());
+      store.dispatch("chat/list").then(() => {
+        next({
+          name: "chats",
+          params: { chatId: store.state.chat.chats[0].id },
+        });
+      });
+    },
+  },
+  {
+    path: "/chats/:chatId",
+    component: DefaultLayout,
+    name: "chats",
+    beforeEnter: function (routeTo, from, next) {
+      store.state.noFooter = true;
+      store.dispatch("chat/list").then(() => {
+        if (routeTo.params.chatId === "") {
+          routeTo.params.chatId = store.state.chat.chats[0].id;
+        }
+        next();
+      });
     },
     children: [
       {
-        path: "/chat/agreement",
+        path: "/chats/:chatId/agreement",
         name: "Agreement",
         component: CreateAgreement,
       },
-      { path: "/chat/sendfile", name: "SendFile", component: SendFilePopups },
       {
-        path: "/chat/reporting",
+        path: "/chats/:chatId/sendfile",
+        name: "SendFile",
+        component: SendFilePopups,
+      },
+      {
+        path: "/chats/:chatId/reporting",
         name: "Reporting",
         component: ReportingPopups,
       },

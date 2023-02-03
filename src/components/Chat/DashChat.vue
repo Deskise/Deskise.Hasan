@@ -1,12 +1,22 @@
 <template>
   <div class="dash-chat">
     <SideBar />
-    <ChatBox />
+    <ChatBox :chat-id="chatId" />
   </div>
 </template>
-<script setup>
+<script>
 import SideBar from "./SideBar.vue";
 import ChatBox from "./ChatBox/ChatBox.vue";
+
+export default {
+  components: {
+    SideBar,
+    ChatBox,
+  },
+  props: {
+    chatId: Number,
+  },
+};
 </script>
 <style scoped>
 .dash-chat {
