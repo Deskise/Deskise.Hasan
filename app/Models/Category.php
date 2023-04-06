@@ -18,7 +18,11 @@ class Category extends Model
         "y_n"       => 'in:y,n',
         "table"     => 'array', // array of objects, every object is a row with the keys in the data->rows
         "textarea"  => 'string',
-        "checkbox"  => 'boolean'
+        "checkbox"  => 'boolean',
+        "text"  => 'string',
+        // 'file'  =>  'required|file|mimes:png,jpg,jpeg,webp,svg',
+        // "file" => "file",
+        // "subcategory" => "subcategory",
     ];
 
     public function __construct(array $attributes = [])
@@ -95,7 +99,7 @@ class Category extends Model
                         });
                     elseif ($type==='drop_list')
                         $data=["list" => implode(',',array_keys($data))];
-                    elseif ($type==='assets'||$type==='links'||strtolower($field['placeholder'])==='price')
+                    elseif ($type==='file'||$type==='assets'||$type==='links'||strtolower($field['placeholder'])==='price')
                         return;
                     $rules[$name]=$this->getRule($type,$required, $data);
                 });

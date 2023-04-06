@@ -45,6 +45,7 @@ Route::group([
     Route::post('/user/alerts', [Profile::class, 'alerts']);
     Route::post('/user/password/change', [Profile::class, 'changePassword']);
     Route::post('/user/account/close', [Profile::class, 'closeAccount']);
+    Route::post('/user/update-banner', [Profile::class,'updateBanner']);
 });
 
 Route::group([

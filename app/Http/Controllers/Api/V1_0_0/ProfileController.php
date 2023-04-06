@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1_0_0;
 
+use App\Models\User;
 use App\Helpers\APIHelper;
 use App\Http\Controllers\Controller;
 use App\Rules\FileOrUrl;
@@ -59,6 +60,21 @@ class ProfileController extends Controller
         return APIHelper::jsonRender('Data Updated Successfully',$user->load(['links','verifyAssets','packages']));
     }
 
+    public function updateBanner(Request $request) {
+        $user_id = $request->input('user_id');
+        $user = User::find($user_id);
+        
+        if ($request->hasFile('banner')){
+            $file = $request->file('banner');
+                $fileName = time().$request->user('api')->id.\Str::random(10).'.'.$file->getClientOriginalExtension();
+                $path = 'public/users/' . $fileName;
+                \Storage::disk('local')->put($path, file_get_contents($file));
+                $user->banner  = $fileName;
+                $user->save();
+        }
+        return response()->json(['banner' => $user->banner]);
+    }
+
     public function alerts(Request $request)
     {
         $request->validate([
@@ -90,6 +106,8 @@ class ProfileController extends Controller
 
         return APIHelper::jsonRender('Data Updated Successfully', []);
     }
+
+    
 
     public function closeAccount(Request $request)
     {

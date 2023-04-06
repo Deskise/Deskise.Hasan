@@ -39,7 +39,7 @@
                                                             <div class="row mb-2" id="page_{{$pKey}}_div_{{$dKey}}_field_{{$fKey}}">
                                                                 <input type="hidden" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][name]" value="{{ $field['name'] }}" required />
                                                                 <div class="col-3">
-                                                                    <select title="type" class="form-control" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][type]" required disabled>
+                                                                    <select title="type" class="form-control" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][type]" required >
                                                                         <option value="drop_list" @if($field['type'] === 'drop_list') selected @endif>drop_list</option>
                                                                         <option value="subcategory" @if($field['type'] === 'subcategory') selected @endif>subcategory</option>
                                                                         <option value="text" @if($field['type'] === 'text') selected @endif>text</option>
@@ -162,7 +162,7 @@
             if (data) {
                 switch (data.type) {
                     case 'drop_list':
-                        data_el.value = JSON.stringify({"values": data.drop_list_data});
+                        data_el.value = JSON.stringify(data.drop_list_data);
                         break;
                     case 'text':
                     case 'textarea':

@@ -46,9 +46,9 @@ class LoginController extends Controller
 
 
     public function login(LoginRequest $request)
-    {
+    {   
         $user = Admin::where('email',$request->input('email'))->first();
-        if ($user)
+        if ($user) 
         {
             if (!\Hash::check($request->input('password'),$user->password)) return redirect()->back()->withErrors(['email'=>'These credentials do not match our records..']);
             \Auth::login($user);

@@ -16,10 +16,10 @@ class MainController extends Controller
             return APIHelper::jsonRender('There Was An Error Validating Your Request', $validator->errors(), 400);
 
         $file=new \stdClass();
-        $request->file('file')?->storeAs('uploads/'.$request->user('api')->id,
+        $request->file('file')?->storeAs('products/'.$request->user('api')->id,
             $file->name=time().'_#'.$request->user('api')->id.'_'.\Str::random(10).'.'.$request->file('file')?->getClientOriginalExtension(),
             'public');
-
         return APIHelper::jsonRender('Uploaded Successfully', $file);
+
     }
 }

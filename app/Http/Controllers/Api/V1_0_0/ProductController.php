@@ -4,6 +4,7 @@
     use App\Helpers\APIHelper;
     use App\Http\Controllers\Api\V1_0_0\traits\ProductFilter;
     use App\Http\Controllers\Controller;
+    use App\Http\Controllers\Api\V1_0_0\MainController;
     use App\Http\Requests\Product\ProductEditRequest;
     use App\Http\Requests\ProductRequest as ProdRequest;
     use App\Models\Category;
@@ -17,6 +18,8 @@
     use Carbon\Carbon;
     use Carbon\CarbonPeriod;
     use Illuminate\Http\JsonResponse;
+    use DateTime;
+
 
     class ProductController extends Controller
     {
@@ -211,7 +214,7 @@
         public function publish(ProductEditRequest $request, $id=false)
         {
             if ($request->hasError) return $request->response;
-
+            
             if ($id) {
                 if (!$product=Product::find($id)) return APIHelper::jsonRender('The Requested Product Not Found', [], 404);
             } else $product = new Product(['user_id' => $request->user('api')->id]);
@@ -222,37 +225,56 @@
             $product->description = $request->input('description') ?? $product->description;
             $product->summary = $request->input('summary') ?? $product->summary;
             $product->price = $request->input('price') ?? $product->price;
-            $product->img = $request->input('img') ?? $product->img;
+            // $product->img = $request->input('img') ?? $product->img;
             $product->is_lifetime = $request->input('lifetime') ?? $product->is_lifetime;
             $product->verified= true;
 
             if (\Route::currentRouteName()==='add' && $request->input('category'))
                 $product->category_id = $request->input('category');
 
+            if ($request->file('img')) {
+                $file = $request->file('img');
+                $fileName = time().$request->user('api')->id.\Str::random(10).'.'.$file->getClientOriginalExtension();
+                $path = 'public/products/' . $fileName;
+                \Storage::disk('local')->put($path, file_get_contents($file));
+                $product->img  = $fileName;
+            }
             if (!$product->is_lifetime)
-                $product->until=date('Y-m-d',strtotime($request->input('until')))??$product->until;
+                // $product->until=date('d-m-Y',strtotime($request->input('until')))??$product->until;
+                $product->until = DateTime::createFromFormat('d/m/Y', $request->input('until'))->format('Y-m-d') ?? $product->until;
+
+                // $product->until= $request->input('until')??$product->until;
+
 
             if (!$product->save())
                 return APIHelper::error('Error Updating Data');
 
-            if ($request->input('assets'))
-                $product->assets()->update(['assets' => $request->input('assets')]);
-
-            if ($request->input('subcategory') && $product->category->subcategories()->find($request->input('subcategory')))
-                $product->data()->update(['subcategory_id' => ($request->input('subcategory')?? $product->data->subcategory_id)]);
-            else return APIHelper::error('Subcategory_id Provided Is Not Subcategory for this category');
-
-            if ($request->input('data'))
-                if (($v=\Validator::make($data=json_decode($request->input('data'),true),$product->category->validateData()))->fails())
-                    return APIHelper::error($v->errors()->first(),$v->errors());
-                else $product->data()->update(['data' => $product->category->bindValues($data)]);
-
             if ($request->input('packages'))
             {
                 foreach ($packages=json_decode($request->input('packages'), true, 512, JSON_THROW_ON_ERROR) as $package_id)
-                    ($product->packages()->where('package_id', '=', $package_id)->first() ?? $product->packages()->create(['status' => 'attached','package_id' => $package_id]));
+                $product->packages()->updateOrCreate(['package_id' => $package_id],
+                    [
+                        'status' => 'attached',
+                        
+                    ]
+                );
                 $product->packages()->whereNotIn('package_id',$packages)->delete();
             }
+    
+
+            if ($request->input('assets'))
+                // $product->assets()->update(['assets' => $request->input('assets')]);
+                $product->assets()->updateOrCreate(['assets' => $request->input('assets')]);
+
+            if ($request->input('subcategory') && $product->category->subcategories()->find($request->input('subcategory')))
+                // $product->data()->update(['subcategory_id' => ($request->input('subcategory')?? $product->data->subcategory_id)]);
+                $product->data()->updateOrCreate(['product_id' => $product->id],
+                    [
+                        'subcategory_id'=> $request->input('subcategory'),
+                        'data' => $request->except('is_lifetime','until','name','summary','description','price','img','subcategory','assets','links')
+                    ]
+                );
+            else return APIHelper::error('Subcategory_id Provided Is Not Subcategory for this category');
 
             if ($request->input('social_media'))
             {
@@ -261,6 +283,30 @@
                 $product->social()->whereNotIn('social_id',collect($items)->pluck('id'))->delete();
             }
             return APIHelper::jsonRender('Data Updated Successfully', $this->single($product->id,true));
+
+            if ($request->input('data'))
+                // if (($v=\Validator::make($data=json_decode($request->input('data'),true),$product->category->validateData()))->fails())
+                //     return APIHelper::error($v->errors()->first(),$v->errors());
+                // else 
+                // $product->data()->update(['data' => $product->category->bindValues($data)]);
+                $data=json_decode($request->input('data'),true);
+                $product->data()->updateOrCreate(['data' => $product->category->bindValues($data)]);
+
+
+
+            // if ($request->input('packages'))
+            // {
+            //     foreach ($packages=json_decode($request->input('packages'), true, 512, JSON_THROW_ON_ERROR) as $package_id)
+            //         ($product->packages()->where('package_id', '=', $package_id)->first() ?? $product->packages()->create(['status' => 'attached','package_id' => $package_id]));
+            //     $product->packages()->whereNotIn('package_id',$packages)->delete();
+            // }
+                
+
+            
+                    
+
+
+            
         }
         public function saveDraft(ProductEditRequest $request, $id=0)
         {
@@ -287,7 +333,8 @@
 
             if (($v=\Validator::make($data=json_decode($request->input('data'),true),$product->category->validateData(false)))->fails())
                 return APIHelper::error($v->errors()->first(),$v->errors());
-            else $product->data = $product->category->bindValues($data);
+            else
+             $product->data = $product->category->bindValues($data);
 
             if (!$product->save())
                 return APIHelper::error('Error Updating Data');

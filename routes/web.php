@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\DashboardController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::get('/', fn () => Hash::make('password'));
+// Route::get('/', fn () => Hash::make('password'));
 
 Route::get('{for}/images/{image}', function ($for, $image) {
     if (str_contains($for,'.'))

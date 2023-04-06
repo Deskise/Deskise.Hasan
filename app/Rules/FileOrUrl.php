@@ -26,6 +26,7 @@ class FileOrUrl implements Rule
      */
     public function passes($attribute, $value)
     {
+        
         return request()->hasFile($attribute) || filter_var($value, FILTER_VALIDATE_URL);
     }
 

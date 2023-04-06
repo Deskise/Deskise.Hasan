@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Product;
 
 use App\Http\Requests\traits\APIRequest;
+use App\Rules\FileOrUrl;
 use App\Models\Category;
 use App\Models\Package;
 use App\Models\SocialMediaLink;
@@ -34,7 +35,8 @@ class ProductEditRequest extends FormRequest
             'description'   =>  'required|string|min:250',
             'summary'   =>  'required|string|max:350',
             'price'     =>  'required|numeric',
-            'img'       =>  'required|string|max:30',
+            'img'       =>  ['required', new FileOrUrl()],
+            // 'img'       =>  'required|string|max:30',
             'category'  =>  (($this->route()->getName()==='add')?'required|':'').'integer|exists:'.(new Category())->getTable().',id',
             'lifetime'  =>  'required|boolean',
             'until'     =>  'required|date_format:d/m/Y',
@@ -46,7 +48,8 @@ class ProductEditRequest extends FormRequest
             'social_media'  =>  'required|json',
             'social_media.*'  =>  'required|json',
             'social_media.*.id'    =>  'required|integer|exists:'.(new SocialMediaLink())->getTable().',id',
-            'social_media.*.link'         =>  'required|url'
+            'social_media.*.link'         =>  'required|url',
+            // 'file'  =>  'required|file|mimes:png,jpg,jpeg,webp,svg'
         ];
     }
 
