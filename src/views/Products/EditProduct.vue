@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- To be changed with Sales-data -->
         <h1>{{ info.name}}</h1>
         <input type="text" v-model="info.name">
         <p>{{ info.price}}</p>
