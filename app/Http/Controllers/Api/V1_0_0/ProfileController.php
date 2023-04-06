@@ -59,7 +59,7 @@ class ProfileController extends Controller
 
         return APIHelper::jsonRender('Data Updated Successfully',$user->load(['links','verifyAssets','packages']));
     }
-
+//  update user profile banner
     public function updateBanner(Request $request) {
         $user_id = $request->input('user_id');
         $user = User::find($user_id);
