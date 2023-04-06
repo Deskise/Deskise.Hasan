@@ -50,7 +50,7 @@
                 </div>
                 <div class="data">
                   <div class="name">
-                    {{ product.user.firstname + " " + product.user.firstname }}
+                    {{ product.user.firstname + " " + product.user.lastname }}
                   </div>
                   <div class="dates">
                     <span class="new" v-date="product.dates.new"></span>&nbsp;
@@ -89,7 +89,7 @@
                 <p class="mt-0 mb-1">
                   Business Model:
                   <span class="business-model">{{
-                    product.subcategory ?? "None"
+                    product.data.subcategory.name ?? "None"
                   }}</span>
                 </p>
                 <div>
@@ -384,7 +384,7 @@ export default {
   },
   data() {
     return {
-      product: this.$store.state.product.products.data[this.id],
+      // product: this.$store.state.product.products.data[this.id],
       comletePayMent: false,
     };
   },
@@ -401,6 +401,9 @@ export default {
   },
   computed: {
     ...mapGetters("product", ["products"]),
+    product() {
+      return this.$store.state.product.products.data[this.id]
+    },
     ps() {
       return this.products({ not: this.id });
     },

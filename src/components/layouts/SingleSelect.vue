@@ -66,6 +66,7 @@ export default {
     },
     closeSelect() {
       this.$el.querySelector(".drop-down-title").click();
+
     },
     toggle() {
       this.$el.classList.toggle("active");

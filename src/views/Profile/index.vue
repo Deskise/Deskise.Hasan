@@ -10,7 +10,7 @@
         <div class="col-12 col-md-8 col-lg-9">
           <div class="dash-profile-products">
             <div class="text-left mb-4 btnsGroup">
-              <div class="btn-group" role="group">
+              <!-- <div class="btn-group" role="group">
                 <input
                   id="btnRadio1"
                   autocomplete="off"
@@ -38,8 +38,9 @@
                   @click="show = 'projects'"
                   >projects</label
                 >
-              </div>
+              </div> -->
             </div>
+            <!-- Dreaft Featcure not implemented yet - Showing the same source (Published Products) -->
             <div
               v-if="products.length > 0 && show === 'Draft'"
               class="dash-products"
@@ -49,7 +50,7 @@
                 :key="product.id"
                 class="dash-product"
               >
-                <product :product="product" :stopSelling="sameUser"></product>
+                <UserProducts :product="product" :stopSelling="sameUser" :id="id"></UserProducts>
               </div>
             </div>
             <div v-if="!products.length > 0 && show === 'Draft'">
@@ -61,7 +62,7 @@
                 :key="product.id"
                 class="dash-product"
               >
-                <product :product="product" :stopSelling="sameUser"></product>
+                <UserProducts :product="product" :stopSelling="sameUser" :id="id"></UserProducts>
               </div>
             </div>
             <div v-if="show === 'projects'">
@@ -78,7 +79,7 @@
 import Banner from "../../components/Profile/Banner.vue";
 import { mixin as loadOnBottom } from "@/Mixins/loadOnBottom.js";
 import PersonalData from "../../components/Profile/PersonalData.vue";
-import Product from "../../components/Products/Product.vue";
+import UserProducts from "../../components/Products/UserProducts.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -87,7 +88,7 @@ export default {
       show: "Draft",
     };
   },
-  components: { Banner, PersonalData, Product },
+  components: { Banner, PersonalData, UserProducts },
   props: {
     id: {
       type: Number,

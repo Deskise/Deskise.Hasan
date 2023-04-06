@@ -2,6 +2,7 @@ import { v4 } from "uuid";
 import SocialMedia from "@/config/Services/Data/SocialMedia";
 import UserData from "@/config/Services/Auth/UserData";
 import OtherUserData from "@/config/Services/Data/UserData";
+import Dashboard from "@/config/Services/Dashboard";
 
 export const namespaced = true;
 export const state = {
@@ -69,6 +70,9 @@ export const mutations = {
     state.uuid = UUID;
     localStorage.setItem("deskies_user_uuid", UUID);
   },
+  UPDATE_BANNER(state, banner) {
+    state.data.banner = banner
+  }
 };
 
 export const actions = {
@@ -118,6 +122,13 @@ export const actions = {
     await OtherUserData.products(id, page).then(({ data }) => {
       commit("SET_OTHER_USER_PRODUCTS", data.response.extra[0]);
     });
+  },
+  async updateBanner({ commit }, banner ) {
+    console.log(banner);
+    await Dashboard.updateBanner(banner).then((e) => {
+      console.log();
+      commit("UPDATE_BANNER", e.data.response[0])
+    })
   },
 
   logout({ commit }) {

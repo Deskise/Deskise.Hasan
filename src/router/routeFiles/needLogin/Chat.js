@@ -25,6 +25,7 @@ export const routes = [
     beforeEnter: function (routeTo, from, next) {
       store.state.noFooter = true;
       store.dispatch("chat/list").then(() => {
+        // console.log(store.state.chat);
         if (routeTo.params.chatId === "") {
           routeTo.params.chatId = store.state.chat.chats[0].id;
         }

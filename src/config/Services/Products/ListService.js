@@ -13,4 +13,10 @@ export default {
   best() {
     return apiClient.get("/products/best");
   },
+  addProduct(product) {
+    return apiClient.post("/products/add", product)
+  },
+  edit(id) {
+    return apiClient.get("/products/edit/" + id);
+  },
 };

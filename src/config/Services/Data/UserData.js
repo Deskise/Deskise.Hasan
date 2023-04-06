@@ -7,4 +7,5 @@ export default {
   products(id, page = 1) {
     return apiClient.get(`/data/users/${id}/products`, [`page.${page}`]);
   },
+  
 };

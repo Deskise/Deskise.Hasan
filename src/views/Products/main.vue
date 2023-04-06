@@ -12,7 +12,10 @@
             v-model="subcategorieSelected"
             :options="Object.values(this.subcategories)"
           ></v-select>
-          <v-select id="MySelect2" placeholder="Seller Location"></v-select>
+          <v-select 
+            id="MySelect2" 
+            placeholder="Seller Location"
+          ></v-select>
           <v-select id="MySelect3" placeholder="Time Left"></v-select>
 
           <range-select

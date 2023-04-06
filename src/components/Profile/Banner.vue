@@ -3,7 +3,10 @@
     <div class="dash-update-profile">
       <div class="dash-update-profile-content">
         <p>Replae Banner Image Optimal Dimensions 3200/410 Px</p>
-        <button class="dash-btn replace-image-btn">Replace Image</button>
+        <button class="dash-btn replace-image-btn"
+        @click="() => $el.querySelector('input[type=file]').click()"
+        >Replace Image</button>
+        <input type="file" @change="uploadImage" hidden />
       </div>
     </div>
   </div>
@@ -11,6 +14,19 @@
 
 <script>
 export default {
+  methods: {
+    async uploadImage(e) {
+      const file = e.target.files[0]
+      console.log('logging the const file: ', file);
+      this.$store.state.user.data.banner = (URL.createObjectURL(file))
+      const userId = this.$store.state.user.data.id
+      console.log(userId);
+      const formData = new FormData()
+      formData.append('banner', file)
+      formData.append('user_id', userId)
+      await this.$store.dispatch('user/updateBanner', formData)
+    }
+  },
   computed: {
     img() {
       return this.$store.state.user.data.banner;

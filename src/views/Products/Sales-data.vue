@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-12 col-lg-6 pe-3 pe-lg-5">
           <div class="dash-step-content">
-            <Pages :fields="fields"></Pages>
+            <Pages :fields="fields" :steps="steps" :cat="cat" :active="active" @publishDialog="isActive = $event"></Pages>
           </div>
         </div>
         <div class="col-12 col-lg-6">
@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-  <div class="dash-dailog publish-product-dailog">
+  <div class="dash-dailog publish-product-dailog" :class="{ active: isActive }">
     <div class="dash-dailog-box">
       <div class="icon">
         <img src="@/assets/paper-plane.png" />
@@ -54,7 +54,7 @@
         Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam Erat, Sed Diam
         Voluptua. At Vero Eos Et Accusam Et Justo Duo Dolores Et Ea Rebum
       </p>
-      <button class="btn block-btn pelorous">ok</button>
+      <button @click="publishDialog" class="btn block-btn pelorous">ok</button>
     </div>
   </div>
 </template>
@@ -72,11 +72,18 @@ export default {
   components: { StepsBanner, Pages },
   data() {
     return {
+      isActive: false,
       is_lifetime: this.$route.query.isLifeTime,
     };
   },
+  methods: {
+    publishDialog() {
+      this.isActive = !this.isActive;
+    }
+  },
   computed: {
     active() {
+      console.log(this.$router.currentRoute.value.hash);
       return Number.parseInt(
         this.$router.currentRoute.value.hash.split("#")[1] ?? 1
       );

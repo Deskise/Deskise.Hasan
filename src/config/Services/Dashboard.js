@@ -4,6 +4,10 @@ export default {
     return apiClient.post("/dashboard/user/data", data, true);
   },
 
+  updateBanner(banner) {
+    return apiClient.post("/dashboard/user/update-banner", banner, true);
+  },
+
   alerts(alerts) {
     return apiClient.post("/dashboard/user/alerts", alerts, true);
   },

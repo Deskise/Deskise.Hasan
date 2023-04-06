@@ -46,8 +46,25 @@ export const routes = [
     path: "/product/:id",
     name: "singleProduct",
     component: lazyLoad("Single"),
+    props: (route) => ({ id: Number(route.params.id) }),
+
     beforeEnter: async function (routeTo, from, next) {
       await store.dispatch("product/single", { id: routeTo.params.id });
+      next();
+    },
+    watch: {
+      id: async function (newId) {
+        await store.dispatch("product/single", { id: newId });
+      },
+    },
+  },
+
+  {
+    path: "/product/edit/:id",
+    name: "EditProduct",
+    component: lazyLoad("EditProduct"),
+    beforeEnter: async function (routeTo, from, next) {
+      await store.dispatch("product/edit", { id: routeTo.params.id });
       next();
     },
   },
