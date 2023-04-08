@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     img() {
-      return this.$store.state.user.data.banner;
+      return this.$store.state.user.otherUser.banner;
     },
   },
 };

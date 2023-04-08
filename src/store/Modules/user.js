@@ -71,7 +71,7 @@ export const mutations = {
     localStorage.setItem("deskies_user_uuid", UUID);
   },
   UPDATE_BANNER(state, banner) {
-    state.data.banner = banner
+    state.otherUser.banner = banner
   }
 };
 
@@ -124,10 +124,8 @@ export const actions = {
     });
   },
   async updateBanner({ commit }, banner ) {
-    console.log(banner);
     await Dashboard.updateBanner(banner).then((e) => {
-      console.log();
-      commit("UPDATE_BANNER", e.data.response[0])
+      commit("UPDATE_BANNER", e.data.banner)
     })
   },
 
