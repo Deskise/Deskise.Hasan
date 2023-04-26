@@ -39,10 +39,14 @@ export default {
       type: Array,
       default: () => [],
     },
+    value: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
-      active: "",
+      active: this.value || '',
       arrow: "angle-down",
       displayed: false,
       itemsMaxHeight: 0,
@@ -95,6 +99,11 @@ export default {
         }, 500);
       }
     },
+
+    value(newValue) {
+      this.active = newValue;
+    },
+
   },
 };
 </script>

@@ -83,7 +83,6 @@ export default {
   },
   computed: {
     active() {
-      console.log(this.$router.currentRoute.value.hash);
       return Number.parseInt(
         this.$router.currentRoute.value.hash.split("#")[1] ?? 1
       );

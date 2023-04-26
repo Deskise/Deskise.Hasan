@@ -75,6 +75,14 @@ export const actions = {
       console.log(e.data);
     })
   },
+
+  async update( id , {product }) {
+    console.log(id);
+    console.log(product);
+    await Product.update(id, product).then((e) => {
+      console.log(e.data);
+    })
+  }
 };
 
 export const getters = {

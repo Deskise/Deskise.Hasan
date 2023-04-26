@@ -19,4 +19,9 @@ export default {
   edit(id) {
     return apiClient.get("/products/edit/" + id);
   },
+  update(id, product) {
+    // return apiClient.post("products/update/"+ product.id)
+    console.log(product);
+    return apiClient.post(`/products/edit/${id}/publish`, product)
+  }
 };

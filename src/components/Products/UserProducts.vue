@@ -25,6 +25,7 @@
                 :to="{
                   name: 'EditProduct',
                   params: { id: product.id },
+                  hash: '#1'
                 }"
                 class="btn btn-outline-primary w-100"
               >

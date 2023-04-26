@@ -92,14 +92,25 @@
                     product.data = '[]';
                   }
                   const data = JSON.parse(product.data);
-                  if (data.includes(e)) {
-                    const index = data.indexOf(e);
-                    if (index > -1) {
-                      data.splice(index, 1);
-                    }
+                  const fieldData = {
+                    name: f.name,
+                    type: f.type,
+                    value: e
+                  };
+                  const existingFieldIndex = data.findIndex(item => item.name === f.name && item.type === f.type);
+                  if (existingFieldIndex > -1) {
+                    data.splice(existingFieldIndex, 1, fieldData);
                   } else {
-                    data.push({[f.name] :e});
+                    data.push(fieldData);
                   }
+                  // if (data.includes(e)) {
+                  //   const index = data.indexOf(e);
+                  //   if (index > -1) {
+                  //     data.splice(index, 1);
+                  //   }
+                  // } else {
+                  //   data.push({[f.name] :e});
+                  // }
                   product.data = JSON.stringify(data);
                 }
               "
@@ -129,13 +140,16 @@
                     product.data = '[]';
                   }
                   const data = JSON.parse(product.data);
-                  if (data.includes(e)) {
-                    const index = data.indexOf(e);
-                    if (index > -1) {
-                      data.splice(index, 1);
-                    }
+                  const fieldData = {
+                    name: f.name,
+                    type: f.type,
+                    value: e
+                  };
+                  const existingFieldIndex = data.findIndex(item => item.name === f.name && item.type === f.type);
+                  if (existingFieldIndex > -1) {
+                    data.splice(existingFieldIndex, 1, fieldData);
                   } else {
-                    data.push({[f.name] :e});
+                    data.push(fieldData);
                   }
                   product.data = JSON.stringify(data);
                 }
@@ -153,9 +167,7 @@
             <multi-img-picker
               type="assets"
               :placeholder="f.placeholder"
-              @change="([e]) => {
-                  product[f.name] = e;
-                }"
+              @change="([e]) => {product[f.name] = e;}"
               v-else-if="f.type === 'assets'"
               :title="f.hint"
             />
@@ -210,13 +222,16 @@
                     product.data = '[]';
                   }
                   const data = JSON.parse(product.data);
-                  if (data.includes(e)) {
-                    const index = data.indexOf(e);
-                    if (index > -1) {
-                      data.splice(index, 1);
-                    }
+                  const fieldData = {
+                    name: f.name,
+                    type: f.type,
+                    value: e
+                  };
+                  const existingFieldIndex = data.findIndex(item => item.name === f.name && item.type === f.type);
+                  if (existingFieldIndex > -1) {
+                    data.splice(existingFieldIndex, 1, fieldData);
                   } else {
-                    data.push({[f.name] :e});
+                    data.push(fieldData);
                   }
                   product.data = JSON.stringify(data);
                 }"
@@ -309,37 +324,24 @@ export default {
     },
 
     addPackage(e) {
-      // Create the `packages` array property in the `this.product` object if it doesn't already exist
       if (!Object.prototype.hasOwnProperty.call(this.product, 'packages')) {
         this.product.packages = '[]';
       }
 
-      // Parse the `packages` JSON string into an array
       const packages = JSON.parse(this.product.packages);
 
-      // Check if the `e` value already exists in `packages`
       if (packages.includes(e)) {
-        // If `e` already exists, remove it from `packages`
         const index = packages.indexOf(e);
         if (index > -1) {
           packages.splice(index, 1);
         }
       } else {
-        // If `e` doesn't exist, add it to `packages`
         packages.push(e);
       }
 
-      // Convert the `packages` array to a JSON string and assign it to the `packages` property
       this.product.packages = JSON.stringify(packages);
     },
 
-
-
-    // checkValue(e) {
-    //   this.product.data.push({e})
-    //   console.log(this.product.data);
-    //   console.log(JSON.parse(this.product.data));
-    // },
     handleNext() {
       this.activeNumbe +=1
       this.$router.push({
@@ -357,28 +359,16 @@ export default {
       
     },
     async addProduct() {
-      console.log('addProduct Clicked');
-      
       this.product.social_media = JSON.stringify(this.socialMediaAssets);
-      // this.product.packages = "[2,5]"
-      // this.product.name="Mountain"
       this.product.category= parseInt(this.cat)
       
       this.product.until = new Date(this.until).toLocaleDateString('en-GB');
-      // this.product.until = new Date(this.until).toISOString().substring(0, 10);
-
-      // this.product.img = '{"image": "colorful.png"}', 
-      // this.product.img = "colorful.png", 
       this.product.assets = '{"image":["default.webp", "default2.webp"]}'
-      // this.product.data = '{"cgtcwbwkpw2xcamc":2,"c4ptlaydqaw9n0co":"https://google.com","95eaxarkoweapytr":400,"dnqsxa0uvgdjuu3s":"15/09/2015","lsy5jvy4y7xxotqn":"15/09/2017","zirhzi4iuoxmpwix":"y","4hswcrdgqtlpkznm":{"1":{"profit":100,"visits":1000},"2":{"profit":100,"visits":1000},"3":{"profit":100,"visits":1000},"4":{"profit":100,"visits":1000},"5":{"profit":100,"visits":1000},"6":{"profit":100,"visits":1000},"7":{"profit":100,"visits":1000},"8":{"profit":100,"visits":1000},"9":{"profit":100,"visits":1000},"10":{"profit":100,"visits":1000},"11":{"profit":100,"visits":1000},"12":{"profit":100,"visits":1000}},"yw9h7mpozga0ddmy":"Something Goes Here, At Least 250 Characters, Something Goes Here, At Least 250 Characters, Something Goes Here, At Least 250 Characters, Something Goes Here, At Least 250 Characters, Something Goes Here, At Least 250 Characters, Something Goes Here, At Least 250 Characters","xelsvczwzj0eerjy":"Something less than 150 Characters Here","bi2jdhndqh4xyjnf":1,"m391epmrj9locffu":1}'
-      
-      // this.product.social_media = this.socialMediaAssets
       this.prepareToSend(this.product);
     },
 
      prepareToSend(data) {
       let formData = new FormData();
-      formData.append("hi", "there");
       Object.keys(data)
         .map((key) => {
           return [key, data[key]];
@@ -430,24 +420,24 @@ export default {
 .packages-container {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); // creates grid with minimum item width of 200px
-  gap: 10px; // adds spacing between grid items
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+  gap: 10px;
 }
 @media only screen and (max-width: $maxMobile) {
   .packages-container {
-    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr)); // makes the grid one column for mobile screens
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
   }
 }
 
 @media only screen and (min-width: $minSmall) and (max-width: $maxMedium) {
   .packages-container {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // adjusts item width for small to medium screens
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 }
 
 @media only screen and (min-width: $minLarge) {
   .packages-container {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // adjusts item width for large screens
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
   }
 }
 .drop {

@@ -74,13 +74,13 @@ export default {
   }
 
   .dash-profile-image {
-    width: 60%;
+    // width: 60%;
     border: 2px solid rgba(201, 201, 201, 56/100);
     border-radius: 50%;
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
     }
   }

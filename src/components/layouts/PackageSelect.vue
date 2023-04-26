@@ -2,9 +2,10 @@
     <label class="package" :class="{ 'checked': isChecked }" >
         <input
             type="checkbox"
-            :checked="modelValue"
+            :checked="isChecked"
             @change="$emit('select', pack.id)"
             v-model="isChecked"
+            :disabled="isDisabled"
           >
           <span></span>
           <div class="package-info">
@@ -18,9 +19,10 @@
 export default {
   data() {
     return {
-      isChecked: false
+      Checked: false
     }
   },
+
     props: {
         pack: {
             type: String,
@@ -29,9 +31,21 @@ export default {
         modelValue: {
             type: Boolean,
             default: false
+        },
+        selectedPackages: {
+          type: Array,
+          default: () => []
         }
     },
   emits: ['select'],
+  computed: {
+    isChecked() {
+      return this.selectedPackages.includes(this.pack.id) && this.modelValue
+    },
+    isDisabled() {
+      return this.selectedPackages.includes(this.pack.id);
+    }
+  }
 }
 </script>
 
