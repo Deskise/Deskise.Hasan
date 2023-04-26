@@ -107,6 +107,7 @@
             $product = Product::select('id','name', 'summary as summary','description','price','old_price','user_id','img', 'special','verified','status','is_lifetime','until', 'category_id', 'updated_at', 'created_at')
                 ->with('user:id,firstname,lastname,img,is_hidden')
                 ->with('data')
+                ->with('packages')
                 ->with('data.subcategory:id,name_'.self::$language . ' as name')
                 ->with('social.account:id,name_'.self::$language.' as name,description_'.self::$language.' as description')
                 ->with('assets')
@@ -214,7 +215,7 @@
         public function publish(ProductEditRequest $request, $id=false)
         {
             if ($request->hasError) return $request->response;
-            
+            $id = $request->id;
             if ($id) {
                 if (!$product=Product::find($id)) return APIHelper::jsonRender('The Requested Product Not Found', [], 404);
             } else $product = new Product(['user_id' => $request->user('api')->id]);
@@ -301,13 +302,15 @@
             //     $product->packages()->whereNotIn('package_id',$packages)->delete();
             // }
                 
-
-            
-                    
-
-
-            
         }
+
+        public function update(ProductEditRequest $request) {
+            $id = $request->id;
+            $product=Product::find($id);
+            $product->update($request->all());
+        }
+
+
         public function saveDraft(ProductEditRequest $request, $id=0)
         {
             if ($request->hasError)return $request->response;
