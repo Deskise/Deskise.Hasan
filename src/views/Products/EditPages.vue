@@ -345,12 +345,20 @@
           const index = this.product.packages.indexOf(e);
           if (index > -1) {
             this.product.packages.splice(index, 1);
+            const packageIndex = this.info.packages.findIndex(
+              (item) => item.package_id === e
+            );
+            if (packageIndex > -1) {
+              this.info.packages.splice(packageIndex, 1);
+            }
           }
         } else {
+          const newPackage = { "package_id": e };
           this.product.packages.push(e);
+          this.info.packages.push(newPackage);
         }
 
-        this.info.packages = JSON.stringify(packages);
+        // this.info.packages = JSON.stringify(packages);
       },
 
       async editProduct() {
@@ -437,13 +445,13 @@
         })
         return filtered
       },
-      packs() {
-        const notSelected =  this.packages.filter((item) => {
-          const exclude = !this.info.packages.some((packageItem) => packageItem.package_id === item.id)
-          return exclude;
-        })
-        return notSelected
-      }
+      // packs() {
+      //   const notSelected =  this.packages.filter((item) => {
+      //     const exclude = !this.info.packages.some((packageItem) => packageItem.package_id === item.id)
+      //     return exclude;
+      //   })
+      //   return notSelected
+      // }
     },
     async created() {
     if (this.$store.state.data.packages.length === 0) {
