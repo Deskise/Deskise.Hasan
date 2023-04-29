@@ -157,7 +157,7 @@
                         const social_data = {id: link.account.id , link: link.link, social_id: link.social_id, }
                         social.splice(index, 1, social_data);
                         // info.data.data.social_media = JSON.stringify(social);
-                        // this.product.social_media = social
+                        this.product.social_media = JSON.stringify(social)
                       }"
                     />
                   </div>
@@ -371,7 +371,7 @@
        this.product.data = this.info.data.data.data
        this.product.img = this.files[0]
        this.product.id = this.info.id
-       this.product.packages = this.info.data.data.packages
+       this.product.packages = JSON.stringify(this.product.packages)
        if (!Object.prototype.hasOwnProperty.call(this.product, 'social_media')) {
         this.product.social_media = this.info.data.data.social_media;
       }
@@ -381,7 +381,7 @@
         this.product.lifetime = 0
       }
       this.product.until = new Date(this.info.until).toLocaleDateString('en-GB');
-      this.product.assets = '{"image":["default.webp", "default2.webp"]}'
+      this.product.assets = '{"image":["default.webp", "default3.webp"]}'
 
        this.prepareToSend(this.product);
       },
