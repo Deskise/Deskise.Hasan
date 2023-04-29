@@ -263,18 +263,38 @@
             }
     
 
-            if ($request->input('assets'))
+            // if ($request->input('assets'))
                 // $product->assets()->update(['assets' => $request->input('assets')]);
-                $product->assets()->updateOrCreate(['assets' => $request->input('assets')]);
+                // $product->assets()->updateOrCreate(['assets' => $request->input('assets')]);
+
+
+            if ($request->input('assets')) {
+                $productAsset = $product->assets()->first();
+                if ($productAsset) {
+                    $productAsset->where('product_id', $product->id)->update(['assets' => $request->input('assets')]);
+                } else {
+                    $product->assets()->create(['assets' => $request->input('assets')]);
+                }
+            }
+                
 
             if ($request->input('subcategory') && $product->category->subcategories()->find($request->input('subcategory')))
                 // $product->data()->update(['subcategory_id' => ($request->input('subcategory')?? $product->data->subcategory_id)]);
+                $productData = $product->data()->first();
+                if($productData) {
+                    $productData->where('product_id', $product->id)->update([
+                    // 'data' => $request->input('data'),
+                    'subcategory_id'=> $request->input('subcategory'),
+                    'data' => $request->except('is_lifetime','until','name','summary','description','price','img','subcategory','assets','links', 'id')
+                    ]);
+                } else if(!$productData) {
                 $product->data()->updateOrCreate(['product_id' => $product->id],
                     [
                         'subcategory_id'=> $request->input('subcategory'),
-                        'data' => $request->except('is_lifetime','until','name','summary','description','price','img','subcategory','assets','links')
+                        'data' => $request->except('is_lifetime','until','name','summary','description','price','img','subcategory','assets','links', 'id')
                     ]
                 );
+            }
             else return APIHelper::error('Subcategory_id Provided Is Not Subcategory for this category');
 
             if ($request->input('social_media'))
