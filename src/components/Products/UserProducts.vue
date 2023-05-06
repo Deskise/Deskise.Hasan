@@ -17,7 +17,7 @@
                   params: { id: product.id },
                 }"
                 class="btn btn-outline-primary mb-0"
-                v-if="stopSelling"
+                v-if="!stopSelling"
               >
                 {{ $t("see") }}
               </router-link>

@@ -45,16 +45,30 @@
                 </div>
               </div>
               <div>
-                <div class="image">
-                  <img :src="product.user.img" />
-                </div>
-                <div class="data">
-                  <div class="name">
-                    {{ product.user.firstname + " " + product.user.lastname }}
+                <div>
+                  <div class="image">
+                    <img :src="product.user.img" />
                   </div>
-                  <div class="dates">
-                    <span class="new" v-date="product.dates.new"></span>&nbsp;
-                    <span class="old" v-date="product.dates.old"></span>
+                  <div class="data">
+                    <div class="name">
+                      {{ product.user.firstname + " " + product.user.lastname }}
+                    </div>
+                    <div class="dates">
+                      <span class="new" v-date="product.dates.new"></span>&nbsp;
+                      <span class="old" v-date="product.dates.old"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="actions d-flex flex-column align-items-end ">
+                  <div class="exit" @click="$router.push({ name: 'home' })">
+                    <flat-icon-component icon="cross" />
+                  </div>
+                  <div class="like" @click="like">
+                    <flat-icon-component
+                      icon="heart"
+                      :type="this.product.liked ? 'solid' : 'rounded'"
+                    />
+                    <p>{{ this.product.likes }}</p>
                   </div>
                 </div>
               </div>
@@ -329,7 +343,7 @@
             </div>
             <div class="label">
               <div class="key">Page Views</div>
-              <div class="value">100.8356 P/MO</div>
+              <div class="value">{{ this.product.views.length * 93 }}</div>
             </div>
             <div class="label">
               <div class="key">Visits</div>
@@ -389,7 +403,16 @@ export default {
     };
   },
   methods: {
-    async like() {},
+    async like() {
+      await this.$store.dispatch("product/LikeProduct", this.product.id);
+      if (!this.$store.state.product.products.data[this.id].liked) {
+        this.$store.state.product.products.data[this.id].liked = true;
+        this.$store.state.product.products.data[this.id].likes++;
+      } else {
+        this.$store.state.product.products.data[this.id].liked = false;
+        this.$store.state.product.products.data[this.id].likes--;
+      }
+    },
     DeleteOffinsive() {
       setTimeout(() => {
         document.querySelector(".offcanvasClose").click();
@@ -423,6 +446,51 @@ export default {
 
 <style lang="css" scoped src="./Single.css"></style>
 <style>
+.actions {
+	 height: auto;
+}
+ .actions div {
+	 width: 40px;
+	 height: 40px;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 cursor: pointer;
+	 border-radius: 50%;
+	 margin: 5px;
+	 margin-bottom: 10px;
+}
+ @media (max-width: 1410px) {
+	 .actions div {
+		 width: 35px;
+		 height: 35px;
+	}
+}
+ .actions div * {
+	 transform: translateY(12%);
+}
+ @media (max-width: 1410px) {
+	 .actions div * {
+		 font-size: 14px;
+		 transform: translateY(9%);
+	}
+}
+ .actions .exit {
+	 background: #fb5b5b;
+	 color: white;
+}
+ .actions .like {
+	 background: transparent;
+	 color: #c9c9c9;
+	 border: 1px solid #c9c9c9;
+	 position: relative;
+}
+ .actions .like p {
+	 position: absolute;
+	 margin: 0;
+	 bottom: -20px;
+}
+ 
 .offcanvas {
   z-index: 100000000 !important;
 }

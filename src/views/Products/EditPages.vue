@@ -99,28 +99,28 @@
                   <input
                     type="text"
                     :placeholder="f.placeholder"
-                    v-model="info[f.name]"
+                    v-model="details[f.name]"
                     v-if="f.type === 'text'"
                     :title="f.hint"
                   />
                   <input
                     type="url"
                     :placeholder="f.placeholder"
-                    v-model="info[f.name]"
+                    v-model="details[f.name]"
                     v-else-if="f.type === 'url'"
                     :title="f.hint"
                   />
                   <input
                     type="number"
                     :placeholder="f.placeholder"
-                    v-model="info[f.name]"
+                    v-model="details[f.name]"
                     v-else-if="f.type === 'number'"
                     :min="f.data?.min"
                     :max="f.data?.max"
                     :title="f.hint"
                   />
                   <textarea
-                    v-model="info[f.name]"
+                    v-model="details[f.name]"
                     :placeholder="f.placeholder"
                     :maxlength="f.data?.max"
                     :minlength="f.data?.min"
@@ -128,7 +128,7 @@
                     :title="f.hint"
                   ></textarea>
                   <textarea
-                    v-model="info[f.name]"
+                    v-model="details[f.name]"
                     :placeholder="f.placeholder"
                     :maxlength="f.data?.max"
                     :minlength="f.data?.min"
@@ -137,36 +137,38 @@
                   ></textarea>
                   <Datepicker
                     v-if="f.type === 'date'"
-                    v-model="info[f.name]"
+                    v-model="details[f.name]"
                     :placeholder="f.placeholder"
                     :title="f.hint"
                     :min-date="f.data ? f.data.start : null"
                     :max-date="f.data ? f.data.end : null"
                   ></Datepicker>
                   
-                  <div v-if="f.name==='links'" class="col-lg-12 p-1" v-for="(link, index) in info.social" :key="index">
-                    <label for="">{{ link.account.name }}</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      :style="style"
-                      v-model="link.link"
-                      @change=" () => {
-                        const social = JSON.parse(info.data.data.social_media);
-                        const index = 0;
-                        const social_data = {id: link.account.id , link: link.link, social_id: link.social_id, }
-                        social.splice(index, 1, social_data);
-                        // info.data.data.social_media = JSON.stringify(social);
-                        this.product.social_media = JSON.stringify(social)
-                      }"
-                    />
+                  <div v-if="f.name==='links'">
+                    <div class="col-lg-12 p-1" v-for="(link, index) in info.social" :key="index">
+                      <label for="">{{ link.account.name }}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        :style="style"
+                        v-model="link.link"
+                        @change=" () => {
+                          const social = JSON.parse(info.data.data.social_media);
+                          const index = 0;
+                          const social_data = {id: link.account.id , link: link.link, social_id: link.social_id, }
+                          social.splice(index, 1, social_data);
+                          // info.data.data.social_media = JSON.stringify(social);
+                          this.product.social_media = JSON.stringify(social)
+                        }"
+                      />
+                    </div>
                   </div>
                       
                   <yn-select
                     v-if="f.type === 'y_n'"
                     :placeholder="f.placeholder"
                     @choose=" (e) => {
-                      const data = JSON.parse(info.data.data.data);
+                      const data = JSON.parse(details.data.data.data);
                       const fieldData = {
                         name: f.name,
                         type: f.type,
@@ -178,7 +180,7 @@
                       } else {
                         data.push(fieldData);
                       }
-                      info.data.data.data = JSON.stringify(data);
+                      details.data.data.data = JSON.stringify(data);
                     } "
                     :title="f.hint"
                     :value="getSavedValue(f.name)"
@@ -189,7 +191,7 @@
                     :data="Object.keys(f.data ?? {}).map((e) => [e, f.data[e]])"
                     v-if="f.type === 'drop_list'"
                     @choose="(e) => { 
-                      const data = JSON.parse(info.data.data.data)
+                      const data = JSON.parse(details.data.data.data)
                       const fieldData = {
                         name: f.name,
                         type: f.type,
@@ -201,7 +203,7 @@
                       } else {
                         data.push(fieldData);
                       }
-                      info.data.data.data = JSON.stringify(data);
+                      details.data.data.data = JSON.stringify(data);
                     } "
                     :title="f.hint"
                     :value="getSavedValue(f.name)"
@@ -213,7 +215,7 @@
                     :title="f.hint"
                     :value="getSavedValue(f.name)"
                     @check="(e) => {
-                      const data = JSON.parse(info.data.data.data);
+                      const data = JSON.parse(details.data.data.data);
                       const fieldData = {
                         name: f.name,
                         type: f.type,
@@ -225,7 +227,7 @@
                       } else {
                         data.push(fieldData);
                       }
-                      info.data.data.data = JSON.stringify(data);
+                      details.data.data.data = JSON.stringify(data);
                     }"
                   ></circle-checkbox>
                   
@@ -250,7 +252,7 @@
                     :placeholder="f.placeholder"
                     :data="subCategories.map((e) =>[e, e.name])"
                     v-else-if="f.name === 'subcategory'"
-                    @choose="(e) => { info[f.name] = e.id; }"
+                    @choose="(e) => { product[f.name] = e.id; }"
                     :title="f.hint"
                   ></single-select>
                 </div>
@@ -270,8 +272,6 @@
   <script>
   import Datepicker from "@vuepic/vue-datepicker";
   import "@vuepic/vue-datepicker/dist/main.css";
-  import SocialMediaLinkInput from "../../components/Dashboard/SocialMediaLinkInput.vue";
-  import MultiImgPicker from "@/components/layouts/MultiImgPicker.vue";
   import PackageSelect from "@/components/layouts/PackageSelect";
   import CircleCheckbox from "@/components/layouts/CircleCheckbox.vue";
   import MultiPicture from "@/components/layouts/multi-pic/MultiPicture.vue";
@@ -302,11 +302,12 @@
       },
     },
     
-    components: { MultiImgPicker, PackageSelect, Datepicker, SocialMediaLinkInput, CircleCheckbox, MultiPicture },
+    components: { PackageSelect, Datepicker, CircleCheckbox, MultiPicture },
     data() {
       return {
         product: {
         },
+        details: {},
         socialMediaAssets: [],
         link:"",
         isLifeTime: this.$route.query.isLifeTime,
@@ -338,48 +339,55 @@
         })
       },
       addPackage(e) {
-        const packages = this.info.packages.map((item) => item.package_id);
+        const packages = this.details.packages.map((item) => item.package_id);
         this.product.packages =[]
         this.product.packages = packages
         if (this.product.packages.includes(e)) {
           const index = this.product.packages.indexOf(e);
           if (index > -1) {
             this.product.packages.splice(index, 1);
-            const packageIndex = this.info.packages.findIndex(
+            const packageIndex = this.details.packages.findIndex(
               (item) => item.package_id === e
             );
             if (packageIndex > -1) {
-              this.info.packages.splice(packageIndex, 1);
+              this.details.packages.splice(packageIndex, 1);
             }
           }
         } else {
           const newPackage = { "package_id": e };
           this.product.packages.push(e);
-          this.info.packages.push(newPackage);
+          this.details.packages.push(newPackage);
         }
 
         // this.info.packages = JSON.stringify(packages);
       },
 
+      
+      // updateFieldValue(fieldName, value) {
+      //   this.$set(this.details, fieldName, value);
+      // },
+
       async editProduct() {
-       this.product.name = this.info.name
-       this.product.price = this.info.price
-       this.product.description = this.info.description
-       this.product.summary = this.info.summary
-       this.product.category = this.info.category_id
-       this.product.subcategory = this.info.subcategory
-       this.product.data = this.info.data.data.data
+       this.product.name = this.details.name
+       this.product.price = this.details.price
+       this.product.description = this.details.description
+       this.product.summary = this.details.summary
+       this.product.category = this.details.category_id
+       if (!Object.prototype.hasOwnProperty.call(this.product, 'subcategory')) {
+        this.product.subcategory = this.details.data.subcategory_id;
+      }
+       this.product.data = this.details.data.data.data
        this.product.img = this.files[0]
-       this.product.id = this.info.id
-       this.product.packages = JSON.stringify(this.product.packages)
+       this.product.id = this.details.id
+       if (!Object.prototype.hasOwnProperty.call(this.product, 'packages')) {
+        const packages = this.details.packages.map((item) => item.package_id);
+        this.product.packages = JSON.stringify(packages)
+      }
        if (!Object.prototype.hasOwnProperty.call(this.product, 'social_media')) {
-        this.product.social_media = this.info.data.data.social_media;
+        this.product.social_media = this.details.data.data.social_media;
       }
-      if(this.info.is_lifetime = true) {
-        this.product.lifetime = 1
-      }else {
-        this.product.lifetime = 0
-      }
+      this.product.lifetime = this.details.is_lifetime ? 1 : 0;
+
       this.product.until = new Date(this.info.until).toLocaleDateString('en-GB');
       this.product.assets = '{"image":["default.webp", "default3.webp"]}'
 
@@ -453,14 +461,18 @@
       //   return notSelected
       // }
     },
+    
+    mounted() {
+      this.details = { ...this.info };
+    },
     async created() {
-    if (this.$store.state.data.packages.length === 0) {
+      if (this.$store.state.data.packages.length === 0) {
         await this.$store.dispatch("data/packages");
       }
       let file = this.info.img
       this.images.push(file);
       this.files.push(file);
-  }
+    }
   };
   </script>
   

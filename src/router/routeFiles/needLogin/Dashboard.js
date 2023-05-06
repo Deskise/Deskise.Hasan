@@ -52,6 +52,12 @@ export const routes = [
         path: "packages",
         name: "dashboard.packages",
         component: lazyLoad("Packages"),
+        beforeEnter: async (to, from, next) => {
+          let id = store.state.user.data.id
+          await store.dispatch("user/userProducts", id)
+            await store.dispatch("data/packages");
+        next();
+      },
       },
       {
         path: "payment",
@@ -73,7 +79,12 @@ export const routes = [
       {
         path: "product",
         name: "dashboard.product",
-        component: lazyLoad("index"),
+        component: lazyLoad("Product"),
+        beforeEnter: async (to, from, next) => {
+            let id = store.state.user.data.id
+            await store.dispatch("user/userProducts", id)
+          next();
+        },
       },
     ],
   },

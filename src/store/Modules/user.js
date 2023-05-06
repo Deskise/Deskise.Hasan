@@ -11,6 +11,7 @@ export const state = {
   socialMedia: [],
   settings: null,
   otherUser: null,
+  userProducts: []
 };
 
 export const mutations = {
@@ -72,6 +73,9 @@ export const mutations = {
   },
   UPDATE_BANNER(state, banner) {
     state.otherUser.banner = banner
+  },
+  USER_PRODUCTS(state, userProducts) {
+    state.userProducts = userProducts
   }
 };
 
@@ -128,6 +132,12 @@ export const actions = {
       commit("UPDATE_BANNER", e.data.banner)
     })
   },
+  async userProducts({ commit }, id) {
+    await OtherUserData.userProducts(id).then((e) => {
+      console.log(e.data.response.extra);
+      commit("USER_PRODUCTS", e.data.response.extra)
+    })
+  },
 
   logout({ commit }) {
     commit("ERASE_USER_DATA");
@@ -161,4 +171,28 @@ export const getters = {
   sameUser: (state) => {
     return state.otherUser.id === state.data.id;
   },
+  userPackages: (state) => {
+    const flatArray = Object.values(state.userProducts.userPackages).flat();
+    const uniquePackages = flatArray.reduce((packs, currentPackage) => {
+      const existingPackage = packs.find(p => p.package_id === currentPackage.package_id);
+      if (!existingPackage) {
+        packs.push(currentPackage);
+      }
+      return packs;
+    }, []);
+    return uniquePackages;
+  },
+  
+  views(state) {
+    return Object.values(state.userProducts.productsViews)
+  },
+  productsIds: (state) => {
+    return Object.keys(state.userProducts.productsViews)
+  },
+  monthlyViews: (state) => {
+    return state.userProducts.periodViews
+  },
+  totalViews: (state) => {
+    return state.userProducts.totalViews
+  }
 };

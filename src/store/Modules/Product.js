@@ -72,17 +72,28 @@ export const actions = {
   async edit({commit}, {id}) {
     await Product.edit(id).then((e) => {
       commit("EDIT", e.data.response.extra[0])
-      console.log(e.data);
     })
   },
 
   async update( id , {product }) {
-    console.log(id);
-    console.log(product);
     await Product.update(id, product).then((e) => {
       console.log(e.data);
     })
-  }
+  },
+  async LikeProduct({ dispatch }, id ) {
+    await Product.LikeProduct(id)
+      .then((response) => {
+        dispatch(
+          "notification/add",
+          {
+            message: response.data.response.message,
+            status: true,
+          },
+          { root: true }
+        );
+      })
+      .catch(() => {});
+  },
 };
 
 export const getters = {

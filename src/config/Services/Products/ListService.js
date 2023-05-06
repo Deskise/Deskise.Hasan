@@ -1,4 +1,5 @@
 import apiClient from "@/config/axios";
+import store from "@/store";
 
 export default {
   list(page, category = 0) {
@@ -20,8 +21,12 @@ export default {
     return apiClient.get("/products/edit/" + id);
   },
   update(id, product) {
-    // return apiClient.post("products/update/"+ product.id)
     console.log(product);
     return apiClient.post(`/products/edit/${id}/publish`, product)
+  },
+  LikeProduct(id) {
+    return apiClient.get(`/products/single/${id}/like`, [
+      "user_id." + store.state.user.data.id,
+    ])
   }
 };
