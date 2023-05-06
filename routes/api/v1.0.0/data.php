@@ -30,6 +30,7 @@ Route::get('/social',[Data::class,'social']);
 
 Route::get('/users/{id}', [Data::class,'user']);
 Route::get('/users/{user}/products', [Data::class,'products']);
+Route::get('/users/{user}/user-products', [Data::class,'userProducts']);
 
 
 

@@ -111,6 +111,7 @@
                 ->with('data.subcategory:id,name_'.self::$language . ' as name')
                 ->with('social.account:id,name_'.self::$language.' as name,description_'.self::$language.' as description')
                 ->with('assets')
+                ->with('views')
                 ->find($id);
 
             if ($product===Null) return APIHelper::jsonRender('Requested Product Not Found', [], 404);

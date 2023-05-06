@@ -18420,7 +18420,7 @@ div.tagsinput {
 .nav-pills-dark .nav-link {
   color: #0d0d0d; }
   .nav-pills-dark .nav-link.active {
-    background: theme-color(dark); }
+    background: theme-color(light); }
 
 .tab-content {
   border: 1px solid #2c2e33;
