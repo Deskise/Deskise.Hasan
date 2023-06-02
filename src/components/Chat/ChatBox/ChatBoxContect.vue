@@ -1,17 +1,67 @@
 <template>
-  <div class="chat-box-content">
+  <div class="chat-box-content" ref="chatBoxRef">
     <ChatDetails v-for="msg of messeges" :key="msg.id" :msg="msg" />
   </div>
 </template>
 <script setup>
+import { ref, watch, onMounted, nextTick } from "vue";
+import { useRoute } from 'vue-router';
 import ChatDetails from "../ChatBox/ChatDetails.vue";
-import ChatMessage from "../Api/ChatMessage";
+import ChatMessages from "../Api/ChatMessage"
+import { ref as storageRef, onValue } from "@firebase/database";
+import db from "../Api/db";
 
-import { ref } from "vue";
-const messeges = ref();
-messeges.value = ChatMessage.sort(function (a, b) {
-  return new Date(a.created_at) - new Date(b.created_at);
-});
+const ChatMessage = ref([]);
+const messeges = ref([]);
+const route = useRoute();
+const chatId = ref();
+
+const chatBoxRef = ref(null)
+
+
+
+onMounted(() => {
+  messeges.value = ChatMessages.sort(function (a, b) {
+        return new Date(a.created_at) - new Date(b.created_at);
+      });
+      scrollToBottom()
+})
+
+const scrollToBottom = () => {
+  nextTick(() => {
+    if (chatBoxRef.value) {
+      chatBoxRef.value.scrollTop = chatBoxRef.value.scrollHeight;
+    }
+  });
+};
+
+watch(
+  () => route.params.chatId,
+  (newChatId, oldChatId) => {
+    chatId.value = newChatId;
+    console.log(oldChatId);
+
+    ChatMessage.value = [];
+    messeges.value = [];
+
+    const starCountRef = storageRef(db.db, `chats/${newChatId}/messages`);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      ChatMessage.value = [];
+      messeges.value = [];
+      for (const messageId in data) {
+        const message = data[messageId];
+        ChatMessage.value.push(message);
+      }
+      messeges.value = ChatMessage.value.sort(function (a, b) {
+        return new Date(a.created_at) - new Date(b.created_at);
+      });
+      scrollToBottom();
+    });
+  }
+);
+
+
 </script>
 <style scoped>
 .avatar-image {

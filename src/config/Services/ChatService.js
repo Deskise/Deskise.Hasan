@@ -37,10 +37,14 @@ export default {
               true
             );
           },
-          agreement(details, file_types, price, note) {
+          // agreement(details, file_types, price, note) {
+          agreement(agreement, chatId, type) {
+            // console.log(context);
+            console.log(agreement, 'chatid:', chatId, type);
             return apiClient.post(
-              `/chat/${chat_id}/send/agreement`,
-              { details, file_types, price, note },
+              `/chat/${chatId}/send/${type}`,
+              agreement,
+              // { details, file_types, price, note },
               true
             );
           },
@@ -50,6 +54,9 @@ export default {
               { attachments },
               true
             );
+          },
+          textPhoto(formData, chatId, type) {
+            return apiClient.post(`/chat/${chatId}/send/${type}`, formData, true)
           },
           call() {
             return apiClient.post(`/chat/${chat_id}/send/call`, {}, true);

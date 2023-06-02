@@ -44,7 +44,7 @@ export default {
       active: false,
     };
   },
-  actions: {
+  methods: {
     handleClick() {
       this.active = !this.active;
     },

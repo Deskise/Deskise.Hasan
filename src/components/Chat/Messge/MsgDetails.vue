@@ -11,13 +11,13 @@
         <div class="contact-name">
           {{ c.user.firstname.slice(0, 2) }} {{ c.user.lastname }}
         </div>
-        <div class="contact-last-message">
+        <!-- <div class="contact-last-message">
           {{
             c.lastMsg?.type === "message"
               ? c.lastMsg.message.slice(0, 25)
               : "User Sent " + c.lastMsg?.type
           }}
-        </div>
+        </div> -->
       </div>
       <div class="contact-time-count">
         <div class="contact-last-messages-time">

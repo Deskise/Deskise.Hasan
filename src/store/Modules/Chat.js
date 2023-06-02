@@ -23,6 +23,20 @@ export const actions = {
       commit("LIST", data.response.extra);
     });
   },
+
+  async textPhoto(context, { formData, chatId, type }) {
+    console.log('from Chat.js',chatId);
+    console.log('from Chat.js',type);
+    console.log('from Chat.js',context);
+    await Chat.chat().send().textPhoto(formData, chatId, type)
+  },
+
+  async agreement(context, { agreement, chatId, type }) {
+    console.log('from Chat.js',chatId);
+    console.log('from Chat.js', context);
+    console.log('from Chat.js',agreement);
+    await Chat.chat().send().agreement(agreement, chatId, type)
+  }
 };
 
 export const getters = {};

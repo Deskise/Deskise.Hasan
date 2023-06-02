@@ -9,7 +9,21 @@
       <form class="dash-form">
         <textarea placeholder="Notes"></textarea>
         <textarea placeholder="Emails,Passwords, And Written Files"></textarea>
-        <button type="button" class="files-uploader">
+        <div class="files-list">
+          <div v-for="(file, index) in files" :key="index" class="file">
+            <button class="remove-file">X</button>
+            <!-- <flat-icon-component
+              icon="file"
+              type="bold"
+            /> -->
+            <p class="file-name">{{file.name}}</p>
+          </div>
+        </div>
+        
+        <button type="button" class="files-uploader"
+          @click="() => $el.querySelector('input[type=file]').click()"
+        >
+          <input @change="uploadFile" type="file" name="upload-files" hidden multiple>
           <img src="@/assets/images/fi-rr-cloud-upload.png" />
         </button>
         <button type="submit" class="pelorous">Send</button>
@@ -17,7 +31,54 @@
     </div>
   </div>
 </template>
+
+<script>
+
+export default {
+data() {
+  return {
+    files: []
+  };
+},
+
+methods:{
+  uploadFile(e) {
+    console.log('upload', e);
+    const selectedFiles = Array.from(e.target.files);
+      selectedFiles.forEach((file) => {
+        this.files.push(file);
+      });
+  }
+}
+}
+</script>
+
 <style scoped>
+.files-list{
+  display: flex;
+  align-items: baseline;
+}
+.file{
+  /* display: flex; */
+  display: inline-block;
+  align-items: center;
+  justify-content: space-between;
+  background: #ebebeb;
+  border-radius: 10px;
+  padding-inline: 8px;
+  height: min-content;
+  margin-left: 5px;
+}
+.remove-file{
+  color: #c9c9c9;
+  font-size: bold;
+  border: none;
+  background: rgb(239, 37, 37);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  margin-top: 5px;
+}
 .dash-dailog {
   position: fixed;
   top: 0;
@@ -36,7 +97,7 @@
   border-radius: 20px;
   padding: 50px 70px;
   min-width: 750px;
-  max-width: 100%;
+  max-width: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,18 +113,18 @@
   max-width: 70px;
 }
 .dash-dailog .icon img {
-  max-width: 100%;
+  max-width: 75%;
   display: block;
   margin: auto;
 }
 
 .dash-dailog .title {
-  font-size: 28px;
+  font-size: 1.3rem;
   color: #040506;
   font-weight: bold;
 }
 .dash-dailog .description {
-  font-size: 24px;
+  font-size: 1.1rem;
   color: #c9c9c9;
   text-align: center;
 }
@@ -81,20 +142,20 @@
   border-radius: 5px;
   display: block;
   width: 100%;
-  font-size: 20px;
+  font-size: 1rem;
 }
 .dash-form textarea {
-  min-height: 160px;
+  min-height: 2.1rem;
 }
 
 .dash-form button[type="submit"],
 .dash-form input[type="submit"] {
   width: 100%;
-  padding: 16px;
+  padding: 12px;
   border-radius: 5px;
   background-color: #4e1b56;
   color: #fff;
-  font-size: 20px;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   border: none;
@@ -102,11 +163,12 @@
 
 button.files-uploader {
   width: 100%;
-  padding: 16px;
+  padding: 12px;
   border-radius: 5px;
   background-color: rgba(201, 201, 201, 23%);
   cursor: pointer;
   border: none;
+  font-size: 1.1rem;
 }
 button.files-uploader img {
   width: 24px;

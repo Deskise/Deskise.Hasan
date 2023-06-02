@@ -1,7 +1,7 @@
 <template>
   <div class="dash-chat">
     <SideBar />
-    <ChatBox :chat-id="chatId" />
+      <ChatBox :chat-id="chatId" />
   </div>
 </template>
 <script>

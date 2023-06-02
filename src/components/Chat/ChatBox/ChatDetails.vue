@@ -7,7 +7,7 @@
     >
   </div>
   <div
-    v-bind:class="msg.from === 1 ? 'sender' : 'receiver'"
+    v-bind:class="msg.from === this.$store.state.user.data.id ? 'sender' : 'receiver'"
     :style="{
       display: msg.type === 'call' ? 'flex' : '',
       flexDirection: msg.type === 'call' ? 'column' : '',
@@ -18,7 +18,7 @@
       :style="{ display: msg.type === 'call' ? 'none' : '' }"
     >
       <img
-        src="https://pickaface.net/gallery/avatar/20151205_194059_2696_Chat.png"
+        src="https://avatargenerator-preview-2.s3.eu-west-1.amazonaws.com/white_female_young%20adult_greeneye_blondhair_56787.jpg"
       />
     </div>
     <TextContent :msg="msg" />

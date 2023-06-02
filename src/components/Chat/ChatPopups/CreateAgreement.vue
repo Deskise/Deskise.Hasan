@@ -6,16 +6,81 @@
       </div>
       <div class="title">Create An Agreement</div>
       <p class="description">Write Down The Agreement And All The Details</p>
-      <form class="dash-form">
-        <textarea placeholder="Agreement Details"></textarea>
-        <input placeholder="Price" />
-        <input placeholder="The type of files to be delivered" />
-        <textarea placeholder="Notes"></textarea>
+      <form @submit.prevent="sendAgreemnt" class="dash-form">
+        <textarea v-model="details" placeholder="Agreement Details"></textarea>
+        <input v-model="price" placeholder="Price" />
+        <input v-model="filesType" placeholder="The type of files to be delivered" />
+        <textarea v-model="notes" placeholder="Notes"></textarea>
         <button type="submit" class="pelorous">Send</button>
       </form>
     </div>
   </div>
 </template>
+
+<script>
+import { mapState } from "vuex";
+import { ref as storageRef, set } from "@firebase/database";
+import db from "../Api/db";
+export default {
+  data() {
+    return {
+      details: '',
+      price: '',
+      filesType: '',
+      notes: '',
+      chatId: this.$route.params.chatId,
+      senderId: this.$store.state.user.data.id
+    };
+  },
+
+  methods: {
+    sendAgreemnt() {
+      const date = new Date();
+      const formattedDate = date.toISOString();
+      const type = "agreement"
+      const agreement = {
+        "chat_id": this.chatId,
+        "from": this.senderId,
+        "created_at": formattedDate,
+        "type": "agreement",
+        "price": this.price,
+        "notes": this.notes,
+        "details": this.details,
+        "file_types": JSON.stringify(this.filesType),
+        "status": 'agreement_waiting',
+      }
+console.log(agreement);
+      function generateUniqueId() {
+        const timestamp = Date.now();
+        const randomNumber = Math.floor(Math.random() * 10000);
+        return `${timestamp}_${randomNumber}`; 
+      }
+      generateUniqueId()
+      const messageId = generateUniqueId();
+
+      // this.$store.dispatch('chat/agreement', {agreement});
+      this.$store.dispatch('chat/agreement', {agreement, chatId: this.chatId, type: type });
+      
+      set(storageRef(db.db, `chats/${this.chatId}/messages/${messageId}`), agreement);
+
+      // this.price = ''
+      // this.notes = ''
+      // this.details = ''
+      // this.filesType = ''
+    }
+  },
+
+  computed: {
+    ...mapState("chat", ["chats"]),
+    chat() {
+      return this.chats.filter((chat) => chat.id == this.chatId)[0];
+    },
+  }
+
+}
+
+</script>
+
 <style scoped>
 .dash-dailog {
   position: fixed;
@@ -33,9 +98,9 @@
 .dash-dailog .dash-dailog-box {
   background: #fff;
   border-radius: 20px;
-  padding: 50px 70px;
+  padding: 40px 60px;
   min-width: 750px;
-  max-width: 100%;
+  max-width: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,18 +116,18 @@
   max-width: 70px;
 }
 .dash-dailog .icon img {
-  max-width: 100%;
+  max-width: 75%;
   display: block;
   margin: auto;
 }
 
 .dash-dailog .title {
-  font-size: 28px;
+  font-size: 1.3rem;
   color: #040506;
   font-weight: bold;
 }
 .dash-dailog .description {
-  font-size: 24px;
+  font-size: 1.1rem;
   color: #c9c9c9;
   text-align: center;
 }
@@ -74,16 +139,16 @@
 .dash-form textarea,
 .dash-form input,
 .dash-form select {
-  color: rgba(157, 157, 157, 23%);
-  padding: 14px 30px;
+  color: rgba(157, 157, 157);
+  padding: 8px 20px;
   border: 1px solid rgba(157, 157, 157, 23%);
   border-radius: 5px;
   display: block;
   width: 100%;
-  font-size: 20px;
+  font-size: 1rem;
 }
 .dash-form textarea {
-  min-height: 160px;
+  min-height: 100px;
 }
 
 .dash-form button[type="submit"],
@@ -93,7 +158,7 @@
   border-radius: 5px;
   background-color: #4e1b56;
   color: #fff;
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   border: none;

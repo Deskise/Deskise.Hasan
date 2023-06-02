@@ -6,14 +6,14 @@
       :id="chat.user.id"
     />
     <ChatBoxContect />
-    <!--    <DefaultChatBoxFooter />-->
+       <DefaultChatBoxFooter :chat="chat"/>
   </div>
   <ChatAttachment />
 </template>
 <script setup>
 import ChatBoxHeader from "../ChatBox/ChatBoxHeader.vue";
 import ChatBoxContect from "../ChatBox/ChatBoxContect.vue";
-// import DefaultChatBoxFooter from "../ChatBox/DefaultChatBoxFooter.vue";
+import DefaultChatBoxFooter from "../ChatBox/DefaultChatBoxFooter.vue";
 import ChatAttachment from "../ChatAttachment/ChatAttachment.vue";
 </script>
 <script>
