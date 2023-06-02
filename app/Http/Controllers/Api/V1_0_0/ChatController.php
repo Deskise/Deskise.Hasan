@@ -28,6 +28,24 @@ class ChatController extends Controller
             ->values()
         );
     }
+    // public function getChats()
+    // {
+    //     $chats = \request()->user('api')->chats()
+    //         ->paginate(20)
+    //         ->map(function ($chat) {
+    //             $chat->user = $chat->user()->select('id','firstname','lastname','img')->first();
+    //             return $chat->lastMsg();
+    //         })
+    //         ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg?->created_at))
+    //         ->values();
+
+    //     if ($chats->isEmpty()) {
+    //         return APIHelper::jsonRender('', 'There is no data');
+    //     }
+
+    //     return APIHelper::jsonRender('', $chats);
+    // }
+
     public function getMessages(Chat $chat)
     {
         $messages = $chat->messages()->select('*',\DB::raw('"message" as type'))->orderBy('created_at','desc')->paginate(25);
@@ -59,19 +77,23 @@ class ChatController extends Controller
     }
 
     public function message(Request $request, Chat $chat, $type) {
-        if (($validator=\Validator::make($request->all(), [
-            'message'       =>  ['string',Rule::requiredIf($type==='message')],
+        // dd($type);
+        // if (($validator=\Validator::make($request->all(), [
+        //     'message'       =>  ['string',Rule::requiredIf($type==='message')],
+        //     'message'       =>  ['string',Rule::requiredIf($type==='textphoto')],
 
-            'attachments'   =>  ['array','json',Rule::requiredIf($type==='attachment')],
-            'attachments.*' =>  ['string',Rule::requiredIf($type==='attachment')],
+        //     'attachments'   =>  ['array','json',Rule::requiredIf($type==='attachment')],
+        //     'attachments.*' =>  ['string',Rule::requiredIf($type==='attachment')],
+        //     'attachments'   =>  ['array','json',Rule::requiredIf($type==='textphoto')],
+        //     'attachments.*' =>  ['string',Rule::requiredIf($type==='textphoto')],
 
-            'price'         =>  ['numeric',Rule::requiredIf($type==='agreement')],
-            'notes'         =>  ['string',Rule::requiredIf($type==='agreement')],
-            'details'       =>  ['string',Rule::requiredIf($type==='agreement')],
-            'file_types'    =>  ['array','json',Rule::requiredIf($type==='agreement')]
+        //     'price'         =>  ['numeric',Rule::requiredIf($type==='agreement')],
+        //     'notes'         =>  ['string',Rule::requiredIf($type==='agreement')],
+        //     'details'       =>  ['string',Rule::requiredIf($type==='agreement')],
+        //     'file_types'    =>  ['array','json',Rule::requiredIf($type==='agreement')]
 
-        ]))->fails()) return APIHelper::jsonRender('There Was An Error Validating Your Request', $validator->errors(), 400);
-
+        // ]))->fails()) return APIHelper::jsonRender('There Was An Error Validating Your Request', $validator->errors(), 400);
+        // dd($request);
         $message = $chat->messages()->create([
             'type'  => $type,
             'from'  =>  $request->user('api')->id,
@@ -82,19 +104,33 @@ class ChatController extends Controller
                 'attachment'  => [
                     'attachments'=> $request->input('attachments')
                 ],
+                'textphoto' => [
+                    'message' => $request->input('message'),
+                    'attachments'=> $request->input('attachments')
+                ],
                 'agreement' => [
                     'agreement_price'       =>  $request->input('price'),
                     'agreement_notes'       =>  $request->input('notes'),
                     'agreement_details'     =>  $request->input('details'),
                     'agreement_file_types'  =>  $request->input('file_types'),
-                    'status'                =>  'agreement_waiting'
+                    'status'                =>  $request->input('status')
                 ],
                 'call'  => [
                     'status'                =>  'call_running'
                 ]
             }
+            
         ]);
+        if ($request->hasFile('files')) {
+            $files = $request->file('files');
+            foreach ($files as $file) {
+                $fileName = $file->getClientOriginalName(); 
+                $path = 'public/chats/'. $fileName;
+                \Storage::disk('local')->put($path, file_get_contents($file));
+            }
+        }
 
+        
         return APIHelper::jsonRender('success',$message);
     }
 

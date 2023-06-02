@@ -11,9 +11,12 @@ Route::group(['prefix' => '{chat}'], function (){
     Route::get('files', [Chat::class, 'getFiles']);
     Route::get('agreements', [Chat::class, 'getAgreements']);
 
-    Route::post('send/{type}', [Chat::class, 'message'])->where(['type'=>'(agreement|message|call|attachment)']);
-
+    Route::post('send/{type}', [Chat::class, 'message'])->where(['type'=>'(agreement|message|call|attachment|textphoto)']);
+    
     Route::post('report',[Chat::class, 'report']);
     Route::get('block',[Chat::class, 'block']);
     Route::get('unblock',[Chat::class, 'unblock']);
 });
+// Route::post('send/textphoto', [Chat::class, 'message']);
+
+// Route::post('send/{type}', [Chat::class, 'message'])->where(['type'=>'(agreement|message|call|attachment|textphoto)']);
