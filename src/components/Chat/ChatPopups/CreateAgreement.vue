@@ -47,9 +47,8 @@ export default {
         "notes": this.notes,
         "details": this.details,
         "file_types": JSON.stringify(this.filesType),
-        "status": 'agreement_waiting',
+        "status": 'waiting',
       }
-console.log(agreement);
       function generateUniqueId() {
         const timestamp = Date.now();
         const randomNumber = Math.floor(Math.random() * 10000);

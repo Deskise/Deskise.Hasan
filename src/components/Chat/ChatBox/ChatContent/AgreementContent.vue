@@ -18,19 +18,29 @@
                 <span class="key">Notes :</span>
                 {{msg.notes}}
             </div>
-            <div v-if="msg.from === store.state.user.data.id" class="detail ">
-                <span class="key">Status</span>
-                {{msg.status}}
+            <div v-if="msg.status == 'waiting'">
+                <div v-if="msg.from === store.state.user.data.id" class="detail ">
+                    <span class="key">Status</span>
+                    {{msg.status}}
+                </div>
+                <div v-if="msg.from !== store.state.user.data.id" @click="accept" class="detail center">
+                    <button class="btn-accept" value="Accepted">Accept</button>
+                    <button class="btn-decline" value="Declined">Decline</button>
+                </div>
             </div>
-            <div v-if="msg.from !== store.state.user.data.id" class="detail center">
-                <button class="btn-accept">Accept</button>
-                <button class="btn-decline">Decline</button>
+            <div v-else>
+                <div class="detail ">
+                    <span class="key">Status</span>
+                    {{msg.status}}
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script setup>
 import store from "../../../../store";
+import { ref as storageRef, set } from "@firebase/database";
+import db from "../../Api/db";
 // eslint-disable-next-line vue/no-setup-props-destructure, no-undef
 const { msg } = defineProps({
     msg: {
@@ -38,6 +48,38 @@ const { msg } = defineProps({
         type: Object,
     },
 })
+
+const accept = (e) => {
+    const reply = e.srcElement.value
+    const date = new Date();
+    const formattedDate = date.toISOString();
+    const type = "agreement"
+    const fileTypes = JSON.parse(msg.file_types)
+    const agreement = {
+        "chat_id": msg.chat_id,
+        "from": store.state.user.data.id,
+        "created_at": formattedDate,
+        "type": "agreement",
+        "price": msg.price,
+        "notes": msg.notes,
+        "details": msg.details,
+        "file_types": JSON.stringify(fileTypes),
+        "status": reply,
+    }
+    function generateUniqueId() {
+        const timestamp = Date.now();
+        const randomNumber = Math.floor(Math.random() * 10000);
+        return `${timestamp}_${randomNumber}`; 
+      }
+      generateUniqueId()
+      const messageId = generateUniqueId();
+
+      // this.$store.dispatch('chat/agreement', {agreement});
+      store.dispatch('chat/agreement', {agreement, chatId: msg.chat_id, type: type });
+      
+      set(storageRef(db.db, `chats/${msg.chat_id}/messages/${messageId}`), agreement);
+    console.log('agreement Reply:', agreement);
+}
 </script>
 <style scoped>
 .agreemnet-title{
