@@ -113,12 +113,15 @@ class ChatController extends Controller
                     'agreement_notes'       =>  $request->input('notes'),
                     'agreement_details'     =>  $request->input('details'),
                     'agreement_file_types'  =>  $request->input('file_types'),
-                    'status'                =>  $request->input('status')
+                    'status'                =>  $this->getStatus($request->input('status'))
+                    // 'status'                =>  $request->input('status')
                 ],
                 'call'  => [
                     'status'                =>  'call_running'
                 ]
             }
+
+            
             
         ]);
         if ($request->hasFile('files')) {
@@ -134,6 +137,19 @@ class ChatController extends Controller
         return APIHelper::jsonRender('success',$message);
     }
 
+    function getStatus($inputStatus) {
+        switch ($inputStatus) {
+            case 'waiting':
+                return 'agreement_waiting';
+            case 'Accepted':
+                return 'agreement_accepted';
+            case 'Declined':
+                return 'agreement_canceled';
+            default:
+                return null; // Handle any other cases or return a default status if needed
+        }
+    }
+    
     public function report(Request $request, Chat $chat)
     {
         $request->validate([
