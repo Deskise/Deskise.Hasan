@@ -4,6 +4,7 @@ export const namespaced = true;
 
 export const state = {
   chats: [],
+  blocked: []
 };
 
 export const mutations = {
@@ -14,6 +15,14 @@ export const mutations = {
         : null
     );
   },
+
+  BLOCKED(state, payload) {
+    payload.forEach((e) =>
+      state.blocked.filter((c) => c.id == e.id).length === 0
+        ? state.blocked.push(e)
+        : null
+    )
+  }
 };
 
 export const actions = {
@@ -24,18 +33,34 @@ export const actions = {
     });
   },
 
+  async blocked({ commit }, page = 1) {
+    await Chat.blocked(page).then(({ data }) => {
+      console.log('Blocked', data.response.extra);
+      commit('BLOCKED', data.response.extra)
+    })
+  },
+
   async textPhoto(context, { formData, chatId, type }) {
-    console.log('from Chat.js',chatId);
-    console.log('from Chat.js',type);
-    console.log('from Chat.js',context);
+    console.log(context);
     await Chat.chat().send().textPhoto(formData, chatId, type)
   },
 
   async agreement(context, { agreement, chatId, type }) {
-    console.log('from Chat.js',chatId);
-    console.log('from Chat.js', context);
-    console.log('from Chat.js',agreement);
+    console.log(context);
     await Chat.chat().send().agreement(agreement, chatId, type)
+  },
+
+  async report(context, {notes, chat_id}) {
+    console.log("the report",notes);
+    console.log("the report",context);
+    // console.log('chat id: ',chat_id);
+    await Chat.chat(chat_id).report(notes)
+  },
+  
+  async block(context, {chat_id}) {
+    console.log("the report",context);
+    console.log('chat id: ',chat_id);
+    await Chat.chat(chat_id).block()
   }
 };
 

@@ -239,7 +239,7 @@ const sendMsg = async () => {
   top: 10px;
   font-size: 22px;
   color: #3eadb7;
-  top: calc(50% - 9px);
+  top: calc(50% - 15px);
 }
 
 .display-attachments {
@@ -247,19 +247,25 @@ const sendMsg = async () => {
   display: flex;
   justify-content: flex-start;
   width: 90%;
-  border: 1px solid #a5a5a5;
+  background-color: rgba(74, 74, 74, 10%);;
+  border: 1px solid rgba(74, 74, 74, 20%);
   border-radius: 10px;
-  height: 150px;
+  height: 250px;
   z-index: 100;
   margin-top: -15px;
+  margin-inline: auto;
+  padding: 8px;
 }
 .attachments-container {
   position: relative;
-  margin: 5px;
 }
 .attachments-container img{
   width: 60px;
   border-radius: 5px;
+  margin: 5px;
+  object-fit: cover;
+  width: 70px;
+  height: 70px;
 }
 
 .remove-button {

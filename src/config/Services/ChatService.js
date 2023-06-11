@@ -7,6 +7,9 @@ export default {
   list(page) {
     return apiClient.get("/chat/list", ["page." + page], true);
   },
+  blocked(page) {
+    return apiClient.get("/chat/blocked", ["page." + page], true);
+  },
   chat(chat_id) {
     return {
       messages(page) {
@@ -63,8 +66,9 @@ export default {
           },
         };
       },
-      report(note) {
-        return apiClient.post(`/chat/${chat_id}/report`, { note }, true);
+      report(notes) {
+        console.log(notes);
+        return apiClient.post(`/chat/${chat_id}/report`, {notes}, true);
       },
       block() {
         return apiClient.get(`/chat/${chat_id}/block`, [], true);

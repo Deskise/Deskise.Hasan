@@ -8,7 +8,7 @@
     <ChatBoxContect />
        <DefaultChatBoxFooter :chat="chat"/>
   </div>
-  <ChatAttachment />
+  <ChatAttachment :product="chat.product" />
 </template>
 <script setup>
 import ChatBoxHeader from "../ChatBox/ChatBoxHeader.vue";
@@ -39,6 +39,7 @@ export default {
   overflow: hidden;
   flex-direction: column;
   display: flex;
+  margin-bottom: -70px;
 }
 @media (max-width: 639px) {
   .chat-box {

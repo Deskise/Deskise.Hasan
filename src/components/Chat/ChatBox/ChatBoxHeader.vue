@@ -1,8 +1,8 @@
 <template>
   <div class="chat-box-header">
-    <button id="open-contacts" class="dash-btn sm">
+    <!-- <button id="open-contacts" class="dash-btn sm">
       <span>Contacts</span>
-    </button>
+    </button> -->
     <div class="avatar-image">
       <img :src="img" />
     </div>
@@ -27,9 +27,9 @@
         </ul>
       </div>
     </div>
-    <button id="open-agreements" class="dash-btn sm">
+    <!-- <button id="open-agreements" class="dash-btn sm">
       <span>Attachments</span>
-    </button>
+    </button> -->
   </div>
 </template>
 <script>
@@ -56,8 +56,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 60px;
+  padding: 10px 60px;
   background-color: #fff;
+  max-height: 100vh;
 }
 .chat-box-header .chat-box-order {
   margin-left: 25px;

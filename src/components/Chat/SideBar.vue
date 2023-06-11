@@ -9,20 +9,68 @@
       </div>
       <input placeholder="Search Message" />
     </div>
-    <ul class="dash-list-contacts">
-      <MsgDetails />
-    </ul>
+    <div>
+      <div class="contacts-switch">
+        <ul class="tabs-links">
+          <a class="link" :class="{ active: contacts==='contacts'}" href="javascript:void(0)" 
+            @click="this.contacts = 'contacts'">Contacts</a>
+          <a class="link" :class="{ active: contacts==='blocked'}" href="javascript:void(0)" 
+            @click="this.contacts = 'blocked'">Blocked</a>
+        </ul>
+      </div>
+      <ul v-if="contacts === 'contacts'" class="dash-list-contacts">
+        <MsgDetails :chats="chats" />
+      </ul>
+      <ul v-if="contacts === 'blocked'" class="dash-list-contacts">
+        <MsgDetails :chats="blocked" />
+      </ul>
+    </div>
   </div>
 </template>
 <script>
 import MsgDetails from "./Messge/MsgDetails.vue";
+import { mapState } from "vuex";
 export default {
+  data() {
+    return {
+      contacts: 'contacts'
+    }
+  },
   components: {
     MsgDetails,
   },
+  computed: {
+    ...mapState("chat", ["chats", "blocked"]),
+  },
+  created() {
+  this.$store.dispatch("chat/blocked");
+},
 };
 </script>
 <style scoped>
+.contacts-switch{
+  margin-top: 10px;
+}
+.tabs-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(16, 27, 79, 10%);
+  margin-bottom: 15px;
+}
+.tabs-links .link {
+  font-size: 0.8rem;
+  color: #040506;
+  text-align: center;
+  font-weight: 500;
+}
+.tabs-links .link.active {
+  color: #3eadb7;
+  border-bottom: 1px solid #3eadb7;
+}
+ul{
+  padding-left: 0;
+}
 .dash-btn {
   padding: 15px 72px;
   border-radius: 5px;
@@ -51,7 +99,7 @@ export default {
   margin-bottom: 25px;
 }
 .dash-chat .dash-contacts {
-  max-width: 350px;
+  max-width: 450px;
   padding: 20px;
   background-color: #fff;
 }

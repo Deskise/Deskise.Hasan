@@ -1,15 +1,15 @@
 <template>
   <div class="chat-attachment" style="right: 0">
     <span id="close-agreements">
-      <font-awesome-component icon="times" :bold="false" />
+      <!-- <font-awesome-component icon="times" :bold="false" /> -->
     </span>
     <div class="chat-product">
       <div class="product-info">
         <div class="product-title-and-price">
-          <div class="product-title">Name Product ..........T</div>
+          <div class="product-title">{{ product.name }}</div>
           <div class="product-price-discount">
-            <span class="product-price">200$</span>
-            <span class="product-old-price">350$</span>
+            <span class="product-price">{{ product.price }}$</span>
+            <span v-if="product.old_price" class="product-old-price">{{ product.old_price }}$</span>
           </div>
         </div>
         <div class="product-action-and-order">
@@ -18,8 +18,7 @@
         </div>
       </div>
       <div class="product-details">
-        Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy
-        Eirmod Tempor Invidunt Ut Labore
+        {{ product.description }}
       </div>
     </div>
     <div class="chat-attachment-tabs">
@@ -99,7 +98,7 @@
         </div>
       </div>
     </div>
-    <div class="ringing-call">
+    <!-- <div class="ringing-call">
       <div class="avatar-image lg">
         <img src="@/assets/images/chat-avatar.png" />
       </div>
@@ -115,15 +114,28 @@
           <font-awesome-component icon="phone" :bold="false" />
         </a>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
+
+<script>
+
+export default {
+  props: {
+    product: {}
+  }
+}
+
+</script>
+
 <style scoped>
 .chat-attachment {
   max-width: 390px;
   padding: 20px 35px;
   background-color: #fff;
   position: relative;
+  max-height: calc(100vh - 80px);
+  overflow-y: scroll;
 }
 .chat-product {
   margin-bottom: 10px;
@@ -142,8 +154,8 @@
 }
 .chat-product .product-title {
   color: #040506;
-  font-size: 20px;
-  margin-bottom: 5x;
+  font-size: 1.1rem;
+  /* margin-bottom: 5x; */
   font-weight: bold;
 }
 .chat-product .product-price-discount {
@@ -152,7 +164,7 @@
 .chat-product .product-price {
   color: #3eadb7;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.2rem;
   display: inline-block;
   margin-right: 8px;
 }
@@ -171,13 +183,14 @@
 }
 
 .chat-product .product-order {
-  font-size: 20px;
+  font-size: 1rem;
   color: #9b9b9b;
 }
 
 .chat-product .product-details {
-  font-size: 18px;
-  margin-bottom: 15px;
+  font-size: 1rem;
+  /* margin-bottom: 4px; */
+  text-align: left;
 }
 
 .chat-attachment-tabs {

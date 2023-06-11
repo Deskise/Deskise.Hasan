@@ -19,7 +19,7 @@
                 {{msg.notes}}
             </div>
             <div v-if="msg.status == 'waiting'">
-                <div v-if="msg.from === store.state.user.data.id" class="detail ">
+                <div v-if="msg.from === store.state.user.data.id" class="detail">
                     <span class="key">Status</span>
                     {{msg.status}}
                 </div>
@@ -83,14 +83,17 @@ const accept = (e) => {
 </script>
 <style scoped>
 .agreemnet-title{
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    text-align: center;
 }
 .detail{
-    font-size: 16px;
-    color: #9D9D9D;
+    font-size: 1rem;
+    color: #5f5f5f;
     padding: 10px 0px;
-    border-bottom: 1px solid #9D9D9D;
-    line-height: 24px;
+    border-bottom: 1px solid #b3b3b3;
+    line-height: 21px;
+    /* text-align: left; */
 }
 .center{
     display: flex;
@@ -100,8 +103,9 @@ const accept = (e) => {
     margin-top: 10px;
 }
 .key{
-    font-size: 20px;
+    font-size: 1rem;
     color: #040506;
+    font-weight: 500;
 }
 
 .btn-accept {

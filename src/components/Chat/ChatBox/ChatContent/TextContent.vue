@@ -12,3 +12,9 @@ const { msg } = defineProps({
     },
 })
 </script>
+
+<style>
+.content-chat-text{
+    text-align: left;
+}
+</style>

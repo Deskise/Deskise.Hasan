@@ -37,7 +37,9 @@ const msgImgs = computed(() => {
 }
 img{
     margin-right: 5px;
-    width: 100px;
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
 }
 
 </style>

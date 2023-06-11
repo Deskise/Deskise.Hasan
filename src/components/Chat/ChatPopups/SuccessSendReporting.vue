@@ -10,12 +10,35 @@
         Want To End The Conversation!
       </p>
       <div class="dailog-buttons-actions">
-        <button class="ending">Ending</button>
-        <button class="back-conversation">Back Conversation</button>
+        <button @click="block" class="ending">Block</button>
+        <button @click="back" class="back-conversation">Back Conversation</button>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default{
+  data(){
+    return {
+      chat_id: this.$route.params.chatId
+    }
+  },
+  methods: {
+  back() {
+    this.$router.back();
+    this.$router.back();
+  },
+  async block() {
+    await this.$store.dispatch('chat/block', {chat_id: this.chat_id});
+    await this.$router.push(`/chats/${this.chat_id}`);
+  }
+}
+}
+
+
+</script>
+
 <style scoped>
 .dash-dailog {
   position: fixed;

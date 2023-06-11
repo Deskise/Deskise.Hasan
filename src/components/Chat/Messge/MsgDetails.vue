@@ -30,13 +30,16 @@
   </li>
 </template>
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 
 export default {
   name: "msg-details",
-  computed: {
-    ...mapState("chat", ["chats"]),
-  },
+  props: {
+    chats: []
+  }
+  // computed: {
+  //   ...mapState("chat", ["chats"]),
+  // },
 };
 </script>
 <style scoped>
@@ -53,7 +56,7 @@ export default {
   width: 40px;
   height: 40px;
   overflow: hidden;
-  margin-right: 16px;
+  /* margin-right: 6px; */
 }
 .dash-contact-item .dash-contact-image img {
   border-radius: 50%;
@@ -63,9 +66,9 @@ export default {
 }
 .dash-contact-item .contact-name {
   padding-top: 8px;
-  font-size: 16px;
+  font-size: 0.8rem;
   color: #4e1b56;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 .dash-contact-item .contact-last-message {
   font-size: 12px;
@@ -82,12 +85,13 @@ export default {
   color: #9d9d9d;
 }
 .dash-contact-item .contact-last-messages-count {
-  width: 22px;
-  height: 22px;
-  line-height: 22px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
   background-color: #3eadb7;
   border-radius: 50%;
   color: #fff;
   text-align: center;
+  font-size: 13px;
 }
 </style>

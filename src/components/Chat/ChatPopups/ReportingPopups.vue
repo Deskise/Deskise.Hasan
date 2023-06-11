@@ -6,13 +6,38 @@
       </div>
       <div class="title">Reporting</div>
       <p class="description">Lorem Ipsum Dolor Sit Amet, Consetetur</p>
-      <form class="dash-form">
-        <textarea placeholder="Test Message"></textarea>
+      <form @submit.prevent="send" class="dash-form">
+        <textarea v-model="report" placeholder="Test Message"></textarea>
         <button type="submit">Send</button>
       </form>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+      report:'',
+      chat_id: this.$route.params.chatId
+    }
+  },
+
+  methods: {
+    async send() {
+      try {
+        await this.$store.dispatch('chat/report', {notes:this.report, chat_id:this.chat_id});
+        await this.$router.push(`/chats/${this.chat_id}/reporting/success`);
+      }catch (e) {
+        console.log(e);
+      }
+    }
+  }
+
+}
+
+</script>
+
 <style scoped>
 .dash-dailog {
   position: fixed;
@@ -29,9 +54,9 @@
 .dash-dailog .dash-dailog-box {
   background: #fff;
   border-radius: 20px;
-  padding: 50px 70px;
+  padding: 40px 60px;
   min-width: 750px;
-  max-width: 100%;
+  max-width: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,17 +71,17 @@
   max-width: 70px;
 }
 .dash-dailog .icon img {
-  max-width: 100%;
+  max-width: 75%;
   display: block;
   margin: auto;
 }
 .dash-dailog .title {
-  font-size: 28px;
+  font-size: 1.3rem;
   color: #040506;
   font-weight: bold;
 }
 .dash-dailog .description {
-  font-size: 24px;
+  font-size: 1.1rem;
   color: #c9c9c9;
   text-align: center;
 }
@@ -67,24 +92,25 @@
 .dash-form input,
 .dash-form select {
   color: rgba(157, 157, 157, 23%);
-  padding: 14px 30px;
+  padding: 8px 20px;
   border: 1px solid rgba(157, 157, 157, 23%);
   border-radius: 5px;
   display: block;
   width: 100%;
-  font-size: 20px;
+  font-size: 1rem;
 }
 .dash-form textarea {
-  min-height: 160px;
+  min-height: 120px;
+  color: #040506;
 }
 .dash-form button[type="submit"],
 .dash-form input[type="submit"] {
   width: 100%;
-  padding: 16px;
+  padding: 12px;
   border-radius: 5px;
   background-color: #4e1b56;
   color: #fff;
-  font-size: 20px;
+  font-size: 1.1rem;;
   font-weight: bold;
   cursor: pointer;
   border: none;

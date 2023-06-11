@@ -25,7 +25,8 @@ export default {
   align-items: stretch;
   position: relative;
   overflow: hidden;
-}
+  max-height: 100vh;
+} 
 
 @media (max-width: 639px) {
   .dash-chat .chat-attachment {

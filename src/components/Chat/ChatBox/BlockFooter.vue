@@ -1,6 +1,6 @@
 <template>
   <div class="chat-box-footer">
-    <div class="cannot-communication">You cannot communicate with him</div>
+    <div class="cannot-communication">You cannot communicate with this contanct - Blocked</div>
   </div>
 </template>
 <style scoped>
