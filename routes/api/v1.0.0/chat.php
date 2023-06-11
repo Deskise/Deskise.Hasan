@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1_0_0\ChatController as Chat;
 Route::get('rules', [Chat::class, 'getRules']);
 
 Route::get('list', [Chat::class, 'getChats']);
+Route::get('blocked', [Chat::class, 'getBlockedChats']);
 Route::group(['prefix' => '{chat}'], function (){
 
     Route::get('messages', [Chat::class, 'getMessages']);

@@ -19,6 +19,7 @@ class ChatController extends Controller
     public function getChats()
     {
         return APIHelper::jsonRender('', \request()?->user('api')->chats()
+            ->where('blocked', false)
             ->paginate(20)
             ->map(function ($chat) {
                 $chat->user = $chat->user()->select('id','firstname','lastname','img')->first();
@@ -28,6 +29,21 @@ class ChatController extends Controller
             ->values()
         );
     }
+
+    public function getBlockedChats()
+    {
+        return APIHelper::jsonRender('', request()?->user('api')->chats()
+            ->where('blocked', true) // Filter only blocked chats
+            ->paginate(20)
+            ->map(function ($chat) {
+                $chat->user = $chat->user()->select('id', 'firstname', 'lastname', 'img')->first();
+                return $chat->lastMsg();
+            })
+            ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg?->created_at))
+            ->values()
+        );
+    }
+
     // public function getChats()
     // {
     //     $chats = \request()->user('api')->chats()
@@ -146,7 +162,7 @@ class ChatController extends Controller
             case 'Declined':
                 return 'agreement_canceled';
             default:
-                return null; // Handle any other cases or return a default status if needed
+                return null;
         }
     }
     
