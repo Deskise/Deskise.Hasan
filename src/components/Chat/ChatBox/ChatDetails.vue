@@ -39,6 +39,7 @@ import ImageContent from "../ChatBox/ChatContent/ImageContent.vue";
 import TextImageContent from "../ChatBox/ChatContent/TextImageContent.vue";
 import AgreementContent from "../ChatBox/ChatContent/AgreementContent.vue";
 import CallMessage from "../ChatBox/ChatContent/CallMessage.vue";
+
 // eslint-disable-next-line vue/no-setup-props-destructure, no-undef
 const { msg } = defineProps({
   msg: {

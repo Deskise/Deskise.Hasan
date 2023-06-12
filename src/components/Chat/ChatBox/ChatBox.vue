@@ -6,7 +6,8 @@
       :id="chat.user.id"
     />
     <ChatBoxContect />
-       <DefaultChatBoxFooter :chat="chat"/>
+      <BlockFooter v-if="chat.blocked" />
+       <DefaultChatBoxFooter v-if="!chat.blocked" :chat="chat"/>
   </div>
   <ChatAttachment :product="chat.product" />
 </template>
@@ -15,6 +16,7 @@ import ChatBoxHeader from "../ChatBox/ChatBoxHeader.vue";
 import ChatBoxContect from "../ChatBox/ChatBoxContect.vue";
 import DefaultChatBoxFooter from "../ChatBox/DefaultChatBoxFooter.vue";
 import ChatAttachment from "../ChatAttachment/ChatAttachment.vue";
+import BlockFooter from "../ChatBox/BlockFooter.vue";
 </script>
 <script>
 import { mapState } from "vuex";

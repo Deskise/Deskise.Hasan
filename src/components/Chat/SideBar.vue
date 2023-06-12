@@ -19,7 +19,7 @@
         </ul>
       </div>
       <ul v-if="contacts === 'contacts'" class="dash-list-contacts">
-        <MsgDetails :chats="chats" />
+        <MsgDetails :chats="notBlocked" />
       </ul>
       <ul v-if="contacts === 'blocked'" class="dash-list-contacts">
         <MsgDetails :chats="blocked" />
@@ -41,8 +41,24 @@ export default {
   },
   computed: {
     ...mapState("chat", ["chats", "blocked"]),
+    notBlocked() {
+      return this.chats.filter(chat => !Object.prototype.hasOwnProperty.call(chat, 'blocked'));
+    },
+    isBlocked() {
+      return this.chats.filter(chat => Object.prototype.hasOwnProperty.call(chat, 'blocked'));
+    }
   },
-  created() {
+  watch: {
+    chats: {
+      handler: function() {
+        this.$nextTick(() => {
+          this.$forceUpdate();
+        });
+      },
+      deep: true
+    }
+  },
+created() {
   this.$store.dispatch("chat/blocked");
 },
 };

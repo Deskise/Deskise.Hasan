@@ -19,13 +19,14 @@
           }}
         </div> -->
       </div>
-      <div class="contact-time-count">
+      <div v-if="!c.blocked" class="contact-time-count">
         <div class="contact-last-messages-time">
           {{ new Date(c.lastMsg?.created_at).getHours() }}:
           {{ new Date(c.lastMsg?.created_at).getMinutes() }}
         </div>
         <div class="contact-last-messages-count">4</div>
       </div>
+      <div v-if="c.blocked" class="blocked">Blocked</div>
     </router-link>
   </li>
 </template>
@@ -43,6 +44,11 @@ export default {
 };
 </script>
 <style scoped>
+.blocked {
+  color: tomato;
+  font-size: 0.7rem;
+  padding-top: 18px;
+}
 .dash-contact-item {
   padding: 18px 0px;
   border-bottom: 1px solid rgba(16, 27, 79, 10%);
