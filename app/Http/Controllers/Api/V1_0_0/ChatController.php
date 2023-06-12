@@ -33,7 +33,7 @@ class ChatController extends Controller
     public function getBlockedChats()
     {
         return APIHelper::jsonRender('', request()?->user('api')->chats()
-            ->where('blocked', true) // Filter only blocked chats
+            ->where('blocked', true)
             ->paginate(20)
             ->map(function ($chat) {
                 $chat->user = $chat->user()->select('id', 'firstname', 'lastname', 'img')->first();
