@@ -153,6 +153,9 @@ export const getters = {
       state.data.token === null
     );
   },
+  userId: (state) => {
+    return state.data.id;
+  },
   getUserData: (state) => {
     return {
       backup_email: state.data.backup_email,

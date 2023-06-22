@@ -23,30 +23,38 @@
     </div>
     <div class="chat-attachment-tabs">
       <ul class="tabs-links">
-        <li><a class="link active" href="javascript:void(0)">Agreemnts</a></li>
-        <li><a class="link" href="javascript:void(0)">Files</a></li>
-        <li><a class="link" href="javascript:void(0)">Rules</a></li>
+        <li @click="this.tabs = 'agreements'">
+          <a class="link" :class="{ active: tabs ==='agreements'}" href="javascript:void(0)">Agreemnts</a>
+        </li>
+        <li @click="this.tabs = 'files'">
+          <a class="link" :class="{ active: tabs ==='files'}" href="javascript:void(0)">Files</a>
+        </li>
+        <li @click="this.tabs = 'rules'">
+          <a class="link" :class="{ active: tabs ==='rules'}" href="javascript:void(0)">Rules</a>
+        </li>
       </ul>
-      <div class="agreemet-tab">
-        <div class="dash-agreement">
+      <div v-if="tabs === 'agreements'" class="agreemet-tab">
+        <div v-for="(agreement, index) in agreements" :key="index" class="dash-agreement">
           <div class="agreement-title">Agreement Details</div>
           <p class="agreement-details">
-            Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr,
+            {{ agreement.details }}
             <button class="dash-btn read-agreement-btn">Read Agreement</button>
           </p>
         </div>
-        <div class="dash-agreement">
-          <div class="agreement-title">Agreement Details</div>
+      </div>
+      <div v-if="tabs === 'files'" class="agreemet-tab">
+        <div v-for="(file, index) in files" :key="index" class="dash-agreement">
+          <div class="agreement-title">Files</div>
           <p class="agreement-details">
-            Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr,
-            <button class="dash-btn read-agreement-btn">Read Agreement</button>
+            {{ file.attachments }}
           </p>
         </div>
+      </div>
+      <div v-if="tabs === 'rules'" class="agreemet-tab">
         <div class="dash-agreement">
-          <div class="agreement-title">Agreement Details</div>
+          <div class="agreement-title">Rules</div>
           <p class="agreement-details">
-            Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr,
-            <button class="dash-btn read-agreement-btn">Read Agreement</button>
+            this is the Rules tab
           </p>
         </div>
       </div>
@@ -119,10 +127,18 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
 export default {
+  data() {
+    return {
+      tabs: 'agreements'
+    }
+  },
   props: {
-    product: {}
+    product: {},
+  },
+  computed: {
+    ...mapGetters("chat", ["agreements", "files"]),
   }
 }
 
@@ -194,7 +210,7 @@ export default {
 }
 
 .chat-attachment-tabs {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .chat-attachment .tabs-links {
@@ -203,10 +219,11 @@ export default {
   align-items: center;
   border-bottom: 1px solid rgba(16, 27, 79, 10%);
   margin-bottom: 15px;
+  padding-left: 1px !important;
 }
 
 .chat-attachment .tabs-links .link {
-  font-size: 18px;
+  font-size: 14px;
   color: #040506;
   text-align: center;
 }
@@ -216,29 +233,35 @@ export default {
 }
 .dash-agreement {
   border-bottom: 1px solid rgba(16, 27, 79, 10%);
-  padding: 15px 0px;
+  padding: 8px 0px;
 }
 
 .dash-agreement .agreement-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #040506;
+  margin-bottom: 8px;
 }
 .dash-agreement .agreement-details {
-  font-size: 18px;
+  display: flex;
+  font-size: 14px;
+  text-align: left;
   color: #9b9b9b;
 }
 .dash-agreement .agreement-details .read-agreement-btn {
-  padding: 10px;
+  padding: 4px;
   cursor: pointer;
   color: #3eadb7;
   border: 1px solid #3eadb7;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 12px;
   flex-grow: 1;
   display: inline-block;
   margin-left: 10px;
+  margin-top: auto;
   background-color: #fff;
+  min-width: max-content;
+  max-height: 40px;
 }
 
 .dash-history-calls {

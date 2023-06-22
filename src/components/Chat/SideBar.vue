@@ -19,7 +19,7 @@
         </ul>
       </div>
       <ul v-if="contacts === 'contacts'" class="dash-list-contacts">
-        <MsgDetails :chats="notBlocked" />
+        <MsgDetails :chats="chats" />
       </ul>
       <ul v-if="contacts === 'blocked'" class="dash-list-contacts">
         <MsgDetails :chats="blocked" />
@@ -29,7 +29,8 @@
 </template>
 <script>
 import MsgDetails from "./Messge/MsgDetails.vue";
-import { mapState } from "vuex";
+import {  mapGetters  } from "vuex";
+
 export default {
   data() {
     return {
@@ -40,13 +41,7 @@ export default {
     MsgDetails,
   },
   computed: {
-    ...mapState("chat", ["chats", "blocked"]),
-    notBlocked() {
-      return this.chats.filter(chat => !Object.prototype.hasOwnProperty.call(chat, 'blocked'));
-    },
-    isBlocked() {
-      return this.chats.filter(chat => Object.prototype.hasOwnProperty.call(chat, 'blocked'));
-    }
+    ...mapGetters('chat', ['chats', 'blocked', 'hidden']),
   },
   watch: {
     chats: {

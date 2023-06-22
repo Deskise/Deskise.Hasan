@@ -6,6 +6,7 @@
 <script setup>
 import { ref, watch, onMounted, nextTick } from "vue";
 import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 import ChatDetails from "../ChatBox/ChatDetails.vue";
 import ChatMessages from "../Api/ChatMessage"
 import { ref as storageRef, onValue } from "@firebase/database";
@@ -15,6 +16,7 @@ const ChatMessage = ref([]);
 const messeges = ref([]);
 const route = useRoute();
 const chatId = ref();
+const store = useStore();
 
 const chatBoxRef = ref(null)
 
@@ -56,6 +58,7 @@ watch(
       messeges.value = ChatMessage.value.sort(function (a, b) {
         return new Date(a.created_at) - new Date(b.created_at);
       });
+      store.commit('chat/SET_USER_CHAT', messeges.value)
       scrollToBottom();
     });
   }

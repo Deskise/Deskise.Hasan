@@ -6,8 +6,8 @@
       :id="chat.user.id"
     />
     <ChatBoxContect />
-      <BlockFooter v-if="chat.blocked" />
-       <DefaultChatBoxFooter v-if="!chat.blocked" :chat="chat"/>
+      <BlockFooter v-if="chat.blocker.length > 0" />
+      <DefaultChatBoxFooter v-if="chat.blocker.length === 0" :chat="chat"/>
   </div>
   <ChatAttachment :product="chat.product" />
 </template>
@@ -19,7 +19,7 @@ import ChatAttachment from "../ChatAttachment/ChatAttachment.vue";
 import BlockFooter from "../ChatBox/BlockFooter.vue";
 </script>
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   props: {
@@ -27,10 +27,14 @@ export default {
   },
   computed: {
     ...mapState("chat", ["chats"]),
+    ...mapGetters("chat", ["agreements", "files"]),
     chat() {
       return this.chats.filter((chat) => chat.id == this.chatId)[0];
     },
   },
+
+
+  
 };
 </script>
 <style scoped>
@@ -41,7 +45,7 @@ export default {
   overflow: hidden;
   flex-direction: column;
   display: flex;
-  margin-bottom: -70px;
+  /* margin-bottom: -70px; */
 }
 @media (max-width: 639px) {
   .chat-box {
