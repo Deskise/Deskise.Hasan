@@ -16,23 +16,44 @@ class ChatController extends Controller
         return 'rules';
     }
 
+    // public function getChats()
+    // {
+    //     return APIHelper::jsonRender('', \request()?->user('api')->chats()
+    //         ->where('blocked', false)
+    //         ->paginate(20)
+    //         ->map(function ($chat) {
+    //             $chat->user = $chat->user()->select('id','firstname','lastname','img')->first();
+    //             return $chat->lastMsg();
+    //         })
+    //         ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg?->created_at))
+    //         ->values()
+    //     );
+    // }
+
     public function getChats()
     {
-        return APIHelper::jsonRender('', \request()?->user('api')->chats()
-            ->where('blocked', false)
+        $chats = \request()?->user('api')->chats()
+            // ->where('blocked', false)
             ->paginate(20)
             ->map(function ($chat) {
                 $chat->user = $chat->user()->select('id','firstname','lastname','img')->first();
                 return $chat->lastMsg();
             })
             ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg?->created_at))
-            ->values()
-        );
+            ->values();
+
+            $additionalData = $chats->map(function ($chat) {
+                $blocker = $chat->blocker()->select(['id', 'firstname'])->get();
+                $chat->blocker = $blocker;
+                return $chat;
+            });
+
+        return APIHelper::jsonRender('', $chats->merge($additionalData));
     }
 
     public function getBlockedChats()
     {
-        return APIHelper::jsonRender('', request()?->user('api')->chats()
+        $chats = \request()?->user('api')->chats()
             ->where('blocked', true)
             ->paginate(20)
             ->map(function ($chat) {
@@ -40,9 +61,17 @@ class ChatController extends Controller
                 return $chat->lastMsg();
             })
             ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg?->created_at))
-            ->values()
-        );
+            ->values();
+
+        $additionalData = $chats->map(function ($chat) {
+            $blockedChats = $chat->blocker()->select(['id', 'firstname'])->get();
+            $chat->blockedChats = $blockedChats;
+            return $chat;
+        });
+
+        return APIHelper::jsonRender('', $chats->merge($additionalData));
     }
+
 
     // public function getChats()
     // {

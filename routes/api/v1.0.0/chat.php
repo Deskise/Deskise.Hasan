@@ -6,6 +6,7 @@ Route::get('rules', [Chat::class, 'getRules']);
 
 Route::get('list', [Chat::class, 'getChats']);
 Route::get('blocked', [Chat::class, 'getBlockedChats']);
+
 Route::group(['prefix' => '{chat}'], function (){
 
     Route::get('messages', [Chat::class, 'getMessages']);
@@ -18,6 +19,3 @@ Route::group(['prefix' => '{chat}'], function (){
     Route::get('block',[Chat::class, 'block']);
     Route::get('unblock',[Chat::class, 'unblock']);
 });
-// Route::post('send/textphoto', [Chat::class, 'message']);
-
-// Route::post('send/{type}', [Chat::class, 'message'])->where(['type'=>'(agreement|message|call|attachment|textphoto)']);
