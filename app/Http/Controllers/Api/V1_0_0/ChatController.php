@@ -209,11 +209,13 @@ class ChatController extends Controller
 
     public function block(Request $request, Chat $chat)
     {
-        $chat->update([
-            'blocked'       =>  true,
-            'blocker_id'    =>  auth('api')->id()
-        ]);
-        return APIHelper::jsonRender('success',$chat->refresh()->isBlocked());
+    $chat->delete();
+
+        // $chat->update([
+        //     'blocked'       =>  true,
+        //     'blocker_id'    =>  auth('api')->id()
+        // ]);
+        // return APIHelper::jsonRender('success',$chat->refresh()->isBlocked());
     }
     public function unblock(Request $request, Chat $chat)
     {
