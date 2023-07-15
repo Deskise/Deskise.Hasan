@@ -32,5 +32,10 @@ export const routes = [
     meta: {
       requireAuth: true,
     },
+    beforeEnter: async function (routeTo, from, next) {
+      // let id = routeTo.query.id ?? store.state.user.data.id;
+      await store.dispatch("affiliate/getAffiliats");
+    next();
+    },
   },
 ];

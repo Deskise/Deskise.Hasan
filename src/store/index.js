@@ -6,6 +6,7 @@ import * as data from "./Modules/Data";
 import * as blog from "./Modules/Blog";
 import * as product from "./Modules/Product";
 import * as chat from "./Modules/Chat";
+import * as affiliate from "./Modules/Affiliate";
 
 export default createStore({
   state: {
@@ -64,5 +65,6 @@ export default createStore({
     blog,
     product,
     chat,
+    affiliate
   },
 });

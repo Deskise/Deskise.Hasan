@@ -1,7 +1,8 @@
 <template>
   <div class="checkbox">
     <label class="switch">
-      <input type="checkbox" :checked="checked" />
+      <input type="checkbox" v-model="isChecked" />
+      <!-- <input type="checkbox" :checked="checked" /> -->
       <span class="slider round"></span>
     </label>
   </div>
@@ -16,7 +17,17 @@ export default {
       default: false,
     },
   },
-};
+  computed: {
+    isChecked: {
+      get() {
+        return this.checked;
+      },
+      set(value) {
+        this.$emit('update:checked', value);
+      },
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

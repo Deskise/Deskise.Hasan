@@ -70,6 +70,13 @@
                     />
                     <p>{{ this.product.likes }}</p>
                   </div>
+                  <div v-if="product.affiliating" class="affiliate" @click="affiliate">
+                    <flat-icon-component
+                      icon="share"
+                      :type="'solid'"
+                    />
+                  </div>
+                  <p v-show="showCopiedToaster" class="copied_toaster">Link copied to clipboard</p>
                 </div>
               </div>
               <div class="title">{{ product.name }}</div>
@@ -400,6 +407,7 @@ export default {
     return {
       // product: this.$store.state.product.products.data[this.id],
       comletePayMent: false,
+      showCopiedToaster: false
     };
   },
   methods: {
@@ -412,6 +420,52 @@ export default {
         this.$store.state.product.products.data[this.id].liked = false;
         this.$store.state.product.products.data[this.id].likes--;
       }
+    },
+    affiliate() {
+      const ownerId = this.product.user.id
+      const userId = this.$store.state.user.data.id
+      const productId = this.id
+      const trackingCode = this.generateTrackingCode();
+
+      // Generate the affiliate link using Laravel route and query parameters
+      const baseUrl = process.env.VUE_APP_FRONTEND_URL
+      const affiliateLink = `${baseUrl}/product/${productId}?owner=${ownerId}&user=${userId}&tracking=${trackingCode}`;
+      console.log(affiliateLink );
+      const data = {
+        affiliator_id: userId,
+        owner_id : ownerId,
+        product_id: productId,
+        tracking_code: trackingCode,
+        tracking_url: affiliateLink
+      }
+      const el = document.createElement('textarea');
+        el.value = affiliateLink;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+      this.$store.dispatch('affiliate/save', data)
+      this.showCopiedToaster = true;
+
+      // Hide the "Link copied to clipboard" message after 3 seconds
+      setTimeout(() => {
+        this.showCopiedToaster = false;
+      }, 3000);
+    },
+    generateTrackingCode() {
+      const length = 8; // Length of the tracking code
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let trackingCode = '';
+
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        trackingCode += characters.charAt(randomIndex);
+      }
+
+      return trackingCode;
     },
     DeleteOffinsive() {
       setTimeout(() => {
@@ -446,6 +500,15 @@ export default {
 
 <style lang="css" scoped src="./Single.css"></style>
 <style>
+
+.copied_toaster {
+  padding: 4px 8px;
+  border: 1px solid rgba(172, 197, 198, 30%);
+  border-radius: 10px;
+  color: #3eadb7;
+  font-size: 0.8rem;
+  width: max-content;
+}
 .actions {
 	 height: auto;
 }
@@ -489,6 +552,14 @@ export default {
 	 position: absolute;
 	 margin: 0;
 	 bottom: -20px;
+}
+
+.actions .affiliate {
+	 background: transparent;
+	 color: #c9c9c9;
+	 border: 1px solid #c9c9c9;
+	 position: relative;
+   margin-top: 15px;
 }
  
 .offcanvas {

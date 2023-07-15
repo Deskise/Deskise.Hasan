@@ -84,24 +84,27 @@
                 class="icon-menu"
                 @click="toggleNotification"
               >
-                <span class="dash-count">1</span>
+                <span class="dash-count">{{ this.notificationList.length }}</span>
                 <flat-icon-component icon="bell" type="r"></flat-icon-component>
               </a>
               <ul
                 id="dash-notifications-menu"
                 :class="{ 'd-block': showNotificationList }"
               >
-                <li class="dash-notification-item">
-                  <a class="" href="javascript:void(0)">
-                    <span class="order-number">#32123</span>
-                    <span class="order-status">Correspondence Request</span>
-                    <span class="order-icon">
-                      <flat-icon-component
-                        icon="arrow-right"
-                      ></flat-icon-component>
-                    </span>
-                  </a>
-                </li>
+                <div v-for="(notification, key) in this.notificationList" :key="key" 
+                @click="read(notification, key)">
+                  <li class="dash-notification-item">
+                    <a class="" href="javascript:void(0)">
+                      <span class="order-number">{{ notification.id }}</span>
+                      <span class="order-status">{{ notification.title }}</span>
+                      <span class="order-icon">
+                        <flat-icon-component
+                          icon="arrow-right"
+                        ></flat-icon-component>
+                      </span>
+                    </a>
+                  </li>
+                </div>
               </ul>
             </li>
             <li>
@@ -188,35 +191,34 @@
       </div>
     </div>
   </nav>
+  <ReadNotification v-if="show" :notification="this.notification" @close="closeNotificationPopup"/>
 </template>
 
 <script>
-//TODO: notification menu show/hide.
-//TODO: notifiaction component.
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
+import db from "../Chat/Api/db";
+import { ref as storageRef, onValue, update } from "@firebase/database";
+
+import ReadNotification from "../ReadNotification.vue";
+
 export default {
+  components: { ReadNotification },
+
   mounted() {
-    // Array.from(document.querySelectorAll("#app *")).forEach((e) => {
-    //   e.addEventListener("click", this.closeNotification);
-    // });
-    // console.log(
-    //   document.querySelectorAll(
-    //     "#dash-notifications-toggle, #dash-notifications-toggle *"
-    //   )
-    // );
-    // Array.from(
-    //   document.querySelectorAll(
-    //     "#dash-notifications-toggle, #dash-notifications-toggle *"
-    //   )
-    // ).forEach((e) => {
-    //   e.addEventListener("click", () => this.toggleNotification);
-    // });
+      const starCountRef = storageRef(db.notificatins, `notifications/${this.userId}`);
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+            this.$store.dispatch('notification/list', data)
+      });
   },
+  
   data() {
     return {
       showNotificationList: false,
       scrolled: false,
       show: false,
+      notification: null,
+      userId: this.$store.state.user.data.id
     };
   },
 
@@ -228,12 +230,30 @@ export default {
       ev.preventDefault();
       this.showNotificationList = !this.showNotificationList;
     },
+    read(notification, key) {
+      console.log(key);
+      this.notification = notification
+      this.show = true
+      this.showNotificationList = false;
+      const notificationRef = storageRef(db.notificatins, `notifications/${this.userId}/${notification.key}`);
+      update(notificationRef, { read: true })
+        .then(() => {
+          console.log("Notification marked as read in the database.");
+        })
+        .catch(error => {
+          console.error("Failed to update notification in the database:", error);
+        });
+    },
     closeNotification() {
       this.showNotificationList = false;
     },
+    closeNotificationPopup() {
+      this.show = false;
+    }
   },
   computed: {
     ...mapGetters("category", ["categories"]),
+    ...mapState("notification", ["notificationList"]),
   },
 };
 </script>

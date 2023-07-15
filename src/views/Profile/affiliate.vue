@@ -10,8 +10,8 @@
         <div class="col-12 col-md-8 col-lg-9">
           <div class="affiliate-sales">
             <div class="affiliate-header text-left">
-              <span>Activate or stop selling through marketers.</span>
-              <Switch checked></Switch>
+              <span>Enable or Disable selling through marketers.</span>
+              <Switch :checked="affiliating" @update:checked="updateSwitchValue"></Switch>
             </div>
             <div class="dash-sales">
               <div class="my-sales mb-5 mb-lg-2">
@@ -119,6 +119,17 @@
 import Switch from "../../components/Profile/Affiliate/Switch.vue";
 export default {
   components: { Switch },
+  data() {
+    return {
+      affiliating: this.$store.state.affiliate.affiliateData
+    }
+  },
+  methods: {
+    updateSwitchValue() {
+      this.affiliating = !this.affiliating
+      this.$store.dispatch("affiliate/toggle")
+    }
+  }
 };
 </script>
 <style>

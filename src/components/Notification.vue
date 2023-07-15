@@ -1,6 +1,6 @@
 <template>
   <div :class="getClassName" :id="`notification-${notification.id}`">
-    {{ notification.message }}
+    {{ notification.title }}
   </div>
 </template>
 
