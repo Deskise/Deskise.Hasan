@@ -129,6 +129,8 @@
                 $buy->name = $user->firstname.' '.$user->lastname;
             })];
 
+            $product->affiliating = $product->user->settings->affiliate_links;
+            
             $product->likes = $product->likes()->count();
             if ($user) {
                 $product->liked = $product->likes()->where('user_id', '=', $user->id)->first() !== null;

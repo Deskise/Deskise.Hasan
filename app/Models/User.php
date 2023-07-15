@@ -83,6 +83,15 @@ class User extends Authenticatable
         parent::boot();
     }
 
+    public function affiliates()
+    {
+        return $this->hasMany(Affiliate::class, 'affiliator_id');
+    }
+    public function affiliated()
+    {
+        return $this->hasMany(Affiliate::class, 'owner_id');
+    }
+
     public function getImgAttribute($value)
     {
         return APIHelper::getImageUrl('users', $value);
