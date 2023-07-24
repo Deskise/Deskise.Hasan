@@ -94,6 +94,38 @@ class CategoriesController extends Controller
         return response()->view('admin.category.create', ['pages' => $pages]);
     }
 
+    public function edit($id) 
+    {
+        $category = Category::find($id);
+        return response()->view('admin.category.edit', ['pages' => $category]);
+    }
+
+    public function update(Request $request, $category)
+    {
+        // Retrieve the category by its ID
+        $category = Category::find($category);
+
+        // Update the category data based on the form input
+        $category->name_en = $request->input('name_en');
+        $category->data = collect($request->input('data'))->map(function ($el) {
+            $el['divs'] = collect($el['divs'])->map(function ($div) {
+                $div['fields'] = collect($div['fields'])->map(function ($field) {
+                    $field['data'] = json_decode($field['data'], true);
+                    return $field;
+                })->toArray();
+                return $div;
+            })->toArray();
+            return $el;
+        })->toArray();
+
+        // Save the updated category to the database
+        $category->save();
+
+        return redirect()->route('admin.category.index')->with('msg', "Category Updated Successfully");
+    }
+
+    
+
     public function store(Request $request)
     {
         Category::create([

@@ -1,5 +1,5 @@
 @extends('layout.dashborad')
-@section('name','Create New Category')
+@section('name','Edit Category')
 
 @push('css')
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
@@ -7,28 +7,27 @@
 @endpush
 
 @section('content')
-
 <div class="row">
 		<div class="col-md-12 grid-margin stretch-card">
 				<div class="card">
 						<div class="card-body col-12 col-lg-8 pe-3 pe-lg-5">
-								<h4 class="card-title">Add Category</h4>
+								<h4 class="card-title">Edit Category</h4>
 										<div class="col row">
 												<i class="mdi-plus"></i>
 										</div>
 
-								<form action="{{route('admin.category.store')}}" method="POST">
+								<form action="{{ route('admin.category.update', ['category' => $pages->id]) }}" method="POST">
 										@csrf
+                     @method('PUT')
 										<div class="form-group">
-												<input type="text" class="form-control" name="name_en" placeholder="Category Name" required>
+												<input type="text" class="form-control" name="name_en" placeholder="Category Name" value="{{ $pages->name_en}}" required>
 										</div>
 
 										<div id="pages">
-												@foreach($pages as $pKey => $page)
-														<div class="form-group">
+												@foreach($pages->data as $pKey => $page)
+                        <div class="form-group">
 																<div class="text-center position-relative p-2 pb-5" style="border: 2px solid rgba(234,234,234,0.95);border-radius: 3px;min-height: 200px;display: flex;align-items: center;flex-direction: column;" id="page_{{$pKey}}">
 																		<input type="text" class="form-control mb-3" name="data[{{$pKey}}][title]" value="{{ $page['title'] }}" placeholder="Page Title" required />
-
 																		<div class="form-group mb-3 w-100 flex-grow" id="page_{{$pKey}}_divs">
 																				@foreach($page['divs'] as $dKey => $div)
 																						<div class="text-center mb-3 px-2" style="border: 2px solid rgba(234,234,234,0.95);min-height: 100%;padding-top: 10px" id="page_{{$pKey}}_div_{{$dKey}}">
@@ -61,13 +60,13 @@
 																														<div class="col-4">
 																																<input title="hint" placeholder="hint" class="form-control" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][hint]" value="{{ $field['hint']??'' }}" />
 																														</div>
-																														<div class="col-1 d-flex p-0 m-0">
+                                                            <div class="col-1 d-flex p-0 m-0">
                                                               <div class="col" style="cursor: pointer" onclick="show_data(this)">
-                                                                  <input type="hidden" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][data]" value="{{ $field['data']??'{}' }}" />
+                                                                  <input type="hidden" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][data]" value="{{ json_encode($field['data'], true)??'{}' }}" />
                                                                   <span class="fs-4 fw-bold"><i class="mdi mdi-file-document-edit-outline" style="color: deepskyblue"></i></span>
                                                               </div>
                                                               <div class="col" style="cursor: pointer" onclick="delete_field(this)">
-                                                                  <input type="hidden" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][data]" value="{{ $field['data']??'{}' }}" />
+                                                                  <input type="hidden" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][data]" value="{{ json_encode($field['data'], true)??'{}' }}" />
                                                                   <span class="fs-4 fw-bold"><i class="mdi mdi-trash-can-outline" style="color: tomato"></i></span>
                                                               </div>
                                                             </div>
@@ -83,12 +82,18 @@
 																						</div>
 																				@endforeach
 																		</div>
-																		<div class="text-center position-absolute bottom-0 w-100" onclick="add_div({{$pKey}})" style="cursor: pointer;border: 2px solid rgba(234,234,234,0.95);">
+																		<div class="text-center  bottom-0 left-0 w-50 d-flex justify-content-evenly" onclick="add_div({{$pKey}})" style="cursor: pointer;border: 2px solid rgba(234,234,234,0.95);">
 																				<div class="d-flex align-items-center justify-content-center">
 																						<span class="fs-2 fw-bold"><i class="mdi mdi-plus"></i></span>
 																						<span>Add Div </span>
 																				</div>
-																		</div>
+                                    </div>
+                                    <div class="text-center  bottom-0 right-0 w-50 d-flex justify-content-evenly" onclick="remove_div({{$pKey}})" style="cursor: pointer;border: 2px solid rgba(234,234,234,0.95);">
+                                      <div class="d-flex align-items-center justify-content-center text-danger">
+                                          <span class="fs-2 fw-bold"><i class="mdi mdi-playlist-remove"></i></span>
+                                          <span>Remove Div </span>
+                                      </div>
+                                    </div>
 																</div>
 														</div>
 												@endforeach
@@ -116,17 +121,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
     <script>
         async function show_data(el) {
-            let type = el.parentElement.querySelector('select').value,
+            let type = el.parentElement.parentElement.querySelector('select').value,
                 data_el = el.querySelector('input[type=hidden]'),
                 old_data = JSON.parse(data_el.value);
+                // old_data = data_el.value;
+                // old_data = data_el.value;
+                // // Parse the old_data JSON string into an array
+                //   const dataArray = JSON.parse(old_data);
+
+                //   // Check if dataArray is an array, and if not, set it to an empty array
+                //   const valuesArray = Array.isArray(dataArray) ? dataArray : [];
+                console.log(old_data);
 
             let html = `<input type='hidden' value='${type}' id="swal_type" class="form-control" />`
             switch (type) {
                 case 'drop_list':
-                    html += `Options: <input type="text" title="comma separated list of items" value="${(old_data.values??[]).join(',')}" class="form-control" id="swal_drop_list_data" />`
+                    html += `Options: <input type="text" title="comma separated list of items" value="${old_data.join(',')}" class="form-control" id="swal_drop_list_data" />`
                     break;
                 case 'subcategory':
-                    html += `Options: <input type="text" title="comma separated list of items" value="${(old_data.values??[]).join(',')}" class="form-control" id="swal_subcategory_data" />`
+                    html += `Options: <input type="text" title="comma separated list of items" value="${old_data.join(',')}" class="form-control" id="swal_subcategory_data" />`
                     break;
                 case 'text':
                 case 'textarea':
@@ -146,7 +159,7 @@
                     html += "<p>No Extra Data Specifications For This Type</p>"
                     break;
             }
-
+            
             const {value: data} = await Swal.fire({
                 title: '<label class="form-label">Specifications:</label>',
                 html: html,
@@ -165,7 +178,7 @@
                     max: $('#swal_max').val()??null,
                     rows: ($('#swal_table_rows').val()??'').split(','),
                     cols: ($('#swal_table_cols').val()??'').split(','),
-                    drop_list_data: ($('#swal_drop_list_data').val()??'').split(',')
+                    drop_list_data: ($('#swal_drop_list_data').val()??'').split(','),
                     subcategory_data: ($('#swal_subcategory_data').val()??'').split(',')
                 })
             })
@@ -175,6 +188,7 @@
                         data_el.value = JSON.stringify(data.drop_list_data);
                         break;
                     case 'subcategory':
+                        // data_el.value = data.subcategory_data;
                         data_el.value = JSON.stringify(data.subcategory_data);
                         break;
                     case 'text':
@@ -214,11 +228,18 @@
                         <input type="text" class="form-control mb-3" name="data[${pageNum}][title]" value="" placeholder="Page Title" required />
 
                         <div class="form-group mb-3 w-100 flex-grow" id="page_${pageNum}_divs"></div>
-                        <div class="text-center position-absolute bottom-0 w-100" onclick="add_div(${pageNum})" style="border: 2px solid rgba(234,234,234,0.95);cursor: pointer">
+                        
+                        <div class="text-center  bottom-0 left-0 w-50 d-flex justify-content-evenly" onclick="add_div(${pageNum})" style="cursor: pointer;border: 2px solid rgba(234,234,234,0.95);">
                             <div class="d-flex align-items-center justify-content-center">
                                 <span class="fs-2 fw-bold"><i class="mdi mdi-plus"></i></span>
                                 <span>Add Div </span>
                             </div>
+                        </div>
+                        <div class="text-center  bottom-0 right-0 w-50 d-flex justify-content-evenly" onclick="remove_div(${pageNum})" style="cursor: pointer;border: 2px solid rgba(234,234,234,0.95);">
+                          <div class="d-flex align-items-center justify-content-center text-danger">
+                              <span class="fs-2 fw-bold"><i class="mdi mdi-playlist-remove"></i></span>
+                              <span>Remove Div </span>
+                          </div>
                         </div>
                     </div>
                 </div>`
@@ -240,6 +261,10 @@
                     </div>
                 </div>`;
             el.append(div);
+        }
+        function remove_div(page) {
+          let el = $('#page_'+page+'_divs')
+           el.children().last().remove();
         }
         function add_field(page, div) {
             let el = $('#page_'+page+'_div_'+div+'_fields'),
@@ -278,7 +303,8 @@
         }
 
         function delete_field(el) {
-            el.remove();
+          const fields = el.parentElement.parentElement
+            fields.remove();
         }
     </script>
 @endpush

@@ -48,7 +48,14 @@ Route::group(['prefix' => 'admin'], function () {
         require 'admin/financialControl.php';
         require 'admin/financial.php';
 
-        Route::resource('category',App\Http\Controllers\Admin\CategoriesController::class)->except('update','show','edit')->middleware('AdminRole:super');
+        Route::resource('category',App\Http\Controllers\Admin\CategoriesController::class)->except('show')->middleware('AdminRole:super');
+
+        // Route::resource('subcategories',App\Http\Controllers\Admin\SubcategoriesController::class)->except('show')->middleware('AdminRole:super');
+        Route::resource('subcategories', 'App\Http\Controllers\Admin\SubcategoriesController')
+            ->except('show')
+            ->middleware('AdminRole:super');
+
+        // Route::resource('category',App\Http\Controllers\Admin\CategoriesController::class)->except('update','show','edit')->middleware('AdminRole:super');
     });
 });
 

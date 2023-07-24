@@ -24,12 +24,18 @@
                                 <td>{{$category->id}}</td>
                                 <td>{{$category->name_en}}</td>
                                 <td>
-                                    <div class="col-6">
+                                    <div class="col-6 d-flex align-items-center justify-content-evenly">
                                         <form action="{{route('admin.category.destroy',$category->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-outline-danger btn-flat"
                                                     data-toggle="tooltip" title='Reject Product Request'><i class="mdi mdi-trash-can-outline"></i>
+                                            </button>
+                                        </form>
+                                        <form action="{{route('admin.category.edit',$category->id)}}" method="get">
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-info btn-flat"
+                                                    data-toggle="tooltip" title='Reject Product Request'><i class="mdi mdi-pencil"></i>
                                             </button>
                                         </form>
                                     </div>
