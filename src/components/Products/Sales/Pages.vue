@@ -125,7 +125,6 @@
               @choose="
               (e) => {
                 product[f.name] = e.id;
-                
               }
               "
               :title="f.hint"
