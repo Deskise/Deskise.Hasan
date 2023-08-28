@@ -112,16 +112,16 @@
             </li>
         @endif
 
-        {{-- @if($role === 'super')
+        @if($role === 'super')
             <li class="nav-item menu-items">
-                <a class="nav-link" href="{{route('admin.category.index')}}">
+                <a class="nav-link" href="{{route('admin.contact.index')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-tag-multiple"></i>
               </span>
-                    <span class="menu-title">Categories</span>
+                    <span class="menu-title">Contact Messages</span>
                 </a>
             </li>
-        @endif --}}
+        @endif
 
 
         @if (in_array($role, ['super','content','chat']))
@@ -153,17 +153,17 @@
                             <a class="nav-link" href="{{route('admin.about')}}">About Us</a>
                         </li>
                         @endif
-                    @if(in_array($role,['super','chat']))
+                    {{-- @if(in_array($role,['super','chat']))
                         <li class="nav-item menu-items">
                             <a class="nav-link" href="{{route('admin.chatControl.index')}}">Chat Control</a>
                         </li>
-                    @endif
+                    @endif --}}
 
-                    @if($role==='super')
+                    {{-- @if($role==='super')
                         <li class="nav-item menu-items">
                             <a class="nav-link" href="{{route('admin.financialControl.index')}}">Financial Control</a>
                         </li>
-                    @endif
+                    @endif --}}
                 </ul>
             </div>
         </li>
@@ -193,12 +193,42 @@
 
         @if($role === 'super')
             <li class="nav-item menu-items">
-                <a class="nav-link" href="{{route('admin.financial.index')}}">
+                <a class="nav-link" data-bs-toggle="collapse" href="#financial" aria-expanded="false" aria-controls="financial">
                 <span class="menu-icon">
                     <i class="mdi mdi-finance"></i>
                 </span>
                     <span class="menu-title">Financial System</span>
+                    <i class="menu-arrow"></i>
                 </a>
+                
+                <div class="collapse" id="financial">
+                    <ul class="nav flex-column sub-menu">
+                        @if($role==='super')
+                        <li class="nav-item menu-items">
+                            <a class="nav-link" href="{{route('admin.financial.index')}}">Over View</a>
+                        </li>
+                        @endif
+
+                        @if($role==='super')
+                        <li class="nav-item menu-items">
+                            <a class="nav-link" href="{{route('admin.financialControl.index')}}">Financial Control</a>
+                        </li>
+                        @endif
+
+                        @if($role==='super')
+                        <li class="nav-item menu-items">
+                            <a class="nav-link" href="{{route('admin.withdrawRequests.index')}}">Withdraw Requests</a>
+                        </li>
+                        @endif
+
+                        {{-- @if($role==='super')
+                        <li class="nav-item menu-items">
+                            <a class="nav-link" href="{{route('admin.financialControl.index')}}">Payouts</a>
+                        </li>
+                        @endif --}}
+
+                    </ul>
+                </div>
             </li>
         @endif
 

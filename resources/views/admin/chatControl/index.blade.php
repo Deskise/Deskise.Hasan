@@ -22,7 +22,7 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <p class="form-label fs-5 pb-2 ">Forbidden Words:  </p>
-                                                <input type="text" name="blocked_keywords" id="tag-input1" class="form-control" value="">
+                                                <input type="text" name="blocked_keywords" id="tag-input1" class="form-control" value="shit">
                                             </div>
                                         </div>
 
@@ -33,12 +33,11 @@
                                                     <input class="form-check-input" type="checkbox" name="block_phones" id="block_phones"  @if ($chatConf->get('0')->block_phones) checked  @endif>
                                                     <label class="form-check-label fs-6 " for="block_phones" style="color: #ee6b0d">Block Phone Numbers</label>
                                                 </div>
-
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="block_email" id="block_email" @if ($chatConf->get('0')->block_email) checked @endif/>
                                                     <label class="form-check-label fs-6" for="block_email" style="color: #ee6b0d">Block Emails</label>
                                                 </div>
-
+                                                
                                             </div>
                                         </div>
                                 </div>

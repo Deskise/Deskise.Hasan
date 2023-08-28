@@ -5,6 +5,7 @@ Route::post('request',[Product::class,'request']);
 
 Route::get('list/{category?}',[Product::class,'list']);
 Route::get('single/{id}',[Product::class,'single']);
+Route::get('similar/{id}',[Product::class,'similar']);
 Route::get('single/{product}/like',[Product::class,'like']);
 Route::get('search',[Product::class,'search']);
 Route::get('best',[Product::class,'best']);

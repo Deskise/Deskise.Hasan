@@ -1,23 +1,26 @@
 @extends('layout.dashborad')
-@section('name','Add New Product')
+@section('name','Edit Product')
 @section('content')
 
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body col-12 col-lg-7 pe-3 pe-lg-5">
-                    <h4 class="card-title pb-2">Add New Product</h4>
-                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{ route('admin.products.store', $cat) }}">
+                    <h4 class="card-title pb-2">Edit Product</h4>
+                    <form enctype="multipart/form-data" class="forms-sample" method="post" action="{{ route('admin.products.update', $product) }}">
                         @csrf
-
+                        @method('PUT')
                         <div class="form-group">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="is_lifetime" id="is_lifetime" onchange="let el = $('#lifetime_date');if(!this.checked) {el.show()} else {el.hide()}"/>
+                                <input class="form-check-input" type="checkbox" name="is_lifetime" id="is_lifetime"
+                                  @if (old('is_lifetime', $product->is_lifetime)) checked @endif
+                                  onchange="let el = $('#lifetime_date'); if (!this.checked) { el.show() } else { el.hide() }"
+                                  />
                                 <label class="form-check-label" for="is_lifetime">is lifetime?</label>
                             </div>
                             <div id="lifetime_date">
                                 <label for="until">until</label>
-                                <input type="date" id="until" name="until" class="form-control" />
+                                <input type="date" id="until" name="until" class="form-control" value="{{ $product->until ? $product->until->format('Y-m-d') : '' }}"/>
                             </div>
                         </div>
 
@@ -27,10 +30,16 @@
                                     <label class="fs-6">{{ $div['title'] }}</label>
                                         <div class="form-group">
                                             @foreach($div['fields'] as $field)
+                                             @php
+                                                $fieldName = $field['name'];
+                                                $fieldType = $field['type'];
+                                                $fieldValue = $product->$fieldName ?? null;
+                                            @endphp
                                                 @switch($field['type'])
                                                     @case('drop_list')
                                                         <select name="{{$field['name']}}" class="form-control mb-1">
                                                             <option disabled selected value>{{ $field['placeholder'] }}</option>
+                                                            <option value="{{ $fieldValue }}">{{ $fieldValue }}</option>
                                                             @foreach($field['data'] as $key => $val)
                                                                 <option value='{{ $key }}'> {{ $val }} </option>
                                                             @endforeach
@@ -38,7 +47,7 @@
                                                     @break
 
                                                     @case('subcategory')
-                                                        <select name="{{$field['name']}}" id="businessModel" class="form-control mb-1">
+                                                        <select name="{{$field['name']}}" id="businessModel" class="form-control mb-1" >
                                                             <option disabled selected value>Select Subcategory</option>
                                                             @foreach($cat->subcategories as $sub)
                                                                 <option value='{{ $sub->id }}'> {{ $sub->name_en }} </option>
@@ -47,24 +56,24 @@
                                                         @break
 
                                                     @case('text')
-                                                        <input type="text" name="{{ $field['name'] }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" title="{{ $field['hint']??'' }}">
+                                                        <input type="text" name="{{ $field['name'] }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" title="{{ $field['hint']??'' }}"  value="{{ $fieldValue }}">
                                                     @break
 
                                                     @case('url')
-                                                        <input type="url" name="{{ $field['name'] }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" title="{{ $field['hint']??'' }}">
+                                                        <input type="url" name="{{ $field['name'] }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" title="{{ $field['hint']??'' }}" value="{{ $fieldValue }}">
                                                     @break
 
                                                     @case('number')
-                                                        <input type="number" name="{{ $field['name'] }}" min="{{ $field['data']['min']??'' }}" max="{{ $field['data']['max']??'' }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}">
+                                                        <input type="number" name="{{ $field['name'] }}" min="{{ $field['data']['min']??'' }}" max="{{ $field['data']['max']??'' }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" value="{{ $fieldValue }}">
                                                         @break
 
                                                     @case('date')
-                                                        <input type="date" name="{{ $field['name'] }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" title="{{ $field['placeholder'] }}">
+                                                        <input type="date" name="{{ $field['name'] }}" class="form-control mb-1" placeholder="{{ $field['placeholder'] }}" title="{{ $field['placeholder'] }}" value="{{ $fieldValue ? date('dd-mm-yyyy', strtotime($fieldValue)) : '' }}">
                                                         @break
 
                                                     @case('checkbox')
                                                         <div class="form-check mb-1">
-                                                            <input type="checkbox" class="form-check-input" name="{{ $field['name'] }}" id="{{ $field['name'] }}" placeholder="{{ $field['placeholder'] }}" style="cursor: pointer;">
+                                                            <input type="checkbox" class="form-check-input" name="{{ $field['name'] }}" id="{{ $field['name'] }}" placeholder="{{ $field['placeholder'] }}" style="cursor: pointer;" value="{{ $fieldValue }}">
                                                             <label class="form-check-label" for="{{ $field['name'] }}" style="cursor: pointer;">{{ $field['placeholder'] }}</label>
                                                         </div>
                                                         @break
@@ -78,7 +87,7 @@
                                                             </div>
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="radio" name="{{ $field['name'] }}" id="{{ $field['name'] }}_n" value="no">
-                                                                <label class="form-check-label" for="{{ $field['name'] }}_n">No</label>
+                                                                <label class="form-check-label" for="{{ $field['name'] }}_n" >No</label>
                                                             </div>
                                                         </div>
                                                         @break
@@ -110,19 +119,23 @@
 
                                                     @case('links')
                                                         @foreach($links as $link)
-                                                            <input class="form-control mb-1" type="url" name="{{ $field['name'] }}[{{ $link->id }}]" id="links" placeholder="{{ $link->name_en }} Link" />
+                                                        @php
+                                                            $socialLink = $social->where('social_id', $link->id)->first();
+                                                            $linkValue = $socialLink ? $socialLink->link : '';
+                                                        @endphp
+                                                            <input class="form-control mb-1" type="url" name="{{ $field['name'] }}[{{ $link->id }}]" id="links" placeholder="{{ $link->name_en }} Link" value="{{ $linkValue }}" />
                                                         @endforeach
                                                         @break
 
                                                     @case('textarea')
-                                                        <textarea class="form-control mb-1" name="{{ $field['name'] }}" cols="30" rows="20" placeholder="{{ $field['placeholder'] }}" style="min-height: 250px;" ></textarea>
+                                                        <textarea class="form-control mb-1" name="{{ $field['name'] }}" cols="30" rows="20" placeholder="{{ $field['placeholder'] }}" style="min-height: 250px;" value="{{ $fieldValue }}">{{ $fieldValue }}</textarea>
                                                         @break
 
                                                     {{-- @case('assets')
                                                         <input type="file" name="assets[]" class="form-control file-upload-info mb-1" placeholder="Add Photos And Media" multiple />
                                                         @break --}}
                                                     @case('file')
-                                                        <input type="file" name="{{ $field['name'] }}" class="form-control file-upload-info mb-1" title="{{ $field['placeholder']??'' }}" multiple />
+                                                        <input type="file" name="{{ $field['name'] }}" class="form-control file-upload-info mb-1" title="{{ $field['placeholder']??'' }}" multiple value="{{ $fieldValue }}" />
                                                         @break
                                                 @endswitch
                                             @endforeach

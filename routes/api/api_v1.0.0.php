@@ -36,6 +36,9 @@ Route::group(['prefix' => 'products'], fn () => require 'v1.0.0/products.php');
 // affiliate things:
 Route::group(['prefix' => 'affiliate'], fn () => require 'v1.0.0/affiliate.php');
 
+// payment things:
+Route::group(['prefix' => 'payment'], fn () => require 'v1.0.0/payment.php');
+
 // Chat:
 Route::group(['prefix' => 'chat', 'middleware' => 'auth:api'], fn () => require 'v1.0.0/chat.php');
 

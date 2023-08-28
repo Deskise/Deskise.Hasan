@@ -82,11 +82,12 @@ class CategoriesController extends Controller
                             "placeholder" => "Business Assets Included",
                             'name' => "links",
                             "type" => "links"
-                        ], [
-                            'placeholder' => "Add Photos And Media",
-                            'name' => "assets",
-                            "type" => "assets"
-                        ]
+                        ], 
+                        // [
+                        //     'placeholder' => "Add Photos And Media",
+                        //     'name' => "assets",
+                        //     "type" => "assets"
+                        // ]
                     ]
                 ]
             ]
@@ -104,6 +105,7 @@ class CategoriesController extends Controller
     {
         // Retrieve the category by its ID
         $category = Category::find($category);
+        // dd($request->all());
 
         // Update the category data based on the form input
         $category->name_en = $request->input('name_en');
@@ -116,7 +118,7 @@ class CategoriesController extends Controller
                 return $div;
             })->toArray();
             return $el;
-        })->toArray();
+        });
 
         // Save the updated category to the database
         $category->save();

@@ -40,7 +40,6 @@
 																														<div class="col-3">
 																																<select title="type" class="form-control" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][type]" required >
 																																		<option value="drop_list" @if($field['type'] === 'drop_list') selected @endif>drop_list</option>
-																																		<option value="subcategory" @if($field['type'] === 'subcategory') selected @endif>subcategory</option>
 																																		<option value="text" @if($field['type'] === 'text') selected @endif>text</option>
 																																		<option value="url" @if($field['type'] === 'url') selected @endif>url</option>
 																																		<option value="number" @if($field['type'] === 'number') selected @endif>number</option>
@@ -66,7 +65,6 @@
                                                                   <span class="fs-4 fw-bold"><i class="mdi mdi-file-document-edit-outline" style="color: deepskyblue"></i></span>
                                                               </div>
                                                               <div class="col" style="cursor: pointer" onclick="delete_field(this)">
-                                                                  <input type="hidden" name="data[{{$pKey}}][divs][{{$dKey}}][fields][{{$fKey}}][data]" value="{{ json_encode($field['data'], true)??'{}' }}" />
                                                                   <span class="fs-4 fw-bold"><i class="mdi mdi-trash-can-outline" style="color: tomato"></i></span>
                                                               </div>
                                                             </div>
@@ -136,11 +134,11 @@
             let html = `<input type='hidden' value='${type}' id="swal_type" class="form-control" />`
             switch (type) {
                 case 'drop_list':
-                    html += `Options: <input type="text" title="comma separated list of items" value="${old_data.join(',')}" class="form-control" id="swal_drop_list_data" />`
+                    html += `Options: <input type="text" title="comma separated list of items" value="${(old_data??[]).join(',')}"class="form-control" id="swal_drop_list_data" />`
                     break;
-                case 'subcategory':
-                    html += `Options: <input type="text" title="comma separated list of items" value="${old_data.join(',')}" class="form-control" id="swal_subcategory_data" />`
-                    break;
+                // case 'drop_list':
+                //     html += `Options: <input type="text" title="comma separated list of items" value="${old_data.join(',')}" class="form-control" id="swal_drop_list_data" />`
+                //     break;
                 case 'text':
                 case 'textarea':
                 case 'number':
@@ -179,17 +177,13 @@
                     rows: ($('#swal_table_rows').val()??'').split(','),
                     cols: ($('#swal_table_cols').val()??'').split(','),
                     drop_list_data: ($('#swal_drop_list_data').val()??'').split(','),
-                    subcategory_data: ($('#swal_subcategory_data').val()??'').split(',')
                 })
             })
             if (data) {
                 switch (data.type) {
                     case 'drop_list':
                         data_el.value = JSON.stringify(data.drop_list_data);
-                        break;
-                    case 'subcategory':
-                        // data_el.value = data.subcategory_data;
-                        data_el.value = JSON.stringify(data.subcategory_data);
+                        console.log(data_el.value);
                         break;
                     case 'text':
                     case 'textarea':
@@ -206,7 +200,6 @@
                         data_el.value = JSON.stringify({});
                         break;
                 }
-                console.log(data_el.value);
             }
         }
 
@@ -295,7 +288,7 @@
                         <input title="hint" placeholder="hint" class="form-control" name="data[${page}][divs][${div}][fields][${fieldNum}][hint]" value="" />
                     </div>
                     <div class="col" style="cursor: pointer" onclick="show_data(this)">
-                        <input type="hidden" name="data[${page}][divs][${div}][fields][${fieldNum}][data]" value="{}" />
+                        <input type="hidden" name="data[${page}][divs][${div}][fields][${fieldNum}][data]" value="[]" />
                         <span class="fs-2 fw-bold"><i class="mdi mdi-file-document-edit-outline" style="color: deepskyblue"></i></span>
                     </div>
                 </div>`

@@ -19,14 +19,14 @@
     </div>
 </div>
 
-<style>
+{{-- <style>
     .form-control{
-        color: #fff !important;
+        color: #2A3038 !important;
     }
     .form-control[disabled] {
-        background-color: #2A3038!important;
+        background-color: #fff!important;
     }
-</style>
+</style> --}}
 
 
 <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">

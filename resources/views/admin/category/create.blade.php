@@ -123,7 +123,7 @@
             let html = `<input type='hidden' value='${type}' id="swal_type" class="form-control" />`
             switch (type) {
                 case 'drop_list':
-                    html += `Options: <input type="text" title="comma separated list of items" value="${(old_data.values??[]).join(',')}" class="form-control" id="swal_drop_list_data" />`
+                    html += `Options: <input type="text" title="comma separated list of items" value="${(old_data??[]).join(',')}" class="form-control" id="swal_drop_list_data" />`
                     break;
                 case 'subcategory':
                     html += `Options: <input type="text" title="comma separated list of items" value="${(old_data.values??[]).join(',')}" class="form-control" id="swal_subcategory_data" />`
@@ -165,7 +165,7 @@
                     max: $('#swal_max').val()??null,
                     rows: ($('#swal_table_rows').val()??'').split(','),
                     cols: ($('#swal_table_cols').val()??'').split(','),
-                    drop_list_data: ($('#swal_drop_list_data').val()??'').split(',')
+                    drop_list_data: ($('#swal_drop_list_data').val()??'').split(','),
                     subcategory_data: ($('#swal_subcategory_data').val()??'').split(',')
                 })
             })
@@ -270,7 +270,7 @@
                         <input title="hint" placeholder="hint" class="form-control" name="data[${page}][divs][${div}][fields][${fieldNum}][hint]" value="" />
                     </div>
                     <div class="col" style="cursor: pointer" onclick="show_data(this)">
-                        <input type="hidden" name="data[${page}][divs][${div}][fields][${fieldNum}][data]" value="{}" />
+                        <input type="hidden" name="data[${page}][divs][${div}][fields][${fieldNum}][data]" value="[]" />
                         <span class="fs-2 fw-bold"><i class="mdi mdi-file-document-edit-outline" style="color: deepskyblue"></i></span>
                     </div>
                 </div>`

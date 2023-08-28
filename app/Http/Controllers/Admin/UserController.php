@@ -22,6 +22,28 @@ class UserController extends Controller
         return response()->view('admin.users.index', ['allUsers' => $allUsers]);
     }
 
+    public function search(Request $request)
+    {
+        // dd($request->all());
+        $search = $request->search;
+        $users = User::where(function($query) use ($search) {
+            $query->where('firstname', 'like',  "%$search%")
+                ->orWhere('lastname', 'like', "%$search%")
+                ->orWhere('email', 'like', "%$search%")
+                ->orWhere('phone', 'like', "%$search%");
+        })
+        ->paginate(15);
+        $users->appends(['search' => $search]);
+        $allUsers = User::paginate(10);
+
+        return response()->view('admin.users.index', [
+            'allUsers' => $users,
+            'users' => $users,
+            'search' => $search
+
+        ]);
+    }
+
 
     public function show(User $user)
     {

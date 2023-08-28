@@ -75,7 +75,7 @@
         {
             $query = $this->filter(
                 Product::select('id','name', 'summary as details','price',
-                    'special','verified', 'img','status','is_lifetime','until','created_at','user_id','old_price')
+                    'special','verified', 'img','status','is_lifetime','until','created_at','user_id','old_price', 'category_id')
                     ->where('status','!=','under_verify')
                     ->where('status','!=','canceled')
                     ->orderBy('id','desc')
@@ -121,9 +121,10 @@
                 return APIHelper::jsonRender('Requested Product Still Under verification', [], 403);
 
             $product->views()->create(['visitor_id'=>request()?->user('api')->id??0]);
+            
             $bought = $product->bought();
             $product->bought = ['count' => $bought->count(), 'user_imgs' => $bought->limit(5)->get()->each(function($buy){
-                $user = User::find($buy->user_id);
+                $user = User::find($buy->buyer_id);
                 unset($buy->id,$buy->product_id);
                 $buy->img = $user->img;
                 $buy->name = $user->firstname.' '.$user->lastname;
@@ -143,7 +144,9 @@
             }
 
             $product->subcategory = $product->data?->subcategory->{'name_'.self::$language};
-
+            $similar = Product::where('category_id', $product->category_id)->get();
+            // dd($similar);
+            $product->similar = $similar;
             unset($product->user_id,$product->subcategory_id);
             if ($prod) return $product;
 
@@ -199,6 +202,11 @@
             return APIHelper::jsonRender('', $query->paginate(12));
         }
 
+        // public function similar($id) {
+        //     $simliar = Product::where('category_id', $catId)->get();
+        //     return APIHelper::jsonRender('', $simliar->paginate(3));
+        // }
+
         public function edit($id=false)
         {
             $product = $this->single($id, true);
@@ -229,6 +237,7 @@
             $product->description = $request->input('description') ?? $product->description;
             $product->summary = $request->input('summary') ?? $product->summary;
             $product->price = $request->input('price') ?? $product->price;
+            $product->old_price = $request->input('price') ?? $product->old_price;
             // $product->img = $request->input('img') ?? $product->img;
             $product->is_lifetime = $request->input('lifetime') ?? $product->is_lifetime;
             $product->verified= true;
@@ -253,17 +262,17 @@
             if (!$product->save())
                 return APIHelper::error('Error Updating Data');
 
-            if ($request->input('packages'))
-            {
-                foreach ($packages=json_decode($request->input('packages'), true, 512, JSON_THROW_ON_ERROR) as $package_id)
-                $product->packages()->updateOrCreate(['package_id' => $package_id],
-                    [
-                        'status' => 'attached',
+            // if ($request->input('packages'))
+            // {
+            //     foreach ($packages=json_decode($request->input('packages'), true, 512, JSON_THROW_ON_ERROR) as $package_id)
+            //     $product->packages()->updateOrCreate(['package_id' => $package_id],
+            //         [
+            //             'status' => 'attached',
                         
-                    ]
-                );
-                $product->packages()->whereNotIn('package_id',$packages)->delete();
-            }
+            //         ]
+            //     );
+            //     $product->packages()->whereNotIn('package_id',$packages)->delete();
+            // }
     
 
             // if ($request->input('assets'))

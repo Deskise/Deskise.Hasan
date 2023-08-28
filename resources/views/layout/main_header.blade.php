@@ -17,6 +17,7 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{{url('assets/css/style.css')}}">
+    {{-- <link rel="stylesheet" href="{{url('css/app.css')}}"> --}}
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{url('assets/images/favicon.png')}}" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

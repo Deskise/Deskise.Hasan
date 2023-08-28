@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Category;
 use App\Models\ProductBuy;
+use App\Models\WithdrawRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,7 @@ class FinancialController extends Controller
         ($cats=Category::all())->each(function ($e) use (&$cat_sales) {
             $cat_sales[$e->id] = [
                 'earning' => ($e=ProductBuy::whereHas('product', fn ($q) =>$q->where('category_id', $e->id))->orderBy('website_share', 'desc'))->avg('website_share'),
-                'profile' => $e->avg('price') - $e->avg('website_share')
+                'profile' => ($e->avg('price') - $e->avg('website_share'))
             ];
         });
 
@@ -49,7 +50,12 @@ class FinancialController extends Controller
         }
         // dd($months,$profits);
 
-        return response()->view('admin.finincial.index',compact('sales','cats','cat_sales','months','profits'));
+        $totalPrice = ProductBuy::sum('price');
+        $totalDeskiseShare = ProductBuy::sum('website_share');
+        $totalAffiliateShare = ProductBuy::sum('affiliate_share');
+        $totalPayouts = WithdrawRequest::where('status', 'approved')->sum('amount');
+
+        return response()->view('admin.finincial.index',compact('sales','cats','cat_sales','months','profits','totalPrice','totalDeskiseShare','totalAffiliateShare','totalPayouts'));
     }
 
 }

@@ -1,7 +1,16 @@
 @extends('layout.dashborad')
 @section('name','products')
 @section('btn')
-    <a class="btn btn-success btn-fw" style="margin: 10px" href="javascript:;" onclick="choose_cat()">Add New Product</a>
+    <div class="d-flex align-items-center justify-content-around w-100 mb-2">
+        <form class="d-flex align-items-end w-50" action="{{route('admin.products.search')}}" method="get">
+            <input class="form-control" type="text" name="search" placeholder="Search..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class=" d-flex justify-content-around align-items-center ">
+                <button class="btn btn-info py-2 m-1" type="submit">Search</button>
+                <a href="{{route('admin.products.index')}}" class="btn btn-warning text-center py-2 m-1">Clear </a>
+            </div>
+        </form>
+        <a class="btn btn-success btn-fw p-2" style="margin: 10px" href="javascript:;" onclick="choose_cat()">Add New Product</a>
+    </div>
 @endsection
 @section('css')
     .table-hover > tbody > tr:hover > *{
@@ -42,11 +51,16 @@
                         <td style="max-width: 350px;white-space: break-spaces;" colspan="2">{{substr($txt->description,0,30)}}</td>
                         <td>{{ $txt->price  }}</td>
                         <td>{{$txt->status}}</td>
-                        <td>
+                        <td class="d-flex justify-content-center align-items-center">
+                            <form method="get" action="{{route('admin.products.edit',$txt->id)}}" >
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-flat rounded-0" title='Edit Product'><i class="mdi mdi-pencil"></i>
+                                </button>
+                            </form>
                             <form method="POST" action="{{route('admin.products.destroy',$txt->id)}}">
                                 @csrf
                                 <input name="_method" type="hidden" value="DELETE">
-                                <button type="submit" class="btn btn-danger btn-flat show_confirm"
+                                <button type="submit" class="btn btn-danger btn-flat show_confirm rounded-0"
                                         data-toggle="tooltip" title='Delete Product'><i class="mdi mdi-delete-forever"></i>
                                 </button>
                             </form>

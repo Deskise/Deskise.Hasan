@@ -16,6 +16,7 @@ class ChatControlController extends Controller
         $chatConf = ChatControl::all();
         $block_words = ChatControl::all('blocked_keywords')->first();
         $shitWords = $block_words->blocked_keywords;
+        // $shitWords = $block_words ? $block_words->blocked_keywords : '';
 
         return response()->view('admin.chatControl.index',compact('chatConf','shitWords'));
     }

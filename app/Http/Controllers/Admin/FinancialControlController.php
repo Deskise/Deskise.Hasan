@@ -21,7 +21,6 @@ class FinancialControlController extends Controller
 
     function updateProfitRate(Request $request,Setting $setting)
     {
-        # code...
         $isSaved = DB::table('settings')->where("settings.key", '=',  'profit_rate')->update(['settings.value'=> $request->input('profitRate')]);
 
         if ($isSaved){
@@ -29,7 +28,18 @@ class FinancialControlController extends Controller
             return redirect()->route('admin.financialControl.index');
         }
         return redirect()->back();
+    }
 
+    function updateAffiliateRate(Request $request,Setting $setting)
+    {
+        // dd($request->input('affiliateRate'));
+        $isSaved = DB::table('settings')->where("settings.key", '=',  'affiliate_rate')->update(['settings.value'=> $request->input('affiliateRate')]);
+
+        if ($isSaved){
+            \Session::flash("msg","s:Share Rate Updated successfully");
+            return redirect()->route('admin.financialControl.index');
+        }
+        return redirect()->back();
     }
 
 

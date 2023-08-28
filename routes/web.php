@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin'], function () {
         require 'admin/chatControl.php';
         require 'admin/financialControl.php';
         require 'admin/financial.php';
+        require 'admin/contactUs.php';
 
         Route::resource('category',App\Http\Controllers\Admin\CategoriesController::class)->except('show')->middleware('AdminRole:super');
 

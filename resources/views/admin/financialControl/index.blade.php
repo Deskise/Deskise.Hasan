@@ -83,6 +83,23 @@
                     </div>
                 </form>
 
+                <form class="forms-sample" method="POST" action="{{ route("admin.financialControl.updateAffiliateRate",$values->get('4')->id) }}">
+                    @csrf
+                    @method('PUT')
+                    <div class="input-group mb-3">
+                        <label for="AffiliateRate" class="col-sm-4 col-form-label">Affiliate Rate:</label>
+                        <input type="text" name="affiliateRate" id="affiliateRate" class="form-control" placeholder="Enter Affiliate Rate" aria-label="Enter Affiliate Rate" value="{{$values[4]->value}}">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">%</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                    <button type="submit" id="updateAffiliateRate" class="btn btn-success btn-flat" >Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

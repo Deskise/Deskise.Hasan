@@ -32,6 +32,10 @@ class FinanceDataFactory extends Factory
                 'key'=>'withdraw_limits',
                 'value' => 0
             ],
+            [
+                'key'=>'affiliate_rate',
+                'value' => 0
+            ],
         ];
         return $data;
     }

@@ -15,19 +15,19 @@
         <div class="row">
             <div class="col">
 
-                <nav aria-label="breadcrumb" class="bg-dark rounded-3 p-2 mb-3">
+                <nav aria-label="breadcrumb" class=" rounded-3 p-2 mb-3">
                     <div class="row">
                         <div class="col-lg-8">
                             <ol class="breadcrumb mb-0 m-2 fs-6">
                                 <li class="breadcrumb-item" aria-current="page"><a class="text-decoration-none" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                                 <li class="breadcrumb-item" aria-current="page"><a class="text-decoration-none" href="{{route('admin.users.index')}}">Users</a></li>
-                                <li class="breadcrumb-item" aria-current="page">User Details</li>
+                                <li class="breadcrumb-item text-dark" aria-current="page">User Details</li>
                             </ol>
                         </div>
                         <div class="col-lg-4 col-sm-3">
                         <div class="d-flex justify-content-center  p-2">
                             <a class="btn btn-outline-warning m-2" href="{{route('admin.users.reports',$user->id)}}" title="User Reports">User Reports</a>
-                            <a class="btn btn-outline-info m-2" href="{{route('admin.users.chat',$user->id)}}" title="User Chats">User Chats</a>
+                            {{-- <a class="btn btn-outline-info m-2" href="{{route('admin.users.chat',$user->id)}}" title="User Chats">User Chats</a> --}}
                         </div>
                         </div>
                     </div>
@@ -54,12 +54,12 @@
                 <div class="card mb-4 mb-lg-0">
                     <div class="card-body p-0">
                         <ul class="list-group list-group-flush rounded-4" style="font-family:Rubik, sans-serif;">
-                            <li class="list-group-item d-flex justify-content-between align-items-center  ps-3" style="background: rgba(27,30,38,0.93); color:#fff;">
+                            <li class="list-group-item d-flex justify-content-between align-items-center" >
                                 <i class="mdi mdi-facebook-box fs-3" style="color: #3460bd;"></i>
                                 <p class="mb-0" >{{$user->facebook_id ?? 'Not Verified'}} </p>
                             </li>
-                            <hr style="color:#ffffff;">
-                            <li class="list-group-item d-flex justify-content-between align-items-center ps-3" style="background: rgba(27,30,38,0.93); color:#fff;">
+                            {{-- <hr style="color:#e2e2e2;"> --}}
+                            <li class="list-group-item d-flex justify-content-between align-items-center " >
                                 <i class="mdi mdi-google fs-3" style="color: #ef1847;"></i>
                                 <p class="mb-0" >{{$user->google_id ?? 'Not Verified'}}</p>
                             </li>

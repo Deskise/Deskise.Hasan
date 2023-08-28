@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        // DecreaseProductPrice::class,
     ];
 
     /**
@@ -27,6 +28,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command(DecreaseProductPrice::class)->daily();
+        // $schedule->command(DecreaseProductPrice::class)->everyMinute();
+        // $schedule->command('Product:DecreasePrice')->daily();
     }
 
     /**

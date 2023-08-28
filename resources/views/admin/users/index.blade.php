@@ -6,6 +6,15 @@
 
 @endsection
 @section('content')
+<div class="d-flex align-items-center justify-content-around w-100 mb-4">
+        <form class="d-flex align-items-end w-50" action="{{route('admin.users.search')}}" method="get">
+            <input class="form-control" type="text" name="search" placeholder="Search..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class=" d-flex justify-content-around align-items-center ">
+                <button class="btn btn-info py-2 m-1" type="submit">Search</button>
+                <a href="{{route('admin.users.index')}}" class="btn btn-warning text-center py-2 m-1">Clear </a>
+            </div>
+        </form>
+    </div>
     <div class="col-lg-12 grid-margin">
         <div class="card" >
             <div class="card-body">
