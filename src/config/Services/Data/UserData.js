@@ -9,5 +9,8 @@ export default {
   },
   userProducts(id) {
     return apiClient.get(`/data/users/${id}/user-products`);
+  },
+  userSales(id) {
+    return apiClient.get(`/payment/user-sales/${id}`);
   }
 };

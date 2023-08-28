@@ -1,5 +1,5 @@
 <template>
-  <div class="dash-product-page">
+  <div v-if="product" class="dash-product-page">
     <div class="container pt-3 dash-product-details">
       <div class="row">
         <div class="col-12 col-lg-6">
@@ -24,7 +24,7 @@
                 v-if="!this.$store.getters['user/isLoggedIn']"
                 class="outerLogin"
               >
-                <div>
+                <div class="h-50 w-100">
                   <div>
                     <p class="mb-0">
                       <font-awesome-component
@@ -36,10 +36,10 @@
                       Create Your Acount to View Details Information
                     </p>
                     <p class="mb-0">
-                      this text can replace with any anter text
+                      Signup to get access to the details
                     </p>
-                    <router-link :to="{ name: 'login' }" v-slot="{ navigate }">
-                      <button @click="navigate">Message Request</button>
+                    <router-link :to="{ name: 'signup' }" v-slot="{ navigate }">
+                      <button @click="navigate" class="text-center mt-4">Sign-up Now</button>
                     </router-link>
                   </div>
                 </div>
@@ -89,10 +89,7 @@
                 </div>
                 <div class="categroy-order">
                   <span class="categroy">
-                    {{
-                      this.$store.state.category.categories[product.category_id]
-                        .name
-                    }}
+                    {{ this.$store.state.category.categories[product.category_id].name  }}
                   </span>
                   <span class="order">#{{ product.id }}</span>
                 </div>
@@ -127,13 +124,13 @@
                 </div>
               </div>
               <div class="reviewers">
-                <div class="images" v-if="product.bought.count > 0">
+                <div class="images-wrapper" v-if="product.bought.count > 0">
                   <div
-                    class="image"
-                    v-for="img in product.bought.user_imgs"
-                    :key="img"
+                    class="image-container"
+                    v-for="(img, index) in product.bought.user_imgs"
+                    :key="index"
                   >
-                    <img :src="img" alt="user" />
+                    <img :src="img.img" alt="user" />
                   </div>
                 </div>
                 <div class="number">{{ product.bought.count }} Bought</div>
@@ -141,9 +138,9 @@
               <div class="footer-buttons" v-if="product.status !== 'sold'">
                 <button
                   class="dash-button buy-icon"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasScrolling"
+                  :disabled="!this.$store.getters['user/isLoggedIn']"
                   aria-controls="offcanvasScrolling"
+                  @click="createIntent"
                 >
                   <span>Buy</span>
                   <span>
@@ -154,14 +151,15 @@
                   </span>
                 </button>
                 <!--  offcanvas of buy btn---------------------------------------------- -->
-                <div
-                  class="offcanvas offcanvas-end"
-                  data-bs-scroll="false"
-                  data-bs-backdrop="true"
-                  tabindex="-1"
-                  id="offcanvasScrolling"
-                  aria-labelledby="offcanvasScrollingLabel"
-                >
+                  <div
+                    class="offcanvas offcanvas-end"
+                    data-bs-scroll="false"
+                    data-bs-backdrop="true"
+                    tabindex="-1"
+                    id="offcanvasScrolling"
+                    aria-labelledby="offcanvasScrollingLabel"
+                    style="min-width: 450px; !important"
+                  >
                   <div class="offcanvas-header">
                     <button
                       type="button"
@@ -171,20 +169,34 @@
                     ></button>
                   </div>
                   <div class="offcanvas-body">
-                    <BuyOffcanvas :product="product" />
+                    <BuyOffcanvas :product="product" class="mb-2" />
+                    <div v-if="showError" class="error">{{ errorMsg }}</div>
+                    <form id="payment-form">
+                      <div id="link-authentication-element">
+                        <!--Stripe.js injects the Link Authentication Element-->
+                      </div>
+                      <div id="payment-element">
+                        <!--Stripe.js injects the Payment Element-->
+                      </div>
+                      <!-- <button id="submit">
+                        <div class="spinner hidden" id="spinner"></div>
+                        <span id="button-text">Pay now</span>
+                      </button> -->
+                      <div id="payment-message" class="hidden"></div>
+                    </form>
                     <div class="mt-3 btnComplete">
                       <button
                         :class="{ disabledBtn: comletePayMent }"
                         type="button"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
-                        @click="comletePayMent = true"
+                        @click="checkOut"
                         :disabled="comletePayMent"
                       >
                         Complete Payment
                       </button>
                       <!-- ---------------------- model of complete payment -->
-                      <div
+                      <!-- <div
                         class="modal modelsuccess fade"
                         id="exampleModal"
                         tabindex="-1"
@@ -200,7 +212,6 @@
                                   viewBox="0 0 512 512"
                                   width="55"
                                 >
-                                  <!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                                   <path
                                     d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM371.8 211.8C382.7 200.9 382.7 183.1 371.8 172.2C360.9 161.3 343.1 161.3 332.2 172.2L224 280.4L179.8 236.2C168.9 225.3 151.1 225.3 140.2 236.2C129.3 247.1 129.3 264.9 140.2 275.8L204.2 339.8C215.1 350.7 232.9 350.7 243.8 339.8L371.8 211.8z"
                                     fill="#3eadb7"
@@ -222,14 +233,14 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- ------------------------------------------------ -->
                     </div>
                   </div>
                 </div>
                 <!-- ---------------------------------------------- -->
                 <!-- ------------------------- model of message request--------------------- -->
-                <button
+                <!-- <button
                   class="dash-button buy-icon"
                   data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop"
@@ -240,7 +251,7 @@
                       icon="telegram-plane"
                     ></font-awesome-component>
                   </span>
-                </button>
+                </button> -->
                 <!-- Modal -->
                 <div
                   class="modal modelMessageRequest fade"
@@ -314,7 +325,7 @@
       </div>
     </div>
     <div class="mt-5 container dash-product-statistics">
-      <div class="profile-statistics">
+      <!-- <div class="profile-statistics">
         <div class="statistics">
           <div class="statistic">
             <div class="key">Average monthly traffic</div>
@@ -341,25 +352,27 @@
             <div class="value">500K$</div>
           </div>
         </div>
-      </div>
-      <div class="chart-statistics">
+      </div> -->
+      <div class="chart-statistics ">
         <div class="statistic">
-          <div class="labels">
+          <div class="labels p-4 d-flex">
             <div class="label">
-              <div class="key">Traffic</div>
+              <div class="key">Traffic:</div>
             </div>
-            <div class="label">
-              <div class="key">Page Views</div>
-              <div class="value">{{ this.product.views.length * 93 }}</div>
-            </div>
-            <div class="label">
-              <div class="key">Visits</div>
-              <div class="value">100.8356 P/MO</div>
+            <div class="d-flex w-100 justify-content-start">
+              <div class="label mx-4">
+                <div class="key">Page Views</div>
+                <div class="value">{{ this.product.views.length  }}</div>
+              </div>
+              <!-- <div class="label">
+                <div class="key">Visits</div>
+                <div class="value">100.8356 P/MO</div>
+              </div> -->
             </div>
           </div>
-          <canvas id="price-chart" height="250" role="img"></canvas>
+          <!-- <canvas id="price-chart" height="250" role="img"></canvas> -->
         </div>
-        <div class="statistic">
+        <!-- <div class="statistic">
           <div class="labels">
             <div class="label">
               <div class="key">Earnings</div>
@@ -374,15 +387,15 @@
             </div>
           </div>
           <canvas id="earnings-chart" height="250" role="img"></canvas>
-        </div>
+        </div> -->
       </div>
     </div>
-    <div class="container similar-products">
+    <div v-if="similar.length >= 0" class="container similar-products">
       <div class="title">Similar</div>
       <div class="dash-products row">
         <div
           class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4 pe-0 SingleProduct"
-          v-for="p in ps"
+          v-for="p in similar"
           :key="p.id"
         >
           <product :id="p"></product>
@@ -393,9 +406,15 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import Product from "../../components/Products/Product.vue";
 import BuyOffcanvas from "./BuyOffcanvas.vue";
+
+import { loadStripe } from '@stripe/stripe-js';
+import { Offcanvas } from 'bootstrap'
+// import 'bootstrap';
+
+// import 'bootstrap/dist/css/bootstrap.min.css';
 export default {
   props: {
     id: {
@@ -407,18 +426,95 @@ export default {
     return {
       // product: this.$store.state.product.products.data[this.id],
       comletePayMent: false,
-      showCopiedToaster: false
+      showCopiedToaster: false,
+      stripe: null,
+      elements: null,
+      showMenu: false,
+      showError: false,
+      errorMsg: ''
     };
   },
   methods: {
+    async checkOut() {
+      this.comletePayMent = true
+      if (!this.clientSecret) {
+        console.error("Client secret not available. Payment cannot be processed.");
+        return;
+      }
+      const data = {
+        product_id: this.product.id,
+        user_id: this.$store.state.user.data.id,
+        price: this.product.price,
+        ownerId: this.product.user.id,
+        affiliate_code: this.$route.query.tracking
+      }
+      localStorage.setItem('product', JSON.stringify(this.product))
+      localStorage.setItem('paymentData', JSON.stringify(data));
+      
+      try {
+        const { error } = await this.stripe.confirmPayment({
+          elements: this.elements,
+          confirmParams: {
+            return_url: "http://localhost:8080/#/payment-complete",
+          },
+        }
+        );
+        // Handle the payment confirmation response
+        if (error.type === "card_error" || error.type === "validation_error") {
+          this.showError = true
+          this.errorMsg = error.message
+        } else {
+          this.showError = true
+          this.errorMsg = "An unexpected error occurred."
+        }
+        let BuyOffcanvas = new Offcanvas(document.getElementById('offcanvasScrolling'));
+        BuyOffcanvas.hide();
+      } catch (error) {
+        console.error("Error during payment processing:", error);
+      }
+      
+    },
+
+    async createIntent() {
+      this.$store.dispatch("ChangeLoading", true);
+      const data = {
+        product_id: this.product.id,
+        user_id: this.$store.state.user.data.id,
+        price: this.product.price,
+        ownerId: this.product.user.id,
+        affiliate_code: this.$route.query.tracking
+      }
+      await this.$store.dispatch('payment/createIntent', data);
+      let clientSecret = this.clientSecret
+
+      // Create the Stripe instance and Elements after fetching the clientSecret
+      const stripePublicKey =  process.env.VUE_APP_STRIPE_KEY
+      this.stripe = await loadStripe(stripePublicKey);
+      this.elements = this.stripe.elements({ clientSecret });
+
+      const linkAuthenticationElement = this.elements.create('linkAuthentication');
+      linkAuthenticationElement.mount('#link-authentication-element');
+
+      const paymentElementOptions = {
+        layout: 'tabs',
+      };
+
+      const paymentElement = this.elements.create('payment', paymentElementOptions);
+      paymentElement.mount('#payment-element');
+      // this.showMenu ? this.showMenu = false : this.showMenu = true;
+      let BuyOffcanvas = new Offcanvas(document.getElementById('offcanvasScrolling'));
+      BuyOffcanvas.show();
+      this.$store.dispatch("ChangeLoading", false);
+    },
+
     async like() {
       await this.$store.dispatch("product/LikeProduct", this.product.id);
-      if (!this.$store.state.product.products.data[this.id].liked) {
-        this.$store.state.product.products.data[this.id].liked = true;
-        this.$store.state.product.products.data[this.id].likes++;
+      if (!this.$store.state.product.products.single[this.id].liked) {
+        this.$store.state.product.products.single[this.id].liked = true;
+        this.$store.state.product.products.single[this.id].likes++;
       } else {
-        this.$store.state.product.products.data[this.id].liked = false;
-        this.$store.state.product.products.data[this.id].likes--;
+        this.$store.state.product.products.single[this.id].liked = false;
+        this.$store.state.product.products.single[this.id].likes--;
       }
     },
     affiliate() {
@@ -430,7 +526,6 @@ export default {
       // Generate the affiliate link using Laravel route and query parameters
       const baseUrl = process.env.VUE_APP_FRONTEND_URL
       const affiliateLink = `${baseUrl}/product/${productId}?owner=${ownerId}&user=${userId}&tracking=${trackingCode}`;
-      console.log(affiliateLink );
       const data = {
         affiliator_id: userId,
         owner_id : ownerId,
@@ -467,39 +562,228 @@ export default {
 
       return trackingCode;
     },
-    DeleteOffinsive() {
-      setTimeout(() => {
-        document.querySelector(".offcanvasClose").click();
-      }, 300);
-      setTimeout(() => {
-        this.$router.push("/chat");
-      }, 600);
-    },
+    // DeleteOffinsive() {
+    //   setTimeout(() => {
+    //     document.querySelector(".offcanvasClose").click();
+    //   }, 300);
+    //   setTimeout(() => {
+    //     const chatId = this.$store.state.payment.buyerId
+    //     this.$router.push({ name: 'chat', params: { chatId: chatId } });
+    //   }, 600);
+    // },
   },
   computed: {
-    ...mapGetters("product", ["products"]),
+    ...mapGetters("product", ["products", "similarArray"]),
+    ...mapState("payment", ["intent"]),
+    // ...mapState("product", ["similar"]),
+    clientSecret() {
+      return this.$store.state.payment.intent.clientSecret
+    },
     product() {
-      return this.$store.state.product.products.data[this.id]
+      // return this.$store.state.product.products.data[this.id]
+      return this.$store.state.product.products.single[this.id]
     },
     ps() {
       return this.products({ not: this.id });
+      // const ps = this.$store.state.product.products.data[this.id].similar
+      // const similar = Object.keys(ps)
+      //                 .map((i) => {
+      //                    return ps[i].id;
+      //                 })
+      //                 return similar
+      // return this.$store.state.product.products.data[this.id].similar
     },
+    similar() {
+      return this.similarArray;
+    },
+    trckingCode(){
+      return this.$route.query.tracking;
+    }
   },
   components: {
     Product,
     BuyOffcanvas,
   },
   async beforeRouteUpdate(to, from, next) {
-    await this.$store.dispatch("product/single", { id: to.params.id });
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
-    next();
+    try {
+      await this.$store.dispatch("product/single", { id: to.params.id });
+      if (this.$store.state.product.products.single) {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0;
+        next()
+      } else {
+        next(false)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    
+    // next();
+  },
+  async mounted() {
+
   },
 };
 </script>
 
 <style lang="css" scoped src="./Single.css"></style>
 <style>
+.images-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  gap: -40%;
+  margin-right: 10px;
+}
+
+.image-container {
+  position: relative;
+  margin-right: -15%;
+}
+
+.image-container img {
+  border: #c9c9c9 1px solid;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+}
+.error {
+  background-color: tomato;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #ffffff;
+}
+#payment-form {
+  /* width: 80vw; */
+  /* min-width: 250px; */
+  align-self: center;
+  box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+    0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 7px;
+  padding: 40px;
+}
+
+.hidden {
+  display: none;
+}
+
+#payment-message {
+  color: rgb(105, 115, 134);
+  font-size: 16px;
+  line-height: 20px;
+  padding-top: 12px;
+  text-align: center;
+}
+
+#payment-element {
+  margin-bottom: 24px;
+}
+
+/* Buttons and links */
+button {
+  background: #5469d4;
+  font-family: Arial, sans-serif;
+  color: #ffffff;
+  border-radius: 4px;
+  border: 0;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  transition: all 0.2s ease;
+  box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+  width: 100%;
+}
+button:hover {
+  filter: contrast(115%);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* spinner/processing state, errors */
+.spinner,
+.spinner:before,
+.spinner:after {
+  border-radius: 50%;
+}
+.spinner {
+  color: #ffffff;
+  font-size: 22px;
+  text-indent: -99999px;
+  margin: 0px auto;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  box-shadow: inset 0 0 0 2px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.spinner:before,
+.spinner:after {
+  position: absolute;
+  content: "";
+}
+.spinner:before {
+  width: 10.4px;
+  height: 20.4px;
+  background: #5469d4;
+  border-radius: 20.4px 0 0 20.4px;
+  top: -0.2px;
+  left: -0.2px;
+  -webkit-transform-origin: 10.4px 10.2px;
+  transform-origin: 10.4px 10.2px;
+  -webkit-animation: loading 2s infinite ease 1.5s;
+  animation: loading 2s infinite ease 1.5s;
+}
+.spinner:after {
+  width: 10.4px;
+  height: 10.2px;
+  background: #5469d4;
+  border-radius: 0 10.2px 10.2px 0;
+  top: -0.1px;
+  left: 10.2px;
+  -webkit-transform-origin: 0px 10.2px;
+  transform-origin: 0px 10.2px;
+  -webkit-animation: loading 2s infinite ease;
+  animation: loading 2s infinite ease;
+}
+
+@-webkit-keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  form {
+    width: 60vw;
+    min-width: initial;
+  }
+}
 
 .copied_toaster {
   padding: 4px 8px;

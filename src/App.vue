@@ -96,6 +96,8 @@ section {
     margin: 11vh 0 0 0;
     // margin: 11vh 0 70px 0;
     min-height: 90vh;
+    // max-width: 1508px;
+    // display: inline-block;
     @media (max-width: 1400px) {
       min-height: 90vh;
       margin: 14vh 0 0 0;

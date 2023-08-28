@@ -174,10 +174,26 @@ export const getters = {
     });
   },
 
+  // files: (state) => {
+  //   return state.userChat.filter((chat) => {
+  //     return chat.type === 'textphoto' && chat.attachments.length >=0;
+  //   });
+  // },
+
   files: (state) => {
-    return state.userChat.filter((chat) => {
-      return chat.type === 'textphoto' && chat.attachments.length >=0;
+    const groupedFiles = {};
+
+    state.userChat.forEach((chat) => {
+      if (chat.type === 'textphoto' && chat.attachments.length >= 0) {
+        const date = chat.created_at.slice(0, 10);
+        if (!groupedFiles[date]) {
+          groupedFiles[date] = [];
+        }
+        groupedFiles[date].push(chat);
+      }
     });
+
+    return groupedFiles;
   },
 
 };

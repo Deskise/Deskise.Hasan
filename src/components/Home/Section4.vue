@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     products() {
-      return this.$store.state.product.best.data;
+      return this.$store.state.product.products.data;
     },
   },
   methods: {

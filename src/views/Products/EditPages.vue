@@ -13,7 +13,7 @@
                   ></yn-select>
               </div>
           </div> -->
-          <div class="form-feilds">
+          <!-- <div class="form-feilds">
             <div class="form-step-title">Packages</div>
               <div class="form-step-fields">
                 <div class="packages-container">
@@ -25,9 +25,9 @@
                   </div>
                 </div>
               </div>
-          </div>
+          </div> -->
 
-          <div class="form-feilds">
+          <!-- <div class="form-feilds">
           <div class="form-step-title">Selected Packages</div>
             <div class="form-step-fields">
               <div class="packages-container">
@@ -41,7 +41,7 @@
                 </div>
               </div>
             </div>
-        </div>
+        </div> -->
 
             <div class="form-feilds">
               <button class="btn drop" type="button" data-bs-toggle="collapse" data-bs-target="#collapsRights" aria-expanded="false" aria-controls="collapsRights">
@@ -232,7 +232,7 @@
                   ></circle-checkbox>
                   
                   <div v-if="f.name==='img'" class="upload-images">
-                    <div
+                    <div v-if="!images.length > 0"
                       class="add-new-image"
                       @click="() => $el.querySelector('input[type=file]').click()"
                     >
@@ -272,7 +272,7 @@
   <script>
   import Datepicker from "@vuepic/vue-datepicker";
   import "@vuepic/vue-datepicker/dist/main.css";
-  import PackageSelect from "@/components/layouts/PackageSelect";
+  // import PackageSelect from "@/components/layouts/PackageSelect";
   import CircleCheckbox from "@/components/layouts/CircleCheckbox.vue";
   import MultiPicture from "@/components/layouts/multi-pic/MultiPicture.vue";
   import { mapState } from "vuex";
@@ -302,7 +302,7 @@
       },
     },
     
-    components: { PackageSelect, Datepicker, CircleCheckbox, MultiPicture },
+    components: {  Datepicker, CircleCheckbox, MultiPicture },
     data() {
       return {
         product: {
@@ -386,14 +386,18 @@
        if (!Object.prototype.hasOwnProperty.call(this.product, 'social_media')) {
         this.product.social_media = this.details.data.data.social_media;
       }
+      if (!Object.prototype.hasOwnProperty.call(this.product, 'data')) {
+          this.product.data = '[]';
+        }
       this.product.lifetime = this.details.is_lifetime ? 1 : 0;
 
       this.product.until = new Date(this.info.until).toLocaleDateString('en-GB');
-      this.product.assets = '{"image":["default.webp", "default3.webp"]}'
+      // this.product.assets = '{"image":["default.webp", "default3.webp"]}'
 
        this.prepareToSend(this.product);
       },
-      prepareToSend(data) {
+
+      async prepareToSend(data) {
       let formData = new FormData();
       formData.append("id", this.info.id);
       Object.keys(data)
@@ -413,7 +417,8 @@
         console.log(pair[0]+ ', ' + pair[1]); 
       }
       this.$emit('publishDialog', true)
-         this.$store.dispatch("product/update",{id: this.info.id, product: formData});
+        await this.$store.dispatch("product/update",{id: this.info.id, product: formData});
+        this.$router.push('/profile')
 
     },
     },

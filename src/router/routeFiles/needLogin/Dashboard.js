@@ -1,4 +1,5 @@
 import store from "@/store";
+import withdraw from "@/components/Dashboard/withdraw.vue"
 function lazyLoad(view) {
   return () =>
     import(
@@ -73,7 +74,18 @@ export const routes = [
       {
         path: "sales",
         name: "dashboard.sales",
-        component: lazyLoad("index"),
+        component: lazyLoad("Sales"),
+        beforeEnter: async (to, from, next) => {
+          let id = store.state.user.data.id
+          await store.dispatch("user/userSales", id)
+          next();
+        },
+      },
+      
+      {
+        path: "withdraw",
+        name: "dashboard.wirhdraw",
+        component: withdraw,
       },
 
       {

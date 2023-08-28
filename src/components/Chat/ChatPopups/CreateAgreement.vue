@@ -12,6 +12,7 @@
         <input v-model="filesType" placeholder="The type of files to be delivered" />
         <textarea v-model="notes" placeholder="Notes"></textarea>
         <button type="submit" class="pelorous">Send</button>
+        <button @click="back" class="close">Cancel</button>
       </form>
     </div>
   </div>
@@ -34,6 +35,9 @@ export default {
   },
 
   methods: {
+    back() {
+      this.$router.go(-1)
+    },
     sendAgreemnt() {
       const date = new Date();
       const formattedDate = date.toISOString();
@@ -81,6 +85,17 @@ export default {
 </script>
 
 <style scoped>
+.close {
+  color: #a9a9a9;
+  background: none;
+  border: none;
+  border-bottom: #dc3545 solid 2px;
+  margin-top: 15px;
+  padding: 2px 20px;
+}
+.close:hover {
+  color: #dc3545;
+}
 .dash-dailog {
   position: fixed;
   top: 0;

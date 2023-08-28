@@ -55,8 +55,8 @@ export default{
 .dash-dailog .dash-dailog-box {
   background: #fff;
   border-radius: 20px;
-  padding: 50px 70px;
-  min-width: 750px;
+  padding: 20px 70px;
+  min-width: 650px;
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -66,7 +66,7 @@ export default{
 }
 .dash-dailog .dash-dailog-box > *:not(:last-child),
 .dash-form > *:not(:last-child) {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .dash-dailog .icon {
@@ -79,12 +79,12 @@ export default{
 }
 
 .dash-dailog .title {
-  font-size: 28px;
+  font-size: 16px;
   color: #040506;
   font-weight: bold;
 }
 .dash-dailog .description {
-  font-size: 24px;
+  font-size: 16px;
   color: #c9c9c9;
   text-align: center;
 }
@@ -101,12 +101,12 @@ export default{
 .dash-form input,
 .dash-form select {
   color: rgba(157, 157, 157, 23%);
-  padding: 14px 30px;
+  padding: 10px 26px;
   border: 1px solid rgba(157, 157, 157, 23%);
   border-radius: 5px;
   display: block;
   width: 100%;
-  font-size: 20px;
+  font-size: 14px;
 }
 .dash-form textarea {
   min-height: 160px;
@@ -115,11 +115,11 @@ export default{
 .dash-form button[type="submit"],
 .dash-form input[type="submit"] {
   width: 100%;
-  padding: 16px;
+  padding: 12px;
   border-radius: 5px;
   background-color: #4e1b56;
   color: #fff;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   border: none;

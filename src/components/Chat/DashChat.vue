@@ -25,7 +25,9 @@ export default {
   align-items: stretch;
   position: relative;
   overflow: hidden;
+  height: 90vh;
   max-height: 100vh;
+  /* margin-top: -60px; */
 } 
 
 @media (max-width: 639px) {

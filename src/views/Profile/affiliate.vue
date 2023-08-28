@@ -14,98 +14,84 @@
               <Switch :checked="affiliating" @update:checked="updateSwitchValue"></Switch>
             </div>
             <div class="dash-sales">
-              <div class="my-sales mb-5 mb-lg-2">
-                <div class="sales-title">My Sales</div>
-                <div class="sales-table">
-                  <div class="sales-header sales-row">
-                    <span class="date">Date</span>
-                    <span class="peference">Peference</span>
-                    <span class="product">product</span>
-                    <span class="state">State</span>
-                  </div>
-                  <div class="sales-row">
-                    <span class="date">13 Juli</span>
-                    <span class="peference">#328178</span>
-                    <span class="product">Name product</span>
-                    <span class="state sold">Sold 200$</span>
-                  </div>
-                  <div class="sales-row">
-                    <span class="date">13 Juli</span>
-                    <span class="peference">#328178</span>
-                    <span class="product">Name product</span>
-                    <span class="state closed">Closed</span>
-                  </div>
-                  <div class="sales-row">
-                    <span class="date">13 Juli</span>
-                    <span class="peference">#328178</span>
-                    <span class="product">Name product</span>
-                    <span class="state under-sale">Under Sale</span>
+              <div>
+                <div class="my-sales mb-5 mb-lg-2">
+                  <div class="sales-title">Your Affiliated Products</div>
+                  <div class="sales-table">
+                    <div class="sales-header sales-row">
+                      <!-- <span class="date">Date Created</span> -->
+                      <span class="product">Product</span>
+                      <span class="peference"></span>
+                      <span class="state">Bought Count</span>
+                    </div>
+                    <div v-for="affiliate in affiliates" :key="affiliate.id" class="sales-row">
+                      <!-- <span class="date">{{ affiliate.created_at.substr(0, 10) }}</span> -->
+                      <span class="product">{{ affiliate.product.name }}</span>
+                      <span class="peference">{{ affiliate.tracking_code }}</span>
+                      <span class="state sold">{{ affiliate.product_count }}</span>
+                    </div>
                   </div>
                 </div>
+                <div class="my-sales mb-5 mb-lg-2">
+                    <div class="sales-title">My Affiliate Products</div>
+                    <div class="sales-table">
+                      <div class="sales-header sales-row">
+                        <!-- <span class="date">Date Created</span> -->
+                        <span class="product">Product</span>
+                        <span class="peference">Tracking Link</span>
+                        <span class="date">Bought</span>
+                        <span class="date">Share ($)</span>
+                      </div>
+                      <div v-for="affiliate in myAffiliates" :key="affiliate.id" class="sales-row">
+                        <!-- <span class="date">{{ affiliate.created_at.substr(0, 10) }}</span> -->
+                        <span class="product">{{ affiliate.product_name }}</span>
+                          <span class="peference-link">{{ affiliate.affiliate_link }}</span>
+                          <button @click="copyLink(affiliate)" class="copy">Copy</button>
+                        <span class="state sold mr-lg-4">{{ affiliate.bought_count }}</span>
+                        <span class="state sold">{{ (affiliate.share).toFixed(2) }}</span>
+                      </div>
+                    </div>
+                  </div>
               </div>
               <div class="your-earnings">
                 <div class="payments-hisotry">
-                  <div class="sales-title">Your Eranings</div>
+                  <div class="sales-title">Your Affiliate Share</div>
                   <div class="prices">
                     <div class="balance">
-                      <span class="key">Current Blance</span>
-                      <span class="value">200$</span>
-                    </div>
-                    <div class="total">
-                      <span class="key">Total</span>
-                      <span class="value">1050$</span>
+                      <div class="total">
+                        <span class="key">Total</span>
+                        <span class="value">{{ (total).toFixed(2) }}$</span>
+                      </div>
                     </div>
                   </div>
-                  <div class="sales-title">Payout History</div>
-                  <div class="sales-table">
-                    <div class="sales-header sales-row">
-                      <span class="date">Date</span>
-                      <span class="payment">Payment Method</span>
-                      <span class="amount">Amount</span>
-                      <span class="status">Status</span>
+                  
+                  <!-- <div class="my-sales mb-5 mb-lg-2">
+                    <div class="sales-title">Affiliate List</div>
+                    <div class="sales-table">
+                      <div class="sales-header sales-row">
+                        <span class="date">Date Created</span>
+                        <span class="peference">Tracking Code</span>
+                        <span class="product">Product</span>
+                        <span class="state">Bought Count</span>
+                      </div>
+                      <div v-for="affiliate in affiliates" :key="affiliate.id" class="sales-row">
+                        <span class="date">{{ affiliate.created_at.substr(0, 10) }}</span>
+                        <span class="peference">{{ affiliate.tracking_code }}</span>
+                        <span class="product">{{ affiliate.product.name }}</span>
+                        <span class="state sold">{{ affiliate.product_count }}</span>
+                      </div>
                     </div>
-                    <div class="sales-row">
-                      <span class="date">13 Juli</span>
-                      <span class="payment">Visa</span>
-                      <span class="amount">200$</span>
-                      <span class="status success">Successfully</span>
-                    </div>
-                    <div class="sales-row">
-                      <span class="date">13 Juli</span>
-                      <span class="payment">Paypal</span>
-                      <span class="amount">1200$</span>
-                      <span class="status failed">Failure</span>
-                    </div>
-                    <div class="sales-row">
-                      <span class="date">13 Juli</span>
-                      <span class="payment">Visa</span>
-                      <span class="amount">200$</span>
-                      <span class="status success">Successfully</span>
-                    </div>
-                    <div class="sales-row">
-                      <span class="date">13 Juli</span>
-                      <span class="payment">Paypal</span>
-                      <span class="amount">1200$</span>
-                      <span class="status failed">Failure</span>
-                    </div>
-                  </div>
+                  </div> -->
                 </div>
-
-                <div class="payout-request">
-                  <div class="sales-title">Payout Request</div>
-                  <p>
-                    Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed
-                    Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
-                    Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
-                    Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
-                    Sea Takimata Sanctus Est Lorem Ipsum Dolor Sit Amet. Lorem
-                    Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
-                    Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna
-                    Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et
-                    Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren, No
-                    Sea Takimata Sanctus Est Lorem Ipsum Dolor Sit Amet
+                <div class="payout-request mb-lg-4">
+                  <div class="sales-title">Affiliate Payout</div>
+                  <p class="text-left">
+                    Your Earnings from Affiliating, will be added to your balance automaticly whenever a customer buys the product you are affiliating.
+                    The total amount of your affiliating share will be added to the balance You can check it and request a withdraw from Sales Section.
                   </p>
                 </div>
+                
+
               </div>
             </div>
           </div>
@@ -117,6 +103,8 @@
 
 <script>
 import Switch from "../../components/Profile/Affiliate/Switch.vue";
+import { mapState } from "vuex";
+
 export default {
   components: { Switch },
   data() {
@@ -128,11 +116,52 @@ export default {
     updateSwitchValue() {
       this.affiliating = !this.affiliating
       this.$store.dispatch("affiliate/toggle")
+    },
+    copyLink(affiliate) {
+      const affiliateLink = affiliate.affiliate_link;
+      console.log(affiliateLink);
+      // Create a temporary input element
+      const tempInput = document.createElement('input');
+      tempInput.value = affiliateLink;
+      document.body.appendChild(tempInput);
+
+      // Select and copy the text
+      tempInput.select();
+      document.execCommand('copy');
+
+      // Remove the temporary input element
+      document.body.removeChild(tempInput);
     }
+  },
+  computed: {
+    ...mapState("affiliate", ["affiliateInfo", "earnings", "myAffiliates"]),
+
+    affiliates() {
+      return this.affiliateInfo
+    },
+    total() {
+      return this.earnings
+    }
+
   }
 };
 </script>
 <style>
+.copy {
+  font-size: 10px;
+  font-weight: bold;
+  border: 1px solid #3eadb7;
+  border-radius: 8px;
+  background: none;
+  padding: 2px 5px;
+  margin-right: 8px;
+  transition: all 0.2s linear;
+}
+.copy:hover{
+  color: #fff;
+  background-color: #4e1b56;
+  border: none;
+}
 .switch {
   width: 55px !important;
   height: 25px !important;
@@ -199,6 +228,7 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  flex-direction: column-reverse;
   border: 1px solid #eee;
   padding: 20px;
   border-radius: 5px;
@@ -264,6 +294,18 @@ export default {
 
 .sales-table .sales-row .peference {
   width: 25%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.sales-table .sales-row .peference-link {
+  width: 25%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @media (max-width: 520px) {
+    display: none;
+  }
 }
 
 .sales-table .sales-row .product {
@@ -271,7 +313,9 @@ export default {
   color: #3eadb7;
 }
 .sales-table .sales-row .state {
-  width: 25%;
+  width: 20%;
+  // margin-left: 10px;
+  text-align: center;
 }
 .sales-table .sales-row .state.sold {
   color: #3eadb7;
@@ -308,7 +352,7 @@ export default {
 .dash-sales .payments-hisotry {
   background-color: rgba(241, 241, 241, 0.22);
   padding: 15px 20px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   border-radius: 10px;
   @media (max-width: 576px) {
     padding: 10px;

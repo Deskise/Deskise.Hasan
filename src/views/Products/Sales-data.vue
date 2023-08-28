@@ -79,6 +79,7 @@ export default {
   methods: {
     publishDialog() {
       this.isActive = !this.isActive;
+      this.$router.push('/profile')
     }
   },
   computed: {

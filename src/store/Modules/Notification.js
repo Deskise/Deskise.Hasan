@@ -9,16 +9,28 @@ export const state = {
 
 export const mutations = {
  
+  // LIST(state, notification) {
+  //   state.notificationList = [];
+  //   Object.keys(notification).forEach((key) => {
+  //     const singleNotification = notification[key];
+  //     singleNotification.key = key;
+  //     state.notificationList.push({...singleNotification});
+  //     // if (singleNotification.read === false) {
+  //     // }
+  //   });
+  // },
+
   LIST(state, notification) {
-    state.notificationList = [];
-    Object.keys(notification).forEach((key) => {
+    const notifications = Object.keys(notification).map((key) => {
       const singleNotification = notification[key];
       singleNotification.key = key;
-      if (singleNotification.read === false) {
-        state.notificationList.push({...singleNotification});
-      }
+      return { ...singleNotification };
     });
+
+    // Store only the last 10 notifications
+    state.notificationList = notifications.slice(-12);
   },
+
 
   PUSH(state, notification) {
     // setTimeout(() => {

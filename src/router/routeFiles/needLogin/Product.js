@@ -49,8 +49,12 @@ export const routes = [
     props: (route) => ({ id: Number(route.params.id) }),
 
     beforeEnter: async function (routeTo, from, next) {
-      await store.dispatch("product/single", { id: routeTo.params.id });
-      next();
+        await store.dispatch("product/single", { id: routeTo.params.id })
+        if (store.state.product.products.single) {
+          next();
+        } else {
+          next(false)
+        }
     },
     watch: {
       id: async function (newId) {
@@ -90,5 +94,14 @@ export const routes = [
       }
       next();
     },
+  },
+
+  {
+    path: "/payment-complete",
+    name: "paymencompleted",
+    meta: {
+      requireAuth: true,
+    },
+    component: lazyLoad("PaymentCompleted"),
   },
 ];

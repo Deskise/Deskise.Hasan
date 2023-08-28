@@ -57,7 +57,8 @@
         <p class="grey">In Invoice Will Be Sent Via Eamil</p>
         <div class="Checkout mt-1">
           <p>CHECKOUT</p>
-          <div class="list-group">
+          
+          <!-- <div class="list-group">
             <a
               class="mb-2 list-group-item list-group-item-action active"
               aria-current="true"
@@ -118,7 +119,7 @@
             <a class="mb-2 list-group-item list-group-item-action">
               <p class="mb-1 text-center">Add Card</p>
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -126,6 +127,7 @@
 </template>
 <script>
 export default {
+  
   name: "buyOffinsive",
   props: ["product"],
 };
@@ -134,6 +136,7 @@ export default {
 .offcanvas-body {
   overflow-y: scroll !important;
   padding-bottom: 20px;
+  min-width: 400px !important;
 }
 .offcanvas-body .main-image img {
   width: 100%;

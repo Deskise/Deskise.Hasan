@@ -1,6 +1,6 @@
 <template>
   <div class="upload-images">
-    <div
+    <div v-if="!images.length > 0"
       class="add-new-image"
       @click="() => $el.querySelector('input[type=file]').click()"
     >

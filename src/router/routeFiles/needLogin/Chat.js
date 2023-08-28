@@ -11,11 +11,18 @@ export const routes = [
     name: "chat",
     beforeEnter: function (routeTo, from, next) {
       store.state.noFooter = true;
-        store.dispatch("chat/list").then(() => {
+      store.dispatch("chat/list").then(() => {
+          if (!store.state.payment.buyerId) {
             next({
               name: "chats",
               params: { chatId: store.state.chat.chats[0].id },
             });
+          } else {
+            next({
+              name: "chats",
+              params: { chatId: store.state.payment.buyerId },
+            });
+          }
           });
     },
   },
@@ -27,12 +34,12 @@ export const routes = [
       store.state.noFooter = true;
       // Add bayer, seller and product ids to database from store->product, to be shown in the chat
       store.dispatch("chat/list").then(() => {
-        if (store.state.chat.chats.length < 0) {
-          routeTo.params.chatId === "first"
-        }
-        else if (store.state.chat.chats.length) {
-          routeTo.params.chatId = store.state.chat.chats[0].id;
-        } 
+        // if (store.state.chat.chats.length < 0) {
+        //   routeTo.params.chatId === "first"
+        // }
+        // else if (store.state.chat.chats.length) {
+        //   routeTo.params.chatId = store.state.payment.buyerId;
+        // } 
         next();
       });
     },

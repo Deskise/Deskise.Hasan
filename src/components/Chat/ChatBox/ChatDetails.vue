@@ -17,15 +17,16 @@
       class="avatar-image"
       :style="{ display: msg.type === 'call' ? 'none' : '' }"
     >
-      <img
-        src="https://avatargenerator-preview-2.s3.eu-west-1.amazonaws.com/white_female_young%20adult_greeneye_blondhair_56787.jpg"
-      />
+      <img v-if="msg.from !== this.$store.state.user.data.id" :src="chat.user.img" :alt=chat.user.firstname>
+      <img v-if="msg.from === this.$store.state.user.data.id" :src="sender.img" :alt="sender.firstname">
     </div>
     <TextContent :msg="msg" />
     <ImageContent :msg="msg" />
     <TextImageContent :msg="msg" />
     <AgreementContent :msg="msg" />
     <CallMessage :msg="msg" />
+    <OrderDetails :msg="msg" />
+    <FilesSubmit :msg="msg"/>
     <div class="send-message-time">
       {{ new Date(msg.created_at).getHours() }}:{{
         new Date(msg.created_at).getMinutes()
@@ -33,13 +34,19 @@
     </div>
   </div>
 </template>
+
+
 <script setup>
+import { useStore } from 'vuex';
+import { computed } from 'vue'
 import TextContent from "../ChatBox/ChatContent/TextContent.vue";
 import ImageContent from "../ChatBox/ChatContent/ImageContent.vue";
 import TextImageContent from "../ChatBox/ChatContent/TextImageContent.vue";
 import AgreementContent from "../ChatBox/ChatContent/AgreementContent.vue";
 import CallMessage from "../ChatBox/ChatContent/CallMessage.vue";
-
+import { useRoute } from 'vue-router';
+import OrderDetails from './ChatContent/OrderDetails.vue';
+import FilesSubmit from './ChatContent/FilesSubmit.vue';
 // eslint-disable-next-line vue/no-setup-props-destructure, no-undef
 const { msg } = defineProps({
   msg: {
@@ -47,7 +54,18 @@ const { msg } = defineProps({
     type: Object,
   },
 });
+const route = useRoute();
+const chatId = parseInt(route.params.chatId)
+const store = useStore();
+const sender = computed(() => store.state.user.data);
+const chats = store.state.chat.chats;
+const chat = computed(() => {
+  return chats.filter((chat) => chat.id === chatId)[0];
+});
+
 </script>
+
+
 <style scoped>
 .sender,
 .receiver {
@@ -66,9 +84,11 @@ const { msg } = defineProps({
 }
 .receiver .avatar-image img {
   margin-left: 5px;
+  aspect-ratio: 1/1;
 }
 .sender .avatar-image img {
   margin-right: 5px;
+  aspect-ratio: 1/1;
 }
 .avatar-image img {
   width: 30px;

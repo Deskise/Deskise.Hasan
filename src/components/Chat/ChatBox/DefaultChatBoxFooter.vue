@@ -14,18 +14,18 @@
   </div>
   <div class="chat-box-footer">
     <ul class="footer-options">
-      <li class="option">
-        <a href="javaascript:void(0)">
+      <li class="option-disabled text-secondary" >
+        <a href="javaascript:void(0)"  >
           <font-awesome-component icon="video" :bold="false" />
         </a>
       </li>
-      <li class="option">
-        <a href="javascript:void(0)">
+      <li class="option-disabled">
+        <a href="javascript:void(0)" >
           <font-awesome-component icon="phone" :bold="false" />
         </a>
       </li>
       <li class="option">
-        <a href="javascript:void(0)"  
+        <a href="javascript:void(0)"
           @click="chooseFiles"
         >
           <input @change="addFile" type="file" name="imgs" hidden multiple>
@@ -37,10 +37,10 @@
         
       <form @submit.prevent="sendMsg">
         <input placeholder="Type Something" v-model="message" />
+        <a @click="sendMsg" href="javascript:void(0)" class="icon">
+          <font-awesome-component icon="telegram-plane" />
+        </a>
       </form>
-      <a href="javascript:void(0)" class="icon">
-        <font-awesome-component icon="telegram-plane" />
-      </a>
     </div>
   </div>
 </template>
@@ -74,9 +74,9 @@ const addFile = (e) => {
 
 const removeImg = (i) => {
   console.log(i);
-      imgs.value.splice(i, 1);
-      files.value.splice(i, 1);
-    }
+  imgs.value.splice(i, 1);
+  files.value.splice(i, 1);
+}
 
 const sender = ref();
 sender.value = store.state.user.data.id
@@ -109,6 +109,9 @@ const chooseFiles = () => {
 const message = ref("");
 
 const sendMsg = async () => {
+  if (files.value.length === 0 && message.value === "") {
+    console.log('nothing to send');
+  } else {
   loading.value = true
   const attachments = files.value.map((file) => {
       const fileName = `${uuidv4()}.${file.name.split('.').pop()}`;
@@ -120,7 +123,7 @@ const sendMsg = async () => {
 
     generateUniqueId()
     const messageId = generateUniqueId();
-
+    
   if (files.value && files.value.length > 0) {
     const type = ref()
     type.value = 'textphoto';
@@ -185,6 +188,7 @@ const sendMsg = async () => {
         "type": type.value,
     });
     message.value = ''
+    }
   }
 
 };
@@ -215,8 +219,19 @@ const sendMsg = async () => {
 }
 
 .chat-box-footer .footer-options li.option a {
-  color: #040506;
+  color: #3eadb7;
   font-size: 18px;
+  transition: all 0.3s linear;
+}
+.chat-box-footer .footer-options li.option a:hover {
+  color: #4e1b56;
+  font-size: 18px;
+  transition: all 0.2s linear;
+}
+.chat-box-footer .footer-options li.option-disabled a {
+  color: #c9c9c9;
+  font-size: 18px;
+  cursor: default;
 }
 
 .chat-box-footer .footer-text-message {
@@ -239,6 +254,15 @@ const sendMsg = async () => {
   top: 10px;
   font-size: 22px;
   color: #3eadb7;
+  top: calc(50% - 15px);
+  transition: all 0.2s linear;
+}
+.chat-box-footer .footer-text-message .icon:hover {
+  position: absolute;
+  right: 28px;
+  top: 10px;
+  font-size: 22px;
+  color: #4e1b56;
   top: calc(50% - 15px);
 }
 

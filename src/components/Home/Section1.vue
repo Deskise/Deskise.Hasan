@@ -34,8 +34,8 @@
             />
           </div>
           <div class="btns col-12 p-lg-0 w-100 d-flex">
-            <a href="" class="btn btn-outline-secondary">Buy</a>
-            <a href="" class="btn btn-outline-secondary">Sell</a>
+            <a @click="redirect" href="" class="btn btn-outline-secondary">Buy</a>
+            <a @click="redirect" href="" class="btn btn-outline-secondary">Sell</a>
           </div>
         </div>
       </div>
@@ -50,6 +50,16 @@ export default {
   components: {
     ManImg,
   },
+  methods: {
+    redirect(e) {
+      e.preventDefault()
+      this.$router.push('/auth/login')
+    }
+  },
+  mounted() {
+    this.$store.dispatch('product/list', {page: 1, category: 0})
+  }
+
 };
 </script>
 

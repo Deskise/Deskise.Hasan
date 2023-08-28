@@ -7,19 +7,26 @@
         <div class="image mb-2">
           <img :src="product.img" alt="image" />
         </div>
-        <div class="body w-100">
-          <div class="flexer">
-            <h5 class="name mb-0">{{ product.name }}</h5>
-            <div class="action-btns">
+        <div class="body mb-4">
+          <h5 class="name mb-0">{{ product.name }}</h5>
+          <!-- <div class="flexer"> -->
+            <div class="flexer">
+              <p class="price">
+                {{ product.price }}$
+                <!-- <span class="old-price">{{ product.old_price }}$</span> -->
+              </p>
+              <p class="id">#{{ product.id }}</p>
+            </div>
+          <div class="action-btns">
+            <!-- <div class="action-btns"> -->
               <router-link
                 :to="{
                   name: 'singleProduct',
                   params: { id: product.id },
                 }"
-                class="btn btn-outline-primary mb-0"
-                v-if="!stopSelling"
+                class="btn btn-outline-primary w-100"
               >
-                {{ $t("see") }}
+                {{ $t("View") }}
               </router-link>
               <router-link
                 :to="{
@@ -31,24 +38,20 @@
               >
               {{ $t("Edit") }}
               </router-link>
-            </div>
-            <!-- <router-link
+              
+              <!-- <router-link
               :to="{
                 name: 'Product.stop',
                 params: { id: product.id },
               }"
               class="btn btn-outline-primary w-100"
-            >
+              >
               Stop Selling
             </router-link> -->
+          <!-- </div> -->
+          
           </div>
-          <div class="flexer">
-            <p class="price">
-              {{ product.price }}$
-              <span class="old-price">{{ product.old_price }}$</span>
-            </p>
-            <p class="id">#{{ product.id }}</p>
-          </div>
+          
           <p class="description">{{ product.details }}...</p>
         </div>
         <div
@@ -107,8 +110,11 @@
   <style lang="scss" scoped>
   @import "@/sass/_globals/_variables.scss";
   .action-btns {
-    display: flex;
-    flex-direction: column;
+    margin-top: 8px;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: end;
+    // width: 25%;
   }
   .product {
     background: white;
@@ -141,6 +147,9 @@
       &.available {
         background: $primary;
       }
+      &.expired {
+          background: #dc3545;
+        }
       &.canceled {
         background: #dc3545;
       }
@@ -168,9 +177,11 @@
         &.flexer {
           display: flex;
           justify-content: space-between;
+          // flex-direction: column;
           align-items: center;
           & > *:first-child {
             flex-shrink: 1;
+            
           }
           & > *:last-child {
             flex-shrink: 0;

@@ -8,7 +8,7 @@ import { ref, watch, onMounted, nextTick } from "vue";
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import ChatDetails from "../ChatBox/ChatDetails.vue";
-import ChatMessages from "../Api/ChatMessage"
+// import ChatMessages from "../Api/ChatMessage"
 import { ref as storageRef, onValue } from "@firebase/database";
 import db from "../Api/db";
 
@@ -17,16 +17,29 @@ const messeges = ref([]);
 const route = useRoute();
 const chatId = ref();
 const store = useStore();
-
 const chatBoxRef = ref(null)
 
-
-
 onMounted(() => {
-  messeges.value = ChatMessages.sort(function (a, b) {
+  // messeges.value = ChatMessages.sort(function (a, b) {
+  //       return new Date(a.created_at) - new Date(b.created_at);
+  //     });
+      // scrollToBottom()
+      let chatId = route.params.chatId
+      const starCountRef = storageRef(db.db, `chats/${chatId}/messages`);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      ChatMessage.value = [];
+      messeges.value = [];
+      for (const messageId in data) {
+        const message = data[messageId];
+        ChatMessage.value.push(message);
+      }
+      messeges.value = ChatMessage.value.sort(function (a, b) {
         return new Date(a.created_at) - new Date(b.created_at);
       });
-      scrollToBottom()
+      store.commit('chat/SET_USER_CHAT', messeges.value)
+      scrollToBottom();
+    });
 })
 
 const scrollToBottom = () => {

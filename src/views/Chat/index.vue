@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="chatId === 'first'">There is no chat for you!</div>
-    <DashChat :chat-id="chatId" v-if="chatId !== 'first'"/>
+    <DashChat v-if="chatId !== 'first'" :chat-id="chatId"/>
     <router-view />
   </div>
 </template>

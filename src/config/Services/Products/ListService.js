@@ -11,6 +11,9 @@ export default {
   single(id) {
     return apiClient.get("/products/single/" + id);
   },
+  similar(catId) {
+    return apiClient.get("/products/similar/" + catId)
+  },
   best() {
     return apiClient.get("/products/best");
   },

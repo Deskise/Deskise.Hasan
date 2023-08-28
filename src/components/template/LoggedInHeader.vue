@@ -84,7 +84,7 @@
                 class="icon-menu"
                 @click="toggleNotification"
               >
-                <span class="dash-count">{{ this.notificationList.length }}</span>
+                <span class="dash-count">{{ this.unreadNotifications.length }}</span>
                 <flat-icon-component icon="bell" type="r"></flat-icon-component>
               </a>
               <ul
@@ -93,7 +93,7 @@
               >
                 <div v-for="(notification, key) in this.notificationList" :key="key" 
                 @click="read(notification, key)">
-                  <li class="dash-notification-item">
+                  <li v-if="!notification.read" class="dash-notification-item">
                     <a class="" href="javascript:void(0)">
                       <span class="order-number">{{ notification.id }}</span>
                       <span class="order-status">{{ notification.title }}</span>
@@ -104,12 +104,23 @@
                       </span>
                     </a>
                   </li>
+                  <li v-if="notification.read" class="dash-notification-item-read">
+                      <a class="" href="javascript:void(0)">
+                        <span class="order-number">{{ notification.id }}</span>
+                        <span class="order-status">{{ notification.title }}</span>
+                        <span class="order-icon">
+                          <flat-icon-component
+                            icon="arrow-right"
+                          ></flat-icon-component>
+                        </span>
+                      </a>
+                    </li>
                 </div>
               </ul>
             </li>
             <li>
               <router-link :to="{ name: 'chat' }" class="icon-menu">
-                <span class="dash-count">1</span>
+                <!-- <span class="dash-count">1</span> -->
                 <flat-icon-component
                   icon="envelope"
                   type="r"
@@ -254,6 +265,10 @@ export default {
   computed: {
     ...mapGetters("category", ["categories"]),
     ...mapState("notification", ["notificationList"]),
+
+    unreadNotifications() {
+      return this.notificationList.filter(notification => !notification.read);
+    }
   },
 };
 </script>
@@ -589,6 +604,25 @@ nav .dash-notification-item a {
     background-color: $secondary;
   }
   color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 10px;
+  border-radius: 8px;
+}
+
+nav .dash-notification-item-read {
+  padding: 5px 10px;
+}
+
+nav .dash-notification-item-read a {
+  display: block;
+  background-color: #fff;
+  border: #d2d2d2 1px solid;
+  &:hover {
+    background-color: #e7e7e7;
+  }
+  color: #838282;
   display: flex;
   justify-content: space-between;
   align-items: center;

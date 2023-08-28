@@ -2,7 +2,7 @@
   <div class="step-content">
     <div class="dash-sell-form">
       <div v-if="this.steps.length === this.active" >
-        <div class="form-fields">
+        <!-- <div class="form-fields">
           <div class="form-step-title">Take charge of the sales process (50$)</div>
             <div class="form-step-fields">
                 <yn-select
@@ -13,8 +13,8 @@
                   disabled
                 ></yn-select>
             </div>
-        </div>
-        <div class="form-feilds">
+        </div> -->
+        <!-- <div class="form-feilds">
           <div class="form-step-title">Packages</div>
             <div class="form-step-fields">
               <div class="packages-container">
@@ -26,7 +26,7 @@
                 </div>
               </div>
             </div>
-        </div>
+        </div> -->
 
           <div class="form-feilds">
             <button class="btn drop" type="button" data-bs-toggle="collapse" data-bs-target="#collapsRights" aria-expanded="false" aria-controls="collapsRights">
@@ -103,14 +103,6 @@
                   } else {
                     data.push(fieldData);
                   }
-                  // if (data.includes(e)) {
-                  //   const index = data.indexOf(e);
-                  //   if (index > -1) {
-                  //     data.splice(index, 1);
-                  //   }
-                  // } else {
-                  //   data.push({[f.name] :e});
-                  // }
                   product.data = JSON.stringify(data);
                 }
               "
@@ -163,13 +155,13 @@
               :title="f.hint"
             />
 
-            <multi-img-picker
+            <!-- <multi-img-picker
               type="assets"
               :placeholder="f.placeholder"
               @change="([e]) => {product[f.name] = e;}"
               v-else-if="f.type === 'assets'"
               :title="f.hint"
-            />
+            /> -->
 
 
             <input
@@ -196,6 +188,26 @@
               :max="f.data?.max"
               :title="f.hint"
             />
+            <!-- <div  v-if="!fixedFieldsNames.includes(f.name) && f.type === 'text'">
+              <input
+                  :placeholder="f.placeholder"
+                  @change=" (e) => {
+                    if (!Object.prototype.hasOwnProperty.call(product, 'data')) {
+                      product.data = '[]';
+                    }
+                    const data = JSON.parse(product.data);
+                    const fieldData = {
+                      name: f.name,
+                      type: f.type,
+                      value: e.target.value
+                    };
+                    data.push(fieldData);
+                    product.data = JSON.stringify(data);
+
+                  }"
+                  :title="f.hint"
+                />
+            </div> -->
 
             <textarea
               v-model="product[f.name]"
@@ -272,7 +284,7 @@ import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import SocialMediaLinkInput from "../../../components/Dashboard/SocialMediaLinkInput.vue";
 import MultiImgPicker from "@/components/layouts/MultiImgPicker";
-import PackageSelect from "@/components/layouts/PackageSelect";
+// import PackageSelect from "@/components/layouts/PackageSelect";
 import { mapGetters } from "vuex";
 import { mapState } from "vuex";
 import CircleCheckbox from "../../layouts/CircleCheckbox.vue";
@@ -297,10 +309,11 @@ export default {
     },
   },
   
-  components: { MultiImgPicker, SocialMediaLinkInput, Datepicker, PackageSelect, CircleCheckbox },
+  components: { MultiImgPicker, SocialMediaLinkInput, Datepicker, CircleCheckbox },
   data() {
     return {
       product: {
+        packages: []
       },
       socialMediaAssets: [],
       link:"",
@@ -308,6 +321,7 @@ export default {
       until: this.$route.query.until,
       copyrights: 'Siging A Copyright Disclamer Agrrement',
       arrow: "angle-down",
+      fixedFieldsNames: ['text', 'url', 'number']
     };
   },
   methods: {
@@ -358,11 +372,14 @@ export default {
       
     },
     async addProduct() {
+      if (!Object.prototype.hasOwnProperty.call(this.product, 'data')) {
+        this.product.data = '[]';
+      }
       this.product.social_media = JSON.stringify(this.socialMediaAssets);
       this.product.category= parseInt(this.cat)
       
       this.product.until = new Date(this.until).toLocaleDateString('en-GB');
-      this.product.assets = '{"image":["default.webp", "default2.webp"]}'
+      // this.product.assets = '{"image":["default.webp", "default2.webp"]}'
       this.prepareToSend(this.product);
     },
 

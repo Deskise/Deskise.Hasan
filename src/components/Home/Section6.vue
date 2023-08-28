@@ -1,5 +1,5 @@
 <template>
-  <section class="action">
+  <section v-if="show" class="action">
     <div class="container-fluid">
       <div class="row">
         <h2 class="mb-4 mt-5">{{ $t("header.nologin.mech") }}</h2>
@@ -30,6 +30,7 @@ export default {
   data() {
     return {
       slides: 5,
+      show: false
     };
   },
   components: {

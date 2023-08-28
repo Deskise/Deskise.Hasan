@@ -1,5 +1,5 @@
 <template>
-  <div class="product">
+  <div v-if="shouldRender" class="product">
     <div :class="'tag ' + product.status.toLowerCase()">
       {{ product.status.split("_").join(" ") }}
     </div>
@@ -38,7 +38,7 @@
           </p>
           <p class="id">#{{ product.id }}</p>
         </div>
-        <p class="description">{{ product.details }}...</p>
+        <p class="description">{{ product.details ? product.details : product.summary  }}...</p>
       </div>
       <div
         :class="{
@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     id: {
@@ -86,10 +87,61 @@ export default {
       defualt: false,
     },
   },
+  data() {
+    return {
+      shouldRender: false,
+    };
+  },
   computed: {
+    ...mapState("product", ["products"]),
+    ...mapState("product", ["similar"]),
     product() {
-      let s = this.$store.state.product;
-      return !this.best ? s.products.data[this.id] : s.best.data[this.id];
+
+      if (this.$route.path.startsWith("/product/")) {
+        return this.similar[this.id];
+      } else {
+        return this.products.data[this.id];
+      }
+
+      // if (this.$route.path.startsWith("/products/")) {
+      //   return this.products.data[this.id];
+      // } else if (this.$route.path.startsWith("/product/")) {
+      //   return this.similar[this.id];
+      // } else {
+      //   return null;
+      // }
+      // return this.similar[this.id]
+      // return this.products.data[this.id]
+      // return this.products.single[this.id].similar
+      // let s = this.$store.state.product;
+      // return s.products.data[this.id]
+      // return !this.best ? s.products.data[this.id] : s.best.data[this.id];
+    },
+  },
+  // async beforeRouteUpdate(to, from, next) {
+  //   try {
+  //     await this.$store.dispatch("product/single", { id: to.params.id });
+  //     if (this.product) {
+  //       next()
+  //     } else {
+  //       next(false)
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // },
+  //  mounted (){
+  //    this.$store.dispatch('product/list', {page:2, category:0})
+  // },
+  watch: {
+    id: {
+      immediate: true,
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          // Update shouldRender based on product existence
+          this.shouldRender = Boolean(this.product);
+        }
+      },
     },
   },
 };
@@ -127,6 +179,9 @@ export default {
     }
     &.available {
       background: $primary;
+    }
+    &.expired {
+      background: #dc3545;
     }
     &.canceled {
       background: #dc3545;

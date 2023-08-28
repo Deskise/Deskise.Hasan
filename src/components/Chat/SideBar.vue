@@ -111,6 +111,7 @@ ul{
 }
 .dash-chat .dash-contacts {
   max-width: 450px;
+  min-width: 15%;
   padding: 20px;
   background-color: #fff;
 }
@@ -142,6 +143,7 @@ ul{
     bottom: 0;
     left: -100%;
     padding-top: 60px;
+    min-width: 180px;
   }
   #close-contacts {
     display: block;

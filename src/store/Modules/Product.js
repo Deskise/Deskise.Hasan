@@ -3,11 +3,12 @@ import Product from "@/config/Services/Products/ListService.js";
 export const namespaced = true;
 
 export const state = {
-  products: { current_page: null, next_page_url: null, data: {}, category: 0 },
+  products: { current_page: null, next_page_url: null, data: {}, category: 0, single: {} },
   best: { current_page: null, next_page_url: null, data: {}, category: 0 },
   newProduct: null,
   file: null,
-  edit: {info: null, packages: null}
+  edit: {info: null, packages: null},
+  similar: {}
 };
 
 export const mutations = {
@@ -20,10 +21,25 @@ export const mutations = {
     }
     obj.data.forEach((element) => {
       state.products.data[element.id] = element;
+      // state.products.single[element.id] = element;
     });
   },
   SINGLE(state, prod) {
-    state.products.data[prod.id] = prod;
+    // state.products.data[prod.id] = prod;
+    state.products.single = {};
+    state.products.single[prod.id] = prod;
+    state.similar = {}
+    prod.similar.forEach((el) => {
+      state.similar[el.id] = el
+    })
+    // state.similar = prod.similar
+    // state.similar = Object.keys(prod.similar).map((i) => {
+    //    return prod.similar[i].id
+    // })
+    //   .filter((e) => e !== undefined && e !== null);
+  },
+  SIMILAR(state, similar) {
+    state.similar = similar
   },
   EDIT(state, prod) {
     state.edit.info = prod
@@ -52,10 +68,20 @@ export const actions = {
     });
   },
 
-  async single({ commit }, { id }) {
+  async single({ commit }, { id, category = 0 }) {
+    await Product.list(2, 0).then((e) => {
+      commit("FETCH_PRODUCTS", { category, obj: e.data.response.extra[0] });
+    });
     await Product.single(id).then((e) => {
       commit("SINGLE", e.data.response.extra[0]);
     });
+  },
+
+  async similar({commit}, catId) {
+    await Product.similar(catId).then((e) => {
+      console.log(catId);
+      commit("SIMILAR", e.data)
+    })
   },
   async best({ commit }) {
     await Product.best().then((e) => {
@@ -106,6 +132,14 @@ export const getters = {
         })
         .filter((e) => e !== undefined && e !== null);
     },
+  similarArray(state) {
+    // return state.similar
+    return Object.keys(state.similar).map((i) => {
+      return state.similar[i].id
+    })
+      .filter((e) => e !== undefined && e !== null);
+  },
+
   Allproducts: (state) => {
     return state.products.data;
   },

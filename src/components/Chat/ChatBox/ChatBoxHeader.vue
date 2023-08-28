@@ -13,11 +13,11 @@
       <div class="chat-box-icon">
         <i class="fas fa-ellipsis-v"></i>
         <ul class="dash-sub-menu" :style="{ display: active ? '' : 'none' }">
-          <li class="dash-sub-menu-item">
+          <!-- <li class="dash-sub-menu-item">
             <router-link :to="{ name: 'Agreement' }"
               >Create An Agreement</router-link
             >
-          </li>
+          </li> -->
           <li class="dash-sub-menu-item">
             <router-link :to="{ name: 'SendFile' }">Send File </router-link>
           </li>
@@ -59,6 +59,7 @@ export default {
   padding: 10px 60px;
   background-color: #fff;
   max-height: 100vh;
+  /* margin-top: auto; */
 }
 .chat-box-header .chat-box-order {
   margin-left: 25px;
@@ -81,6 +82,8 @@ export default {
   left: initial;
   right: 0;
   max-width: 220px;
+  border: #3eadb7 1px solid;
+  border-radius: 10px;
 }
 .chat-box-header .dash-sub-menu {
   text-align: left;
@@ -124,9 +127,20 @@ export default {
 }
 .dash-sub-menu-item {
   margin: 10px 0;
+  padding: 5px 0px;
+  border-bottom: #e1e1e1 1px solid;
+}
+.dash-sub-menu-item:hover{
+  color: steelblue;
+  border-bottom: #3eadb7 1px solid;
+  
 }
 .dash-sub-menu-item a {
   color: black;
+  width: 100%;
+}
+.dash-sub-menu-item a:hover {
+  color: #3eadb7;
 }
 .chat-box-contact {
   font-size: 18px;

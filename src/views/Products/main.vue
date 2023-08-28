@@ -1,5 +1,3 @@
-//TODO:Do the filters
-
 <template>
   <section>
     <div class="container-fluid mb-5">
@@ -15,8 +13,15 @@
           <v-select 
             id="MySelect2" 
             placeholder="Seller Location"
+            v-model="selectedLocation"
+            :options="this.sellerLocation"
           ></v-select>
-          <v-select id="MySelect3" placeholder="Time Left"></v-select>
+          <!-- <v-select 
+            id="MySelect3" 
+            placeholder="Time Left"
+            v-model="isLifetimeSelected"
+            :options="lifetimeOptions"
+          ></v-select> -->
 
           <range-select
             name="Price Range"
@@ -29,34 +34,44 @@
           ></range-select>
           <range-select
             name="A Lifetime Of The Product"
-            suffex="M"
+            suffex="D"
             :min="5"
-            :max="7"
-            :step="1"
+            :max="1000"
+            :step="10"
             :vstart="minLifeTime"
             :vend="maxLifeTime"
             @filterRange="filterRange"
           ></range-select>
           <range-select
             name="Monthly Pageviews"
-            suffex="M"
-            :min="5"
-            :max="7"
-            :step="1"
+            suffex="K"
+            :min="0"
+            :max="700"
+            :step="10"
             :vstart="MinMonthlyPageviews"
             :vend="MaxMonthlyPageviews"
             @filterRange="filterRange"
           ></range-select>
-          <range-select
+
+          <label>
+            <input
+              type="checkbox"
+              v-model="showLifetimeProducts"
+            />
+            <span></span>
+            <span>Show Lifetime Products</span>
+          </label>
+
+          <!-- <range-select
             name="Monthly Profit"
-            suffex="M"
+            suffex="mo"
             :min="5"
             :max="7"
             :step="1"
             :vstart="MinMonthlyProfit"
             :vend="MaxMonthlyProfit"
             @filterRange="filterRange"
-          ></range-select>
+          ></range-select> -->
         </div>
         <div class="main col-12 col-md-8 col-lg-9">
           <div class="categories">
@@ -130,14 +145,17 @@ export default {
     return {
       textSearch: "",
       subcategorieSelected: null,
+      selectedLocation: null,
+      showLifetimeProducts: true,
+      // timeLeftSelected: null,
       minPrice: 0,
       maxPrice: 2000,
-      minLifeTime: 5,
-      maxLifeTime: 7,
-      MinMonthlyPageviews: 5,
-      MaxMonthlyPageviews: 7,
-      MinMonthlyProfit: 5,
-      MaxMonthlyProfit: 7,
+      minLifeTime: 0,
+      maxLifeTime: 2000,
+      MinMonthlyPageviews: 0,
+      MaxMonthlyPageviews: 100,
+      // MinMonthlyProfit: 5,
+      // MaxMonthlyProfit: 7,
     };
   },
   methods: {
@@ -168,17 +186,34 @@ export default {
   computed: {
     ...mapGetters("product", ["products", "Allproducts"]),
     productByCategoryId() {
+      // const remainingDaysArray = this.nonLifetimeProducts;
+      const today = new Date();
       let Alldata = Object.values(JSON.parse(JSON.stringify(this.Allproducts)));
       let Searchproducts = [];
       for (let i = 0; i < Alldata.length; i++) {
+        const untilDate = new Date(Alldata[i].until);
+        const remainingDays = Math.ceil((untilDate - today) / (1000 * 60 * 60 * 24));
+        const isLifetimeProduct = Alldata[i].is_lifetime;
+        //  const hasNoUntilDate = !Alldata[i].until;
+        
         if (
           Alldata[i].name
             .toLowerCase()
             .includes(this.textSearch.toLowerCase()) &&
           Number(Alldata[i].price) >= this.minPrice &&
-          Number(Alldata[i].price) <= this.maxPrice
+          Number(Alldata[i].price) <= this.maxPrice &&
+          Number(Alldata[i].views) >= this.MinMonthlyPageviews &&
+          Number(Alldata[i].views) <= this.MaxMonthlyPageviews &&
+          // remainingDays >= this.minLifeTime &&
+          // remainingDays <= this.maxLifeTime &&
+          // ( hasNoUntilDate || (remainingDays >= this.minLifeTime && remainingDays <= this.maxLifeTime)) &&
+          (isLifetimeProduct || (!isLifetimeProduct && remainingDays >= this.minLifeTime && remainingDays <= this.maxLifeTime)) &&
+          (this.showLifetimeProducts || !isLifetimeProduct) &&
+          (!this.subcategorieSelected || Alldata[i].subcategory === this.subcategorieSelected) &&
+          (!this.selectedLocation || Alldata[i].seller_location === this.selectedLocation) 
+          // (!this.timeLeftSelected || remainingDaysArray[i] === this.timeLeftSelected)
         ) {
-          Searchproducts.push(Alldata[i]);
+          Searchproducts.unshift(Alldata[i]);
         }
       }
       return Searchproducts;
@@ -198,6 +233,25 @@ export default {
         return a;
       }
     },
+    
+    sellerLocation() {
+      const allProducts = Object.values(this.Allproducts);
+      const sellerLocations = Array.from(new Set(allProducts.map((product) => product.seller_location)));
+      return sellerLocations;
+    },
+    // nonLifetimeProducts() {
+    //   const today = new Date();
+    //   return Object.values(this.Allproducts)
+    //     .filter((product) => product.is_lifetime)
+    //     .map((product) => {
+    //       const untilDate = new Date(product.until);
+    //       // const formattedDate = untilDate.toISOString().slice(0, 10);
+    //       const remainingDays = Math.ceil((untilDate - today) / (1000 * 60 * 60 * 24));
+    //       // return { date: formattedDate, remainingDays };
+    //       return remainingDays
+    //     });
+    // },
+
   },
   mixins: [loadOnBottom],
 
@@ -217,6 +271,56 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/sass/_globals/_variables.scss";
+label {
+  position: relative;
+  color: $primary;
+  text-transform: uppercase;
+  display: flex;
+
+  span {
+    margin: 0 5px;
+    transition: all linear 0.3s;
+  }
+
+  span:first-of-type {
+    width: 16px;
+    height: 16px;
+    border: 1px solid;
+    border-color: $primary;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    top: 3px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: calc(25% - 1px);
+      left: 6px;
+      border-bottom: 2px solid $secondary;
+      border-right: 2px solid $secondary;
+      height: 8px;
+      width: 4px;
+      transform: rotate(45deg);
+      visibility: hidden;
+      transition: all linear 0.3s;
+      opacity: 0;
+    }
+  }
+
+  input {
+    display: none !important;
+    &:checked ~ span {
+      border-color: $secondary;
+      color: $secondary;
+      &:after {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+}
 section {
   div.container-fluid {
     padding: 0 8%;

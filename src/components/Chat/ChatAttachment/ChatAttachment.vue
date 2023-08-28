@@ -12,10 +12,10 @@
             <span v-if="product.old_price" class="product-old-price">{{ product.old_price }}$</span>
           </div>
         </div>
-        <div class="product-action-and-order">
+        <!-- <div class="product-action-and-order">
           <button class="dash-btn product-btn">Stop Selling</button>
           <span class="product-order">#3123</span>
-        </div>
+        </div> -->
       </div>
       <div class="product-details">
         {{ product.description }}
@@ -23,17 +23,17 @@
     </div>
     <div class="chat-attachment-tabs">
       <ul class="tabs-links">
-        <li @click="this.tabs = 'agreements'">
+        <!-- <li @click="this.tabs = 'agreements'">
           <a class="link" :class="{ active: tabs ==='agreements'}" href="javascript:void(0)">Agreemnts</a>
-        </li>
+        </li> -->
         <li @click="this.tabs = 'files'">
           <a class="link" :class="{ active: tabs ==='files'}" href="javascript:void(0)">Files</a>
         </li>
-        <li @click="this.tabs = 'rules'">
+        <!-- <li @click="this.tabs = 'rules'">
           <a class="link" :class="{ active: tabs ==='rules'}" href="javascript:void(0)">Rules</a>
-        </li>
+        </li> -->
       </ul>
-      <div v-if="tabs === 'agreements'" class="agreemet-tab">
+      <!-- <div v-if="tabs === 'agreements'" class="agreemet-tab">
         <div v-for="(agreement, index) in agreements" :key="index" class="dash-agreement">
           <div class="agreement-title">Agreement Details</div>
           <p class="agreement-details">
@@ -41,25 +41,29 @@
             <button class="dash-btn read-agreement-btn">Read Agreement</button>
           </p>
         </div>
-      </div>
+      </div> -->
       <div v-if="tabs === 'files'" class="agreemet-tab">
-        <div v-for="(file, index) in files" :key="index" class="dash-agreement">
-          <div class="agreement-title">Files</div>
-          <p class="agreement-details">
-            {{ file.attachments }}
-          </p>
+        <div v-for="(chats, date) in files" :key="date" class="dash-agreement">
+          <div class="agreement-title">{{ date }}</div>
+          <div v-for="(chat, index) in chats" :key="index" class="agreement-details">
+            <a v-for="(img, imgIndex) in chat.attachments" :key="imgIndex" :href="`${baseUrl}/chats/images/${img}`">
+              <!-- <img :src="`${baseUrl}${img}`"> -->
+              <img :src="`${baseUrl}/chats/images/${img}`">
+            </a>
+          </div>
         </div>
       </div>
-      <div v-if="tabs === 'rules'" class="agreemet-tab">
+
+      <!-- <div v-if="tabs === 'rules'" class="agreemet-tab">
         <div class="dash-agreement">
           <div class="agreement-title">Rules</div>
           <p class="agreement-details">
             this is the Rules tab
           </p>
         </div>
-      </div>
+      </div> -->
     </div>
-    <div class="dash-hsitory-calls">
+    <!-- <div class="dash-hsitory-calls">
       <div class="history-call missed">
         <div class="image">
           <img src="@/assets/images/chat-avatar.png" />
@@ -105,7 +109,7 @@
           <font-awesome-component icon="phone" :bold="false" />
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- <div class="ringing-call">
       <div class="avatar-image lg">
         <img src="@/assets/images/chat-avatar.png" />
@@ -131,20 +135,46 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      tabs: 'agreements'
+      tabs: 'files'
     }
   },
   props: {
     product: {},
   },
+  methods: {
+    getImageUrl(img) {
+      return `${this.baseUrl}/chats/images/${img}`;
+    }
+  },
   computed: {
     ...mapGetters("chat", ["agreements", "files"]),
+
+    baseUrl() {
+      // return 'http://127.0.0.1:8000/chats/images/'
+      return process.env.VUE_APP_BACKEND_STORAGE;
+    }
+
+    // processedAttachments() {
+    //   const baseUrl = 'http://127.0.0.1:8000/chats/images/';
+    //   if (msg.attachments) {
+    //     return msg.attachments.map((m) => baseUrl + m);
+    //   } else {
+    //     return [];
+    //   }
+    // }
+
   }
 }
 
 </script>
 
 <style scoped>
+img{
+    margin-right: 5px;
+    width: 100px;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+}
 .chat-attachment {
   max-width: 390px;
   padding: 20px 35px;
@@ -215,7 +245,7 @@ export default {
 
 .chat-attachment .tabs-links {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   border-bottom: 1px solid rgba(16, 27, 79, 10%);
   margin-bottom: 15px;

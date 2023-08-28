@@ -11,7 +11,8 @@ export const state = {
   socialMedia: [],
   settings: null,
   otherUser: null,
-  userProducts: []
+  userProducts: [],
+  userSales: []
 };
 
 export const mutations = {
@@ -76,6 +77,9 @@ export const mutations = {
   },
   USER_PRODUCTS(state, userProducts) {
     state.userProducts = userProducts
+  },
+  USER_SALES(state, userSales) {
+    state.userSales = userSales
   }
 };
 
@@ -136,6 +140,11 @@ export const actions = {
     await OtherUserData.userProducts(id).then((e) => {
       console.log(e.data.response.extra);
       commit("USER_PRODUCTS", e.data.response.extra)
+    })
+  },
+  async userSales({ commit }, id) {
+    await OtherUserData.userSales(id).then((e) => {
+      commit("USER_SALES", e.data)
     })
   },
 
