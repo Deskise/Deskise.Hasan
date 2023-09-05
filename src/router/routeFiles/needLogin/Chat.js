@@ -12,17 +12,33 @@ export const routes = [
     beforeEnter: function (routeTo, from, next) {
       store.state.noFooter = true;
       store.dispatch("chat/list").then(() => {
-          if (!store.state.payment.buyerId) {
-            next({
-              name: "chats",
-              params: { chatId: store.state.chat.chats[0].id },
-            });
+        if (!store.state.payment.buyerId) {
+          if (store.state.chat.chats.length === 0) {
+            next({ name: "chats", params: { chatId: "first" } });
           } else {
-            next({
-              name: "chats",
-              params: { chatId: store.state.payment.buyerId },
-            });
+            next({ name: "chats", params: { chatId: store.state.chat.chats[0].id } });
           }
+        } else {
+          next({ name: "chats", params: { chatId: store.state.payment.buyerId } });
+        }
+
+          // if (!store.state.payment.buyerId) {
+          //   next({
+          //     name: "chats",
+          //     params: { chatId: store.state.chat.chats[0].id },
+          //   });
+          // }
+          // if (!store.state.chat.chats[0].id) {
+          //   next({
+          //     name: "chats",
+          //     params: { chatId: "first" },
+          //   });
+          // } else {
+          //   next({
+          //     name: "chats",
+          //     params: { chatId: store.state.payment.buyerId },
+          //   });
+          // }
           });
     },
   },

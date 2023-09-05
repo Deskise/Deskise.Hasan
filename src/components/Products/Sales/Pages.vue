@@ -73,7 +73,7 @@
           
         </div>
 
-      {{ isLifeTime + "   " + until }}
+      <!-- {{ isLifeTime + "   " + until }} -->
       <div
         class="form-feilds"
         v-for="(field, index) in fields.divs"

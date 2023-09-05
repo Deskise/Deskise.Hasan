@@ -27,7 +27,7 @@
             <h6 class="p-2 m-0">Change Password</h6></router-link
           >
         </li>
-        <li class="menu-item">
+        <!-- <li class="menu-item">
           <router-link :to="{ name: 'dashboard.verification' }">
             <h6 class="p-2 m-0">Verification</h6></router-link
           >
@@ -42,7 +42,7 @@
           <router-link :to="{ name: 'dashboard.payment' }">
             <h6 class="p-2 m-0">Payment Cards</h6></router-link
           >
-        </li>
+        </li> -->
         <li class="menu-item">
           <router-link :to="{ name: 'dashboard.close' }">
             <h6 class="p-2 m-0">Close Account</h6></router-link

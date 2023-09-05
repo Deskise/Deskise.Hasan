@@ -67,6 +67,9 @@
             <router-link class="dash-menu-link nav-link" :to="{ name: 'blog' }">
               {{ $t("header.nologin.blog") }}
             </router-link>
+            <!-- <a class="dash-menu-link nav-link" @click="blog">
+              {{ $t("header.nologin.blog") }}
+            </a> -->
           </li>
         </ul>
         <form class="d-block d-lg-flex" role="search">
@@ -105,16 +108,19 @@
                     </a>
                   </li>
                   <li v-if="notification.read" class="dash-notification-item-read">
-                      <a class="" href="javascript:void(0)">
-                        <span class="order-number">{{ notification.id }}</span>
-                        <span class="order-status">{{ notification.title }}</span>
-                        <span class="order-icon">
-                          <flat-icon-component
-                            icon="arrow-right"
-                          ></flat-icon-component>
-                        </span>
-                      </a>
-                    </li>
+                    <a class="" href="javascript:void(0)">
+                      <span class="order-number">{{ notification.id }}</span>
+                      <span class="order-status">{{ notification.title }}</span>
+                      <span class="order-icon">
+                        <flat-icon-component
+                          icon="arrow-right"
+                        ></flat-icon-component>
+                      </span>
+                    </a>
+                  </li>
+                </div>
+                <div  v-if="this.notificationList.length <= 0">
+                  <li>There is no Notifications Yet!</li>
                 </div>
               </ul>
             </li>
@@ -260,6 +266,11 @@ export default {
     },
     closeNotificationPopup() {
       this.show = false;
+    },
+    blog() {
+      let storageData = JSON.parse(localStorage.getItem("deskies_user"));
+      const userData = encodeURIComponent(JSON.stringify(storageData));
+      window.location.href = `http://localhost:3000/?userData=${userData}`;
     }
   },
   computed: {
