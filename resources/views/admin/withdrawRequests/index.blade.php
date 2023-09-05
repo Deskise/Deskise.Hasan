@@ -99,6 +99,7 @@
         
         function approve(id) {
             console.log(id);
+            @if(isset($item))
             var userId = {{$item->user_id}};
             var db = firebase.database();
             var notificationsRef = db.ref(`notifications/${userId}`);
@@ -120,10 +121,12 @@
                 .catch(function(error) {
                     console.error("Error sending message to Firebase:", error);
                 });
+            @endif
         }
 
         function decline(id) {
             console.log(id);
+            @if(isset($item))
             var userId = {{$item->user_id}};
             var db = firebase.database();
             var notificationsRef = db.ref(`notifications/${userId}`);
@@ -145,6 +148,7 @@
                 .catch(function(error) {
                     console.error("Error sending message to Firebase:", error);
                 });
+            @endif
         }
     </script>
 

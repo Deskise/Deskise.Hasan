@@ -27,7 +27,7 @@ class BlogController extends Controller
         {///TODO: Do The Translation Shit;
             return APIHelper::jsonRender('you must provide device\'s (uuid) with the request', [],403);
         }
-
+        
         $post->title = $post->{'title_'.self::$language};
         $post->details = $post->{'details_'.self::$language};
         $post->likes = $post->likes()->get()->count();

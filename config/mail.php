@@ -39,9 +39,9 @@ return [
         ],
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'sandbox.smtp.mailtrap.io'),
+            'host' => env('MAIL_HOST', 'mail.deskise.com'),
             'port' => env('MAIL_PORT', 2525),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
@@ -106,8 +106,8 @@ return [
         'theme' => 'default',
 
         'paths' => [
-            resource_path('views/vendor/mail'),
-            // resource_path('views/emails'),
+            // resource_path('views/vendor/mail'),
+            resource_path('views/emails'),
         ],
     ],
 

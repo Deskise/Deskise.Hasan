@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         //
         $allUsers = User::paginate(10);
-        return response()->view('admin.users.index', ['allUsers' => $allUsers]);
+        return view('admin.users.index', ['allUsers' => $allUsers]);
     }
 
     public function search(Request $request)

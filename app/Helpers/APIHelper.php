@@ -132,6 +132,13 @@
             return route('images',['for'=>$for,'image'=>$image]);
         }
 
+        // public static function getImageUrl($for, $image)
+        // {
+        //     // Construct the URL with 'backend/' prefix
+        //     return route('images', ['for' => 'backend/' . $for, 'image' => $image]);
+        // }
+
+
         public static function getSimilar($class,$select='*',$num=8)
         {
             return $class::select($select)->inRandomOrder()->paginate($num);

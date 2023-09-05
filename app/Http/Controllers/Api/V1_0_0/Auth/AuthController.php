@@ -159,9 +159,10 @@
 
             $user = User::where('email','=',$request->input('email'))->first();
             $verification = $user->verifications()->where('verifyFor','=',strtolower($type))->first();
-            if ($verification!==NULL)
+
+            if ($verification->verifyCode!==NULL)
             {
-                \Mail::to($user)->send((new verify($verification)));
+                \Mail::to($user->email)->send((new verify($verification)));
                 return APIHelper::jsonRender('Verification Email Sent Successfully', []);
             }
 
