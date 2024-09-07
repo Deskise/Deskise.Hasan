@@ -6,8 +6,8 @@ export default {
       token,
     });
   },
-  login(email, password, remember_me) {
-    return apiClient.post("/auth/login", {
+  async login(email, password, remember_me) {
+    return await apiClient.post("/auth/login", {
       email,
       password,
       remember_me,

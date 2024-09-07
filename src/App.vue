@@ -7,6 +7,7 @@
     <cookie-agreement
       v-if="!cookieAccepted"
       @accept="$store.dispatch('AcceptCookies')"
+      @cancel="$store.dispatch('CancelCookies')"
     ></cookie-agreement>
     <Footer v-if="!noFooter"></Footer>
   </perfect-scrollbar>

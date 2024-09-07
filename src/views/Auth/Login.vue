@@ -5,6 +5,7 @@
         <div class="col-md-12 col-lg-8 col-xl-5">
           <h1 class="mb-4 text-left">{{ $t("login") }}</h1>
           <div class="row">
+            <p class="errMsg" v-if="this.errMessage">{{ this.errMessage }}</p>
             <div class="input-group mx-0 mb-2">
               <input
                 type="email"
@@ -95,6 +96,7 @@ export default {
         remember_me: false,
       },
       isError: false,
+      errMessage:""
     };
   },
   components: { manImg },
@@ -103,7 +105,7 @@ export default {
     r(e) {
       this.form.remember_me = e;
     },
-    check() {
+    async check() {
       this.isError = false;
       let inv = document.querySelectorAll(".invalid");
       if (inv) inv.forEach((el) => el.classList.remove("invalid"));
@@ -120,16 +122,24 @@ export default {
 
       if (this.isError) return;
 
-      this.login(
+       const response = await this.login(
         "email",
         this.form.email,
         this.form.password,
         this.form.remember_me
-      );
+      )
+        this.errMessage = response
+        console.log(response);
     },
   },
 };
 </script>
+<style>
+.errMsg {
+  font-weight: bold;
+  color: tomato;
+}
+</style>
 
 <style lang="scss" scoped>
 .login {

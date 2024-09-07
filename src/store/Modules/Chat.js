@@ -98,7 +98,6 @@ export const mutations = {
 export const actions = {
   async list({ commit }, page = 1) {
     await Chat.list(page).then(({ data }) => {
-      console.log(data);
       commit("LIST", data.response.extra);
     });
   },

@@ -18,6 +18,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 // Import Swiper styles
 import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.min.css";

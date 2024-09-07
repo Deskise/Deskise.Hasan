@@ -1,6 +1,6 @@
 
 export const namespaced = true;
-// let nextId = 1;
+let nextId = 1;
 
 export const state = {
   notifications: [],
@@ -59,6 +59,9 @@ export const mutations = {
       (noti) => noti.id !== notification.id
     );
   },
+  PUSH_NOT(state, notification) {
+    state.notifications.push({ ...notification, id: nextId++ });
+  },
 };
 
 export const actions = {
@@ -68,6 +71,9 @@ export const actions = {
   },
   add({ commit }, notification) {
     commit("PUSH", notification);
+  },
+  addNot({ commit }, notification) {
+    commit("PUSH_NOT", notification);
   },
   remove({ commit }, notification) {
     commit("DELETE", notification);

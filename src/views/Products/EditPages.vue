@@ -247,6 +247,31 @@
                       @remove="removeImages"
                     />
                   </div>
+
+                  <!-- <multi-img-picker
+                    type="assets"
+                    :placeholder="f.placeholder"
+                    @change="(files) => { product[f.name] = [...files]; }"
+                    v-else-if="f.type === 'assets'"
+                    :title="f.hint"
+                  /> -->
+
+                  <div v-if="f.name === 'assets'" class="upload-images">
+                      <div v-if="assets.length >= 0"
+                        class="add-new-image"
+                        @click="() => $el.querySelector('input[type=file]').click()"
+                      >
+                        <flat-icon-component :style="{ color: 'gray' }" icon="plus" type="bold" />
+                        <input type="file" @change="uploadAsset" hidden multiple/>
+                      </div>
+                      <multi-picture
+                        v-for="(image, i) in assets"
+                        :key="i"
+                        :image="image"
+                        :id="i"
+                        @remove="removeAssets"
+                      />
+                    </div>
                   
                   <single-select
                     :placeholder="f.placeholder"
@@ -275,6 +300,7 @@
   // import PackageSelect from "@/components/layouts/PackageSelect";
   import CircleCheckbox from "@/components/layouts/CircleCheckbox.vue";
   import MultiPicture from "@/components/layouts/multi-pic/MultiPicture.vue";
+  // import MultiImgPicker from "@/components/layouts/MultiImgPicker";
   import { mapState } from "vuex";
   import { mapGetters } from "vuex";
   
@@ -316,6 +342,8 @@
         arrow: "angle-down",
         images: [],
         files: [],
+        assets: [],
+        assetsFiles: []
       };
     },
     methods: {
@@ -323,7 +351,6 @@
         Array.from(e.target.files).forEach((file) => {
           this.images.push(URL.createObjectURL(file));
           this.files.push(file);
-          
         });
         this.$emit("change", this.files);
       },
@@ -331,6 +358,19 @@
         this.images.splice(e, 1);
         this.files.splice(e, 1);
         this.$emit("change", this.files);
+      },
+      uploadAsset(e) {
+        Array.from(e.target.files).forEach((file) => {
+          this.assets.push(URL.createObjectURL(file));
+          this.assetsFiles.push(file);
+        });
+        this.$emit("change", this.assetsFiles);
+      },
+      removeAssets(e) {
+        console.log('clicked');
+        this.assets.splice(e, 1);
+        this.assetsFiles.splice(e, 1);
+        this.$emit("change", this.assetsFiles);
       },
       handleNext() {
         this.activeNumber +=1
@@ -378,6 +418,12 @@
       }
        this.product.data = this.details.data.data.data
        this.product.img = this.files[0]
+
+       this.product.assets = []
+       this.assetsFiles.forEach((item) => {
+         this.product.assets.push(item)
+       })
+      //  this.product.assets = JSON.stringify(this.assetsFiles)
        this.product.id = this.details.id
        if (!Object.prototype.hasOwnProperty.call(this.product, 'packages')) {
         const packages = this.details.packages.map((item) => item.package_id);
@@ -400,25 +446,38 @@
       async prepareToSend(data) {
       let formData = new FormData();
       formData.append("id", this.info.id);
-      Object.keys(data)
-        .map((key) => {
-          return [key, data[key]];
-        })
-        .forEach((e) => {
-          if (e[1] !== null) {
-            if (typeof e[1] === "object" && !(e[1] instanceof File)) {
-              Object.keys(e[1]).map((d) =>
-                formData.append(e[0] + "[]", JSON.stringify(e[1][d]))
-              );
-            } else formData.append(e[0], e[1]);
+      Object.keys(data).forEach((key) => {
+          if (key === "assets" && Array.isArray(data[key])) {
+            data[key].forEach((file) => {
+              formData.append('assets[]', file);
+            });
+          } else if (typeof data[key] === "object" && !(data[key] instanceof File)) {
+            Object.keys(data[key]).forEach((d) =>
+              formData.append(key + "[]", JSON.stringify(data[key][d]))
+            );
+          } else {
+            formData.append(key, data[key]);
           }
         });
+
+      // Object.keys(data).map((key) => {
+      //     return [key, data[key]];
+      //   })
+      //   .forEach((e) => {
+      //     if (e[1] !== null) {
+      //       if (typeof e[1] === "object" && !(e[1] instanceof File)) {
+      //         Object.keys(e[1]).map((d) =>
+      //           formData.append(e[0] + "[]", JSON.stringify(e[1][d]))
+      //         );
+      //       } else formData.append(e[0], e[1]);
+      //     }
+      //   });
         for (var pair of formData.entries()) {
         console.log(pair[0]+ ', ' + pair[1]); 
       }
-      this.$emit('publishDialog', true)
+      // this.$emit('publishDialog', true)
         await this.$store.dispatch("product/update",{id: this.info.id, product: formData});
-        this.$router.push('/profile')
+        // this.$router.push('/profile')
 
     },
     },
@@ -477,6 +536,16 @@
       let file = this.info.img
       this.images.push(file);
       this.files.push(file);
+      // baseUrl() {
+      //   return 'http://127.0.0.1:8000/products/images'
+      //   // return process.env.VUE_APP_BACKEND_STORAGE;
+      // }
+      const baseUrl = process.env.VUE_APP_BACKEND_STORAGE + '/products/images/'
+      // let assets = JSON.parse(this.info.assets.assets)
+      let assets = this.info.assets.assets
+      assets.forEach(asset => {
+        this.assets.push(baseUrl + asset)
+      });
     }
   };
   </script>

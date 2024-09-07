@@ -12,7 +12,8 @@ const { msg } = defineProps({
         type: Object,
     },
 })
-const baseUrl = 'http://127.0.0.1:8000/chats/images/';
+// const baseUrl = 'http://127.0.0.1:8000/chats/images/';
+const baseUrl = 'https://deskise.com/backend/chats/images/';
 
 const processedAttachments = computed(() => {
   if (msg.attachments) {

@@ -75,11 +75,11 @@
         </div>
         <div class="main col-12 col-md-8 col-lg-9">
           <div class="categories">
-            <category-list
-              class="mb-2"
-              link="productsByCategory"
-              :cat="category"
-            />
+                <category-list
+                  class="mb-2"
+                  link="productsByCategory"
+                  :cat="category"
+                />
           </div>
           <div class="row" v-if="productByCategoryId.length > 0">
             <div
@@ -119,6 +119,7 @@ import { mapGetters } from "vuex";
 import Product from "../../components/Products/Product.vue";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+
 export default {
   components: { Product, vSelect },
   mounted() {
@@ -331,6 +332,10 @@ h4 {
 }
 .SingleProduct {
   height: 500px;
+  width: 280px;
+  @media (max-width : 767px ) {
+    width: 100%;
+  }
 }
 </style>
 <style>

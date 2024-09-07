@@ -121,6 +121,7 @@ section {
     }
     #next {
       right: -10%;
+      z-index: -1;
       @media (max-width: 1600px) {
         & {
           right: -5%;
@@ -139,6 +140,7 @@ section {
     }
     #prev {
       left: -10%;
+      z-index: -1;
       @media (max-width: 1600px) {
         & {
           left: -5%;

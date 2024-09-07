@@ -5,7 +5,7 @@ export const namespaced = true;
 export const state = {
   products: { current_page: null, next_page_url: null, data: {}, category: 0, single: {} },
   best: { current_page: null, next_page_url: null, data: {}, category: 0 },
-  newProduct: null,
+  newProduct: [],
   file: null,
   edit: {info: null, packages: null},
   similar: {}

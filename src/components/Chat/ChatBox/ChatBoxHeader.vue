@@ -63,7 +63,7 @@ export default {
 }
 .chat-box-header .chat-box-order {
   margin-left: 25px;
-  font-size: 18px;
+  font-size: 14px;
   color: #040506;
   flex-grow: 1;
 }
@@ -100,6 +100,7 @@ export default {
   margin: auto;
   max-width: 100%;
   border-radius: 50%;
+  aspect-ratio: 1/1;
 }
 #open-contacts {
   margin-right: 15px;
@@ -143,7 +144,8 @@ export default {
   color: #3eadb7;
 }
 .chat-box-contact {
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: bold;
   color: #040506;
   padding-right: 55px;
   border-right: 1px solid rgba(201, 201, 201, 25%);

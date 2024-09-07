@@ -193,15 +193,16 @@ export default {
 
   img {
     width: 100%;
-    height: 350px;
+    height: 300px;
     border-radius: 20px;
+    object-fit: cover;
     @media (max-width: 1410px) {
       height: 300px;
     }
   }
   .body {
     padding-left: 10px;
-    font-size: 18px;
+    font-size: 16px;
     color: #9d9d9d;
     @media (max-width: 1410px) {
       font-size: 15px;
@@ -224,7 +225,7 @@ export default {
       }
       h5 {
         font-weight: bold;
-        font-size: 20px;
+        font-size: 18px;
         color: #040506;
         @media (max-width: 1410px) {
           font-size: 15px;
@@ -232,7 +233,7 @@ export default {
         }
       }
       .btn {
-        font-size: 20px;
+        font-size: 16px;
         padding: 5px 11px;
         @media (max-width: 1410px) {
           font-size: 13px;
@@ -242,7 +243,7 @@ export default {
       }
       .price {
         color: $primary;
-        font-size: 20px;
+        font-size: 16px;
         font-weight: bold;
         @media (max-width: 1410px) {
           font-size: 14px;
@@ -270,7 +271,8 @@ export default {
       }
     }
     .description {
-      line-height: 20px;
+      line-height: 18px;
+      font-size: 14px !important;
       @media (max-width: 1410px) {
         font-size: 13px !important;
         margin-bottom: 20px;

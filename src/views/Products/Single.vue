@@ -5,10 +5,16 @@
         <div class="col-12 col-lg-6">
           <div class="dash-slider-images">
             <div class="main-image">
+              <Swiper :pagination="true">
+                  <SwiperSlide v-for="img in assets" :key="img.id">
+                    <!-- <img :src="product.img" /> -->
+                    <img :src="`${baseUrl}/${img}`">
+                  </SwiperSlide>
+                </Swiper>
               <span :class="`status ${product.status.toLowerCase()}`">
                 {{ product.status.split("_").join(" ") }}
               </span>
-              <img :src="product.img" />
+              
             </div>
           </div>
         </div>
@@ -325,6 +331,7 @@
       </div>
     </div>
     <div class="mt-5 container dash-product-statistics">
+      
       <!-- <div class="profile-statistics">
         <div class="statistics">
           <div class="statistic">
@@ -398,7 +405,7 @@
           v-for="p in similar"
           :key="p.id"
         >
-          <product :id="p"></product>
+          <Product :id="p"></Product>
         </div>
       </div>
     </div>
@@ -406,22 +413,26 @@
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from "swiper/vue";
 import { mapGetters, mapState } from "vuex";
 import Product from "../../components/Products/Product.vue";
-import BuyOffcanvas from "./BuyOffcanvas.vue";
+// import BuyOffcanvas from "./BuyOffcanvas.vue";
 
 import { loadStripe } from '@stripe/stripe-js';
 import { Offcanvas } from 'bootstrap'
-// import 'bootstrap';
-
-// import 'bootstrap/dist/css/bootstrap.min.css';
 export default {
+  components: {
+    Swiper,
+    SwiperSlide,
+    Product
+  },
   props: {
     id: {
       type: Number,
       required: true,
     },
   },
+
   data() {
     return {
       // product: this.$store.state.product.products.data[this.id],
@@ -431,10 +442,22 @@ export default {
       elements: null,
       showMenu: false,
       showError: false,
-      errorMsg: ''
+      errorMsg: '',
+      // slides: 1,
     };
   },
   methods: {
+    getSlides() {
+      if (window.matchMedia("(max-width: 576px").matches) this.slides = 1;
+      else if (window.matchMedia("(max-width: 768px").matches)
+        this.slides = 1.5;
+      else if (window.matchMedia("(max-width: 998px").matches)
+        this.slides = 2.5;
+      else if (window.matchMedia("(max-width: 1200px").matches)
+        this.slides = 3.5;
+      else if (window.matchMedia("(max-width: 1500px").matches) this.slides = 4;
+      else this.slides = 5;
+    },
     async checkOut() {
       this.comletePayMent = true
       if (!this.clientSecret) {
@@ -455,7 +478,8 @@ export default {
         const { error } = await this.stripe.confirmPayment({
           elements: this.elements,
           confirmParams: {
-            return_url: "http://localhost:8080/#/payment-complete",
+            return_url: "https://deskise.com/#/payment-complete",
+            // return_url: "http://localhost:8080/#/payment-complete",
           },
         }
         );
@@ -583,6 +607,15 @@ export default {
       // return this.$store.state.product.products.data[this.id]
       return this.$store.state.product.products.single[this.id]
     },
+    assets() {
+      // return JSON.parse(this.product.assets.assets)
+      if (this.product && this.product.assets && this.product.assets.assets) {
+        return this.product.assets.assets;
+        // return JSON.parse(this.product.assets.assets);
+      } else {
+        return [];
+      }
+    },
     ps() {
       return this.products({ not: this.id });
       // const ps = this.$store.state.product.products.data[this.id].similar
@@ -598,11 +631,11 @@ export default {
     },
     trckingCode(){
       return this.$route.query.tracking;
+    },
+    baseUrl() {
+      return 'http://127.0.0.1:8000/products/images'
+      // return process.env.VUE_APP_BACKEND_STORAGE;
     }
-  },
-  components: {
-    Product,
-    BuyOffcanvas,
   },
   async beforeRouteUpdate(to, from, next) {
     try {
@@ -620,8 +653,11 @@ export default {
     
     // next();
   },
-  async mounted() {
-
+  mounted() {
+    this.$nextTick(function () {
+      this.getSlides();
+      window.addEventListener("resize", () => this.getSlides());
+    });
   },
 };
 </script>

@@ -28,7 +28,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 dash-menu-links">
-          <li class="nav-item">
+          <li class="nav-item" @click="closeNavbar">
             <router-link class="nav-link" :to="{ name: 'products' }">
               {{ $t("header.nologin.home") }}
             </router-link>
@@ -38,15 +38,16 @@
               {{ $t("header.nologin.category") }}
             </a>
             <ul class="dash-sub-menu">
-              <li
+              <li @click="closeNavbar"
                 class="dash-sub-menu-item"
                 v-for="(category, index) in categories"
                 :key="index"
               >
-                <router-link
+                <router-link 
                   :to="{
                     name: 'productsByCategory',
                     params: { id: category.id },
+                    
                   }"
                 >
                   {{ category.name }}
@@ -55,15 +56,15 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <router-link
+          <li class="nav-item" @click="closeNavbar">
+            <router-link 
               class="dash-menu-link nav-link"
               :to="{ name: 'requestProduct' }"
             >
               {{ $t("footer.request") }}
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" @click="closeNavbar">
             <router-link class="dash-menu-link nav-link" :to="{ name: 'blog' }">
               {{ $t("header.nologin.blog") }}
             </router-link>
@@ -266,6 +267,11 @@ export default {
     },
     closeNotificationPopup() {
       this.show = false;
+    },
+    closeNavbar() {
+      const navbarToggler = document.querySelector('.navbar-toggler');
+      const clickEvent = new Event('click');
+      navbarToggler.dispatchEvent(clickEvent);
     },
     blog() {
       let storageData = JSON.parse(localStorage.getItem("deskies_user"));

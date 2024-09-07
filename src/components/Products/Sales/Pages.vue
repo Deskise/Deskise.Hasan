@@ -1,3 +1,4 @@
+-- Active: 1688336449210@@127.0.0.1@3306@deskies
 <template>
   <div class="step-content">
     <div class="dash-sell-form">
@@ -148,48 +149,64 @@
               :title="f.hint"
             ></yn-select>
 
+            
             <multi-img-picker
               :placeholder="f.placeholder"
               @change="addImg"
               v-if="f.type === 'file'"
               :title="f.hint"
-            />
+              :multiple = "false"
+              />
 
-            <!-- <multi-img-picker
+            <multi-img-picker
               type="assets"
               :placeholder="f.placeholder"
-              @change="([e]) => {product[f.name] = e;}"
+              @change="(files) => { product[f.name] = [...files]; }"
               v-else-if="f.type === 'assets'"
               :title="f.hint"
-            /> -->
-
-
-            <input
-              type="text"
-              :placeholder="f.placeholder"
-              v-model="product[f.name]"
-              v-if="f.type === 'text'"
-              :title="f.hint"
             />
 
-            <input
-              type="url"
-              :placeholder="f.placeholder"
-              v-model="product[f.name]"
-              v-else-if="f.type === 'url'"
-              :title="f.hint"
-            />
-            <input
-              type="number"
-              :placeholder="f.placeholder"
-              v-model="product[f.name]"
-              v-else-if="f.type === 'number'"
-              :min="f.data?.min"
-              :max="f.data?.max"
-              :title="f.hint"
-            />
-            <!-- <div  v-if="!fixedFieldsNames.includes(f.name) && f.type === 'text'">
+
+            <div v-if="fixedFieldsNames.includes(f.name)">
               <input
+                type="text"
+                :placeholder="f.placeholder"
+                v-model="product[f.name]"
+                v-if="f.type === 'text'"
+                :title="f.hint"
+                :name= "f.name"
+              />
+              <input
+                type="url"
+                :placeholder="f.placeholder"
+                v-model="product[f.name]"
+                v-else-if="f.type === 'url'"
+                :title="f.hint"
+                :name= "f.name"
+              />
+              <input
+                type="number"
+                :placeholder="f.placeholder"
+                v-model="product[f.name]"
+                v-else-if="f.type === 'number'"
+                :min="f.data?.min"
+                :max="f.data?.max"
+                :title="f.hint"
+                :name= "f.name"
+              />
+              <textarea
+                v-model="product[f.name]"
+                :placeholder="f.placeholder"
+                :maxlength="f.data?.max"
+                :minlength="f.data?.min"
+                v-if="f.type === 'textarea'"
+                :title="f.hint"
+              ></textarea>
+            </div>
+
+            <div  v-if="!fixedFieldsNames.includes(f.name)">
+                <input
+                  type="text"
                   :placeholder="f.placeholder"
                   @change=" (e) => {
                     if (!Object.prototype.hasOwnProperty.call(product, 'data')) {
@@ -203,24 +220,94 @@
                     };
                     data.push(fieldData);
                     product.data = JSON.stringify(data);
-
                   }"
+                  v-if="f.type === 'text'"
                   :title="f.hint"
+                  :name= "f.name"
                 />
-            </div> -->
+                <input
+                  type="url"
+                  :placeholder="f.placeholder"
+                  @change=" (e) => {
+                    if (!Object.prototype.hasOwnProperty.call(product, 'data')) {
+                      product.data = '[]';
+                    }
+                    const data = JSON.parse(product.data);
+                    const fieldData = {
+                      name: f.name,
+                      type: f.type,
+                      value: e.target.value
+                    };
+                    data.push(fieldData);
+                    product.data = JSON.stringify(data);
+                  }"
+                  v-else-if="f.type === 'url'"
+                  :title="f.hint"
+                  :name= "f.name"
+                />
+                <input
+                  type="number"
+                  :placeholder="f.placeholder"
+                  @change=" (e) => {
+                    if (!Object.prototype.hasOwnProperty.call(product, 'data')) {
+                      product.data = '[]';
+                    }
+                    const data = JSON.parse(product.data);
+                    const fieldData = {
+                      name: f.name,
+                      type: f.type,
+                      value: e.target.value
+                    };
+                    data.push(fieldData);
+                    product.data = JSON.stringify(data);
+                  }"
+                  v-else-if="f.type === 'number'"
+                  :min="f.data?.min"
+                  :max="f.data?.max"
+                  :title="f.hint"
+                  :name= "f.name"
+                />
+                <textarea
+                @change="(e) => {
+                  if (!Object.prototype.hasOwnProperty.call(product, 'data')) {
+                    product.data = '[]';
+                  }
+                  const data = JSON.parse(product.data);
+                  const fieldData = {
+                    name: f.name,
+                    type: f.type,
+                    value: e.target.value
+                  };
+                  data.push(fieldData);
+                  product.data = JSON.stringify(data);
 
-            <textarea
-              v-model="product[f.name]"
-              :placeholder="f.placeholder"
-              :maxlength="f.data?.max"
-              :minlength="f.data?.min"
-              v-if="f.type === 'textarea'"
-              :title="f.hint"
-            ></textarea>
+                }"
+                :placeholder="f.placeholder"
+                :maxlength="f.data?.max"
+                :minlength="f.data?.min"
+                v-if="f.type === 'textarea'"
+                :title="f.hint"
+              ></textarea>
+            </div>
+
+            
 
             <Datepicker
               v-if="f.type === 'date'"
-              v-model="product[f.name]"
+              @change="(e) => {
+                if (!Object.prototype.hasOwnProperty.call(product, 'data')) {
+                  product.data = '[]';
+                }
+                const data = JSON.parse(product.data);
+                const fieldData = {
+                  name: f.name,
+                  type: f.type,
+                  value: e.target.value
+                };
+                data.push(fieldData);
+                product.data = JSON.stringify(data);
+
+              }"
               :placeholder="f.placeholder"
               :title="f.hint"
               :min-date="f.data ? f.data.start : null"
@@ -274,7 +361,6 @@
         <button v-if="active === steps.length" class="btn next-btn" data-content=".step-content.price-content" @click.prevent="addProduct">
           {{ $t("Publish") }}
         </button>
-        <!-- <p>{{ subCategories.name }}</p> -->
     </div>
   </div>
 </template>
@@ -321,7 +407,7 @@ export default {
       until: this.$route.query.until,
       copyrights: 'Siging A Copyright Disclamer Agrrement',
       arrow: "angle-down",
-      fixedFieldsNames: ['text', 'url', 'number']
+      fixedFieldsNames: ['links', 'img', 'price', 'description', 'name', 'summary', ]
     };
   },
   methods: {
@@ -331,9 +417,16 @@ export default {
       }else {
         this.product.lifetime = 0
       }
-
       let file = e.target.files[0]
       this.product.img = file
+      // this.product.img = []
+      // let files = Array.from(e.target.files);
+      // files.forEach((file) => {
+      //   this.product.img.push(file)
+      // })
+      // Map the files to an array of objects containing the file and its URL
+      // this.product.img = files
+    
     },
 
     addPackage(e) {
@@ -365,7 +458,7 @@ export default {
     addLink(e) {
       console.log(e);
       this.socialMediaAssets.push({
-        id: 1,
+        id: e,
         social_id: e,
         link: e.link,
       });
@@ -375,6 +468,10 @@ export default {
       if (!Object.prototype.hasOwnProperty.call(this.product, 'data')) {
         this.product.data = '[]';
       }
+      if (!Object.prototype.hasOwnProperty.call(this.product, 'summary')) {
+        this.product.summary = this.product.description;
+      }
+      
       this.product.social_media = JSON.stringify(this.socialMediaAssets);
       this.product.category= parseInt(this.cat)
       
@@ -382,29 +479,65 @@ export default {
       // this.product.assets = '{"image":["default.webp", "default2.webp"]}'
       this.prepareToSend(this.product);
     },
-
-     prepareToSend(data) {
+    prepareToSend(data) {
       let formData = new FormData();
-      Object.keys(data)
-        .map((key) => {
-          return [key, data[key]];
-        })
-        .forEach((e) => {
-          if (e[1] !== null) {
-            if (typeof e[1] === "object" && !(e[1] instanceof File)) {
-              Object.keys(e[1]).map((d) =>
-                formData.append(e[0] + "[]", JSON.stringify(e[1][d]))
-              );
-            } else formData.append(e[0], e[1]);
-          }
-        });
-        for (var pair of formData.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]); 
-      }
-      this.$emit('publishDialog', true)
-         this.$store.dispatch("product/add",{product: formData});
 
+      Object.keys(data).forEach((key) => {
+        if (key === "assets" && Array.isArray(data[key])) {
+          data[key].forEach((file) => {
+            formData.append('assets[]', file);
+          });
+        } else if (typeof data[key] === "object" && !(data[key] instanceof File)) {
+          Object.keys(data[key]).forEach((d) =>
+            formData.append(key + "[]", JSON.stringify(data[key][d]))
+          );
+        } else {
+          formData.append(key, data[key]);
+        }
+      });
+
+          for (var pair of formData.entries()) {
+                console.log(pair[0]+ ', ' + pair[1]); 
+          }
+
+      this.send(formData)
+      
     },
+
+    async send(formData) {
+      await this.$store.dispatch("product/add", { product: formData })
+            .then((result) => {
+              console.log(result.status);
+              this.$emit('publishDialog', true)
+            }).catch((err) => {
+              console.log(err);
+            });
+    }
+
+
+    //  prepareToSend(data) {
+    //   let formData = new FormData();
+    //   Object.keys(data) 
+    //     .map((key) => {
+    //       return [key, data[key]];
+    //     })
+
+    //     .forEach((e) => {
+    //       if (e[1] !== null) {
+    //         if (typeof e[1] === "object" && !(e[1] instanceof File)) {
+    //           Object.keys(e[1]).map((d) =>
+    //             formData.append(e[0] + "[]", JSON.stringify(e[1][d]))
+    //           );
+    //         } else formData.append(e[0], e[1]);
+    //       }
+    //     });
+    //     for (var pair of formData.entries()) {
+    //     console.log(pair[0]+ ', ' + pair[1]); 
+    //   }
+    //   this.$emit('publishDialog', true)
+    //      this.$store.dispatch("product/add",{product: formData});
+
+    // },
 
   },
   computed: {

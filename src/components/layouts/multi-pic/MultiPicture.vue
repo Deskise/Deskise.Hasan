@@ -3,7 +3,7 @@
     <flat-icon-component
       icon="cross-small"
       type="bold"
-      class="close-content"
+      class="close-content pt-1"
       @click="remove"
     />
     <div class="image">

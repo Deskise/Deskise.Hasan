@@ -21,9 +21,29 @@ export const Via = {
           );
 
       return await LoginService.login(email, password, remember_me).then(
-        ({ data }) => this.loginCallback(data),
-        (err) => Notification.addNotification(err.error.message, false)
+        (response) => {
+          if (response && response.response && response.response.status === 401) {
+            // Handle 401 Unauthorized Error
+            const errorMessage = response.response.data.message;
+            Notification.addNotification(errorMessage, false);
+          } else if (response && response.data) {
+            const { data } = response;
+            this.loginCallback(data);
+          } else {
+            return 'Your Credentials does not exist in our records!'
+          }
+        },
+        (err) => {
+          console.error(err); // Log the error for debugging
+          Notification.addNotification(err.error.message, false);
+        }
       );
+
+
+      // return await LoginService.login(email, password, remember_me).then(
+      //   ({ data }) => this.loginCallback(data),
+      //   (err) => Notification.addNotification(err.error.message, false)
+      // );
     },
     loginCallback(data) {
       store.dispatch("user/setUserData", {

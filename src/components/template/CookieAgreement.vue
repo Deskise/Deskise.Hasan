@@ -5,7 +5,7 @@
       Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy
       Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam
     </p>
-    <button class="btn btn-dark mx-3 py-2 px-5">cancel</button>
+    <button class="btn btn-dark mx-3 py-2 px-5" @click="$emit('cancel')">cancel</button>
     <button class="btn btn-primary py-2 px-5" @click="$emit('accept')">
       Agree
     </button>

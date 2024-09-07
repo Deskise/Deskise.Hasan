@@ -31,6 +31,9 @@ export default {
     chat() {
       return this.chats.filter((chat) => chat.id == this.chatId)[0];
     },
+    // product(){
+      
+    // }
   },
 
 

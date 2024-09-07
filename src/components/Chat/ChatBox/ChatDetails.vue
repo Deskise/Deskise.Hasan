@@ -7,7 +7,7 @@
     >
   </div>
   <div
-    v-bind:class="msg.from === this.$store.state.user.data.id ? 'sender' : 'receiver'"
+    v-bind:class="msg.from === sender.id ? 'sender' : 'receiver'"
     :style="{
       display: msg.type === 'call' ? 'flex' : '',
       flexDirection: msg.type === 'call' ? 'column' : '',
@@ -17,8 +17,8 @@
       class="avatar-image"
       :style="{ display: msg.type === 'call' ? 'none' : '' }"
     >
-      <img v-if="msg.from !== this.$store.state.user.data.id" :src="chat.user.img" :alt=chat.user.firstname>
-      <img v-if="msg.from === this.$store.state.user.data.id" :src="sender.img" :alt="sender.firstname">
+      <img v-if="msg.from !== sender.id" :src="chat.user.img" :alt=chat.user.firstname>
+      <img v-if="msg.from === sender.id" :src="sender.img" :alt="sender.firstname">
     </div>
     <TextContent :msg="msg" />
     <ImageContent :msg="msg" />
@@ -107,7 +107,7 @@ const chat = computed(() => {
 }
 .receiver .content-order-details,
 .receiver .content-chat-text {
-  background: #c9c9c9;
+  background: #dedede;
 }
 .content-order-details,
 .content-chat-text {
