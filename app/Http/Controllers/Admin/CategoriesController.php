@@ -60,11 +60,13 @@ class CategoriesController extends Controller
                             "placeholder" => "Please Make Sure Your Answer Is At Least 250 Characters Long. (Success And Obstacles) ",
                             'name' => "description",
                             "type" => "textarea"
-                        ], [
-                            "placeholder" => "Please make sure your answer is no longer than 150 characters",
-                            'name' => "summary",
-                            "type" => "textarea"
-                        ], [
+                        ], 
+                        // [
+                        //     "placeholder" => "Please make sure your answer is no longer than 150 characters",
+                        //     'name' => "summary",
+                        //     "type" => "textarea"
+                        // ], 
+                        [
                             "placeholder" => "Price",
                             'name' => "price",
                             "type" => "number"
@@ -78,16 +80,17 @@ class CategoriesController extends Controller
                             "placeholder" => "Select Business Model",
                             "type" => "subcategory",
                             'name' => 'subcategory'
-                        ], [
+                        ], 
+                        [
                             "placeholder" => "Business Assets Included",
                             'name' => "links",
                             "type" => "links"
                         ], 
-                        // [
-                        //     'placeholder' => "Add Photos And Media",
-                        //     'name' => "assets",
-                        //     "type" => "assets"
-                        // ]
+                        [
+                            'placeholder' => "Add Photos And Media",
+                            'name' => "assets",
+                            "type" => "assets"
+                        ]
                     ]
                 ]
             ]

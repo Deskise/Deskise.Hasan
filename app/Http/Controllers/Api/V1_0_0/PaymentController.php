@@ -97,8 +97,8 @@ class PaymentController extends Controller
             $stripe = new \Stripe\StripeClient(config('services.stripe.secret_key'));
             $accountLink = $stripe->accountLinks->create(
                 ['account' => $accountId,
-                'refresh_url' => 'https://example.com/reauth',
-                'return_url' => 'http://localhost:8080/#/dash/sales',
+                'refresh_url' => 'https://deskise.com/#/login',
+                'return_url' => 'https://deskise.com/#/dash/sales',
                 'type' => 'account_onboarding',]
             );
             return $accountLink->url;

@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use phpDocumentor\Reflection\PseudoTypes\False_;
+use Illuminate\Support\Facades\File;
 
 class FileOrUrl implements Rule
 {
@@ -28,6 +29,17 @@ class FileOrUrl implements Rule
     {
         
         return request()->hasFile($attribute) || filter_var($value, FILTER_VALIDATE_URL);
+        // Check if the value is a valid URL
+        // if (filter_var($value, FILTER_VALIDATE_URL)) {
+        //     return true;
+        // }
+
+        // // Check if the value is a valid file
+        // if (is_string($value) && File::exists(public_path($value))) {
+        //     return true;
+        // }
+
+        // return false;
     }
 
     /**

@@ -69,7 +69,7 @@
 
 <style>
     .form-control{
-        color: #fff !important;
+        color: #2d2d2d !important;
     }
     </style>
 <!-- container-scroller -->

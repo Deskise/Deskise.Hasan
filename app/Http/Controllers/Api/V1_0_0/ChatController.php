@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1_0_0;
 use App\Helpers\APIHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -33,10 +34,10 @@ class ChatController extends Controller
     public function getChats()
     {
         $chats = \request()?->user('api')->chats()
-            // ->where('blocked', false)
             ->paginate(20)
             ->map(function ($chat) {
                 $chat->user = $chat->user()->select('id','firstname','lastname','img')->first();
+                $chat->product->user_id = Product::where('user_id', $chat->product->id)->select('user_id')->first();
                 return $chat->lastMsg();
             })
             ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg?->created_at))

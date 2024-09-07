@@ -87,7 +87,7 @@
             if ($category)
                 $query->where('category_id', $category);
 
-            $page = $query->paginate(12);
+            $page = $query->paginate(9);
             return APIHelper::jsonRender('', [[
                 'current_page' => $page->currentPage(),
                 'next_page_url' =>  $page->nextPageUrl(),
@@ -95,7 +95,8 @@
                     $q->subcategory = $q->data?->subcategory->{'name_'.self::$language};
                     $q->views = round($q->views()->count() / CarbonPeriod::create($q->created_at, '1 month', Carbon::now())->count(),2);
                     $q->seller_location = $q->user->location;
-                    unset($q->data, $q->user, $q->user_id);
+                    unset($q->data, $q->user);
+                    // unset($q->data, $q->user, $q->user_id);
                     return $q;
                 })
             ]]);
@@ -147,7 +148,8 @@
             $similar = Product::where('category_id', $product->category_id)->get();
             // dd($similar);
             $product->similar = $similar;
-            unset($product->user_id,$product->subcategory_id);
+            unset($product->subcategory_id);
+            // unset($product->user_id,$product->subcategory_id);
             if ($prod) return $product;
 
             return APIHelper::jsonRender('', $product);
@@ -252,6 +254,18 @@
                 \Storage::disk('local')->put($path, file_get_contents($file));
                 $product->img  = $fileName;
             }
+            
+            // if ($request->hasFile('imgs')) {
+            //     $images = [];
+            //     foreach ($request->file('imgs') as $file) {
+            //         $fileName = time().$request->user('api')->id.\Str::random(10).'.'.$file->getClientOriginalExtension();
+            //         $path = 'public/products/' . $fileName;
+            //         \Storage::disk('local')->put($path, file_get_contents($file));
+            //         $images[] = $fileName;
+            //     }
+            //     $product->imgs = json_encode($images);
+            // }
+
             if (!$product->is_lifetime)
                 // $product->until=date('d-m-Y',strtotime($request->input('until')))??$product->until;
                 $product->until = DateTime::createFromFormat('d/m/Y', $request->input('until'))->format('Y-m-d') ?? $product->until;
@@ -279,15 +293,34 @@
                 // $product->assets()->update(['assets' => $request->input('assets')]);
                 // $product->assets()->updateOrCreate(['assets' => $request->input('assets')]);
 
+            if ($request->hasFile('assets')) {
+                $assets = [];
 
-            if ($request->input('assets')) {
-                $productAsset = $product->assets()->first();
-                if ($productAsset) {
-                    $productAsset->where('product_id', $product->id)->update(['assets' => $request->input('assets')]);
+                foreach ($request->file('assets') as $file) {
+                    $fileName = time().$request->user('api')->id.\Str::random(10).'.'.$file->getClientOriginalExtension();
+                    $path = 'public/products/' . $fileName;
+                    \Storage::disk('local')->put($path, file_get_contents($file));
+                    $assets[] = $fileName;
+                }
+
+                // $assetsJson = json_encode($assets);
+                // dd($assetsJson);
+                if ($product->assets()->exists()) {
+                    $product->assets()->update(['assets' => $assets]);
                 } else {
-                    $product->assets()->create(['assets' => $request->input('assets')]);
+                    $product->assets()->create(['assets' => $assets]);
                 }
             }
+
+
+            // if ($request->input('assets')) {
+            //     $productAsset = $product->assets()->first();
+            //     if ($productAsset) {
+            //         $productAsset->where('product_id', $product->id)->update(['assets' => $request->input('assets')]);
+            //     } else {
+            //         $product->assets()->create(['assets' => $request->input('assets')]);
+            //     }
+            // }
                 
 
             if ($request->input('subcategory') && $product->category->subcategories()->find($request->input('subcategory')))
