@@ -1,0 +1,11 @@
+ - File Structure:
+    - api routing by version as (vx.x.x where x is an integer).
+      - main api routes for version (v1.0.0) are on (routes/api/api_v1.0.0.php).
+    - for api controllers for version (v1.0.0) go to (app/Http/Controllers/Api/V1_0_0/).
+
+ - Theres a main show image route named (images) that takes 2 params (for, image):
+   - for: the disk and the path to the file, ex: users (for storage disk baned users), or users.v1.ah.m (for storage disk user, get the image from file v1/ah/m/),
+   - image: the image names required.
+
+ - there are many storage disks, check (config/filesystem.php).
+ - a queue and scheduler are used on this project.
