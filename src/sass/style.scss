@@ -1,0 +1,32 @@
+@import "./_globals/_variables.scss";
+@import "./_globals/_fonts.scss";
+@import "./_globals/mixins";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+@include makeAlert('primary', $primary);
+@include makeAlert('secondary', $secondary);
+
+@import "./_globals/parts/bg.scss";
+
+@include makeInput('primary',$primary,$primary, white, $secondary,$secondary,white);
+@include makeInput('secondary', $secondary,$secondary, white, transparent, $secondary,$secondary);
+@include makeInput('outline-primary',transparent,$primary,$primary, $primary,$primary,white);
+@include makeInput('outline-secondary',transparent,$secondary,$secondary, $secondary,$secondary,white);
+@include makeInput('login-google', transparent,#ea4335,#ea4335, #ea4335,#ea4335, white);
+@include makeInput('login-facebook', transparent,#1977f3,#1977f3, #1977f3,#1977f3, white);
+
+@include makeBtn('primary',$primary,$primary, white, $secondary,$secondary,white);
+@include makeBtn('secondary', $secondary,$secondary, white, transparent, $secondary,$secondary);
+@include makeBtn('outline-primary',transparent,$primary,$primary, $primary,$primary,white);
+@include makeBtn('outline-secondary',transparent,$secondary,$secondary, $secondary,$secondary,white);
+@include makeBtn('login-google', transparent,#ea4335,#ea4335, #ea4335,#ea4335, white);
+@include makeBtn('login-facebook', transparent,#1977f3,#1977f3, #1977f3,#1977f3, white);
+
+@import "./_globals/parts/text.scss";

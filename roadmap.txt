@@ -1,0 +1,36 @@
+ - filesystem:
+    - tree shaped:
+        -> public/
+          -> css/
+            -> fonts/
+            -> webfonts/
+          -> .htaccess
+          -> favicon.ico
+          -> index.html
+
+        -> src/
+          -> assets/
+          -> components/
+          -> config/
+            -> axios/
+            -> directives/
+            -> locals/
+            -> Services/
+            -> Echo.js
+            -> globals.js
+            -> i18n.js
+            -> Notification.js
+          -> init/
+          -> Mixins/
+          -> router/
+          -> sass/
+          -> store/
+          -> views/
+          -> App.vue
+          -> main.js
+
+    - Description of some files:
+        - config/axios: main axios config file.
+        - config/services: inherts axios client (from config/axios) and make api calls.
+
+ - Need To Check and redo chat and product pages.

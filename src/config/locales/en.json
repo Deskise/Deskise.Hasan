@@ -1,0 +1,62 @@
+{
+  "websiteName": "Deskise",
+  "header": {
+    "nologin": {
+      "home": "Home",
+      "category": "Categories",
+      "about": "About Us",
+      "mech": "Mechanism Of Action",
+      "terms": "Terms Of Use",
+      "privacy": "Privacy Policy",
+      "FAQ": "Common Questions",
+      "blog": "Blog",
+      "login": "Login/Signup"
+    },
+    "login": {
+      "sales": "Sales"
+    }
+  },
+
+  "mech": {
+    "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam"
+  },
+
+  "faqs": {
+    "search": "Search",
+    "support": "For Technical Support Or Direct Questions Via Email."
+  },
+
+  "Forms": {
+    "email": "Email"
+  },
+  "more": "Read More",
+
+  "see": "See More",
+
+  "footer": {
+    "newsletter": "Subscribe to the newsletter",
+    "subscripe": "Subscripe",
+    "request": "Request Product"
+  },
+
+  "login": "Login",
+  "dontHaveAnAccount": "Don''t Have An Account?",
+  "register": "Register",
+  "google": "Google",
+  "facebook": "Facebook",
+  "forgetPassword": "Forget Password",
+  "password": "PASSWORD",
+  "draft": "Draft",
+  "whatDoYouSell": "what do you sell!",
+  "250000BuyersAreWaiting": "250,000+ buyers are waiting",
+  "chooseCategories": "Choose Categories",
+  "sorryNoProductsHere": "Sorry No Products Here..",
+  "category": "Category",
+  "next": "Next",
+  "welcomeInDeskise": "welcome in Deskise",
+  "isTheLicenseForLife": "Is The License For Life!",
+  "expirationDate": "Expiration Date",
+  "back": "Back",
+  "addPhotosAndMedia": "Add Photos And Media",
+  "addSocialMediaAccount": "Add Social Media Account"
+}
