@@ -335,6 +335,7 @@ nav {
 
   .nav-item {
     padding: 10px 0;
+    text-wrap: nowrap;
     @media (max-width: 1400px) {
       padding: 0;
     }
