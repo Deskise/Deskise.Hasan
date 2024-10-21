@@ -6,12 +6,13 @@ import "./config/hello";
 import PerfectScrollbar from "vue3-perfect-scrollbar";
 
 import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import firebase, { requestForToken, onMessageListener } from './firebase';
-import firebase from './firebase';
-import { requestPermission } from './notification';
+import "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import { requestForToken, onMessageListener } from "./firebase";
+
+// eslint-disable-next-line
+import { requestPermission } from "./notification";
 // import normalize.css
 import "normalize.css";
 
@@ -22,7 +23,6 @@ import "@vuepic/vue-datepicker/dist/main.css";
 //Add bootstrap to your project
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 
 // Import Swiper styles
 import "swiper/swiper.scss";
@@ -59,33 +59,31 @@ Vue.use(i18n)
   .use(createHead())
   .mount("#app");
 
-
-
-
 Vue.config.productionTip = false;
 
 requestForToken();
 
-onMessageListener().then(payload => {
-  console.log('Message received. ', payload);
+onMessageListener().then((payload) => {
+  console.log("Message received. ", payload);
   // Customize notification here
   new Notification(payload.notification.title, {
     body: payload.notification.body,
-    icon: payload.notification.icon
+    icon: payload.notification.icon,
   });
 });
 
 // تسجيل خدمة العملاء
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/firebase-messaging-sw.js')
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/firebase-messaging-sw.js")
     .then((registration) => {
-      console.log('Service Worker registered with scope:', registration.scope);
+      console.log("Service Worker registered with scope:", registration.scope);
     })
     .catch((err) => {
-      console.log('Service Worker registration failed:', err);
+      console.log("Service Worker registration failed:", err);
     });
 }
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app');
+// new Vue({
+//   render: h => h(App),
+// }).$mount('#app');
