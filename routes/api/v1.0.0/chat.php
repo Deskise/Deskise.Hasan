@@ -12,6 +12,7 @@ Route::group(['prefix' => '{chat}'], function (){
     Route::get('messages', [Chat::class, 'getMessages']);
     Route::get('files', [Chat::class, 'getFiles']);
     Route::get('agreements', [Chat::class, 'getAgreements']);
+    Route::post('agreement-responses', [Chat::class, 'agrementResponses']);
 
     Route::post('send/{type}', [Chat::class, 'message'])->where(['type'=>'(agreement|message|call|attachment|textphoto)']);
     

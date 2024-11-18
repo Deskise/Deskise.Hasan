@@ -2,6 +2,7 @@
 use \App\Http\Controllers\Api\V1_0_0\PaymentController;
 
 Route::post('create-payment', [PaymentController::class, 'createPayment']);
+Route::post('message-request', [PaymentController::class, 'sendMsgRequest']);
 Route::get('user-sales/{id}', [PaymentController::class, 'userSales']);
 
 Route::post('create-paymentintent', [PaymentController::class, 'createPaymentIntent']);

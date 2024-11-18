@@ -217,9 +217,38 @@ class PaymentController extends Controller
 
     }
 
+    public function sendMsgRequest(Request $request)
+    {
+        // the user_id column in product_buys table is the ownerId
+        $user = User::find($request->ownerId);
+
+        $chat = Chat::where(function ($query) use ($request) {
+            $query->where('member1', $request->user_id)
+                ->where('member2', $request->ownerId);
+        })->orWhere(function ($query) use ($request) {
+            $query->where('member1', $request->ownerId)
+                ->where('member2', $request->user_id);
+        })->first();
+        
+        if ($chat) {
+            $chat->update([
+                'product_id' => $request->product_id
+            ]);
+            return response()->json(['chat_id' => $chat->id]);
+        }
+
+        $createChat = $user->chats()->create([
+            'member1' => $request->user_id,
+            'member2' => $request->ownerId,
+            'product_id' => $request->product_id
+        ]);
+       
+        return response()->json(['chat_id' => $createChat->id]);
+    }
+
     public function userSales($id)
     {
-        $userSales = ProductBuy::where('user_id', $id)->with('product')->where('user_id', $id)->get();
+        $userSales = ProductBuy::where('user_id', $id)->with('product')->where('user_id', $id)->latest()->get();
         // $productInfo = Product::where('user_id', $id)->get();
         $lastWithdrawRequest = WithdrawRequest::where('user_id', $id)->latest()->first();
         $payouts = WithdrawRequest::where('user_id', $id)->where('status', 'approved')->sum('amount');

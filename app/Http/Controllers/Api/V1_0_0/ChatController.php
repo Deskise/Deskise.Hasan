@@ -37,7 +37,7 @@ class ChatController extends Controller
             ->paginate(20)
             ->map(function ($chat) {
                 $chat->user = $chat->user()->select('id','firstname','lastname','img')->first();
-                $chat->product->user_id = Product::where('user_id', $chat->product->id)->select('user_id')->first();
+                // $chat->product = Product::where('user_id', $chat->product->id);
                 return $chat->lastMsg();
             })
             ->sortByDesc(fn ($c) => Carbon::make($c->lastMsg?->created_at))
@@ -181,6 +181,12 @@ class ChatController extends Controller
 
         
         return APIHelper::jsonRender('success',$message);
+    }
+
+    function agrementResponses(Request $request, Chat $chat) {
+        $chat->messages()
+            ->where('msg_id', $request->msg_id)
+            ->update(['status' => $this->getStatus($request->input('status'))]);
     }
 
     function getStatus($inputStatus) {
