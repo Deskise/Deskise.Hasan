@@ -60,7 +60,11 @@
                     </div>
                     <div class="dates">
                       <span class="new" v-date="product.dates.new"></span>&nbsp;
-                      <span class="old" v-date="product.dates.old"></span>
+                      <span
+                        v-if="product.dates.new !== product.dates.old"
+                        class="old"
+                        v-date="product.dates.old"
+                      ></span>
                     </div>
                   </div>
                 </div>
@@ -93,7 +97,9 @@
               <div class="price-category-order">
                 <div class="price">
                   <span class="new">{{ product.price }}$</span>
-                  <span class="old">{{ product.old_price }}$</span>
+                  <span v-if="product.price !== product.old_price" class="old"
+                    >{{ product.old_price }}$</span
+                  >
                 </div>
                 <div class="categroy-order">
                   <span class="categroy">
@@ -161,6 +167,13 @@
                     ></font-awesome-component>
                   </span>
                 </button>
+                <button
+                  class="dash-button buy-icon"
+                  :disabled="!this.$store.getters['user/isLoggedIn']"
+                  aria-controls="offcanvasScrolling"
+                  ref="hiddenBuyButton"
+                  hidden
+                ></button>
                 <!--  offcanvas of buy btn---------------------------------------------- -->
                 <div
                   class="offcanvas offcanvas-end"
@@ -182,6 +195,19 @@
                   <div class="offcanvas-body">
                     <BuyOffcanvas :product="product" class="mb-2" />
                     <div v-if="showError" class="error">{{ errorMsg }}</div>
+                    <!-- Product card -->
+                    <div class="product-card">
+                      <img :src="product.img" alt="" />
+                      <div class="checkout-details">
+                        <h6>{{ product.name }}</h6>
+                        <p>{{ newPrice ? newPrice : product.price }}$</p>
+                        <small
+                          >{{ product.user.firstname }}
+                          {{ product.user.lastname }}</small
+                        >
+                      </div>
+                    </div>
+                    <!-- Product card end -->
                     <form id="payment-form">
                       <div id="link-authentication-element">
                         <!--Stripe.js injects the Link Authentication Element-->
@@ -189,10 +215,6 @@
                       <div id="payment-element">
                         <!--Stripe.js injects the Payment Element-->
                       </div>
-                      <!-- <button id="submit">
-                        <div class="spinner hidden" id="spinner"></div>
-                        <span id="button-text">Pay now</span>
-                      </button> -->
                       <div id="payment-message" class="hidden"></div>
                     </form>
                     <div class="mt-3 btnComplete">
@@ -251,7 +273,7 @@
                 </div>
                 <!-- ---------------------------------------------- -->
                 <!-- ------------------------- model of message request--------------------- -->
-                <!-- <button
+                <button
                   class="dash-button buy-icon"
                   data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop"
@@ -262,7 +284,7 @@
                       icon="telegram-plane"
                     ></font-awesome-component>
                   </span>
-                </button> -->
+                </button>
                 <!-- Modal -->
                 <div
                   class="modal modelMessageRequest fade"
@@ -298,6 +320,7 @@
                           id="message"
                           placeholder="text Message"
                           class="p-2"
+                          v-model="msgBody"
                         ></textarea>
                       </div>
                       <div class="modal-footer">
@@ -305,8 +328,16 @@
                           type="button"
                           class="btn btn-secondary"
                           data-bs-dismiss="modal"
+                          @click="sendMsgRequest"
                         >
                           Send
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-secondary cancel"
+                          data-bs-dismiss="modal"
+                        >
+                          Cancel
                         </button>
                       </div>
                     </div>
@@ -421,7 +452,9 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { mapGetters, mapState } from "vuex";
 import Product from "../../components/Products/Product.vue";
 // import BuyOffcanvas from "./BuyOffcanvas.vue";
-
+import { ref as storageRef, set } from "@firebase/database";
+import db from "../../components/Chat/Api/db";
+import eventBus from "../../config/Services/EvenBus";
 import { loadStripe } from "@stripe/stripe-js";
 import { Offcanvas } from "bootstrap";
 export default {
@@ -447,10 +480,69 @@ export default {
       showMenu: false,
       showError: false,
       errorMsg: "",
+      msgBody: "",
       // slides: 1,
     };
   },
   methods: {
+    async sendMsgRequest() {
+      this.$store.dispatch("ChangeLoading", true);
+      const data = {
+        product_id: this.product.id,
+        user_id: this.$store.state.user.data.id,
+        // price: this.product.price,
+        ownerId: this.product.user.id,
+        affiliate_code: this.$route.query.tracking ?? "",
+      };
+      await this.$store.dispatch("payment/messageRequest", data);
+
+      // const product = JSON.parse(localStorage.getItem("product"));
+      // const product = this.product;
+      // console.log(product.name);
+      const date = new Date();
+      const formattedDate = date.toISOString();
+      const type = "msgRequest";
+      const order = {
+        chat_id: this.$store.state.payment.buyerId,
+        from: this.$store.state.user.data.id,
+        created_at: formattedDate,
+        type: type,
+        price: this.product.price,
+        name: this.product.name,
+        product_id: this.product.id,
+        read: "false",
+        message: this.msgBody,
+      };
+      console.log(order);
+
+      function generateUniqueId() {
+        const timestamp = Date.now();
+        const randomNumber = Math.floor(Math.random() * 10000);
+        return `${timestamp}_${randomNumber}`;
+      }
+      generateUniqueId();
+      const messageId = generateUniqueId();
+
+      // this.$store.dispatch('chat/agreement', {agreement});
+      // await this.$store.dispatch('chat/agreement', { agreement, chatId: this.chatId, type: type });
+
+      const chatId = this.$store.state.payment.buyerId;
+      // await set(storageRef(db.db, `chats/${chatId}/messages/${messageId}`), {
+      //   chat_id: chatId,
+      //   from: chatId,
+      //   message: "i want to talk about price..",
+      //   attachments: [],
+      //   read: false,
+      //   created_at: formattedDate,
+      //   type: type,
+      // });
+      await set(
+        storageRef(db.db, `chats/${chatId}/messages/${messageId}`),
+        order
+      );
+
+      this.$router.push({ name: "chat", params: { chatId: chatId } });
+    },
     getSlides() {
       if (window.matchMedia("(max-width: 576px").matches) this.slides = 1;
       else if (window.matchMedia("(max-width: 768px").matches)
@@ -473,7 +565,7 @@ export default {
       const data = {
         product_id: this.product.id,
         user_id: this.$store.state.user.data.id,
-        price: this.product.price,
+        price: this.newPrice ? this.newPrice : this.product.price,
         ownerId: this.product.user.id,
         affiliate_code: this.$route.query.tracking,
       };
@@ -542,6 +634,43 @@ export default {
       BuyOffcanvas.show();
       this.$store.dispatch("ChangeLoading", false);
     },
+    async createStripeInstance() {
+      let clientSecret = this.clientSecret;
+
+      // Create the Stripe instance and Elements after fetching the clientSecret
+      const stripePublicKey = process.env.VUE_APP_STRIPE_KEY;
+      this.stripe = await loadStripe(stripePublicKey);
+      this.elements = this.stripe.elements({ clientSecret });
+
+      const linkAuthenticationElement =
+        this.elements.create("linkAuthentication");
+      linkAuthenticationElement.mount("#link-authentication-element");
+
+      const paymentElementOptions = {
+        layout: "tabs",
+      };
+
+      const paymentElement = this.elements.create(
+        "payment",
+        paymentElementOptions
+      );
+      await paymentElement.mount("#payment-element");
+      // this.showMenu ? this.showMenu = false : this.showMenu = true;
+      setTimeout(() => {
+        if (
+          this.$refs.hiddenBuyButton &&
+          !this.$refs.hiddenBuyButton.disabled
+        ) {
+          this.$refs.hiddenBuyButton.click();
+          console.log("hiddenBuyButton clicked");
+        }
+        let BuyOffcanvas = new Offcanvas(
+          document.getElementById("offcanvasScrolling")
+        );
+        BuyOffcanvas.show();
+      }, 1000);
+      this.$store.dispatch("ChangeLoading", false);
+    },
 
     async like() {
       await this.$store.dispatch("product/LikeProduct", this.product.id);
@@ -599,6 +728,11 @@ export default {
 
       return trackingCode;
     },
+
+    getChatId(user1, user2) {
+      const sortedIds = [user1, user2].sort();
+      return sortedIds.join("_");
+    },
     // DeleteOffinsive() {
     //   setTimeout(() => {
     //     document.querySelector(".offcanvasClose").click();
@@ -611,7 +745,7 @@ export default {
   },
   computed: {
     ...mapGetters("product", ["products", "similarArray"]),
-    ...mapState("payment", ["intent"]),
+    ...mapState("payment", ["intent", "chatPrice", "newPrice"]),
     // ...mapState("product", ["similar"]),
     clientSecret() {
       return this.$store.state.payment.intent.clientSecret;
@@ -649,6 +783,12 @@ export default {
       return "http://127.0.0.1:8000/products/images";
       // return process.env.VUE_APP_BACKEND_STORAGE;
     },
+    chatId() {
+      return this.getChatId(
+        this.$store.state.user.data.id,
+        this.product.user.id
+      );
+    },
   },
   async beforeRouteUpdate(to, from, next) {
     try {
@@ -656,6 +796,14 @@ export default {
       if (this.$store.state.product.products.single) {
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0;
+        // Add check for route coming from 'chats'
+        if (from.name === "chats") {
+          // Since we want to mimic the mounted() behavior
+          // We can either call the method directly or wait for next tick
+          await this.$nextTick(() => {
+            this.createStripeInstance();
+          });
+        }
         next();
       } else {
         next(false);
@@ -670,6 +818,10 @@ export default {
     this.$nextTick(function () {
       this.getSlides();
       window.addEventListener("resize", () => this.getSlides());
+      eventBus.on("create-stripe-instance", this.createStripeInstance);
+      if (this.$store.state.payment.newPrice !== null) {
+        this.createStripeInstance();
+      }
     });
   },
 };
@@ -903,5 +1055,42 @@ button:disabled {
 }
 .modal-dialog {
   border-radius: 20px !important;
+}
+.product-card {
+  display: flex;
+  align-self: center;
+  box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+    0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 7px;
+  padding: 40px;
+  margin-block: 20px;
+}
+.product-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  margin-right: 20px;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid #ebebeb;
+  box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+    0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+}
+.product-card h6 {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.product-card p {
+  color: #3eadb7;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.modal-footer {
+  flex-wrap: nowrap !important;
+}
+
+.modal-footer .cancel {
+  border: #fb5b5b 1px solid !important;
+  color: #fb5b5b !important;
 }
 </style>

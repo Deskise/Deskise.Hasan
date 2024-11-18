@@ -3,12 +3,18 @@ import Product from "@/config/Services/Products/ListService.js";
 export const namespaced = true;
 
 export const state = {
-  products: { current_page: null, next_page_url: null, data: {}, category: 0, single: {} },
+  products: {
+    current_page: null,
+    next_page_url: null,
+    data: {},
+    category: 0,
+    single: {},
+  },
   best: { current_page: null, next_page_url: null, data: {}, category: 0 },
   newProduct: [],
   file: null,
-  edit: {info: null, packages: null},
-  similar: {}
+  edit: { info: null, packages: null },
+  similar: {},
 };
 
 export const mutations = {
@@ -28,10 +34,10 @@ export const mutations = {
     // state.products.data[prod.id] = prod;
     state.products.single = {};
     state.products.single[prod.id] = prod;
-    state.similar = {}
+    state.similar = {};
     prod.similar.forEach((el) => {
-      state.similar[el.id] = el
-    })
+      state.similar[el.id] = el;
+    });
     // state.similar = prod.similar
     // state.similar = Object.keys(prod.similar).map((i) => {
     //    return prod.similar[i].id
@@ -39,11 +45,11 @@ export const mutations = {
     //   .filter((e) => e !== undefined && e !== null);
   },
   SIMILAR(state, similar) {
-    state.similar = similar
+    state.similar = similar;
   },
   EDIT(state, prod) {
-    state.edit.info = prod
-    state.edit.packages = prod.data.data.packages
+    state.edit.info = prod;
+    state.edit.packages = prod.data.data.packages;
   },
   BEST(state, prod) {
     state.best.current_page = prod.current_page;
@@ -53,12 +59,12 @@ export const mutations = {
     });
   },
   ADD(state, prod) {
-    state.newProduct.push(prod)
+    state.newProduct.push(prod);
   },
 
   upload(state, file) {
-    state.file = file
-  }
+    state.file = file;
+  },
 };
 
 export const actions = {
@@ -77,11 +83,17 @@ export const actions = {
     });
   },
 
-  async similar({commit}, catId) {
+  // async chatProduct({ commit }, id) {
+  //   await Product.single(id).then((e) => {
+  //     commit("SINGLE", e.data.response.extra[0]);
+  //   });
+  // },
+
+  async similar({ commit }, catId) {
     await Product.similar(catId).then((e) => {
       console.log(catId);
-      commit("SIMILAR", e.data)
-    })
+      commit("SIMILAR", e.data);
+    });
   },
   async best({ commit }) {
     await Product.best().then((e) => {
@@ -89,24 +101,24 @@ export const actions = {
     });
   },
 
-  async add({commit}, {product}) {
+  async add({ commit }, { product }) {
     await Product.addProduct(product).then((e) => {
-      commit("ADD", e.data.response)
-    })
+      commit("ADD", e.data.response);
+    });
   },
 
-  async edit({commit}, {id}) {
+  async edit({ commit }, { id }) {
     await Product.edit(id).then((e) => {
-      commit("EDIT", e.data.response.extra[0])
-    })
+      commit("EDIT", e.data.response.extra[0]);
+    });
   },
 
-  async update( id , {product }) {
+  async update(id, { product }) {
     await Product.update(id, product).then((e) => {
       console.log(e.data);
-    })
+    });
   },
-  async LikeProduct({ dispatch }, id ) {
+  async LikeProduct({ dispatch }, id) {
     await Product.LikeProduct(id)
       .then((response) => {
         dispatch(
@@ -134,9 +146,10 @@ export const getters = {
     },
   similarArray(state) {
     // return state.similar
-    return Object.keys(state.similar).map((i) => {
-      return state.similar[i].id
-    })
+    return Object.keys(state.similar)
+      .map((i) => {
+        return state.similar[i].id;
+      })
       .filter((e) => e !== undefined && e !== null);
   },
 
@@ -144,9 +157,9 @@ export const getters = {
     return state.products.data;
   },
   info: (state) => {
-    return state.edit.info
+    return state.edit.info;
   },
   selectedPackages: (state) => {
-    return JSON.parse(state.edit.packages)
-  }
+    return JSON.parse(state.edit.packages);
+  },
 };

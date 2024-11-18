@@ -13,11 +13,11 @@
       <div class="chat-box-icon">
         <i class="fas fa-ellipsis-v"></i>
         <ul class="dash-sub-menu" :style="{ display: active ? '' : 'none' }">
-          <!-- <li class="dash-sub-menu-item">
+          <li class="dash-sub-menu-item">
             <router-link :to="{ name: 'Agreement' }"
               >Create An Agreement</router-link
             >
-          </li> -->
+          </li>
           <li class="dash-sub-menu-item">
             <router-link :to="{ name: 'SendFile' }">Send File </router-link>
           </li>
@@ -42,11 +42,23 @@ export default {
   data() {
     return {
       active: false,
+      chatId: this.$route.params.chatId,
     };
   },
   methods: {
     handleClick() {
       this.active = !this.active;
+    },
+  },
+  computed: {
+    chats() {
+      return this.$store.state.chat.chats;
+    },
+    chat() {
+      return this.chats.find((chat) => chat.id == this.chatId);
+    },
+    product() {
+      return this.chat.product;
     },
   },
 };
@@ -131,10 +143,9 @@ export default {
   padding: 5px 0px;
   border-bottom: #e1e1e1 1px solid;
 }
-.dash-sub-menu-item:hover{
+.dash-sub-menu-item:hover {
   color: steelblue;
   border-bottom: #3eadb7 1px solid;
-  
 }
 .dash-sub-menu-item a {
   color: black;

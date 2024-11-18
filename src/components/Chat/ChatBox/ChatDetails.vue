@@ -17,16 +17,25 @@
       class="avatar-image"
       :style="{ display: msg.type === 'call' ? 'none' : '' }"
     >
-      <img v-if="msg.from !== sender.id" :src="chat.user.img" :alt=chat.user.firstname>
-      <img v-if="msg.from === sender.id" :src="sender.img" :alt="sender.firstname">
+      <img
+        v-if="msg.from !== sender.id"
+        :src="chat.user.img"
+        :alt="chat.user.firstname"
+      />
+      <img
+        v-if="msg.from === sender.id"
+        :src="sender.img"
+        :alt="sender.firstname"
+      />
     </div>
+    <MsgRequestContent :msg="msg" :prod="chat.product" />
     <TextContent :msg="msg" />
     <ImageContent :msg="msg" />
     <TextImageContent :msg="msg" />
-    <AgreementContent :msg="msg" />
+    <AgreementContent :msg="msg" :prod="chat.product" />
     <CallMessage :msg="msg" />
     <OrderDetails :msg="msg" />
-    <FilesSubmit :msg="msg"/>
+    <FilesSubmit :msg="msg" />
     <div class="send-message-time">
       {{ new Date(msg.created_at).getHours() }}:{{
         new Date(msg.created_at).getMinutes()
@@ -35,18 +44,18 @@
   </div>
 </template>
 
-
 <script setup>
-import { useStore } from 'vuex';
-import { computed } from 'vue'
+import { useStore } from "vuex";
+import { computed } from "vue";
+import MsgRequestContent from "../ChatBox/ChatContent/MsgRequestContent.vue";
 import TextContent from "../ChatBox/ChatContent/TextContent.vue";
 import ImageContent from "../ChatBox/ChatContent/ImageContent.vue";
 import TextImageContent from "../ChatBox/ChatContent/TextImageContent.vue";
 import AgreementContent from "../ChatBox/ChatContent/AgreementContent.vue";
 import CallMessage from "../ChatBox/ChatContent/CallMessage.vue";
-import { useRoute } from 'vue-router';
-import OrderDetails from './ChatContent/OrderDetails.vue';
-import FilesSubmit from './ChatContent/FilesSubmit.vue';
+import { useRoute } from "vue-router";
+import OrderDetails from "./ChatContent/OrderDetails.vue";
+import FilesSubmit from "./ChatContent/FilesSubmit.vue";
 // eslint-disable-next-line vue/no-setup-props-destructure, no-undef
 const { msg } = defineProps({
   msg: {
@@ -55,16 +64,14 @@ const { msg } = defineProps({
   },
 });
 const route = useRoute();
-const chatId = parseInt(route.params.chatId)
+const chatId = parseInt(route.params.chatId);
 const store = useStore();
 const sender = computed(() => store.state.user.data);
 const chats = store.state.chat.chats;
 const chat = computed(() => {
   return chats.filter((chat) => chat.id === chatId)[0];
 });
-
 </script>
-
 
 <style scoped>
 .sender,

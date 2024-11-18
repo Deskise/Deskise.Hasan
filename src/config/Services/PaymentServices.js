@@ -1,25 +1,27 @@
 import apiClient from "@/config/axios";
 
 export default {
-
   checkout(data) {
     return apiClient.post("/payment/create-payment", data, true);
   },
 
+  messageRequest(data) {
+    return apiClient.post("/payment/message-request", data, true);
+  },
+
   createIntent(data) {
-    return apiClient.post("/payment/create-paymentintent", data, true)
+    return apiClient.post("/payment/create-paymentintent", data, true);
   },
 
   confirm() {
-    return apiClient.get("/payment/confirm")
+    return apiClient.get("/payment/confirm");
   },
 
   createConnectedAccount(user) {
-    return apiClient.post("/payment/create-connected-account", user, true)
+    return apiClient.post("/payment/create-connected-account", user, true);
   },
 
   getWithdrawLimit() {
-    return apiClient.get('/payment/get-withdraw-limit')
-  }
-
-}
+    return apiClient.get("/payment/get-withdraw-limit");
+  },
+};

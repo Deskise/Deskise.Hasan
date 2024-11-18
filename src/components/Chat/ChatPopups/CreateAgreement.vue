@@ -8,8 +8,11 @@
       <p class="description">Write Down The Agreement And All The Details</p>
       <form @submit.prevent="sendAgreemnt" class="dash-form">
         <textarea v-model="details" placeholder="Agreement Details"></textarea>
-        <input v-model="price" placeholder="Price" />
-        <input v-model="filesType" placeholder="The type of files to be delivered" />
+        <input v-model="price" type="number" placeholder="Price" />
+        <input
+          v-model="filesType"
+          placeholder="The type of files to be delivered"
+        />
         <textarea v-model="notes" placeholder="Notes"></textarea>
         <button type="submit" class="pelorous">Send</button>
         <button @click="back" class="close">Cancel</button>
@@ -25,52 +28,64 @@ import db from "../Api/db";
 export default {
   data() {
     return {
-      details: '',
-      price: '',
-      filesType: '',
-      notes: '',
+      details: "",
+      price: "",
+      filesType: "",
+      notes: "",
       chatId: this.$route.params.chatId,
-      senderId: this.$store.state.user.data.id
+      senderId: this.$store.state.user.data.id,
     };
   },
 
   methods: {
     back() {
-      this.$router.go(-1)
+      if (this.$router) {
+        this.$router.push({ name: "chats", params: this.chatId });
+      }
     },
     sendAgreemnt() {
       const date = new Date();
       const formattedDate = date.toISOString();
-      const type = "agreement"
-      const agreement = {
-        "chat_id": this.chatId,
-        "from": this.senderId,
-        "created_at": formattedDate,
-        "type": "agreement",
-        "price": this.price,
-        "notes": this.notes,
-        "details": this.details,
-        "file_types": JSON.stringify(this.filesType),
-        "status": 'waiting',
-      }
+      const type = "agreement";
       function generateUniqueId() {
         const timestamp = Date.now();
         const randomNumber = Math.floor(Math.random() * 10000);
-        return `${timestamp}_${randomNumber}`; 
+        return `${timestamp}_${randomNumber}`;
       }
-      generateUniqueId()
+      generateUniqueId();
       const messageId = generateUniqueId();
+      const agreement = {
+        chat_id: this.chatId,
+        from: this.senderId,
+        created_at: formattedDate,
+        msg_id: messageId,
+        type: "agreement",
+        product_id: this.product.id,
+        price: this.price,
+        notes: this.notes,
+        details: this.details,
+        file_types: JSON.stringify(this.filesType),
+        status: "waiting",
+      };
+      localStorage.setItem("agreement", JSON.stringify(agreement));
 
       // this.$store.dispatch('chat/agreement', {agreement});
-      this.$store.dispatch('chat/agreement', {agreement, chatId: this.chatId, type: type });
-      
-      set(storageRef(db.db, `chats/${this.chatId}/messages/${messageId}`), agreement);
+      this.$store.dispatch("chat/agreement", {
+        agreement,
+        chatId: this.chatId,
+        type: type,
+      });
 
+      set(
+        storageRef(db.db, `chats/${this.chatId}/messages/${messageId}`),
+        agreement
+      );
+      this.back();
       // this.price = ''
       // this.notes = ''
       // this.details = ''
       // this.filesType = ''
-    }
+    },
   },
 
   computed: {
@@ -78,10 +93,11 @@ export default {
     chat() {
       return this.chats.filter((chat) => chat.id == this.chatId)[0];
     },
-  }
-
-}
-
+    product() {
+      return this.chat.product;
+    },
+  },
+};
 </script>
 
 <style scoped>
