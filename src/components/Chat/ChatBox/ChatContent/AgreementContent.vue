@@ -35,11 +35,11 @@
             class="btn-accept"
             value="Accepted"
             aria-controls="offcanvasScrolling"
-            @click="accept"
+            @click="respond"
           >
             Accept
           </button>
-          <button class="btn-decline" value="Declined" @click="cancel">
+          <button class="btn-decline" value="Declined" @click="respond">
             Decline
           </button>
         </div>
@@ -161,7 +161,7 @@ export default {
       return `${timestamp}_${randomNumber}`;
     },
 
-    async accept(e) {
+    async respond(e) {
       this.$store.dispatch("ChangeLoading", true);
       const reply = e.target.value;
       const date = new Date();
@@ -193,6 +193,12 @@ export default {
         ref(db.db, `chats/${this.msg.chat_id}/messages/${this.msg.msg_id}`),
         agreement
       );
+
+      if (e.target.value === "Declined") {
+        // this.$router.push({ name: "chats", params: this.msg.chat_id });
+        this.$store.dispatch("ChangeLoading", false);
+        return;
+      }
 
       const paymentData = {
         product_id: this.msg.product_id,
